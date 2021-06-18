@@ -1,7 +1,7 @@
 FROM node:lts-alpine
 RUN apk update
 RUN apk add --no-cache git
-WORKDIR /holism/react
+WORKDIR /app
 RUN git clone https://github.com/HolismReact/Host
-WORKDIR /holism/react/Host
+WORKDIR /app/Host
 RUN npm install

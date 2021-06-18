@@ -1,8 +1,6 @@
 version: "3.9"
 services: 
-    app:
-        build:
-            context: .
-            dockerfile: ./dockerfile
-        ports: 
-            - "5000:5000"
+  app:
+    build: nefcanto/holism-react-dev
+    ports:
+      - "5000:5000"
