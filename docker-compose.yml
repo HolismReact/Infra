@@ -1,6 +1,26 @@
 version: "3.9"
 services: 
-  app:
-    build: nefcanto/holism-react-dev
-    ports:
-      - "5000:5000"
+    app:
+        image: nefcanto/react-dev
+        container_name: ${Package}ReactDev
+        ports:
+            - "5000:3000"
+        working_dir: /app/Host
+        volumes: 
+            - /HolismReact/${Package}:/app/Host/src/${Package}
+        command: >
+            sh -c
+            "
+            git reset --hard
+            && git pull
+            && rm -rf /temp
+            && mkdir /temp
+            && cd /temp
+            && wget https://github.com/HolismReact/Panel/archive/refs/heads/main.zip
+            && unzip main.zip -d /temp
+            && cd /app/Host
+            && cp -a /temp/Panel-main/. src/Panel/
+            && cp src/${Package}/Menu.js src/Menu.js
+            && cp src/${Package}/Routes.js src/Routes.js
+            && npm start
+            "
