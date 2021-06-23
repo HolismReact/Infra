@@ -8,8 +8,7 @@ services:
         working_dir: /react/Infra
         volumes: 
             - /HolismReact/${Package}:/react/Infra/src/${Package}
-            - /HolismReact/${Package}/Menu.js:/react/Infra/src/Menu.js
-            - /HolismReact/${Package}/Routes.js:/react/Infra/src/Routes.js
+            - /HolismReact/${Package}/Resources.js:/react/Infra/src/Resources.js
         command: >
             sh -c
             "
