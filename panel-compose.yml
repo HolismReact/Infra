@@ -1,0 +1,19 @@
+version: "3.9"
+services: 
+    react:
+        image: nefcanto/react-dev:latest
+        container_name: PanelReactDev
+        ports:
+            - "4000:3000"
+        working_dir: /react/Infra
+        volumes: 
+            - /HolismReact/Panel:/react/Infra/src/Panel
+            - /HolismReact/Panel/Menu.js:/react/Infra/src/Menu.js
+            - /HolismReact/Panel/Routes.js:/react/Infra/src/Routes.js
+        command: >
+            sh -c
+            "
+            git reset --hard
+            && git pull
+            && npm start
+            "
