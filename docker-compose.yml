@@ -1,15 +1,15 @@
 version: "3.9"
 services: 
-    app:
-        image: nefcanto/react-dev
+    react:
+        image: nefcanto/react-dev:latest
         container_name: ${Package}ReactDev
         ports:
             - "4000:3000"
-        working_dir: /app/Host
+        working_dir: /react/Infra
         volumes: 
-            - /HolismReact/${Package}:/app/Host/src/${Package}
-            - /HolismReact/${Package}/Menu.js:/app/Host/src/Menu.js
-            - /HolismReact/${Package}/Routes.js:/app/Host/src/Routes.js
+            - /HolismReact/${Package}:/react/Infra/src/${Package}
+            - /HolismReact/${Package}/Menu.js:/react/Infra/src/Menu.js
+            - /HolismReact/${Package}/Routes.js:/react/Infra/src/Routes.js
         command: >
             sh -c
             "
@@ -20,7 +20,7 @@ services:
             && cd /temp
             && wget https://github.com/HolismReact/Panel/archive/refs/heads/main.zip
             && unzip main.zip -d /temp
-            && cd /app/Host
+            && cd /react/Infra
             && cp -a /temp/Panel-main/. src/Panel/
             && npm start
             "
