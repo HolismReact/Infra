@@ -15,5 +15,7 @@ services:
             "
             git reset --hard
             && git pull
+            && npm i ra-data-json-server
+            && npm i connected-react-router
             && npm start
             "
