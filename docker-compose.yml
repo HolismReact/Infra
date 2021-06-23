@@ -21,5 +21,7 @@ services:
             && unzip main.zip -d /temp
             && cd /react/Infra
             && cp -a /temp/Panel-main/. src/Panel/
+            && npm i ra-data-json-server
+            && npm install
             && npm start
             "
