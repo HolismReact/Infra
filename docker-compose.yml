@@ -4,10 +4,12 @@ services:
         image: nefcanto/react-dev
         container_name: ${Package}ReactDev
         ports:
-            - "3000:3000"
+            - "4000:3000"
         working_dir: /app/Host
         volumes: 
             - /HolismReact/${Package}:/app/Host/src/${Package}
+            - /HolismReact/${Package}/Menu.js:/app/Host/src/Menu.js
+            - /HolismReact/${Package}/Routes.js:/app/Host/src/Routes.js
         command: >
             sh -c
             "
@@ -20,7 +22,5 @@ services:
             && unzip main.zip -d /temp
             && cd /app/Host
             && cp -a /temp/Panel-main/. src/Panel/
-            && cp src/${Package}/Menu.js src/Menu.js
-            && cp src/${Package}/Routes.js src/Routes.js
             && npm start
             "

@@ -3,6 +3,6 @@ RUN apk update
 RUN apk add --no-cache git
 RUN apk add --upgrade unzip
 WORKDIR /app
-RUN git clone https://github.com/HolismReact/Host
+RUN git clone https://github.com/HolismReact/Infra
 WORKDIR /app/Host
 RUN npm install
