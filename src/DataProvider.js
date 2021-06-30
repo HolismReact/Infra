@@ -91,6 +91,19 @@ const dataProvider = {
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({ data: json }));
     },
+
+    get: (url) => {
+        return httpClient(`${apiUrl}/${url}`, {
+            method: 'GET'
+        }).then(({ json }) => ({ data: json }));
+    },
+
+    post: (url, params) => {
+        return httpClient(`${apiUrl}/${url}`, {
+            method: 'POST',
+            body: JSON.stringify(params)
+        }).then(({ json }) => ({ data: json }));
+    }
 };
 
 export default dataProvider;
