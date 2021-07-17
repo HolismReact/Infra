@@ -75,7 +75,7 @@ const dataProvider = {
     },
 
     create: (resource, params) =>
-        httpClient(`${apiUrl}/${resource}`, {
+        httpClient(`${apiUrl}/${resource}/create`, {
             method: 'POST',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({
