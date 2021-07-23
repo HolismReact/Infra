@@ -27,7 +27,7 @@ const dataProvider = {
     },
 
     getOne: (resource, params) =>
-        httpClient(`${apiUrl}/${resource}/${params.id}`).then(({ json }) => ({
+        httpClient(`${apiUrl}/${resource}/Get/${params.id}`).then(({ json }) => ({
             data: json,
         })),
 
