@@ -6,7 +6,6 @@ const httpClient = fetchUtils.fetchJson;
 
 const dataProvider = {
     getList: (resource, params) => {
-        console.log(params);
         const { page, perPage } = params.pagination;
         const { field, order } = params.sort;
         const query = {
@@ -17,7 +16,6 @@ const dataProvider = {
         const url = `${apiUrl}/${resource}/list?${stringify(query)}`;
 
         return httpClient(url).then(({ headers, json }) => {
-            console.log(headers, json);
             return {
                 data: json.data,
                 total: json.totalCount,
@@ -58,11 +56,13 @@ const dataProvider = {
         }));
     },
 
-    update: (resource, params) =>
+    update: (resource, params) => {
+        const {relatedItems, ...newData} = params.data;
         httpClient(`${apiUrl}/${resource}/upsert/${params.id}`, {
             method: 'Post',
-            body: JSON.stringify(params.data),
-        }).then(({ json }) => ({ data: json })),
+            body: JSON.stringify(newData),
+        }).then(({ json }) => ({ data: json })) 
+    },
 
     updateMany: (resource, params) => {
         const query = {
