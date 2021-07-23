@@ -60,7 +60,7 @@ const dataProvider = {
 
     update: (resource, params) =>
         httpClient(`${apiUrl}/${resource}/${params.id}`, {
-            method: 'PUT',
+            method: 'Post',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({ data: json })),
 
