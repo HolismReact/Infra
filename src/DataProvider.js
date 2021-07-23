@@ -59,7 +59,7 @@ const dataProvider = {
     },
 
     update: (resource, params) =>
-        httpClient(`${apiUrl}/${resource}/${params.id}`, {
+        httpClient(`${apiUrl}/${resource}/upsert/${params.id}`, {
             method: 'Post',
             body: JSON.stringify(params.data),
         }).then(({ json }) => ({ data: json })),
