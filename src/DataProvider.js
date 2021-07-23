@@ -57,11 +57,18 @@ const dataProvider = {
     },
 
     update: (resource, params) => {
-        const {relatedItems, ...newData} = params.data;
-        httpClient(`${apiUrl}/${resource}/upsert/${params.id}`, {
+        const { relatedItems, ...newData } = params.data;
+        return httpClient(`${apiUrl}/${resource}/upsert/${params.id}`, {
             method: 'Post',
             body: JSON.stringify(newData),
-        }).then(({ json }) => ({ data: json })) 
+        }).then(({ json }) => {
+            console.log(json);
+            var result = {
+                data: json.data
+            };
+            console.log(result);
+            return result;
+        });
     },
 
     updateMany: (resource, params) => {
@@ -71,7 +78,11 @@ const dataProvider = {
         return httpClient(`${apiUrl}/${resource}?${stringify(query)}`, {
             method: 'PUT',
             body: JSON.stringify(params.data),
-        }).then(({ json }) => ({ data: json }));
+        }).then(({ json }) => {
+            return {
+                data: json.data
+            };
+        });
     },
 
     create: (resource, params) =>
