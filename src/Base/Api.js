@@ -55,7 +55,9 @@ axiosApi.interceptors.response.use(
 
 export async function get(url) {
   return await
-    axiosApi.get(url).then(response => {
+    axiosApi.get(url, {
+      crossDomain: true
+    }).then(response => {
       return response.data;
     })
 }
