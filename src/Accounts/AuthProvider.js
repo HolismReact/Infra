@@ -73,15 +73,15 @@ const authProvider = {
         console.log(error)
     },
     checkAuth: params => {
-        return Promise.resolve();
-        userManager.signinRedirect();
-        return Promise.reject(resolve => setTimeout({
+        //return Promise.resolve();
+        //userManager.signinRedirect();
+        return Promise.reject({
             redirectTo: 'https://accounts.zoodexchange.com/auth'
-        }, 5000));
+        });
         const token = localStorage.getItem('token');
 
         if (!token) {
-            return Promise.reject()
+            return Promise.reject();
         }
 
         // This is specific to the Google authentication implementation

@@ -23,6 +23,7 @@ const App = () => (
         title={process.env.REACT_APP_BRAND}
         dataProvider={dataProvider}
         authProvider={authProvider}
+        loginPage={() => window.location=process.env.REACT_APP_AUTH_LOGIN_URL}
         logoutButton={Logout}
     >
         {getResources}
