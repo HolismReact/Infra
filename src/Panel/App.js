@@ -1,33 +1,22 @@
 import * as React from "react";
-import { Admin } from 'react-admin';
-import dataProvider from '../DataProvider';
-import authProvider from '../Accounts/AuthProvider';
-import resources from "../Resources";
-import Logout from '../Accounts/Logout';
-
-const getResources = () => {
-    return new Promise((resolve, reject) => {
-        window.saeed = resources;
-        if (!resources.length) {
-            console.error('Create a Resources.js file in the root, and make sure it export resources array, and it contains at least one resource');
-            reject('Resources are not defined for the admin panel.');
-        }
-        else {
-            resolve(resources);
-        }
-    });
-}
+import User from "./User";
+import Branding from "./Branding";
+import Menu from "./Menu";
+import Header from "./Header";
+import Footer from "./Footer";
+import MainRouting from "../MainRouting";
 
 const App = () => (
-    <Admin
-        title={process.env.REACT_APP_BRAND}
-        dataProvider={dataProvider}
-        authProvider={authProvider}
-        loginPage={() => window.location=process.env.REACT_APP_AUTH_LOGIN_URL}
-        logoutButton={Logout}
-    >
-        {getResources}
-    </Admin>
+    <>
+        <Header />
+        <Branding />
+        <User />
+        <Menu />
+        <div id="content">
+            <MainRouting />
+        </div>
+        <Footer />
+    </>
 );
 
 export default App;
