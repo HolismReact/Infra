@@ -4,10 +4,11 @@ import Branding from "./Branding";
 import Menu from "./Menu";
 import Header from "./Header";
 import Footer from "./Footer";
-import MainRouting from "../MainRouting";
+import MainRouting from "../Base/MainRouting";
+import { BrowserRouter } from 'react-router-dom';
 
 const App = () => (
-    <>
+    <BrowserRouter>
         <Header />
         <Branding />
         <User />
@@ -16,7 +17,7 @@ const App = () => (
             <MainRouting />
         </div>
         <Footer />
-    </>
+    </BrowserRouter>
 );
 
 export default App;

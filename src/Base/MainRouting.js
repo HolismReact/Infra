@@ -1,19 +1,19 @@
-import routes from './Routes';
-
+import routes from '../Routes.js';
 import { Route, Switch } from 'react-router-dom';
 
 const MainRouting = () => {
+    console.log(routes);
     return (
-        <Route>
-            <Switch>
-                {routes.map(route =>
+        <Switch>
+            {
+                routes.map(route =>
                     <Route
                         key={route.path}
                         path={route.path}
                         exact
-                        component={route.component} />)}
-            </Switch>
-        </Route>
+                        component={route.component} />)
+            }
+        </Switch>
     );
 }
 
