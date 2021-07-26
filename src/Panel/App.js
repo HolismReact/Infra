@@ -3,7 +3,6 @@ import { Admin } from 'react-admin';
 import dataProvider from '../DataProvider';
 import authProvider from '../Accounts/AuthProvider';
 import resources from "../Resources";
-import Login from '../Accounts/Login';
 import Logout from '../Accounts/Logout';
 
 const getResources = () => {
@@ -24,7 +23,6 @@ const App = () => (
         title={process.env.REACT_APP_BRAND}
         dataProvider={dataProvider}
         authProvider={authProvider}
-        loginPage={Login}
         logoutButton={Logout}
     >
         {getResources}
