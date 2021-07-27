@@ -38,7 +38,7 @@ const List = (props) => {
                 <div>loading...</div>
                 :
                 <>
-                    <div className="max-w-sm bg-black	rounded text-cyan-500">{props.title}</div>
+                    <div>{props.title}</div>
                     <Filters filters={props.filters} />
                     <div>{props.sorts}</div>
                     <div>

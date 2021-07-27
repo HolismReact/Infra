@@ -1,7 +1,7 @@
 const Header = () => {
-    return <>
-        <h1>Header</h1>
-    </>
+    return <div className="sticky py-6 px-2 bg-green-50" >
+        header
+    </div>
 };
 
 export default Header;

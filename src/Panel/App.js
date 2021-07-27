@@ -9,14 +9,21 @@ import { BrowserRouter } from 'react-router-dom';
 
 const App = () => (
     <BrowserRouter>
-        <Header />
-        <Branding />
-        <User />
-        <Menu />
-        <div id="content">
-            <MainRouting />
+        <div className="flex flex-row">
+            <div id="sidebar" className="md:visible w-64">
+                <Branding />
+                <User />
+                <Menu />
+            </div>
+            <div id="content" className="flex flex-col h-screen justify-between flex-1">
+                <Header />
+
+                <div id="content">
+                    <MainRouting />
+                </div>
+                <Footer />
+            </div>
         </div>
-        <Footer />
     </BrowserRouter>
 );
 
