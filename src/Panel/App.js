@@ -9,15 +9,14 @@ import { BrowserRouter } from 'react-router-dom';
 
 const App = () => (
     <BrowserRouter>
-        <div className="flex flex-row">
-            <div id="sidebar" className="md:visible w-64">
+        <div className="flex min-h-screen">
+            <div id="sidebar" className="md:visible w-64 bg-yellow-100">
                 <Branding />
                 <User />
                 <Menu />
             </div>
             <div id="content" className="flex flex-col h-screen justify-between flex-1">
                 <Header />
-
                 <div id="content">
                     <MainRouting />
                 </div>
