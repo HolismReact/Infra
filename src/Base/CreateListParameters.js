@@ -23,6 +23,15 @@ const CreateListParameters = () => {
         },
         create: function () {
             return listParameters;
+        },
+        filtersQueryString: function() {
+            var query = "";
+            for (var i = 0; i < listParameters.filters.length; i++) {
+                var filter = listParameters.filters[i];
+                query += `&${filter.property}_${filter.operator}_${filter.value}`;
+            }
+            query = query.slice(1);
+            return query;
         }
     }
     return listParameters;

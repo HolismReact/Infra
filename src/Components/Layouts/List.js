@@ -3,15 +3,23 @@ import React, { useEffect, useState, useContext } from 'react';
 import Button from '@material-ui/core/Button';
 import CreateListParameters from "../../Base/CreateListParameters";
 
-export const ListContext = React.createContext({ name: 'defaultValueForListContext' });
+export const ListContext = React.createContext({
+  listParameters: {},
+  reload: () => { }
+});
 
 const Filters = ({ filters }) => {
 
-  const { listParameters } = useContext(ListContext);
+  var { listParameters, reload } = useContext(ListContext);
 
   const applyFilters = () => {
-    console.log(listParameters);
+    reload();
   };
+
+  const resetFilters = () => {
+    listParameters.filters = [];
+    console.log(listParameters);
+  }
 
   return <div id='filters'>
     {filters}
@@ -29,10 +37,15 @@ const List = (props) => {
   // const [creationDialogOpen, setCreationDialogOpen] = useState();
   // const [scroll, setScroll] = useState('paper');
   const [listParameters, setListParameters] = useState(CreateListParameters());
+  const [reloadedTimes, setReloadedTimes] = useState(0);
+
+  const reload = () => {
+    setReloadedTimes(reloadedTimes + 1);
+  };
 
   useEffect(() => {
     setLoading(true);
-    get(`${props.entity}/list`).then((data) => {
+    get(`${props.entity}/list?filters=${listParameters.filtersQueryString()}`).then((data) => {
       setData(data.data);
       setLoading(false);
     }, (error) => {
@@ -40,7 +53,7 @@ const List = (props) => {
       console.error(error);
       setLoading(false);
     });
-  }, []);
+  }, [reloadedTimes]);
 
   // const openCreationDialog = (scrollType) => () => {
   //     setCreationDialogOpen(true);
@@ -51,7 +64,10 @@ const List = (props) => {
   //     setCreationDialogOpen(false);
   // };
 
-  return <ListContext.Provider value={{ listParameters: listParameters }}>
+  return <ListContext.Provider value={{
+    listParameters: listParameters,
+    reload: reload
+  }}>
     {
       loading
         ?
