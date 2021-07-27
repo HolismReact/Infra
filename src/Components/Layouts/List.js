@@ -68,7 +68,9 @@ const List = (props) => {
                                 :
                                 null
                         }
-                        {props.listActions}
+                    </div>
+                    <div>
+                        {props.listActions()}
                     </div>
                     <div>
                         {data.map(item => <div key={item.id}>{item.id}</div>)}
