@@ -1,7 +1,7 @@
 import { get } from "../../Base/Api";
 import { useEffect, useState } from 'react';
 import Filters from "./Filters";
-import { ListParametersProvider } from '../../Base/ListParametersContext'
+import { ListContextProvider } from '../../Base/ListContext'
 
 const List = (props) => {
 
@@ -31,7 +31,7 @@ const List = (props) => {
     //     setCreationDialogOpen(false);
     // };
 
-    return <ListParametersProvider>
+    return <ListContextProvider>
         {
             loading
                 ?
@@ -58,7 +58,7 @@ const List = (props) => {
                     </div>
                 </>
         }
-    </ListParametersProvider>
+    </ListContextProvider>
 };
 
 export default List;
