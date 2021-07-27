@@ -1,10 +1,15 @@
 import Holism from "../../Base/Holism";
 import TextField from '@material-ui/core/TextField';
-import { useState } from 'react';
+import { useListParameters } from "../../Base/ListParametersContext";
 
 const TextFilter = ({ column, placeholder }) => {
 
-    const [value, setValue] = useState('');
+    var listParameters = useListParameters();
+
+    const handleChange = (event) => {
+        const value = event.target.value;
+        console.log(value);
+    }
 
     if (Holism.isNothing(placeholder)) {
         console.error(`placeholder is not provided in TextFilter`);
@@ -15,7 +20,7 @@ const TextFilter = ({ column, placeholder }) => {
     }
 
     return <TextField
-        onChange={(event, value) => setValue(event.target.value)}
+        onChange={handleChange}
         lable={placeholder}
     />
 };

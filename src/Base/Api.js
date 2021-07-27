@@ -15,7 +15,7 @@ axiosApi.interceptors.request.use(config => {
   }
   else {
     //location.href = ('/error-page');
-    console.error('authUser is not defined in localStorage');
+    //console.error('authUser is not defined in localStorage');
   }
   return config;
 });
