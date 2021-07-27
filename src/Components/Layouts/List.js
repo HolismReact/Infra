@@ -1,5 +1,26 @@
 import { get } from "../../Base/Api";
 import { useEffect, useState } from 'react';
+import Button from '@material-ui/core/Button';
+
+const FilterPanel = ({ filters }) => {
+
+    const [filtersJson, setFiltersJson] = useState([]);
+
+    const applyFilters = () => {
+        console.log(filters);
+        for (var i = 0; i < filters.props.children.length; i++) {
+            console.log(filters[i]);
+        }
+    };
+
+    return <div id='filters'>
+        {filters}
+        <Button variant="contained">Remove Filters</Button>
+        <Button variant="contained" color="primary" onClick={() => applyFilters()}>
+            Apply
+        </Button>
+    </div>
+}
 
 const List = (props) => {
 
@@ -37,7 +58,7 @@ const List = (props) => {
                 :
                 <>
                     <div>{props.title}</div>
-                    <div>{props.filters}</div>
+                    <FilterPanel filters={props.filters} />
                     <div>{props.sorts}</div>
                     <div>
                         {
@@ -50,7 +71,7 @@ const List = (props) => {
                         {props.listActions}
                     </div>
                     <div>
-                        {data.map(item => <div>{item.id}</div>)}
+                        {data.map(item => <div key={item.id}>{item.id}</div>)}
                     </div>
                 </>
         }
