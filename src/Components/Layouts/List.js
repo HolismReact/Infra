@@ -1,5 +1,5 @@
 import { get } from "../../Base/Api";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Button from '@material-ui/core/Button';
 import CreateListParameters from "../../Base/CreateListParameters";
 
@@ -7,13 +7,10 @@ export const ListContext = React.createContext({ name: 'defaultValueForListConte
 
 const Filters = ({ filters }) => {
 
-  // const [filtersJson, setFiltersJson] = useState([]);
+  const { listParameters } = useContext(ListContext);
 
   const applyFilters = () => {
-    console.log(filters);
-    for (var i = 0; i < filters.props.children.length; i++) {
-      console.log(filters[i]);
-    }
+    console.log(listParameters);
   };
 
   return <div id='filters'>
@@ -54,7 +51,7 @@ const List = (props) => {
   //     setCreationDialogOpen(false);
   // };
 
-  return <ListContext.Provider value={listParameters}>
+  return <ListContext.Provider value={{ listParameters: listParameters }}>
     {
       loading
         ?
