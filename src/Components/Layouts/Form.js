@@ -1,5 +1,7 @@
-import FormContext from "../../Base/FormContext"
+import React from 'react';
 import Button from '@material-ui/core/Button'
+
+export const FormContext = React.createContext({ name: 'formContextDefaultValue' });
 
 const defaultActions =
     <>

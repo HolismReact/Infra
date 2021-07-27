@@ -1,6 +1,7 @@
 import Holism from "../../Base/Holism";
 import TextField from '@material-ui/core/TextField';
-import { useListContext } from "../../Base/ListContext";
+import { useContext } from 'react';
+import { ListContext } from "../Layouts/List";
 
 const TextFilter = ({ column, placeholder }) => {
 
@@ -12,7 +13,7 @@ const TextFilter = ({ column, placeholder }) => {
         console.error(`column is not provided in TextFilter`);
     }
     
-    const listContext = useListContext();
+    const listContext = useContext(ListContext);
 
     const handleChange = (event) => {
         const value = event.target.value;
