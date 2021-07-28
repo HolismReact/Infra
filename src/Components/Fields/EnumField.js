@@ -16,7 +16,7 @@ const EnumField = ({ column, entity, placeholder, required }) => {
     if (enumItems.length === 0) {
         useEffect(() => {
             setLoading(true);
-            get(`/${entity}/getAll`).then(data => {
+            get(`/${entity}/all`).then(data => {
                 setEnumItems(data);
                 setLoading(false);
             }, error => {
