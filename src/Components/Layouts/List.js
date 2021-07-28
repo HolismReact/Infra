@@ -24,7 +24,7 @@ const List = (props) => {
       <Filtering filters={props.filters} />
       <Sorting sorts={props.sorts} />
       <ListActions actions={props.listActions} />
-      <Items entity={props.entity} />
+      <Items entity={props.entity} headers={props.headers} row={props.row} card={props.card} />
       {/* <div>
         {data.map(item => <div key={item.id}>{item.id}</div>)}
       </div> */}
