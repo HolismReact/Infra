@@ -13,7 +13,7 @@ const App = () => (
             <div id="sidebar" className="md:visible w-64 bg-yellow-100">
                 <Branding />
                 <User />
-                <Menu />
+                {Menu}
             </div>
             <div id="content" className="flex flex-col h-screen justify-between flex-1">
                 <Header />
