@@ -1,4 +1,5 @@
 import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import useLocalStorageState from '../../Base/UseLocalStorageState';
 import Holism from '../../Base/Holism';
 import React, { useEffect, useState } from 'react';
@@ -11,26 +12,28 @@ const EnumField = ({ column, entity, placeholder, required }) => {
     }
 
     const [loading, setLoading] = useState();
-    const [enumItems, setEnumItems] = useLocalStorageState([], entity);
+    const [enumItems, setEnumItems] = useLocalStorageState([], entity + 'Enum');
 
-    if (enumItems.length === 0) {
-        useEffect(() => {
-            setLoading(true);
-            get(`/${entity}/all`).then(data => {
-                setEnumItems(data);
-                setLoading(false);
-            }, error => {
-                console.log(error);
-                setLoading(false);
-            })
-        }, []);
-    }
+    useEffect(() => {
+        if (enumItems.length !== 0) {
+            return;
+        }
+        setLoading(true);
+        get(`/${entity}/all`).then(data => {
+            console.log(data);
+            setEnumItems(data);
+            setLoading(false);
+        }, error => {
+            console.log(error);
+            setLoading(false);
+        })
+    }, []);
 
     return <Select
         required={required ? true : false}
         placeholder={placeholder}
     >
-
+        {enumItems.map(item => <MenuItem key={item.id} value={item.id}>{item.key}</MenuItem>)}
     </Select>
 };
 
