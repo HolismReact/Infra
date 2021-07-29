@@ -21,7 +21,10 @@ const Form = (prop) => {
     }
 
     return <FormContext.Provider value={{}}>
-        <form noValidate onSubmit={handleSubmit}>
+        <form
+            noValidate
+            onSubmit={handleSubmit}
+        >
             {prop.fields}
             {
                 prop.actions || defaultActions
