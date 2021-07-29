@@ -1,13 +1,33 @@
-const User = () => {
-    return <div id='user' className='bg-blue-400 flex flex-col items-center justify-center'>
-        <div id='profilePicture' className='mt-4 w-16 h-16 rounded-full bordered relative' >
-            <img src='https://via.placeholder.com/150' alt='picture' className='rounded-full' />
-            <span id='onlineStatus' className='absolute top-0 right-0 w-3 h-3 block bg-green-100 rounded-full'></span>
-        </div>
-        <div id='fullName' className='mt-2 mb-4 text-l font-bold'>
-            Saeed Nemati
-        </div>
-    </div>
-}
+import '../Style/UserInfo.css'
+export default function User() {
+    return (
+        <header className="navigation-header">
+            <figure className="avatar avatar-state-success">
+                <img src="image/user/man_avatar3.jpg"alt="image logo" className="rounded-circle"  />
+            </figure>
+            <div>
+                <h5>Nikos Pedlow</h5>
+                <p className="text-muted">Administrator</p>
+                <ul className="nav">
+                    <li className="nav-item">
+                        <a href="profile.html" className="btn nav-link bg-info-bright" title="Profile"  name="Profile" data-toggle="tooltip">
+                            <i className="fa fa-user-o" aria-hidden="true"></i>
 
-export default User;
+                        </a>
+                    </li>
+                    <li className="nav-item">
+                        <a href="#login.html" className="btn nav-link bg-success-bright" title="Settings"  name="Settings" data-toggle="tooltip">
+                            <i className="fa fa-user-o" aria-hidden="true"></i>
+
+                        </a>
+                    </li>
+                    <li >
+                        <a href="login.html" className="btn nav-link bg-danger-bright" title="Logout"  name="Logout" data-toggle="tooltip">
+                            <i className="fa fa-user-o" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+    );
+}  
