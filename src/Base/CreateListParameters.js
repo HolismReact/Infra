@@ -25,6 +25,7 @@ const CreateListParameters = () => {
             return listParameters;
         },
         filtersQueryString: function() {
+            //filters=title_contains_hi&stateId_eq_closed&userAge_gt_35
             var query = "";
             for (var i = 0; i < listParameters.filters.length; i++) {
                 var filter = listParameters.filters[i];

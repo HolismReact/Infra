@@ -5,7 +5,7 @@ import Holism from '../../Base/Holism';
 import React, { useEffect, useState } from 'react';
 import { get } from '../../Base/Api';
 
-const EnumField = ({ column, entity, placeholder, required }) => {
+const EnumField = ({ column, entity, placeholder, hint, value, required }) => {
 
     if (Holism.isNothing(entity)) {
         throw new Error(`entity is not provided for ${EnumField.name}`);
@@ -13,6 +13,8 @@ const EnumField = ({ column, entity, placeholder, required }) => {
 
     const [loading, setLoading] = useState();
     const [enumItems, setEnumItems] = useLocalStorageState([], entity + 'Enum');
+    const initialHint = hint;
+    const [validationResult, setValidationResult] = useState(null);
 
     useEffect(() => {
         if (enumItems.length !== 0) {
@@ -30,8 +32,10 @@ const EnumField = ({ column, entity, placeholder, required }) => {
     }, []);
 
     return <Select
+        error={validationResult ? true : false}
         required={required ? true : false}
         placeholder={placeholder}
+        defaultValue={value || ""}
     >
         {enumItems.map(item => <MenuItem key={item.id} value={item.id}>{item.key}</MenuItem>)}
     </Select>
