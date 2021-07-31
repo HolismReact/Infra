@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button'
 import Holism from '../../Base/Holism';
 
@@ -16,8 +16,16 @@ const Form = (prop) => {
     // if is edit, load entity (only if they don't provide their own get method)
     // save
 
-    const [fields, setFields] = useState([{ field: 'textbox1', state: 'invalid required', isValid: true, field: 'textbox2', state: '', isValid: true }]);
-    const [data, setData] = useState({ name: 'saeed', age: 38 });
+    const [fields, setFields] = useState([]);
+    const [data, setData] = useState({});
+
+    useEffect(() => {
+        console.log(data);
+    }, [data]);
+
+    useEffect(() => {
+        console.log(fields);
+    }, [fields]);
 
     Holism.eventEmitter.removeAllListeners('holism_form_submission_requested');
 

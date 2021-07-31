@@ -13,26 +13,27 @@ const Text = ({ column, required, placeholder, hint, value }) => {
     const [validationResult, setValidationResult] = useState(null);
     const initialHint = hint;
     var formContext = useContext(FormContext);
-    Holism.addFieldToFormContext(id, formContext);
-
+    
     useEffect(() => {
         setId(Holism.randomId());
     }, []);
 
     useEffect(() => {
-        const handler = () => {
-            const input = htmlInput.current;
-            Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set.call(input, input.value);
-            input.dispatchEvent(new Event('change', { bubbles: true }));
+        Holism.addFieldToFormContext(id, formContext, false);
+    }, [id]);
+
+    useEffect(() => {
+        const handle = () => {
+            handleChange();
         };
-        Holism.on(Holism.formSubmissionEvent, handler);
+        Holism.on(Holism.formSubmissionEvent, handle);
         return () => {
-            Holism.removeListener(Holism.formSubmissionEvent, handler);
+            Holism.removeListener(Holism.formSubmissionEvent, handle);
         }
     }, []);
 
-    const handleChange = (event) => {
-        var newValue = event.target.value;
+    const validate = (event) => {
+        var newValue = htmlInput.current.value;
         if (required && Holism.isNothing(newValue)) {
             setValidationResult('invalid required');
             setHelpText(required);
@@ -52,7 +53,7 @@ const Text = ({ column, required, placeholder, hint, value }) => {
             required={required ? true : false}
             helperText={helpText}
             value={value}
-            onChange={handleChange}
+            onChange={validate}
         />
     </div>
 };
