@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button'
+import Holism from '../../Base/Holism';
 
 export const FormContext = React.createContext({ name: 'formContextDefaultValue' });
 
@@ -15,8 +16,10 @@ const Form = (prop) => {
     // if is edit, load entity (only if they don't provide their own get method)
     // save
 
+    Holism.eventEmitter.removeAllListeners('holism_form_submission_requested');
+
     const handleSubmit = (event) => {
-        console.log(event);
+        Holism.emit('holism_form_submission_requested');
         event.preventDefault();
     }
 

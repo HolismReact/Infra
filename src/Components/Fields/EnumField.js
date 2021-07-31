@@ -11,6 +11,10 @@ const EnumField = ({ column, entity, placeholder, hint, value, required }) => {
         throw new Error(`entity is not provided for ${EnumField.name}`);
     }
 
+    Holism.on(Holism.formSubmissionEvent, () => {
+        console.log('got form submission from enum field');
+    });
+
     const [loading, setLoading] = useState();
     const [enumItems, setEnumItems] = useLocalStorageState([], entity + 'Enum');
     const initialHint = hint;

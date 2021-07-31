@@ -4,9 +4,18 @@ import { useState } from 'react';
 
 const Text = ({ column, required, placeholder, hint, value }) => {
 
+    const id = Holism.randomId();
     const [helpText, setHelpText] = useState(hint);
     const [validationResult, setValidationResult] = useState(null);
     const initialHint = hint;
+
+    Holism.on(Holism.formSubmissionEvent, () => {
+        console.log(id);
+        const input = document.querySelector(`#${id}`);
+        Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set.call(input, input.value);
+        input.dispatchEvent(new Event('change', { bubbles: true }));
+        console.log('got form submission from text component');
+    });
 
     const handleChange = (event) => {
         var newValue = event.target.value;
@@ -22,6 +31,7 @@ const Text = ({ column, required, placeholder, hint, value }) => {
 
     return <div className='field'>
         <TextField
+            id={id}
             error={validationResult ? true : false}
             label={placeholder}
             required={required ? true : false}
