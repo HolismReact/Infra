@@ -5,7 +5,8 @@
 body {
 	font-family: 'Poppins', sans-serif !important;
 	position: relative;
-	/*background: rgb(245,245,245); */
+	/*background: rgb(245,245,245); 
+	background: radial-gradient(circle, rgba(245,245,245,1) 0%, rgba(241,242,247,1) 100%);*/
 	display: flex;
 	font-size: .835rem;
 	display: -webkit-box;
@@ -13,7 +14,7 @@ body {
 	display: -moz-box;
 	display: -ms-flexbox;
 	 background: #f1f2f7;
-	background: radial-gradient(circle, rgba(245,245,245,1) 0%, rgba(241,242,247,1) 100%);
+	
 
 
 }

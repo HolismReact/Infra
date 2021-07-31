@@ -49,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    borderRight: 'none'
   },
   drawerHeader: {
     display: 'flex',
