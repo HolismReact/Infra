@@ -3,7 +3,7 @@ export default function User() {
     return (
         <header className="navigation-header">
             <figure className="avatar avatar-state-success">
-                <img src="image/user/man_avatar3.jpg"alt="image logo" className="rounded-circle"  />
+                <img src="image/user/man_avatar3.jpg" className="rounded-circle" alt="somthing" />
             </figure>
             <div>
                 <h5>Nikos Pedlow</h5>
@@ -21,7 +21,7 @@ export default function User() {
 
                         </a>
                     </li>
-                    <li >
+                    <li  className="nav-item">
                         <a href="login.html" className="btn nav-link bg-danger-bright" title="Logout"  name="Logout" data-toggle="tooltip">
                             <i className="fa fa-user-o" aria-hidden="true"></i>
                         </a>

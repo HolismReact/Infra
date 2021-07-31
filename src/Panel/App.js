@@ -1,4 +1,3 @@
-import '../Style/App.css';
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,6 +12,10 @@ import MainRouting from "../Base/MainRouting";
 import { BrowserRouter } from 'react-router-dom';
 import SidebarMenu from './SidebarMenu';
 
+import '../Style/App.css'
+import '../Style/Avatar.css';
+import '../Style/CardPanel.css';
+import '../Style/button.css';
 
 const drawerWidth = 250;
 
@@ -46,7 +49,6 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    borderRight: 'none'
   },
   drawerHeader: {
     display: 'flex',
@@ -57,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
+    width: '100%',
     padding: theme.spacing(3),
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
@@ -123,8 +126,8 @@ export default function PersistentDrawerLeft() {
           })}
         >
           <div className={classes.drawerHeader} />
-          <MainRouting />
-        </main>
+              <MainRouting />                            
+             </main>
       </div>
     </BrowserRouter>
   );
