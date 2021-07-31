@@ -1,6 +1,7 @@
 import TextField from '@material-ui/core/TextField';
 import Holism from '../../Base/Holism';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
+import { FormContext } from '../Layouts/Form';
 
 let log = console.log;
 
@@ -11,7 +12,8 @@ const Text = ({ column, required, placeholder, hint, value }) => {
     const [helpText, setHelpText] = useState(hint);
     const [validationResult, setValidationResult] = useState(null);
     const initialHint = hint;
-    log(id, column, 'body');
+    var formContext = useContext(FormContext);
+    Holism.addFieldToFormContext(id, formContext);
 
     useEffect(() => {
         setId(Holism.randomId());
@@ -19,12 +21,9 @@ const Text = ({ column, required, placeholder, hint, value }) => {
 
     useEffect(() => {
         const handler = () => {
-            console.log(htmlInput.current.id, column, 'event');
-            //console.log(htmlInput.current?.value);
             const input = htmlInput.current;
             Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set.call(input, input.value);
             input.dispatchEvent(new Event('change', { bubbles: true }));
-            log('got form submission from text component');
         };
         Holism.on(Holism.formSubmissionEvent, handler);
         return () => {
@@ -33,7 +32,6 @@ const Text = ({ column, required, placeholder, hint, value }) => {
     }, []);
 
     const handleChange = (event) => {
-        log(id, column, 'change');
         var newValue = event.target.value;
         if (required && Holism.isNothing(newValue)) {
             setValidationResult('invalid required');
@@ -47,7 +45,7 @@ const Text = ({ column, required, placeholder, hint, value }) => {
 
     return <div className='field'>
         <TextField
-            //id={id}
+            id={id}
             inputRef={htmlInput}
             error={validationResult ? true : false}
             label={placeholder}

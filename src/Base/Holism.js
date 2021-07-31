@@ -16,6 +16,9 @@ const Holism = {
     formSubmissionEvent: 'holism_form_submission_requested',
     randomId: () => {
         return Math.random().toString(36).replace(/[^a-z]+/g, '');
+    },
+    addFieldToFormContext: (field, formContext) => {
+        console.log(field, formContext);
     }
 };
 
