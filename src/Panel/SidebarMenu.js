@@ -3,6 +3,7 @@ import Branding from './Branding.js';
 import User from './User.js';
 import '../Style/Sidebar.css'
 import menuItems from '../Menu.js'
+import React from 'react';
 
 export default function SidebarMenu() {
 
@@ -29,23 +30,23 @@ export default function SidebarMenu() {
                         menuItems.map((item) => {
                             if (item.children && item.children.length > 0) {
                                 return (
-                                    <>
+                                    <React.Fragment key={item.title}>
                                         <li className="navigation-divider">{item.title}</li>
                                         <li className="list-item" onClick={(e) => toggleSubmenu(e)}>
-                                            <Link to={item.url} >
+                                            <a>
                                                 <i className="fa fa-diamond icon" aria-hidden="true"></i>
                                                 <span>{item.title}</span>
                                                 <i className="fa fa-angle-down" aria-hidden="true"></i>
-                                            </Link>
+                                            </a>
                                             <ul className="submenu">
                                                 {
                                                     item.children.map((child) => {
-                                                        return <li> <Link to={child.url} >{child.title}</Link></li>
+                                                        return <li key={child.url}> <Link to={child.url}  >{child.title}</Link></li>
                                                     })
                                                 }
                                             </ul>
                                         </li>
-                                    </>);
+                                    </React.Fragment>);
                             }
                             else {
                                 if (!item.children && !item.url) {
@@ -55,7 +56,7 @@ export default function SidebarMenu() {
                                     throw new Error('Please remove menu items with zero childrens. Empty children array is not valid.')
                                 }
                                 return (
-                                    <>
+                                    <React.Fragment key={item.title}>
                                         <li className="navigation-divider">{item.title}</li>
                                         <li className="list-item">
                                             <Link to={item.url} >
@@ -63,7 +64,7 @@ export default function SidebarMenu() {
                                                 <span>{item.title}</span>
                                             </Link>
                                         </li>
-                                    </>)
+                                    </React.Fragment>)
                             }
                         })
                     }
