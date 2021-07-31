@@ -14,7 +14,7 @@ import { BrowserRouter } from 'react-router-dom';
 import SidebarMenu from './SidebarMenu';
 
 
-const drawerWidth = 240;
+const drawerWidth = 250;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    borderRight: 'none'
   },
   drawerHeader: {
     display: 'flex',

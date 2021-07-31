@@ -1,6 +1,9 @@
 
 @import url(icons/font-awesome/css/font-awesome.min.css);
 @import url('./Avatar.css');
+html {
+	background: #f1f2f7;
+}
 body {
 	font-family: 'Poppins', sans-serif !important;
 	position: relative;
