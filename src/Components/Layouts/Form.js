@@ -39,13 +39,13 @@ const Form = (prop) => {
       <h6 className="card-title"> title </h6>
       <ul className="list-inline card-tools">
         <li className="list-inline-item mb-0">
-          <button type="button" class="btn btn-outline-success btn-uppercase">
-            <i class="fa fa-save"></i> <span className="hidden md:block" >Create User </span>
+          <button type="button" className="btn btn-outline-success btn-uppercase">
+            <i className="fa fa-save"></i> <span className="hidden md:block" >Create User </span>
           </button>
         </li>
         <li>
-          <button type="button" class="btn btn-outline-secondary btn-uppercase">
-            <i class="fa fa-plus"></i>  <span className="hidden md:block">Create User</span>
+          <button type="button" className="btn btn-outline-secondary btn-uppercase">
+            <i className="fa fa-plus"></i>  <span className="hidden md:block">Create User</span>
           </button>
         </li>
       </ul>
