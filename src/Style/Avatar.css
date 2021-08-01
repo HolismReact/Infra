@@ -326,3 +326,175 @@
 	position: relative;
 	z-index: 1;
 }
+avatar {
+	display: inline-block;
+	margin-bottom: 0;
+	height: 3rem;
+	width: 3rem;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	border: 2px solid white;
+}
+.avatar .avatar-title {
+	background: #d7d7d7;
+	width: 100%;
+	height: 100%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	-moz-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	-moz-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	text-transform: uppercase;
+	font-size: 19px;
+}
+.avatar > a,
+.chat-block .chat-sidebar .chat-sidebar-content .list-group .avatar > .list-group-item.active,
+.header form .input-group .input-group-append .avatar > button.btn {
+	width: 100%;
+	height: 100%;
+	display: block;
+	-webkit-transition: color .3s;
+	-o-transition: color .3s;
+	-moz-transition: color .3s;
+	transition: color .3s;
+	color: #004deb;
+}
+.avatar > a:hover,
+.chat-block .chat-sidebar .chat-sidebar-content .list-group .avatar > .list-group-item.active:hover,
+.header form .input-group .input-group-append .avatar > button.btn:hover,
+.avatar > a:focus,
+.chat-block .chat-sidebar .chat-sidebar-content .list-group .avatar > .list-group-item.active:focus,
+.header form .input-group .input-group-append .avatar > button.btn:focus {
+	color: #646464;
+}
+.avatar > a > img,
+.chat-block .chat-sidebar .chat-sidebar-content .list-group .avatar > .list-group-item.active > img,
+.header form .input-group .input-group-append .avatar > button.btn > img,
+.avatar > img {
+	width: 100%;
+	height: 100%;
+	-o-object-fit: cover;
+	object-fit: cover;
+}
+.avatar.avatar-sm {
+	height: 2rem;
+	width: 2rem;
+}
+.avatar.avatar-sm .avatar-title {
+	font-size: 14px;
+}
+.avatar.avatar-sm.avatar-state-primary:before,
+.avatar.avatar-sm.avatar-state-success:before,
+.avatar.avatar-sm.avatar-state-danger:before,
+.avatar.avatar-sm.avatar-state-warning:before,
+.avatar.avatar-sm.avatar-state-info:before,
+.avatar.avatar-sm.avatar-state-secondary:before,
+.avatar.avatar-sm.avatar-state-light:before,
+.avatar.avatar-sm.avatar-state-dark:before {
+	width: .8rem;
+	height: .8rem;
+}
+.avatar.avatar-lg {
+	height: 4.5rem;
+	width: 4.5rem;
+}
+.avatar.avatar-lg .avatar-title {
+	font-size: 29px;
+}
+.avatar.avatar-lg.avatar-state-primary:before,
+.avatar.avatar-lg.avatar-state-success:before,
+.avatar.avatar-lg.avatar-state-danger:before,
+.avatar.avatar-lg.avatar-state-warning:before,
+.avatar.avatar-lg.avatar-state-info:before,
+.avatar.avatar-lg.avatar-state-secondary:before,
+.avatar.avatar-lg.avatar-state-light:before,
+.avatar.avatar-lg.avatar-state-dark:before {
+	width: 1.3rem;
+	height: 1.3rem;
+	right: 4px;
+}
+.avatar.avatar-xl {
+	height: 5.8rem;
+	width: 5.8rem;
+}
+.avatar.avatar-xl .avatar-title {
+	font-size: 39px;
+}
+.avatar.avatar-xl.avatar-state-primary:before,
+.avatar.avatar-xl.avatar-state-success:before,
+.avatar.avatar-xl.avatar-state-danger:before,
+.avatar.avatar-xl.avatar-state-warning:before,
+.avatar.avatar-xl.avatar-state-info:before,
+.avatar.avatar-xl.avatar-state-secondary:before,
+.avatar.avatar-xl.avatar-state-light:before,
+.avatar.avatar-xl.avatar-state-dark:before {
+	width: 1.6rem;
+	height: 1.6rem;
+	top: 3px;
+	right: 3px;
+}
+.avatar.avatar-state-primary,
+.avatar.avatar-state-success,
+.avatar.avatar-state-danger,
+.avatar.avatar-state-warning,
+.avatar.avatar-state-info,
+.avatar.avatar-state-secondary,
+.avatar.avatar-state-light,
+.avatar.avatar-state-dark {
+	position: relative;
+}
+.avatar.avatar-state-primary:before,
+.avatar.avatar-state-success:before,
+.avatar.avatar-state-danger:before,
+.avatar.avatar-state-warning:before,
+.avatar.avatar-state-info:before,
+.avatar.avatar-state-secondary:before,
+.avatar.avatar-state-light:before,
+.avatar.avatar-state-dark:before {
+	content: "";
+	position: absolute;
+	display: block;
+	width: 1rem;
+	height: 1rem;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	top: 0px;
+	right: 0px;
+	border: 3px solid white;
+}
+.avatar.avatar-state-primary:before {
+	background: #004deb;
+}
+.avatar.avatar-state-success:before {
+	background: #10b759;
+}
+.avatar.avatar-state-danger:before {
+	background: #ff3f3f;
+}
+.avatar.avatar-state-warning:before {
+	background: #ffb822;
+}
+.avatar.avatar-state-info:before {
+	background: #22b9ff;
+}
+.avatar.avatar-state-secondary:before {
+	background: #64737a;
+}
+.avatar.avatar-state-light:before {
+	background: #afb8bd;
+}
+.avatar.avatar-state-dark:before {
+	background: #293134;
+}

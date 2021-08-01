@@ -1,4 +1,3 @@
-import '../Style/UserInfo.css'
 export default function User() {
     return (
         <header className="navigation-header">

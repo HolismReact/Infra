@@ -11,11 +11,15 @@ import MenuIcon from '@material-ui/icons/Menu';
 import MainRouting from "../Base/MainRouting";
 import { BrowserRouter } from 'react-router-dom';
 import SidebarMenu from './SidebarMenu';
+import Modal from '../Components/Modal/Modal';
 
-import '../Style/App.css'
 import '../Style/Avatar.css';
-import '../Style/CardPanel.css';
 import '../Style/button.css';
+import '../Style/App.css'
+import '../Style/CardPanel.css';
+import '../Style/Sidebar.css'
+import '../Style/Modal.css'
+
 
 const drawerWidth = 250;
 
@@ -77,9 +81,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 export default function PersistentDrawerLeft() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+  const [openModal, setOpenModal] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(!open);
   };
@@ -127,8 +134,9 @@ export default function PersistentDrawerLeft() {
           })}
         >
           <div className={classes.drawerHeader} />
-              <MainRouting />                            
-             </main>
+          <MainRouting />
+          <Modal />
+        </main>
       </div>
     </BrowserRouter>
   );

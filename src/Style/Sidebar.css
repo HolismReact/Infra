@@ -1,5 +1,7 @@
+@import url('./UserInfo.css');
 
-.navigation-menu-body {
+
+.navSidebar {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -moz-box;
@@ -18,78 +20,49 @@
 	-moz-box-flex: 1;
 	-ms-flex: 1;
 	flex: 1;
+    box-sizing: border-box;
 }
-.navigation-menu-body > ul li.navigation-divider {
+.navSidebar .navigation-divider {
 	padding: 10px 20px;
 	text-transform: uppercase;
 	font-size: 11px;
-	color: rgba(0, 0, 0, 0.5);
+	color: rgba(0,0,0,0.5);
 	letter-spacing: 0.5px;
 	margin-top: 10px;
 }
-.navigation-menu-body > ul li.navigation-divider:first-child {
+.navSidebar .navigation-divider:first-child {
 	margin-top: 0;
 	padding-top: 0;
 }
-.navigation-menu-body > ul li a ,.navigation-menu-body > ul li button {
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	-moz-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
-	padding: 10px 35px;
-	color: #505050;
-	-webkit-transition: background 0.3s;
-	-o-transition: background 0.3s;
-	-moz-transition: background 0.3s;
-	transition: background 0.3s;
+.navSidebar .list-item{
+	padding: 0;
 }
-.navigation-menu-body > ul li a .nav-link-icon
-,.navigation-menu-body > ul li button .nav-link-icon {
-	margin-right: 0.8rem;
-	stroke: rgba(0, 0, 0, 0.3);
-	-webkit-transition: stroke 0.3s;
-	-o-transition: stroke 0.3s;
-	-moz-transition: stroke 0.3s;
-	transition: stroke 0.3s;
-	width: 18px;
-	height: 18px;
+.navSidebar .list-item a ,.navSidebar .list-item button{
+	background-color: transparent;
+    text-decoration: none !important;
+    outline: none;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 10px 35px;
+    color: #505050; 
+	-webkit-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;	
 }
-.navigation-menu-body > ul li a:hover,
-.navigation-menu-body > ul li button:hover {
-	background: #fafafa;
-	color: black;
+.navSidebar .list-item .nav-link-icon {
+    vertical-align: middle;
+    margin-right: .8rem;
+    transition: all .3s;
+    color: #b2b2b2;
+	-webkit-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;	
+
 }
-.navigation-menu-body > ul li a:hover .nav-link-icon,
-.navigation-menu-body > ul li button:hover .nav-link-icon {
-	stroke: rgba(0, 0, 0, 0.5);
-}
-.navigation-menu-body > ul li a .sub-menu-arrow 
-.navigation-menu-body > ul li button .sub-menu-arrow {
-	margin-left: auto;
-	font-size: 0.55rem;
-	-webkit-transition: -webkit-transform 0.5s;
-	transition: -webkit-transform 0.5s;
-	-o-transition: -o-transform 0.5s;
-	-moz-transition: transform 0.5s, -moz-transform 0.5s;
-	transition: transform 0.5s;
-	transition: transform 0.5s, -webkit-transform 0.5s, -moz-transform 0.5s, -o-transform 0.5s;
-}
-.navigation-menu-body > ul li a .sub-menu-arrow.rotate-in,
-.navigation-menu-body > ul li button .sub-menu-arrow.rotate-in {
-	-webkit-transform: rotate(540deg);
-	-moz-transform: rotate(540deg);
-	-ms-transform: rotate(540deg);
-	-o-transform: rotate(540deg);
-	transform: rotate(540deg);
-}
-.navigation-menu-body > ul li a .badge,
-.navigation-menu-body > ul li button .badge {
+.navSidebar .list-item .badge {
 	margin-left: auto;
 	text-indent: -9999px;
 	width: 6px;
@@ -98,195 +71,104 @@
 	-moz-border-radius: 50%;
 	border-radius: 50%;
 	padding: 0;
-}
-.navigation-menu-body > ul li a + ul,
-.navigation-menu-body > ul li button + ul {
-	display: none;
-}
-.navigation-menu-body > ul li a + ul li,
-.navigation-menu-body > ul li button + ul li {
-	margin: 0;
-}
-.navigation-menu-body > ul li a + ul li a,
-.navigation-menu-body > ul li button + ul li button {
-	padding-left: 66px;
-}
-.navigation-menu-body > ul li a + ul li .header form .input-group .input-group-append button.btn {
-	padding-left: 66px;
-}
-.navigation-menu-body > ul li a + ul ul {
-	border-left: none;
-}
-.navigation-menu-body > ul li a + ul ul li a {
-	padding-left: 80px;
-}
-.navigation-menu-body > ul li a + ul ul li .header form .input-group .input-group-append button.btn {
-	padding-left: 80px;
-}
-.navigation-menu-body > ul li .header form .input-group .input-group-append button.btn {
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-align: center;
-	-webkit-align-items: center;
-	-moz-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
-	padding: 10px 35px;
-	color: #505050;
-	-webkit-transition: background 0.3s;
-	-o-transition: background 0.3s;
-	-moz-transition: background 0.3s;
-	transition: background 0.3s;
-}
-.navigation-menu-body > ul li .header form .input-group .input-group-append button.btn .nav-link-icon {
-	margin-right: 0.8rem;
-	stroke: rgba(0, 0, 0, 0.3);
-	-webkit-transition: stroke 0.3s;
-	-o-transition: stroke 0.3s;
-	-moz-transition: stroke 0.3s;
-	transition: stroke 0.3s;
-	width: 18px;
-	height: 18px;
-}
-.navigation-menu-body > ul li .header form .input-group .input-group-append button.btn:hover {
-	background: #fafafa;
-	color: black;
-}
-.navigation-menu-body > ul li .header form .input-group .input-group-append button.btn:hover .nav-link-icon {
-	stroke: rgba(0, 0, 0, 0.5);
-}
-.navigation-menu-body > ul li .header form .input-group .input-group-append button.btn .sub-menu-arrow {
-	margin-left: auto;
-	font-size: 0.55rem;
-	-webkit-transition: -webkit-transform 0.5s;
-	transition: -webkit-transform 0.5s;
-	-o-transition: -o-transform 0.5s;
-	-moz-transition: transform 0.5s, -moz-transform 0.5s;
-	transition: transform 0.5s;
-	transition: transform 0.5s, -webkit-transform 0.5s, -moz-transform 0.5s, -o-transform 0.5s;
-}
-.navigation-menu-body > ul li .header form .input-group .input-group-append button.btn .sub-menu-arrow.rotate-in {
-	-webkit-transform: rotate(540deg);
-	-moz-transform: rotate(540deg);
-	-ms-transform: rotate(540deg);
-	-o-transform: rotate(540deg);
-	transform: rotate(540deg);
-}
-.navigation-menu-body > ul li .header form .input-group .input-group-append button.btn .badge {
-	margin-left: auto;
-	text-indent: -9999px;
-	width: 6px;
-	height: 6px;
-	-webkit-border-radius: 50%;
-	-moz-border-radius: 50%;
-	border-radius: 50%;
-	padding: 0;
-}
-.navigation-menu-body > ul li .header form .input-group .input-group-append button.btn + ul {
-	display: none;
-}
-.navigation-menu-body > ul li .header form .input-group .input-group-append button.btn + ul li {
-	margin: 0;
-}
-.navigation-menu-body > ul li .header form .input-group .input-group-append button.btn + ul li a {
-	padding-left: 66px;
-}
-.navigation-menu-body > ul li .header form .input-group .input-group-append button.btn + ul li button.btn {
-	padding-left: 66px;
-}
-.navigation-menu-body > ul li .header form .input-group .input-group-append button.btn + ul ul {
-	border-left: none;
-}
-.navigation-menu-body > ul li .header form .input-group .input-group-append button.btn + ul ul li a {
-	padding-left: 80px;
-}
-.navigation-menu-body > ul li .header form .input-group .input-group-append button.btn + ul ul li button.btn {
-	padding-left: 80px;
-}
-.navigation-menu-body > ul li .header form .input-group .input-group-append button.active.btn {
-	position: relative;
-	color: #004deb;
-}
-.navigation-menu-body > ul li .header form .input-group .input-group-append button.active.btn:before {
-	content: '';
-	position: absolute;
-	display: block;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	width: 7px;
-	-webkit-border-top-right-radius: 5px;
-	-moz-border-radius-topright: 5px;
-	border-top-right-radius: 5px;
-	-webkit-border-bottom-right-radius: 5px;
-	-moz-border-radius-bottomright: 5px;
-	border-bottom-right-radius: 5px;
-	background-color: #004deb;
-}
-.navigation-menu-body > ul li a.active {
-	position: relative;
-	color: #004deb;
-}
-.navigation-menu-body > ul li a.active:before {
-	content: '';
-	position: absolute;
-	display: block;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	width: 7px;
-	-webkit-border-top-right-radius: 5px;
-	-moz-border-radius-topright: 5px;
-	border-top-right-radius: 5px;
-	-webkit-border-bottom-right-radius: 5px;
-	-moz-border-radius-bottomright: 5px;
-	border-bottom-right-radius: 5px;
-	background-color: #004deb;
-}
-.navigation-menu-body > ul li.active > ul {
-	display: block;
-}
-.navigation-menu-body > ul li.active, .navigation-menu-body > ul li:hover {
-	background: #fafafa;
-    color: black;
 }
 
-.navigation {
-	padding-bottom: 15px;
-	background: white;
-	z-index: 999;
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-webkit-flex-direction: column;
-	-moz-box-orient: vertical;
-	-moz-box-direction: normal;
-	-ms-flex-direction: column;
-	flex-direction: column;
-	position: relative;
-}
-.navigation #logo {
-	-webkit-box-flex: 0;
-	-webkit-flex: none;
-	-moz-box-flex: 0;
-	-ms-flex: none;
-	flex: none;
-}
-.navigation #logo img:not(.logo) {
+.navSidebar .list-item .submenu {
 	display: none;
 }
-.navigation header.navigation-header {
-	padding: 20px;
-	padding-top: 0;
-	text-align: center;
+.navSidebar .list-item.active .submenu {
+	display: block;
 }
-.navigation header.navigation-header figure {
-	margin-bottom: 1rem;
+
+
+.navSidebar .list-item .submenu a {
+	color: #505050;
+    margin-left: 15%;
+    width: fit-content
 }
+
+.navSidebar .list-item:hover{
+	background: #fafafa;
+}
+.navSidebar li:hover a, .navSidebar li:hover button{
+    color:#000;
+} 
+
+.navSidebar li:hover .nav-link-icon{
+    color: #7a7272;
+
+} 
+
+/****************************** test***********************/
+
+.openCloseWrap {
+	position: absolute;
+	width: 0.3rem;
+	height: 0.3rem;
+	margin: 50px auto;
+	display: block;
+	cursor: pointer;
+right: 31px;
+  }
+  .openCloseWrap:hover .openClose,
+  .openCloseWrap:hover .openClose:before {
+	background-color: rgba(0, 0, 0, 0.6);
+  }
+  .openCloseWrap .openClose {
+	width: 0.3rem;
+	height: 2px;
+	background-color: #858181;
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform-origin: 50% 50%;
+	-webkit-transition: all 0.2s ease-out;
+	-moz-transition: all 0.2s ease-out;
+	-ms-transition: all 0.2s ease-out;
+	-o-transition: all 0.2s ease-out;
+	transition: all 0.2s ease-out;
+  }
+  .openCloseWrap .openClose:before {
+	content: ' ';
+	position: absolute;
+	height: 2px;
+	width: 0.3rem;
+	top: 0;
+	left: 0;
+	background-color: #858181;
+	transform-origin: 50% 50%;
+	-webkit-transition: all 0.2s ease-out;
+	-moz-transition: all 0.2s ease-out;
+	-ms-transition: all 0.2s ease-out;
+	-o-transition: all 0.2s ease-out;
+	transition: all 0.2s ease-out;
+  }
+  .openClose {
+	transform: rotate(45deg) translate(0.15rem, 0px);
+	-webkit-transform: rotate(45deg) translate(0.15rem, 0px);
+	-moz-transform: rotate(45deg) translate(0.15rem, 0px);
+	-ms-transform: rotate(45deg) translate(0.15rem, 0px);
+	-o-transform: rotate(45deg) translate(0.15rem, 0px);
+  }
+  .openClose:before {
+	transform: rotate(-90deg) translate(-0.15rem, -0.15rem);
+	-webkit-transform: rotate(-90deg) translate(-0.15rem, -0.15rem);
+	-moz-transform: rotate(-90deg) translate(-0.15rem, -0.15rem);
+	-ms-transform: rotate(-90deg) translate(-0.15rem, -0.15rem);
+	-o-transform: rotate(-90deg) translate(-0.15rem, -0.15rem);
+  }
+  .arrowDown .openClose {
+	transform: rotate(45deg) translate(0px, 0.15rem);
+	-webkit-transform: rotate(45deg) translate(0px, 0.15rem);
+	-moz-transform: rotate(45deg) translate(0px, 0.15rem);
+	-ms-transform: rotate(45deg) translate(0px, 0.15rem);
+	-o-transform: rotate(45deg) translate(0px, 0.15rem);
+  }
+  .arrowDown .openClose:before {
+	transform: rotate(-90deg) translate(0.15rem, 0.15rem);
+	-webkit-transform: rotate(-90deg) translate(0.15rem, 0.15rem);
+	-moz-transform: rotate(-90deg) translate(0.15rem, 0.15rem);
+	-ms-transform: rotate(-90deg) translate(0.15rem, 0.15rem);
+	-o-transform: rotate(-90deg) translate(0.15rem, 0.15rem);
+  }
+  
