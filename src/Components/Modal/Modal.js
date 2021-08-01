@@ -8,7 +8,7 @@ const Modal = () => {
             type="button"
             onClick={() => { setOpenModal(true) }}
             className="btn btn-outline-success btn-uppercase" >
-            <span className="hidden md:block">open Modal</span>
+            <span >open Modal</span>
         </button>
 
         <div className={clsx("modal", {
