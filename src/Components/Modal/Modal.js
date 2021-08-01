@@ -6,19 +6,19 @@ const Modal = () => {
     return (<>
         <button
             type="button"
-            onClick={() => { setOpenModal(!openModal) }}
-            class="btn btn-outline-success btn-uppercase" >
+            onClick={() => { setOpenModal(true) }}
+            className="btn btn-outline-success btn-uppercase" >
             <span className="hidden md:block">open Modal</span>
         </button>
 
         <div className={clsx("modal", {
             open: openModal,
-        })} >
+        })}  onClick={() => { setOpenModal(false) }}>
             <div className="modal-dialog" role="document">
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title">Modal title</h5>
-                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" className="close" onClick={() => { setOpenModal(false) }}>
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
@@ -26,11 +26,12 @@ const Modal = () => {
                         <p>Modal body text goes here.</p>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" class="btn btn-outline-success btn-uppercase">
-                            <i class="fa fa-plus"></i>  <span className="hidden md:block">Create User</span>
+                        <button type="button" className="btn btn-outline-success btn-uppercase">
+                            <i className="fa fa-plus"></i>  <span className="hidden md:block">Create User</span>
                         </button>
-                        <button type="button" class="btn btn-outline-secondary btn-uppercase">
-                            <i class="fa fa-plus"></i>  <span className="hidden md:block">Create User</span>
+                        <button type="button" className="btn btn-outline-secondary btn-uppercase" 
+                            onClick={() => { setOpenModal(false) }}>
+                            <i className="fa fa-plus"></i>  <span className="hidden md:block">Cancel</span>
                         </button>
                     </div>
                 </div>
