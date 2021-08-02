@@ -15,7 +15,7 @@ const List = (props) => {
 
   const [listParameters, setListParameters] = useState(CreateListParameters());
 
-  return  <div className="card">
+  return <div className="card">
     <div className="card-header">
       <h6 className="card-title">{props.title}</h6>
       <ul className="list-inline card-tools">
@@ -51,4 +51,9 @@ const List = (props) => {
 
 };
 
-export default List;
+export { List };
+export { Text } from './Filters/Text';
+export { Enum } from './Filters/Enum';
+export { Ascending } from './Sorts/Ascending';
+export { ListAction } from './ListActions/ListAction';
+export { ItemAction } from './ItemActions/ItemAction';

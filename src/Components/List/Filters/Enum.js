@@ -1,7 +1,7 @@
 import Holism from "../../../Base/Holism";
 import TextField from '@material-ui/core/TextField';
 
-const EnumFilter = ({ column, placeholder }) => {
+const Enum = ({ column, placeholder }) => {
 
     if (Holism.isNothing(placeholder)) {
         console.error(`placeholder is not provided in TextFilter`);
@@ -16,4 +16,4 @@ const EnumFilter = ({ column, placeholder }) => {
     />
 };
 
-export default EnumFilter;
+export { Enum }

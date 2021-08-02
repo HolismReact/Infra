@@ -4,4 +4,4 @@ const ItemAction = (props) => {
     </>
 };
 
-export default ItemAction;
+export { ItemAction }

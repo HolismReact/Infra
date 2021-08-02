@@ -4,4 +4,4 @@ const ListAction = (props) => {
     </>
 };
 
-export default ListAction;
+export { ListAction }
