@@ -18,26 +18,36 @@ const Holism = {
     randomId: () => {
         return Math.random().toString(36).replace(/[^a-z]+/g, '');
     },
-    addFieldToFormContext: (field, formContext, isValid) => {
-        if (!field) {
+    addFieldToFormContext: (formContext, id, value, isValid) => {
+        if (!id) {
             return;
         }
-        const [fields, setFields] = formContext.fields;
+        const { fields, setFields } = formContext;
         for (var i = 0; i < fields.length; i++) {
-            if (fields[i].field === field) {
+            if (fields[i].id === id) {
                 return;
             }
         }
         setFields((previousFields) => {
             return [{
-                field: field,
-                state: '',
+                id: id,
+                value: value,
                 isValid: isValid
             }, ...previousFields]
         });
     },
-    formContext: {},
-    listContext: {}
+    setField: (formContext, id, value, isValid) => {
+        const { setFields } = formContext;
+        setFields((previousFields) => {
+            for (var i = 0; i < previousFields.length; i++) {
+                if (previousFields[i].id === id) {
+                    previousFields[i].value = value;
+                    previousFields[i].isValid = isValid;
+                }
+            }
+            return [...previousFields];
+        });
+    }
 };
 
 export default Holism;

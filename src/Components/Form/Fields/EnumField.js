@@ -1,11 +1,14 @@
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
 import useLocalStorageState from '../../../Base/UseLocalStorageState';
 import Holism from '../../../Base/Holism';
 import React, { useEffect, useState, useContext, useRef } from 'react';
 import { get } from '../../../Base/Api';
 import { FormContext } from '../../Form';
-import { fieldStyles } from './Field';
+import { fieldStyles } from './FieldStyle';
 
 const EnumField = ({ column, entity, placeholder, hint, value, required }) => {
 
@@ -14,7 +17,9 @@ const EnumField = ({ column, entity, placeholder, hint, value, required }) => {
     }
 
     const [id, setId] = useState(null);
+    const [labelId, setLabelId] = useState(null);
     const htmlSelect = useRef();
+    const [helpText, setHelpText] = useState(hint);
     const [loading, setLoading] = useState();
     const [enumItems, setEnumItems] = useLocalStorageState([], entity + 'Enum');
     const initialHint = hint;
@@ -22,11 +27,12 @@ const EnumField = ({ column, entity, placeholder, hint, value, required }) => {
     var formContext = useContext(FormContext);
 
     useEffect(() => {
-        setId('enum_' + Holism.randomId());
+        setId(`enum_${column}`);
+        setLabelId(`${id}_label`);
     }, []);
 
     useEffect(() => {
-        Holism.addFieldToFormContext(id, formContext, false)
+        Holism.addFieldToFormContext(formContext, id, undefined, false);
         var handler = () => {
             //validate();
         };
@@ -51,17 +57,37 @@ const EnumField = ({ column, entity, placeholder, hint, value, required }) => {
         })
     }, []);
 
+    const validate = (event) => {
+        var newValue = htmlSelect.current.value;
+        if (required && Holism.isNothing(newValue)) {
+            setValidationResult('invalid required');
+            setHelpText(required);
+        }
+        else {
+            setValidationResult(null);
+            setHelpText(initialHint);
+        }
+        Holism.setField(formContext, id, newValue, validationResult ? false : true);
+    }
+
     return <div className={fieldStyles}>
-        <Select
-            ref={htmlSelect}
-            error={validationResult ? true : false}
-            required={required ? true : false}
-            placeholder={placeholder}
-            defaultValue={value || ""}
-            fullWidth
-        >
-            {enumItems.map(item => <MenuItem key={item.id} value={item.id}>{item.key}</MenuItem>)}
-        </Select>
+
+        <FormControl fullWidth>
+            <InputLabel id={labelId}>{placeholder}</InputLabel>
+            <Select
+                ref={htmlSelect}
+                error={validationResult ? true : false}
+                required={validationResult ? true : false}
+                placeholder={placeholder}
+                defaultValue={value || ""}
+                fullWidth
+                onChange={validate}
+                value={value}
+            >
+                {enumItems.map(item => <MenuItem key={item.id} value={item.id}>{item.key}</MenuItem>)}
+            </Select>
+            <FormHelperText>{helpText}</FormHelperText>
+        </FormControl>
     </div>
 };
 

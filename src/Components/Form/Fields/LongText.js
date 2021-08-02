@@ -2,9 +2,10 @@ import TextField from '@material-ui/core/TextField';
 import Holism from '../../../Base/Holism';
 import { useState, useEffect, useRef, useContext } from 'react';
 import { FormContext } from '../../Form';
-import { fieldStyles } from './Field';
+import { fieldStyles } from './FieldStyle';
 
 const LongText = ({ column, required, placeholder, hint, value }) => {
+
     const [id, setId] = useState(null);
     const htmlInput = useRef();
     const [helpText, setHelpText] = useState(hint);
@@ -13,11 +14,11 @@ const LongText = ({ column, required, placeholder, hint, value }) => {
     var formContext = useContext(FormContext);
 
     useEffect(() => {
-        setId('longText_' + Holism.randomId());
+        setId(`longText_${column}`);
     }, []);
 
     useEffect(() => {
-        Holism.addFieldToFormContext(id, formContext, false);
+        Holism.addFieldToFormContext(formContext, id, undefined, false);
         const handle = () => {
             validate();
         };

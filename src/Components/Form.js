@@ -17,11 +17,6 @@ const Form = (prop) => {
   // save
 
   const [fields, setFields] = useState([]);
-  const [data, setData] = useState({});
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   useEffect(() => {
     console.log(fields);
@@ -32,12 +27,12 @@ const Form = (prop) => {
     event.preventDefault();
   }
 
-  return <FormContext.Provider value={{ fields: [fields, setFields], data: [data, setData] }}>
+  return <FormContext.Provider value={{ fields, setFields }}>
     <form
       noValidate
       onSubmit={handleSubmit}
     >
-      <div className="card">
+      <div className="card m-6 rounded-2xl p-4">
         <div className="card-header">
           <h6 className="card-title"> title </h6>
           <ul className="list-inline card-tools">
