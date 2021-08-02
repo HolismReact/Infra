@@ -8,8 +8,7 @@ import clsx from 'clsx';
 
 export default function SidebarMenu() {
     const [OpenMenu, setOpenMenu] = useState('');
-    const changeArrow =(open) => open? 'openCloseWrap arrowDown': 'openCloseWrap';
-
+    const changeArrow = (open) => open ? 'openCloseWrap arrowDown' : 'openCloseWrap';
     return (
         <div className="navigation">
             <Branding />
@@ -17,24 +16,26 @@ export default function SidebarMenu() {
             <ul className="navSidebar">
                 {
                     menuItems.map((item) => {
-                        if (item.childern && item.childern.length > 0) {
+                        if (item.children && item.children.length > 0) {
                             return (
                                 <Fragment key={item.title}>
                                     {/* <li className="navigation-divider">{item.title}</li> */}
                                     <li className={clsx("list-item", {
                                         active: (OpenMenu === item.title)
-                                    })}>
-                                        <button onClick={(e) => { OpenMenu === item.title ? setOpenMenu('') : setOpenMenu(item.title) }}>
+                                    })}
+                                        onClick={(e) => { OpenMenu === item.title ? setOpenMenu('') : setOpenMenu(item.title) }}
+                                    >
+                                        <button>
                                             <i className="fa fa-diamond nav-link-icon" aria-hidden="true"></i>
-                                            
+
                                             <span>{item.title}</span>
                                             <span className={changeArrow(OpenMenu === item.title)} >
-                                                 <span className="openClose"></span>
+                                                <span className="openClose"></span>
                                             </span>
                                         </button>
                                         <ul className="submenu" >
                                             {
-                                                item.childern.map((child) => {
+                                                item.children.map((child) => {
                                                     return <li key={child.url}>
                                                         <Link to={child.url} >{child.title}</Link></li>
                                                 })
@@ -46,12 +47,12 @@ export default function SidebarMenu() {
                             );
                         }
                         else {
-                            // if (!item.children && !item.url) {
-                            //     throw new Error(`Holism way of defining submenu items is via 'children' property. Please either provide a 'url' property for top-level menu items, or specify their 'children' in ${JSON.stringify(item)}.`);
-                            // }
-                            // if (item.children && item.children.length ==== 0) {
-                            //     throw new Error('Please remove menu items with zero childrens. Empty children array is not valid.')
-                            // }
+                            if (!item.children && !item.url) {
+                                throw new Error(`Holism way of defining submenu items is via 'children' property. Please either provide a 'url' property for top-level menu items, or specify their 'children' in ${JSON.stringify(item)}.`);
+                            }
+                            if (item.children && item.children.length === 0) {
+                                throw new Error('Please remove menu items with zero childrens. Empty children array is not valid.')
+                            }
                             return (<Fragment key={item.title}>
                                 <li className="navigation-divider">{item.title}</li>
                                 <li className="list-item">

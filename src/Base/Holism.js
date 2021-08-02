@@ -3,7 +3,7 @@ const eventEmitter = new EventEmitter();
 
 const Holism = {
     isSomething: value => {
-        return !isNothing(value);
+        return !Holism.isNothing(value);
     },
     isNothing: value => {
         return value === undefined || value === null || (/^\s*$/g.test(value));
