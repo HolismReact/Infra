@@ -1,26 +1,25 @@
 import TextField from '@material-ui/core/TextField';
 import Holism from '../../../Base/Holism';
 import { useState, useEffect, useRef, useContext } from 'react';
-import { FormContext } from '../Form';
-import { fieldStyles } from './FieldStyle';
+import { FormContext } from '../../Form/Form';
 
 let log = console.log;
 
 const Text = ({ column, required, placeholder, hint, value }) => {
-
-    const [id, setId] = useState();
+    
+    const [id, setId] = useState(null);
     const htmlInput = useRef();
     const [helpText, setHelpText] = useState(hint);
     const [validationResult, setValidationResult] = useState(null);
     const initialHint = hint;
     var formContext = useContext(FormContext);
-
+    
     useEffect(() => {
-        setId(`text_${column}`);
+        setId(Holism.randomId());
     }, []);
 
     useEffect(() => {
-        Holism.addFieldToFormContext(formContext, id, undefined, false);
+        Holism.addFieldToFormContext(id, formContext, false);
         const handle = () => {
             validate();
         };
@@ -40,10 +39,9 @@ const Text = ({ column, required, placeholder, hint, value }) => {
             setValidationResult(null);
             setHelpText(initialHint);
         }
-        Holism.setField(formContext, id, newValue, validationResult ? false : true);
     }
 
-    return <div className={fieldStyles}>
+    return <div className='field'>
         <TextField
             id={id}
             inputRef={htmlInput}
@@ -53,9 +51,8 @@ const Text = ({ column, required, placeholder, hint, value }) => {
             helperText={helpText}
             value={value}
             onChange={validate}
-            fullWidth
         />
     </div>
 };
 
-export { Text }
+export default Text;

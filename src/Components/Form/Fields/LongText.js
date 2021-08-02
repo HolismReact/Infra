@@ -1,7 +1,7 @@
 import TextField from '@material-ui/core/TextField';
 import Holism from '../../../Base/Holism';
 import { useState, useEffect, useRef, useContext } from 'react';
-import { FormContext } from '../../Form';
+import { FormContext } from '../Form';
 import { fieldStyles } from './FieldStyle';
 
 const LongText = ({ column, required, placeholder, hint, value }) => {
@@ -58,4 +58,4 @@ const LongText = ({ column, required, placeholder, hint, value }) => {
     </div>
 }
 
-export default LongText;
+export { LongText }

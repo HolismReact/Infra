@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button'
-import Holism from '../Base/Holism';
+import Holism from '../../Base/Holism';
 
 export const FormContext = React.createContext();
 
@@ -24,6 +24,13 @@ const Form = (prop) => {
 
   const handleSubmit = (event) => {
     Holism.emit(Holism.formSubmissionEvent);
+    for (var i = 0; i < fields.length; i++) {
+      if (!fields[i].isValid) {
+        event.preventDefault();
+        return;
+      }
+    }
+    // real submit;
     event.preventDefault();
   }
 
@@ -59,4 +66,7 @@ const Form = (prop) => {
   </FormContext.Provider>
 }
 
-export default Form;
+export { Form };
+export { Text } from './Fields/Text';
+export { EnumField } from './Fields/EnumField';
+export { LongText } from './Fields/LongText';

@@ -7,7 +7,7 @@ import useLocalStorageState from '../../../Base/UseLocalStorageState';
 import Holism from '../../../Base/Holism';
 import React, { useEffect, useState, useContext, useRef } from 'react';
 import { get } from '../../../Base/Api';
-import { FormContext } from '../../Form';
+import { FormContext } from '../Form';
 import { fieldStyles } from './FieldStyle';
 
 const EnumField = ({ column, entity, placeholder, hint, value, required }) => {
@@ -17,6 +17,8 @@ const EnumField = ({ column, entity, placeholder, hint, value, required }) => {
     }
 
     const [id, setId] = useState(null);
+    const [initialValue] = useState(value);
+    const [currentValue, setCurrentValue] = useState(value);
     const [labelId, setLabelId] = useState(null);
     const htmlSelect = useRef();
     const [helpText, setHelpText] = useState(hint);
@@ -58,8 +60,8 @@ const EnumField = ({ column, entity, placeholder, hint, value, required }) => {
     }, []);
 
     const validate = (event) => {
-        var newValue = htmlSelect.current.value;
-        if (required && Holism.isNothing(newValue)) {
+        console.log(currentValue);
+        if (required && Holism.isNothing(currentValue)) {
             setValidationResult('invalid required');
             setHelpText(required);
         }
@@ -67,11 +69,10 @@ const EnumField = ({ column, entity, placeholder, hint, value, required }) => {
             setValidationResult(null);
             setHelpText(initialHint);
         }
-        Holism.setField(formContext, id, newValue, validationResult ? false : true);
+        Holism.setField(formContext, id, currentValue, validationResult ? false : true);
     }
 
     return <div className={fieldStyles}>
-
         <FormControl
             fullWidth
             error={validationResult ? true : false}
@@ -84,7 +85,7 @@ const EnumField = ({ column, entity, placeholder, hint, value, required }) => {
                 placeholder={placeholder}
                 defaultValue={value || ""}
                 fullWidth
-                onChange={validate}
+                onChange={(event) => { setCurrentValue(event.target.value); validate(); }}
                 value={value}
             >
                 {enumItems.map(item => <MenuItem key={item.id} value={item.id}>{item.key}</MenuItem>)}
@@ -94,4 +95,4 @@ const EnumField = ({ column, entity, placeholder, hint, value, required }) => {
     </div>
 };
 
-export default EnumField;
+export { EnumField };
