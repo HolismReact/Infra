@@ -38,6 +38,7 @@ const LongText = ({ column, required, placeholder, hint, value }) => {
             setValidationResult(null);
             setHelpText(initialHint);
         }
+        Holism.setField(formContext, id, newValue, validationResult ? false : true);
     }
 
     return <div className={fieldStyles}>

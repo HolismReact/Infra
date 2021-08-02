@@ -34,7 +34,7 @@ const EnumField = ({ column, entity, placeholder, hint, value, required }) => {
     useEffect(() => {
         Holism.addFieldToFormContext(formContext, id, undefined, false);
         var handler = () => {
-            //validate();
+            validate();
         };
         Holism.on(Holism.formSubmissionEvent, handler);
         return () => {
@@ -72,7 +72,10 @@ const EnumField = ({ column, entity, placeholder, hint, value, required }) => {
 
     return <div className={fieldStyles}>
 
-        <FormControl fullWidth>
+        <FormControl
+            fullWidth
+            error={validationResult ? true : false}
+        >
             <InputLabel id={labelId}>{placeholder}</InputLabel>
             <Select
                 ref={htmlSelect}
