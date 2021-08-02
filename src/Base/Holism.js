@@ -28,12 +28,16 @@ const Holism = {
                 return;
             }
         }
-        setFields([{
-            field: field,
-            state: '',
-            isValid: isValid
-        }, ...fields]);
-    }
+        setFields((previousFields) => {
+            return [{
+                field: field,
+                state: '',
+                isValid: isValid
+            }, ...previousFields]
+        });
+    },
+    formContext: {},
+    listContext: {}
 };
 
 export default Holism;

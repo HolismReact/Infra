@@ -15,7 +15,7 @@ const Text = ({ column, required, placeholder, hint, value }) => {
     var formContext = useContext(FormContext);
     
     useEffect(() => {
-        setId(Holism.randomId());
+        setId('text_' + Holism.randomId());
     }, []);
 
     useEffect(() => {
