@@ -1,4 +1,4 @@
-import Holism from "../../Base/Holism";
+import Holism from "../../../Base/Holism";
 
 const LongText = () => {
 

@@ -11,7 +11,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import MainRouting from "../Base/MainRouting";
 import { BrowserRouter } from 'react-router-dom';
 import SidebarMenu from './SidebarMenu';
-import Modal from '../Components/Modal/Modal';
+import Modal from '../Components/Modal';
 
 import '../Style/Avatar.css';
 import '../Style/button.css';

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button'
-import Holism from '../../Base/Holism';
+import Holism from '../Base/Holism';
 
 export const FormContext = React.createContext();
 

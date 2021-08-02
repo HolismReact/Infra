@@ -1,7 +1,7 @@
 import TextField from '@material-ui/core/TextField';
-import Holism from '../../Base/Holism';
+import Holism from '../../../Base/Holism';
 import { useState, useEffect, useRef, useContext } from 'react';
-import { FormContext } from '../Layouts/Form';
+import { FormContext } from '../../Form';
 
 let log = console.log;
 

@@ -1,10 +1,10 @@
-import { get } from "../../Base/Api";
+import { get } from "../Base/Api";
 import React, { useEffect, useState, useContext, useCallback } from 'react';
-import Filtering from "./ListComponents/Filtering";
-import CreateListParameters from "../../Base/CreateListParameters";
-import Sorting from "./ListComponents/Sorting";
-import Items from "./ListComponents/Items";
-import ListActions from "./ListComponents/ListActions";
+import Filtering from "./List/Filtering";
+import CreateListParameters from "../Base/CreateListParameters";
+import Sorting from "./List/Sorting";
+import Items from "./List/Items";
+import ListActions from "./List/ListActions";
 
 export const ListContext = React.createContext({
   listParameters: {},

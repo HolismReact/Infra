@@ -1,8 +1,8 @@
-import Holism from "../../Base/Holism";
+import Holism from "../../../Base/Holism";
 import TextField from '@material-ui/core/TextField';
 import { useContext } from 'react';
-import { ListContext } from "../Layouts/List";
-import filterOperator from "../../Base/FilterOperator";
+import { ListContext } from "../../List";
+import filterOperator from "../../../Base/FilterOperator";
 
 const TextFilter = ({ column, placeholder }) => {
 

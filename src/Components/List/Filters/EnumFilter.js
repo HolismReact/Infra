@@ -1,4 +1,4 @@
-import Holism from "../../Base/Holism";
+import Holism from "../../../Base/Holism";
 import TextField from '@material-ui/core/TextField';
 
 const EnumFilter = ({ column, placeholder }) => {

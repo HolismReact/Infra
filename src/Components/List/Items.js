@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
-import { get } from '../../../Base/Api';
+import { get } from '../../Base/Api';
 import { ListContext } from '../List';
 
 const table = ({ data, headers, row }) => <table>
