@@ -24,6 +24,7 @@ const Text = ({ column, required, placeholder, hint, value }) => {
 
     useEffect(() => {
         const handle = () => {
+            debugger;
             validate();
         };
         Holism.on(Holism.formSubmissionEvent, handle);
