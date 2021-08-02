@@ -27,10 +27,7 @@ const Form = (prop) => {
     console.log(fields);
   }, [fields]);
 
-  Holism.eventEmitter.removeAllListeners(Holism.formSubmissionEvent);
-
   const handleSubmit = (event) => {
-    console.log('submitting...');
     Holism.emit(Holism.formSubmissionEvent);
     event.preventDefault();
   }

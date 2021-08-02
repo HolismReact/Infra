@@ -20,18 +20,14 @@ const Text = ({ column, required, placeholder, hint, value }) => {
 
     useEffect(() => {
         Holism.addFieldToFormContext(id, formContext, false);
-    }, [id]);
-
-    useEffect(() => {
         const handle = () => {
-            debugger;
             validate();
         };
         Holism.on(Holism.formSubmissionEvent, handle);
         return () => {
             Holism.removeListener(Holism.formSubmissionEvent, handle);
         }
-    }, []);
+    }, [id]);
 
     const validate = (event) => {
         var newValue = htmlInput.current.value;
