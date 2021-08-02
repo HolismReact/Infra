@@ -15,7 +15,7 @@ const LongText = ({ column, required, placeholder, hint, value }) => {
 
     useEffect(() => {
         setId(`longText_${column}`);
-    }, []);
+    }, [column]);
 
     useEffect(() => {
         Holism.addFieldToFormContext(formContext, id, undefined, false);
@@ -26,7 +26,7 @@ const LongText = ({ column, required, placeholder, hint, value }) => {
         return () => {
             Holism.removeListener(Holism.formSubmissionEvent, handle);
         }
-    }, [id]);
+    }, [id, formContext]);
 
     const validate = (event) => {
         var newValue = htmlInput.current.value;

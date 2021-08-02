@@ -4,4 +4,4 @@ const Ascending = (props) => {
     </>
 };
 
-export default Ascending;
+export { Ascending };

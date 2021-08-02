@@ -10,14 +10,13 @@ import { get } from '../../../Base/Api';
 import { FormContext } from '../Form';
 import { fieldStyles } from './FieldStyle';
 
-const EnumField = ({ column, entity, placeholder, hint, value, required }) => {
+const Enum = ({ column, entity, placeholder, hint, value, required }) => {
 
     if (Holism.isNothing(entity)) {
-        throw new Error(`entity is not provided for ${EnumField.name}`);
+        throw new Error(`entity is not provided for ${Enum.name}`);
     }
 
     const [id, setId] = useState(null);
-    const [initialValue] = useState(value);
     const [currentValue, setCurrentValue] = useState(value);
     const [labelId, setLabelId] = useState(null);
     const htmlSelect = useRef();
@@ -30,10 +29,10 @@ const EnumField = ({ column, entity, placeholder, hint, value, required }) => {
 
     useEffect(() => {
         setId(`enum_${column}`);
-        setLabelId(`${id}_label`);
-    }, []);
+    }, [column]);
 
     useEffect(() => {
+        setLabelId(`${id}_label`);
         Holism.addFieldToFormContext(formContext, id, undefined, false);
         var handler = () => {
             validate();
@@ -42,7 +41,7 @@ const EnumField = ({ column, entity, placeholder, hint, value, required }) => {
         return () => {
             Holism.removeListener(Holism.formSubmissionEvent, handler);
         }
-    }, [id])
+    }, [id, formContext])
 
     useEffect(() => {
         if (enumItems.length !== 0) {
@@ -73,26 +72,32 @@ const EnumField = ({ column, entity, placeholder, hint, value, required }) => {
     }
 
     return <div className={fieldStyles}>
-        <FormControl
-            fullWidth
-            error={validationResult ? true : false}
-        >
-            <InputLabel id={labelId}>{placeholder}</InputLabel>
-            <Select
-                ref={htmlSelect}
-                error={validationResult ? true : false}
-                required={validationResult ? true : false}
-                placeholder={placeholder}
-                defaultValue={value || ""}
-                fullWidth
-                onChange={(event) => { setCurrentValue(event.target.value); validate(); }}
-                value={value}
-            >
-                {enumItems.map(item => <MenuItem key={item.id} value={item.id}>{item.key}</MenuItem>)}
-            </Select>
-            <FormHelperText>{helpText}</FormHelperText>
-        </FormControl>
+        {
+            loading
+                ?
+                <div>loadin...</div>
+                :
+                <FormControl
+                    fullWidth
+                    error={validationResult ? true : false}
+                >
+                    <InputLabel id={labelId}>{placeholder}</InputLabel>
+                    <Select
+                        ref={htmlSelect}
+                        error={validationResult ? true : false}
+                        required={validationResult ? true : false}
+                        placeholder={placeholder}
+                        defaultValue={value || ""}
+                        fullWidth
+                        onChange={(event) => { setCurrentValue(event.target.value); validate(); }}
+                        value={value}
+                    >
+                        {enumItems.map(item => <MenuItem key={item.id} value={item.id}>{item.key}</MenuItem>)}
+                    </Select>
+                    <FormHelperText>{helpText}</FormHelperText>
+                </FormControl>
+        }
     </div>
 };
 
-export { EnumField };
+export { Enum };

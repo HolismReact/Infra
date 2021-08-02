@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button'
 import Holism from '../../Base/Holism';
+import { post } from '../../Base/Api';
 
 export const FormContext = React.createContext();
 
@@ -10,13 +11,14 @@ const defaultActions =
     <Button>Cancel</Button>
   </>
 
-const Form = (prop) => {
+const Form = ({ inputs, actions, entity }) => {
   // is edit, or is create? get id from somewhere
   // file upload
   // if is edit, load entity (only if they don't provide their own get method)
   // save
 
   const [fields, setFields] = useState([]);
+  const [loading, setLoading] = useState();
 
   useEffect(() => {
     console.log(fields);
@@ -24,13 +26,25 @@ const Form = (prop) => {
 
   const handleSubmit = (event) => {
     Holism.emit(Holism.formSubmissionEvent);
-    for (var i = 0; i < fields.length; i++) {
+    for (let i = 0; i < fields.length; i++) {
       if (!fields[i].isValid) {
         event.preventDefault();
         return;
       }
     }
-    // real submit;
+    var data = {};
+    for (let i = 0; i < fields.length; i++) {
+      data[fields[i].id.split('_')[1]] = fields[i].value;
+    }
+    console.log(data);
+    setLoading(true);
+    post(`${entity}/create`, data).then(data => {
+      alert('hi');
+      setLoading(false);
+    }, error => {
+      console.error(error);
+      setLoading(false);
+    })
     event.preventDefault();
   }
 
@@ -56,9 +70,9 @@ const Form = (prop) => {
           </ul>
         </div>
         <div className="card-body">
-          {prop.fields}
+          {inputs}
           {
-            prop.actions || defaultActions
+            actions || defaultActions
           }
         </div>
       </div>
@@ -68,5 +82,5 @@ const Form = (prop) => {
 
 export { Form };
 export { Text } from './Fields/Text';
-export { EnumField } from './Fields/EnumField';
+export { Enum } from './Fields/Enum';
 export { LongText } from './Fields/LongText';
