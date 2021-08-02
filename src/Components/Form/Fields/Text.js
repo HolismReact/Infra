@@ -2,6 +2,7 @@ import TextField from '@material-ui/core/TextField';
 import Holism from '../../../Base/Holism';
 import { useState, useEffect, useRef, useContext } from 'react';
 import { FormContext } from '../../Form';
+import { fieldStyles } from './Field';
 
 let log = console.log;
 
@@ -41,7 +42,7 @@ const Text = ({ column, required, placeholder, hint, value }) => {
         }
     }
 
-    return <div className='field'>
+    return <div className={fieldStyles}>
         <TextField
             id={id}
             inputRef={htmlInput}
@@ -51,6 +52,7 @@ const Text = ({ column, required, placeholder, hint, value }) => {
             helperText={helpText}
             value={value}
             onChange={validate}
+            fullWidth
         />
     </div>
 };

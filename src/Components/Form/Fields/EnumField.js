@@ -5,6 +5,7 @@ import Holism from '../../../Base/Holism';
 import React, { useEffect, useState, useContext, useRef } from 'react';
 import { get } from '../../../Base/Api';
 import { FormContext } from '../../Form';
+import { fieldStyles } from './Field';
 
 const EnumField = ({ column, entity, placeholder, hint, value, required }) => {
 
@@ -27,7 +28,7 @@ const EnumField = ({ column, entity, placeholder, hint, value, required }) => {
     useEffect(() => {
         Holism.addFieldToFormContext(id, formContext, false)
         var handler = () => {
-            validate();
+            //validate();
         };
         Holism.on(Holism.formSubmissionEvent, handler);
         return () => {
@@ -50,15 +51,18 @@ const EnumField = ({ column, entity, placeholder, hint, value, required }) => {
         })
     }, []);
 
-    return <Select
-        ref={htmlSelect}
-        error={validationResult ? true : false}
-        required={required ? true : false}
-        placeholder={placeholder}
-        defaultValue={value || ""}
-    >
-        {enumItems.map(item => <MenuItem key={item.id} value={item.id}>{item.key}</MenuItem>)}
-    </Select>
+    return <div className={fieldStyles}>
+        <Select
+            ref={htmlSelect}
+            error={validationResult ? true : false}
+            required={required ? true : false}
+            placeholder={placeholder}
+            defaultValue={value || ""}
+            fullWidth
+        >
+            {enumItems.map(item => <MenuItem key={item.id} value={item.id}>{item.key}</MenuItem>)}
+        </Select>
+    </div>
 };
 
 export default EnumField;
