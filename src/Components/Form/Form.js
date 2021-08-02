@@ -68,5 +68,5 @@ const Form = (prop) => {
 
 export { Form };
 export { Text } from './Fields/Text';
-export { EnumField } from './Fields/EnumField';
+export { Enum } from './Fields/Enum';
 export { LongText } from './Fields/LongText';
