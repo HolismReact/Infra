@@ -8,6 +8,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
 
 import '../Style/Avatar.css';
 import '../Style/button.css';
@@ -16,9 +17,7 @@ import '../Style/CardPanel.css';
 import '../Style/Sidebar.css'
 import '../Style/Modal.css'
 import SidebarMenu from './SidebarMenu';
-import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
-import MainRouting from "../Base/MainRouting";
-
+import MainRouting from '../Base/MainRouting';
 
 const drawerWidth = 250;
 const useStyles = makeStyles((theme) => ({
@@ -59,10 +58,6 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
 }));
-
-
-   
-
 
 function App() {
   const classes = useStyles();
@@ -130,4 +125,5 @@ function App() {
   </BrowserRouter>
   );
 }
+
 export default App;
