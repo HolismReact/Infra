@@ -1,22 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import Button from '@material-ui/core/Button'
+import React, { useState, useEffect , useContext} from 'react';
+import clsx from 'clsx';
 import Holism from '../../Base/Holism';
 import { post } from '../../Base/Api';
+import { ListContext } from '../List/List';
 
 export const FormContext = React.createContext();
 
 const defaultActions =
-  <>
-    <Button type="submit">Save</Button>
-    <Button>Cancel</Button>
+    <> 
   </>
 
-const Form = ({ inputs, actions, entity }) => {
+const Form = ({ inputs, actions, entity}) => {
+  const { OpenModal, setOpenModal } = useContext(ListContext);
   // is edit, or is create? get id from somewhere
   // file upload
   // if is edit, load entity (only if they don't provide their own get method)
   // save
-
   const [fields, setFields] = useState([]);
   const [loading, setLoading] = useState();
 
@@ -25,6 +24,7 @@ const Form = ({ inputs, actions, entity }) => {
   }, [fields]);
 
   const handleSubmit = (event) => {
+    debugger;
     Holism.emit(Holism.formSubmissionEvent);
     for (let i = 0; i < fields.length; i++) {
       if (!fields[i].isValid) {
@@ -47,36 +47,43 @@ const Form = ({ inputs, actions, entity }) => {
     })
     event.preventDefault();
   }
-
   return <FormContext.Provider value={{ fields, setFields }}>
+    
     <form
       noValidate
       onSubmit={handleSubmit}
     >
-      <div className="card m-6 rounded-2xl p-4">
-        <div className="card-header">
-          <h6 className="card-title"> title </h6>
-          <ul className="list-inline card-tools">
-            <li className="list-inline-item mb-0">
-              <button type="submit" className="btn btn-outline-success btn-uppercase">
-                <i className="fa fa-save"></i> <span className="hidden md:block" >Create</span>
-              </button>
-            </li>
-            <li>
-              <button type="button" className="btn btn-outline-secondary btn-uppercase">
-                <i className="fa fa-plus"></i>  <span className="hidden md:block">Cancel</span>
-              </button>
-            </li>
-          </ul>
+       <div className={clsx("modal", {open: OpenModal})}>
+            <div className="modal-dialog" role="document">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title">Modal title</h5>
+                        <button type="button" className="close" onClick={() => { setOpenModal(false) }}>
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div className="modal-body">
+                        {inputs}
+                    </div>
+                    <div className="modal-footer">
+                      {
+                        actions || <> 
+                        <button type="submit" className="btn btn-outline-success btn-uppercase">
+                            <i className="fa fa-plus"></i>  <span className="hidden md:block">Save</span>
+                        </button>
+                        <button type="button" className="btn btn-outline-secondary btn-uppercase" 
+                          onClick={() => { setOpenModal(false) }}>
+                            <i className="fa fa-plus"></i>  <span className="hidden md:block">Cancel</span>
+                        </button></>
+                      }                       
+                    </div>
+                </div>
+            </div>
         </div>
-        <div className="card-body">
-          {inputs}
-          {
-            actions || defaultActions
-          }
-        </div>
-      </div>
-    </form>
+
+
+      
+      </form>
   </FormContext.Provider>
 }
 

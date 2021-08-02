@@ -1,4 +1,3 @@
-import { get } from "../../Base/Api";
 import React, { useEffect, useState, useContext, useCallback } from 'react';
 import Filtering from "./Filtering";
 import CreateListParameters from "../../Base/CreateListParameters";
@@ -7,32 +6,39 @@ import Items from "./Items";
 import ListActions from "./ListActions";
 
 export const ListContext = React.createContext({
+  OpenModal : false, 
+  setOpenModal :() =>{},
   listParameters: {},
   reloadItems: () => { }
 });
 
 const List = (props) => {
-
+  const [OpenModal, setOpenModal] = useState(false);
   const [listParameters, setListParameters] = useState(CreateListParameters());
 
   return <div className="card">
     <div className="card-header">
       <h6 className="card-title">{props.title}</h6>
       <ul className="list-inline card-tools">
-        <li className="list-inline-item mb-0">
-          <button type="button" className="btn btn-outline-success btn-uppercase">
-            <i className="fa fa-save"></i> <span className="hidden md:block" >Create User </span>
+        {/* <li className="list-inline-item mb-0">
+          <button type="button"
+             className="btn btn-outline-success btn-uppercase">
+            <i className="fa fa-save"></i> <span className="hidden md:block" >s </span>
           </button>
-        </li>
+        </li>  */}
         <li>
-          <button type="button" className="btn btn-outline-secondary btn-uppercase">
-            <i className="fa fa-plus"></i>  <span className="hidden md:block">Create User</span>
+          <button type="button" 
+              onClick={()=>{  setOpenModal(true)}}
+               className="btn btn-outline-secondary btn-uppercase">
+            <i className="fa fa-plus"></i>  <span className="hidden md:block">Create</span>
           </button>
         </li>
       </ul>
     </div>
     <div className="card-body">
       <ListContext.Provider value={{
+        OpenModal, 
+        setOpenModal,
         listParameters: listParameters,
         reloadItems: () => { }
       }}>
@@ -44,6 +50,8 @@ const List = (props) => {
         {/* <div>
         {data.map(item => <div key={item.id}>{item.id}</div>)}
       </div> */}
+      <props.create  />     
+
       </ListContext.Provider>
 
     </div>
