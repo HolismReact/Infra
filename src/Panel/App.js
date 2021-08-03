@@ -1,12 +1,13 @@
 import React from 'react';
 import MainRouting from '../Base/MainRouting';
 import Sidebar from './Sidebar';
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import Header from './Header';
 import Holism from '../Base/Holism';
+import useLocalStorageState from '../Base/UseLocalStorageState';
 
 function App() {
-  const [sideBarIsOpen, setSidebarAsOpen] = useState();
+  const [isSidebarOpen, setIsSidebarOpen] = useLocalStorageState(true, 'isSidebarOpen');
   const [pageTitle, setPageTitle] = useState('');
   const [pageSubtitle, setPageSubtitle] = useState('');
   const [breadcrumbItems, setBreadcrumbItems] = useState([]);
@@ -20,7 +21,6 @@ function App() {
     }
   });
 
-
   useEffect(() => {
     if (Holism.isSomething(pageSubtitle) || (breadcrumbItems.length > 0)) {
       setHasSubtitleOrBreadcrum(true);
@@ -30,10 +30,20 @@ function App() {
     }
   }, [pageSubtitle, breadcrumbItems]);
 
+  const toggleMenu = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  }
+
   return <div className="flex h-full">
-    <Sidebar />
+    {
+      isSidebarOpen
+        ?
+        <Sidebar />
+        :
+        null
+    }
     <div className="flex-1">
-      <Header />
+      <Header onMenuIconClicked={toggleMenu} />
       <div className="p-10 pt-5">
         <div className={"mb-10 " + (hasSubtitleOrBreadcrumb ? "h-12" : "h-6")}>
           <div className="font-medium mb-2 tracking-wider	text-xl text-gray-900">{pageTitle}</div>
