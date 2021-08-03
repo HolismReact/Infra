@@ -15,7 +15,7 @@ const Filtering = ({ filters }) => {
         applyFilters();
     }
 
-    return <div id='filtering' className="bg-green-400 m-2 p-2">
+    return <div id='filtering' className="bg-white p-6 rounded-lg">
         {filters}
         <Button variant="contained" onClick={resetFilters}>
             Remove Filters

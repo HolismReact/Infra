@@ -59,7 +59,7 @@ const Items = ({ entity, card, headers, row }) => {
         load();
     }, [reloadedTimes]);
 
-    return <div id='items' className=''>
+    return <div id='items' className='bg-white p-6 rounded-lg'>
         {
             loading
                 ?

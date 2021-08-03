@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import clsx from 'clsx';
 import Holism from '../../Base/Holism';
 import { post } from '../../Base/Api';
 import { ListContext } from '../List/List';
@@ -48,32 +47,31 @@ const Form = ({ inputs, actions, entity }) => {
     event.preventDefault();
   }
   return <FormContext.Provider value={{ fields, setFields }}>
-
     <form
       noValidate
       onSubmit={handleSubmit}
     >
-      <div className={clsx("modal", { open: OpenModal })}>
-        <div className="modal-dialog" role="document">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title">Modal title</h5>
-              <button type="button" className="close" onClick={() => { setOpenModal(false) }}>
+      <div>
+        <div>
+          <div>
+            <div>
+              <div>Modal title</div>
+              <button type="button" onClick={() => { setOpenModal(false) }}>
                 <span aria-hidden="true">×</span>
               </button>
             </div>
-            <div className="modal-body">
+            <div>
               {inputs}
             </div>
-            <div className="modal-footer">
+            <div>
               {
                 actions || <>
-                  <button type="submit" className="btn btn-outline-success btn-uppercase">
-                    <i className="fa fa-plus"></i>  <span className="hidden md:block">Save</span>
+                  <button type="submit">
+                    <i></i>  <span>Save</span>
                   </button>
-                  <button type="button" className="btn btn-outline-secondary btn-uppercase"
+                  <button type="button"
                     onClick={() => { setOpenModal(false) }}>
-                    <i className="fa fa-plus"></i>  <span className="hidden md:block">Cancel</span>
+                    <i></i>  <span>Cancel</span>
                   </button></>
               }
             </div>

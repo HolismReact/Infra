@@ -22,35 +22,19 @@ const List = (props) => {
     breadcrumbItems: props.breadcrumbItems
   });
 
-  return <div className="bg-white p-6 rounded-lg">
-    <div className="">
-      <h6 className="">{props.title}</h6>
-      <ul className="">
-        <li>
-          <button type="button"
-            onClick={() => { setOpenModal(true) }}
-            className="">
-            <i className=""></i>  <span className="">Create</span>
-          </button>
-        </li>
-      </ul>
-    </div>
-    <div className="">
-      <ListContext.Provider value={{
-        OpenModal,
-        setOpenModal,
-        listParameters: listParameters,
-        reloadItems: () => { }
-      }}>
+  return <ListContext.Provider value={{
+    OpenModal,
+    setOpenModal,
+    listParameters: listParameters,
+    reloadItems: () => { }
+  }} id='list' className="bg-white p-6 rounded-lg">
 
-        <Filtering filters={props.filters} />
-        <Sorting sorts={props.sorts} />
-        <ListActions actions={props.listActions} />
-        <Items entity={props.entity} headers={props.headers} row={props.row} card={props.card} />
-        <props.create />
-      </ListContext.Provider>
-    </div>
-  </div>
+    <Filtering filters={props.filters} />
+    <Sorting sorts={props.sorts} />
+    <ListActions actions={props.listActions} />
+    <Items entity={props.entity} headers={props.headers} row={props.row} card={props.card} />
+    <props.create />
+  </ListContext.Provider>
 };
 
 export { List };
