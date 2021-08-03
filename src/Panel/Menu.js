@@ -35,7 +35,7 @@ const Menu = () => {
                                             return <Link
                                                 to={child.url}
                                                 key={child.url}
-                                                className={liStyle + " flex items-center"}
+                                                className={liStyle + " flex items-center hover:bg-gray-100"}
                                             >
                                                 <span className={"ml-20"}>{child.title}</span>
                                             </Link>
