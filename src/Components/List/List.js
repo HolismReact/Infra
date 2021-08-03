@@ -48,7 +48,7 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
     setOpenModal,
     listParameters: listParameters,
     reloadItems: () => { }
-  }} id='list' className="bg-white p-6 rounded-lg">
+  }} id='list'>
 
     {
       isFilteringOpen
@@ -57,6 +57,7 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
         :
         null
     }
+
     <div className='flex items-center justify-between px-6'>
       <ListActions actions={listActions} create={create} />
       <div className="flex items-center">
@@ -73,6 +74,7 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
           onClick={toggleFiltering}>{toggleFilteringIcon}</span>
       </div>
     </div>
+
     <Items entity={entity} headers={headers} row={row} card={card} />
   </ListContext.Provider>
 };
