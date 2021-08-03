@@ -13,13 +13,13 @@ export const ListContext = React.createContext({
   reloadItems: () => { }
 });
 
-const List = (props) => {
+const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, entity, headers, row, card, create }) => {
   const [OpenModal, setOpenModal] = useState(false);
   const [listParameters, setListParameters] = useState(CreateListParameters());
   Holism.emit(Holism.componentLoaded, {
-    pageTitle: props.title,
-    pageSubtitle: props.subtitle,
-    breadcrumbItems: props.breadcrumbItems
+    pageTitle: title,
+    pageSubtitle: subtitle,
+    breadcrumbItems: breadcrumbItems
   });
 
   return <ListContext.Provider value={{
@@ -29,19 +29,18 @@ const List = (props) => {
     reloadItems: () => { }
   }} id='list' className="bg-white p-6 rounded-lg">
 
-    <Filtering filters={props.filters} />
+    <Filtering filters={filters} />
     <div className='flex items-center justify-between'>
-      <ListActions actions={props.listActions} />
+      <ListActions actions={listActions} create={create} />
       {
-        props.sorts
+        sorts
           ?
-          <Sorting sorts={props.sorts} />
+          <Sorting sorts={sorts} />
           :
           null
       }
     </div>
-    <Items entity={props.entity} headers={props.headers} row={props.row} card={props.card} />
-    <props.create />
+    <Items entity={entity} headers={headers} row={row} card={card} />
   </ListContext.Provider>
 };
 

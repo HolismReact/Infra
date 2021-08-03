@@ -30,8 +30,8 @@ function App() {
     }
   }, [pageSubtitle, breadcrumbItems]);
 
-  return <div className="flex">
-    <Sidebar className="w-1/6 bg-white" />
+  return <div className="flex h-full">
+    <Sidebar />
     <div className="flex-1">
       <Header />
       <div className="p-10 pt-5">
