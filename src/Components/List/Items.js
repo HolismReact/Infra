@@ -3,12 +3,17 @@ import { get } from '../../Base/Api';
 import { ListContext } from './List';
 
 const table = ({ data, headers, row }) => {
-    let headerElements = React.Children.toArray(headers).map(header => React.cloneElement(header, { className: "text-red-500" }));
+    console.log(headers);
+    let headerElements = React.Children
+        .toArray(headers.props.children)
+        .map(header => React.cloneElement(header, {
+            className: "text-gray-900 py-3 font-light text-xs"
+        }));
     console.log(headerElements);
 
     return <table className="w-full text-center">
         <thead>
-            <tr className='text-xs uppercase text-gray-900 font-light tracking-wider border-b-2'>
+            <tr className='text-xs uppercase text-gray-900 font-light tracking-wider border-b'>
                 {
                     headerElements
                 }
@@ -16,8 +21,15 @@ const table = ({ data, headers, row }) => {
         </thead>
         <tbody>
             {
-                data.map(item => <tr key={item.id} className='py-3'>
-                    {row(item)}
+                data.map((item, index) => <tr
+                    key={item.id}
+                    className={'py-3 ' + ((index === data.length - 1) ? '' : 'border-b')}
+                >
+                    {React.Children
+                        .toArray(row(item).props.children)
+                        .map(itemElemen => React.cloneElement(itemElemen, {
+                            className: 'text-gray-900 py-3 text-sm font-light tracking-wide'
+                        }))}
                 </tr>)
             }
         </tbody>
