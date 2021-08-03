@@ -2,6 +2,21 @@ import React, { useState } from 'react';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
+const twoWaySvg = <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    stroke="currentColor"
+    className="h-6 w-6"
+    viewBox="0 0 24 24"
+>
+    <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"
+    ></path>
+</svg>
+
 const ascending = <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
 </svg>
@@ -46,8 +61,9 @@ const Sorting = ({ sorts }) => {
                 {currentSort.caption}
             </div>
             <div className="flex items-center" onClick={handleClick} aria-controls='sortsMenu'>
-                {ascending}
-                {descending}
+                {twoWaySvg}
+                {/* {ascending}
+                {descending} */}
             </div>
         </div>
         <Menu
