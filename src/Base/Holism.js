@@ -15,6 +15,7 @@ const Holism = {
     listeners: (event) => eventEmitter.listeners(event),
     eventEmitter: eventEmitter,
     formSubmissionEvent: 'holism_form_submission_requested',
+    componentLoaded: 'component_loaded',
     randomId: () => {
         return Math.random().toString(36).replace(/[^a-z]+/g, '');
     },

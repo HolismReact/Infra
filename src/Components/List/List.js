@@ -4,6 +4,7 @@ import CreateListParameters from "../../Base/CreateListParameters";
 import Sorting from "./Sorting";
 import Items from "./Items";
 import ListActions from "./ListActions";
+import Holism from '../../Base/Holism';
 
 export const ListContext = React.createContext({
   OpenModal: false,
@@ -15,6 +16,11 @@ export const ListContext = React.createContext({
 const List = (props) => {
   const [OpenModal, setOpenModal] = useState(false);
   const [listParameters, setListParameters] = useState(CreateListParameters());
+  Holism.emit(Holism.componentLoaded, {
+    pageTitle: props.title,
+    pageSubtitle: props.subtitle,
+    breadcrumbItems: props.breadcrumbItems
+  });
 
   return <div className="bg-white p-6 rounded-lg">
     <div className="">

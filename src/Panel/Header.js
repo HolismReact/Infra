@@ -25,16 +25,16 @@ const Header = () => {
 
     return <div className="h-20 flex items-center p-10 justify-between" >
         <div>
-            <div className='bg-white rounded-md p-1.5 text-gray-500 cursor-pointer'>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className='bg-white rounded-md p-1.5 px-2.5 text-gray-600 cursor-pointer'>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </div>
         </div>
         <div className='flex items-center justify-center'>
             {
-                icons.map((icon, index) => <div className={(index === 0 ? "" : "ml-6 ") + 'text-gray-500 cursor-pointer hover:text-blue-500'}>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                icons.map((icon, index) => <div className={(index === 0 ? "" : "ml-6 ") + 'text-gray-600 cursor-pointer hover:text-blue-500'}>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         {icon.svgContent}
                     </svg>
                 </div>)
