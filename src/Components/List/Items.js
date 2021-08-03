@@ -1,23 +1,28 @@
-import { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { get } from '../../Base/Api';
 import { ListContext } from './List';
 
-const table = ({ data, headers, row }) => <table>
-    <thead>
-        <tr>
+const table = ({ data, headers, row }) => {
+    let headerElements = React.Children.toArray(headers).map(header => React.cloneElement(header, { className: "text-red-500" }));
+    console.log(headerElements);
+
+    return <table className="w-full text-center">
+        <thead>
+            <tr className='text-xs uppercase text-gray-900 font-light tracking-wider border-b-2'>
+                {
+                    headerElements
+                }
+            </tr>
+        </thead>
+        <tbody>
             {
-                headers
+                data.map(item => <tr key={item.id} className='py-3'>
+                    {row(item)}
+                </tr>)
             }
-        </tr>
-    </thead>
-    <tbody>
-        {
-            data.map(item => <tr key={item.id}>
-                {row(item)}
-            </tr>)
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+};
 
 const Items = ({ entity, card, headers, row }) => {
     const [loading, setLoading] = useState();
@@ -42,7 +47,7 @@ const Items = ({ entity, card, headers, row }) => {
         load();
     }, [reloadedTimes]);
 
-    return <div id='items' className='bg-red-200 m-2 p-2'>
+    return <div id='items' className=''>
         {
             loading
                 ?
