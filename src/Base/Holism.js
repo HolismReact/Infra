@@ -48,6 +48,13 @@ const Holism = {
             }
             return [...previousFields];
         });
+    },
+    ensure: (items) => {
+        for (let i = 0; i < items.length; i++) {
+            if (!items[i]) {
+                throw new Error(`Required parameter is not specified`);
+            }
+        }
     }
 };
 

@@ -17,12 +17,19 @@ const Filtering = ({ filters }) => {
 
     return <div id='filtering' className="bg-white p-6 rounded-lg">
         {filters}
-        <Button variant="contained" onClick={resetFilters}>
-            Remove Filters
-        </Button>
-        <Button variant="contained" color="primary" onClick={applyFilters}>
-            Apply
-        </Button>
+        <div className="flex justify-end mt-6">
+            <Button
+                variant="outlined"
+                onClick={resetFilters}>
+                Reset
+            </Button>
+            <Button
+                className="bg-green-200 hover:bg-green-400 ml-2"
+                variant="outlined"
+                onClick={applyFilters}>
+                Apply
+            </Button>
+        </div>
     </div>
 }
 

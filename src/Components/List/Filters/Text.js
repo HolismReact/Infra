@@ -3,6 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import { useContext } from 'react';
 import { ListContext } from "../List";
 import filterOperator from "../../../Base/FilterOperator";
+import Filter from "./Filter";
 
 const Text = ({ column, placeholder }) => {
 
@@ -21,10 +22,12 @@ const Text = ({ column, placeholder }) => {
         listParameters.addFilter(column, filterOperator.contains, value);
     }
 
-    return <TextField
-        onChange={handleChange}
-        lable={placeholder}
-    />
+    return <Filter>
+        <TextField
+            onChange={handleChange}
+            label={placeholder}
+        />
+    </Filter>
 };
 
 export { Text }
