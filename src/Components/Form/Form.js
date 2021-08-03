@@ -1,4 +1,4 @@
-import React, { useState, useEffect , useContext} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import clsx from 'clsx';
 import Holism from '../../Base/Holism';
 import { post } from '../../Base/Api';
@@ -7,10 +7,10 @@ import { ListContext } from '../List/List';
 export const FormContext = React.createContext();
 
 const defaultActions =
-    <> 
+  <>
   </>
 
-const Form = ({ inputs, actions, entity}) => {
+const Form = ({ inputs, actions, entity }) => {
   const { OpenModal, setOpenModal } = useContext(ListContext);
   // is edit, or is create? get id from somewhere
   // file upload
@@ -48,42 +48,39 @@ const Form = ({ inputs, actions, entity}) => {
     event.preventDefault();
   }
   return <FormContext.Provider value={{ fields, setFields }}>
-    
+
     <form
       noValidate
       onSubmit={handleSubmit}
     >
-       <div className={clsx("modal", {open: OpenModal})}>
-            <div className="modal-dialog" role="document">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h5 className="modal-title">Modal title</h5>
-                        <button type="button" className="close" onClick={() => { setOpenModal(false) }}>
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div className="modal-body">
-                        {inputs}
-                    </div>
-                    <div className="modal-footer">
-                      {
-                        actions || <> 
-                        <button type="submit" className="btn btn-outline-success btn-uppercase">
-                            <i className="fa fa-plus"></i>  <span className="hidden md:block">Save</span>
-                        </button>
-                        <button type="button" className="btn btn-outline-secondary btn-uppercase" 
-                          onClick={() => { setOpenModal(false) }}>
-                            <i className="fa fa-plus"></i>  <span className="hidden md:block">Cancel</span>
-                        </button></>
-                      }                       
-                    </div>
-                </div>
+      <div className={clsx("modal", { open: OpenModal })}>
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">Modal title</h5>
+              <button type="button" className="close" onClick={() => { setOpenModal(false) }}>
+                <span aria-hidden="true">×</span>
+              </button>
             </div>
+            <div className="modal-body">
+              {inputs}
+            </div>
+            <div className="modal-footer">
+              {
+                actions || <>
+                  <button type="submit" className="btn btn-outline-success btn-uppercase">
+                    <i className="fa fa-plus"></i>  <span className="hidden md:block">Save</span>
+                  </button>
+                  <button type="button" className="btn btn-outline-secondary btn-uppercase"
+                    onClick={() => { setOpenModal(false) }}>
+                    <i className="fa fa-plus"></i>  <span className="hidden md:block">Cancel</span>
+                  </button></>
+              }
+            </div>
+          </div>
         </div>
-
-
-      
-      </form>
+      </div>
+    </form>
   </FormContext.Provider>
 }
 

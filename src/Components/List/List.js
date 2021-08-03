@@ -6,8 +6,8 @@ import Items from "./Items";
 import ListActions from "./ListActions";
 
 export const ListContext = React.createContext({
-  OpenModal : false, 
-  setOpenModal :() =>{},
+  OpenModal: false,
+  setOpenModal: () => { },
   listParameters: {},
   reloadItems: () => { }
 });
@@ -27,9 +27,9 @@ const List = (props) => {
           </button>
         </li>  */}
         <li>
-          <button type="button" 
-              onClick={()=>{  setOpenModal(true)}}
-               className="btn btn-outline-secondary btn-uppercase">
+          <button type="button"
+            onClick={() => { setOpenModal(true) }}
+            className="btn btn-outline-secondary btn-uppercase">
             <i className="fa fa-plus"></i>  <span className="hidden md:block">Create</span>
           </button>
         </li>
@@ -37,7 +37,7 @@ const List = (props) => {
     </div>
     <div className="card-body">
       <ListContext.Provider value={{
-        OpenModal, 
+        OpenModal,
         setOpenModal,
         listParameters: listParameters,
         reloadItems: () => { }
@@ -50,13 +50,10 @@ const List = (props) => {
         {/* <div>
         {data.map(item => <div key={item.id}>{item.id}</div>)}
       </div> */}
-      <props.create  />     
-
+        <props.create />
       </ListContext.Provider>
-
     </div>
   </div>
-
 };
 
 export { List };
