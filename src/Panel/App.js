@@ -12,6 +12,10 @@ function App() {
     <div className="flex-1">
       <Header />
       <div className="p-10">
+        <div className="h-12 mb-10">
+          <div>Page Title</div>
+          <div>Page subtitle / or breadcrumb</div>
+        </div>
         <MainRouting />
       </div>
     </div>

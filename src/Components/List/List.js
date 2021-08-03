@@ -16,26 +16,20 @@ const List = (props) => {
   const [OpenModal, setOpenModal] = useState(false);
   const [listParameters, setListParameters] = useState(CreateListParameters());
 
-  return <div className="card">
-    <div className="card-header">
-      <h6 className="card-title">{props.title}</h6>
-      <ul className="list-inline card-tools">
-        {/* <li className="list-inline-item mb-0">
-          <button type="button"
-             className="btn btn-outline-success btn-uppercase">
-            <i className="fa fa-save"></i> <span className="hidden md:block" >s </span>
-          </button>
-        </li>  */}
+  return <div className="bg-white p-6 rounded-lg">
+    <div className="">
+      <h6 className="">{props.title}</h6>
+      <ul className="">
         <li>
           <button type="button"
             onClick={() => { setOpenModal(true) }}
-            className="btn btn-outline-secondary btn-uppercase">
-            <i className="fa fa-plus"></i>  <span className="hidden md:block">Create</span>
+            className="">
+            <i className=""></i>  <span className="">Create</span>
           </button>
         </li>
       </ul>
     </div>
-    <div className="card-body">
+    <div className="">
       <ListContext.Provider value={{
         OpenModal,
         setOpenModal,
@@ -47,9 +41,6 @@ const List = (props) => {
         <Sorting sorts={props.sorts} />
         <ListActions actions={props.listActions} />
         <Items entity={props.entity} headers={props.headers} row={props.row} card={props.card} />
-        {/* <div>
-        {data.map(item => <div key={item.id}>{item.id}</div>)}
-      </div> */}
         <props.create />
       </ListContext.Provider>
     </div>
