@@ -12,7 +12,7 @@ export default function User() {
 
     return (
         <div id='userPanel' className="flex flex-col justify-center	">
-            <img src="image/profile.jpg" className="w-11 h-11 m-auto rounded-full mb-4" alt="Profile picture" />
+            <img src="image/profile.jpg" className="w-11 h-11 m-auto rounded-full mb-4" alt="User profile" />
             <div className="flex flex-col justify-center">
                 <div className="text-center font-medium antialiased tracking-wide	text-gray-800 mb-2">Nikos Pedlow</div>
                 <p className="text-center text-gray-400 text-sm mb-4">Administrator</p>

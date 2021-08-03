@@ -5,7 +5,7 @@ const add = <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" 
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
 </svg>
 
-const ListActions = ({ listActions, create }) => {
+const ListActions = ({ actions, create }) => {
     return <div id='listActions' className='flex items-center'>
         <div>
             {
@@ -23,7 +23,7 @@ const ListActions = ({ listActions, create }) => {
             }
         </div>
         <div>
-            {/* {props.listActions()} */}
+            {actions()}
         </div>
     </div>
 }
