@@ -30,8 +30,16 @@ const List = (props) => {
   }} id='list' className="bg-white p-6 rounded-lg">
 
     <Filtering filters={props.filters} />
-    <Sorting sorts={props.sorts} />
-    <ListActions actions={props.listActions} />
+    <div className='flex items-center justify-between'>
+      <ListActions actions={props.listActions} />
+      {
+        props.sorts
+          ?
+          <Sorting sorts={props.sorts} />
+          :
+          null
+      }
+    </div>
     <Items entity={props.entity} headers={props.headers} row={props.row} card={props.card} />
     <props.create />
   </ListContext.Provider>
