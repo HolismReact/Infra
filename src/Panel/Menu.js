@@ -25,7 +25,7 @@ const Menu = () => {
                                 onClick={openSubmenu}
                             >
                                 <span className="px-9 flex items-center h-full">
-                                    <span class="flex items-center mr-3"><item.iconSvg /></span>
+                                    <span className="flex items-center mr-3"><item.iconSvg /></span>
                                     <span>{item.title}</span>
                                     <span className="flex-1 flex flex-row-reverse"><Down size="4" /></span>
                                 </span>

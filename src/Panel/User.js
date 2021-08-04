@@ -1,3 +1,7 @@
+import KeycloakClient from "../Accounts/KeycloakClient";
+import Holism from "../Base/Holism";
+import { useState, useEffect } from 'react';
+
 const Icon = ({ url, svgContent, background, title }) =>
     <li className={background + " mr-1 ml-1 rounded-md"}>
         <a href={url} className="h-9 w-12 flex items-center justify-center" title={title} data-toggle="tooltip">
@@ -9,12 +13,20 @@ const Icon = ({ url, svgContent, background, title }) =>
 
 export default function User() {
 
+    const [user, setUser] = useState('Anonymous');
+
+    useEffect(() => {
+        Holism.on(Holism.accountUpdated, () => {
+            setUser(KeycloakClient.user);
+        });
+    }, [])
+
 
     return (
         <div id='userPanel' className="flex flex-col justify-center	">
             <img src="image/profile.jpg" className="w-11 h-11 m-auto rounded-full mb-4" alt="User profile" />
             <div className="flex flex-col justify-center">
-                <div className="text-center font-medium antialiased tracking-wide	text-gray-800 mb-2">Nikos Pedlow</div>
+                <div className="text-center font-medium antialiased tracking-wide	text-gray-800 mb-2">{user}</div>
                 <p className="text-center text-gray-400 text-sm mb-4">Administrator</p>
                 <ul className="flex items-center justify-center">
                     <Icon
