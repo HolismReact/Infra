@@ -2,9 +2,9 @@ import KeycloakClient from "../Accounts/KeycloakClient";
 import Holism from "../Base/Holism";
 import { useState, useEffect } from 'react';
 
-const Icon = ({ url, svgContent, background, title }) =>
-    <li className={background + " mr-1 ml-1 rounded-md"}>
-        <a href={url} className="h-9 w-12 flex items-center justify-center" title={title} data-toggle="tooltip">
+const Icon = ({ url, svgContent, background, title, handler }) =>
+    <li className={background + " mr-1 ml-1 rounded-md"} onClick={handler}>
+        <a href={url ? url : "javascript:void(0)"} className="h-9 w-12 flex items-center justify-center" title={title} data-toggle="tooltip">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 {svgContent}
             </svg>
@@ -52,7 +52,7 @@ export default function User() {
                         svgContent={
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                         }
-                        url="/logout"
+                        handler={() => KeycloakClient.keycloak.logout()}
                         title="Logout"
                         background="bg-red-200"
                     />
