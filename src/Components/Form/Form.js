@@ -55,7 +55,7 @@ const Form = ({ inputs, actions, entity }) => {
           <div>
             <div>
               <div>Modal title</div>
-              <button type="button" onClick={() => { setOpenModal(false) }}>
+              <button type="button">
                 <span aria-hidden="true">×</span>
               </button>
             </div>
@@ -69,7 +69,7 @@ const Form = ({ inputs, actions, entity }) => {
                     <i></i>  <span>Save</span>
                   </button>
                   <button type="button"
-                    onClick={() => { setOpenModal(false) }}>
+                  >
                     <i></i>  <span>Cancel</span>
                   </button></>
               }
