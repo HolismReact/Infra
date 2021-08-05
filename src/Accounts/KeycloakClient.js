@@ -14,7 +14,8 @@ const KeycloakClient = {
             KeycloakClient.keycloak = new window["Keycloak"]({
                 url: conf.url,
                 realm: conf.realm,
-                clientId: conf.client
+                clientId: conf.client,
+                redirectUrl: document.location.origin
             });
 
             KeycloakClient.keycloak.init({

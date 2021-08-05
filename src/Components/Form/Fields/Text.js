@@ -4,8 +4,6 @@ import { useState, useEffect, useRef, useContext } from 'react';
 import { FormContext } from '../Form';
 import { fieldStyles } from './FieldStyle';
 
-let log = console.log;
-
 const Text = ({ column, required, placeholder, hint, value }) => {
 
     const [id, setId] = useState();

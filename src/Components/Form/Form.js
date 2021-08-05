@@ -10,7 +10,6 @@ const defaultActions =
   </>
 
 const Form = ({ inputs, actions, entity }) => {
-  const { OpenModal, setOpenModal } = useContext(ListContext);
   // is edit, or is create? get id from somewhere
   // file upload
   // if is edit, load entity (only if they don't provide their own get method)
