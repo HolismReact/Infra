@@ -35,7 +35,7 @@ function App() {
   }
 
   const closeMenu = () => {
-    if (screen.width <= Holism.breakpoints.sm) {
+    if (window.screen.width <= Holism.breakpoints.sm) {
       setIsSidebarOpen(false);
     }
   }
