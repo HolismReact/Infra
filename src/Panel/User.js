@@ -4,14 +4,14 @@ import { useState, useEffect } from 'react';
 
 const Icon = ({ url, svgContent, background, title, handler }) =>
     <li className={background + " mr-1 ml-1 rounded-md"} onClick={handler}>
-        <a href={url ? url : "javascript:void(0)"} className="h-9 w-12 flex items-center justify-center" title={title} data-toggle="tooltip">
+        <a className="h-9 w-12 flex items-center justify-center" title={title} data-toggle="tooltip">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 {svgContent}
             </svg>
         </a>
     </li>
 
-export default function User() {
+export default function User({onClick}) {
 
     const [user, setUser] = useState('Anonymous');
 
@@ -20,7 +20,6 @@ export default function User() {
             setUser(KeycloakClient.user);
         });
     }, [])
-
 
     return (
         <div id='userPanel' className="flex flex-col justify-center	">
@@ -36,6 +35,7 @@ export default function User() {
                         url="/account/profile"
                         title="Profile"
                         background="bg-green-200"
+                        handler={onClick}
                     />
                     <Icon
                         svgContent={
@@ -47,6 +47,7 @@ export default function User() {
                         url="/config/settings"
                         title="Settings"
                         background="bg-blue-200"
+                        handler={onClick}
                     />
                     <Icon
                         svgContent={

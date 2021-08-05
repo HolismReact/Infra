@@ -34,11 +34,17 @@ function App() {
     setIsSidebarOpen(!isSidebarOpen);
   }
 
+  const closeMenu = () => {
+    if (screen.width <= Holism.breakpoints.sm) {
+      setIsSidebarOpen(false);
+    }
+  }
+
   return <div className="flex h-full">
     {
       isSidebarOpen
         ?
-        <Sidebar />
+        <Sidebar onClick={closeMenu} />
         :
         null
     }
