@@ -68,10 +68,16 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
             :
             null
         }
-        <span
-          id='showHideFiltering'
-          className="text-gray-700 hover:text-blue-500 cursor-pointer"
-          onClick={toggleFiltering}>{toggleFilteringIcon}</span>
+        {
+          filters && filters.length && filters.length > 0
+            ?
+            <span
+              id='showHideFiltering'
+              className="text-gray-700 hover:text-blue-500 cursor-pointer"
+              onClick={toggleFiltering}>{toggleFilteringIcon}</span>
+            :
+            null
+        }
       </div>
     </div>
 

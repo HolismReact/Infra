@@ -35,7 +35,13 @@ const ListActions = ({ actions, create }) => {
             }
         </div>
         <div>
-            {actions()}
+            {
+                actions && typeof (actions) === 'function'
+                    ?
+                    actions()
+                    :
+                    null
+            }
         </div>
     </div>
 }

@@ -3,6 +3,10 @@ import { get } from '../../Base/Api';
 import { ListContext } from './List';
 
 const table = ({ data, headers, row }) => {
+    if (!headers || !row) {
+        return <div></div>
+    }
+
     console.log(headers);
     let headerElements = React.Children
         .toArray(headers.props.children)
