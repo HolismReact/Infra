@@ -69,7 +69,7 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
             null
         }
         {
-          filters && filters.length && filters.length > 0
+          filters && filters.props?.children?.length > 0
             ?
             <span
               id='showHideFiltering'

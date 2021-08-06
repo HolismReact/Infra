@@ -4,11 +4,11 @@ import Button from '@material-ui/core/Button';
 
 const Filtering = ({ filters }) => {
 
-    if (!filters || filters.length === 0) {
+    var { listParameters, reloadItems } = useContext(ListContext);
+
+    if (!filters || filters.props.children.length === 0) {
         return <div></div>
     }
-
-    var { listParameters, reloadItems } = useContext(ListContext);
 
     const applyFilters = () => {
         reloadItems();
