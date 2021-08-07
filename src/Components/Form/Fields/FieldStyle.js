@@ -1,1 +1,1 @@
-export const fieldStyles = 'field mt-4 w-1/2';
+export const fieldStyles = 'field mt-4';

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { get } from '../../Base/Api';
+import Holism from '../../Base/Holism';
 import { ListContext } from './List';
 
 const table = ({ data, headers, row }) => {
@@ -62,6 +63,13 @@ const Items = ({ entity, card, headers, row }) => {
             setLoading(false);
         });
     };
+
+    useEffect(() => {
+        Holism.on(Holism.itemCreated, load);
+        return () => {
+            Holism.removeListener(Holism.itemCreated, load);
+        }
+    });
 
     useEffect(() => {
         load();

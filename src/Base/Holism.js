@@ -17,6 +17,7 @@ const Holism = {
     formSubmissionEvent: 'holism_form_submission_requested',
     componentLoaded: 'component_loaded',
     accountUpdated: 'account_updated',
+    itemCreated: 'item_created',
     randomId: () => {
         return Math.random().toString(36).replace(/[^a-z]+/g, '');
     },

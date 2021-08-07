@@ -14,12 +14,12 @@ const defaultActions =
   <>
   </>
 
-const Form = ({ inputs, actions, entity }) => {
+const Form = ({ inputs, actions, entity, title }) => {
   // is edit, or is create? get id from somewhere
   // file upload
   // if is edit, load entity (only if they don't provide their own get method)
   // save
-  const { isCreationDialogOpen, setIsCreationDialogOpen } = useContext(ListContext);
+  const { isCreationDialogOpen, setIsCreationDialogOpen, reloadItems } = useContext(ListContext);
   const [fields, setFields] = useState([]);
   const [loading, setLoading] = useState();
 
@@ -28,7 +28,6 @@ const Form = ({ inputs, actions, entity }) => {
   }, [fields]);
 
   const handleSubmit = (event) => {
-    debugger;
     Holism.emit(Holism.formSubmissionEvent);
     for (let i = 0; i < fields.length; i++) {
       if (!fields[i].isValid) {
@@ -43,7 +42,8 @@ const Form = ({ inputs, actions, entity }) => {
     console.log(data);
     setLoading(true);
     post(`${entity}/create`, data).then(data => {
-      alert('hi');
+      setIsCreationDialogOpen(false);
+      Holism.emit(Holism.itemCreated);
       setLoading(false);
     }, error => {
       console.error(error);
@@ -52,8 +52,11 @@ const Form = ({ inputs, actions, entity }) => {
     event.preventDefault();
   }
   return <FormContext.Provider value={{ fields, setFields }}>
-    <Dialog open={isCreationDialogOpen} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+    <Dialog
+      open={isCreationDialogOpen}
+      aria-labelledby="form-dialog-title"
+    >
+      <DialogTitle id="form-dialog-title">{title}</DialogTitle>
       <DialogContent>
         <form
           noValidate
@@ -65,13 +68,13 @@ const Form = ({ inputs, actions, entity }) => {
         </form>
       </DialogContent>
       <DialogActions>
-        <div id='actions'>
+        <div id='actions' className='mt-4'>
           {
             actions || <>
-              <Button color="primary" onClick={() => setIsCreationDialogOpen(false)}>
+              <Button variant="outlined" onClick={() => setIsCreationDialogOpen(false)}>
                 Cancel
               </Button>
-              <Button color="primary">
+              <Button variant="outlined" className='bg-green-200 ml-2' onClick={handleSubmit}>
                 Save
               </Button>
             </>
