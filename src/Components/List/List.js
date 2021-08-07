@@ -7,8 +7,8 @@ import ListActions from "./ListActions";
 import Holism from '../../Base/Holism';
 
 export const ListContext = React.createContext({
-  OpenModal: false,
-  setOpenModal: () => { },
+  isCreationDialogOpen: false,
+  setIsCreationDialogOpen: () => { },
   listParameters: {},
   reloadItems: () => { }
 });
@@ -29,7 +29,7 @@ const toggleFilteringIcon = <svg
 </svg>
 
 const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, entity, headers, row, card, create }) => {
-  const [OpenModal, setOpenModal] = useState(false);
+  const [isCreationDialogOpen, setIsCreationDialogOpen] = useState(false);
   const [listParameters, setListParameters] = useState(CreateListParameters());
   const [isFilteringOpen, setIsFilteringOpen] = useState();
 
@@ -44,8 +44,8 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
   }
 
   return <ListContext.Provider value={{
-    OpenModal,
-    setOpenModal,
+    isCreationDialogOpen,
+    setIsCreationDialogOpen,
     listParameters: listParameters,
     reloadItems: () => { }
   }} id='list'>
@@ -82,6 +82,7 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
     </div>
 
     <Items entity={entity} headers={headers} row={row} card={card} />
+    {create()}
   </ListContext.Provider>
 };
 

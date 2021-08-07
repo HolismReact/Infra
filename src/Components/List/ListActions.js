@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Button from '@material-ui/core/Button';
+import { ListContext } from './List';
 
 const add =
     <svg
@@ -18,6 +19,13 @@ const add =
     </svg>
 
 const ListActions = ({ actions, create }) => {
+
+    const { setIsCreationDialogOpen } = useContext(ListContext);
+
+    const showCreationDialog = () => {
+        setIsCreationDialogOpen(true);
+    }
+
     return <div id='listActions' className='flex items-center'>
         <div>
             {
@@ -27,6 +35,7 @@ const ListActions = ({ actions, create }) => {
                         className="bg-green-200 hover:bg-green-400"
                         variant="outlined"
                         startIcon={add}
+                        onClick={showCreationDialog}
                     >
                         Create
                     </Button>

@@ -2,6 +2,11 @@ import React, { useState, useEffect, useContext } from 'react';
 import Holism from '../../Base/Holism';
 import { post } from '../../Base/Api';
 import { ListContext } from '../List/List';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 export const FormContext = React.createContext();
 
@@ -14,6 +19,7 @@ const Form = ({ inputs, actions, entity }) => {
   // file upload
   // if is edit, load entity (only if they don't provide their own get method)
   // save
+  const { isCreationDialogOpen, setIsCreationDialogOpen } = useContext(ListContext);
   const [fields, setFields] = useState([]);
   const [loading, setLoading] = useState();
 
@@ -46,39 +52,34 @@ const Form = ({ inputs, actions, entity }) => {
     event.preventDefault();
   }
   return <FormContext.Provider value={{ fields, setFields }}>
-    <form
-      noValidate
-      onSubmit={handleSubmit}
-    >
-      <div>
-        <div>
-          <div>
-            <div>
-              <div>Modal title</div>
-              <button type="button">
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div>
-              {inputs}
-            </div>
-            <div>
-              {
-                actions || <>
-                  <button type="submit">
-                    <i></i>  <span>Save</span>
-                  </button>
-                  <button type="button"
-                  >
-                    <i></i>  <span>Cancel</span>
-                  </button></>
-              }
-            </div>
+    <Dialog open={isCreationDialogOpen} aria-labelledby="form-dialog-title">
+      <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+      <DialogContent>
+        <form
+          noValidate
+          onSubmit={handleSubmit}
+        >
+          <div id='fields'>
+            {inputs}
           </div>
+        </form>
+      </DialogContent>
+      <DialogActions>
+        <div id='actions'>
+          {
+            actions || <>
+              <Button color="primary" onClick={() => setIsCreationDialogOpen(false)}>
+                Cancel
+              </Button>
+              <Button color="primary">
+                Save
+              </Button>
+            </>
+          }
         </div>
-      </div>
-    </form>
-  </FormContext.Provider>
+      </DialogActions>
+    </Dialog>
+  </FormContext.Provider >
 }
 
 export { Form };
