@@ -1,4 +1,5 @@
 import axios from "axios"
+import KeycloakClient from "../Accounts/KeycloakClient";
 
 const axiosApi = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -7,16 +8,7 @@ const axiosApi = axios.create({
 axiosApi.interceptors.request.use(config => {
   config.headers['Content-Type'] = 'application/json';
   config.headers['Accept'] = 'application/json';
-  const authUser = localStorage.getItem('authUser');
-  if (authUser) {
-    const user = JSON.parse(localStorage.getItem('authUser'));
-    const accessToken = user['access_token'];
-    config.headers.Authorization = `Bearer ${accessToken}`;
-  }
-  else {
-    //location.href = ('/error-page');
-    //console.error('authUser is not defined in localStorage');
-  }
+  config.headers.Authorization = `Bearer ${KeycloakClient.keycloak.token}`;
   return config;
 });
 
