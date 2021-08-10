@@ -8,6 +8,7 @@ const axiosApi = axios.create({
 axiosApi.interceptors.request.use(config => {
   config.headers['Content-Type'] = 'application/json';
   config.headers['Accept'] = 'application/json';
+  config.headers['X-Client'] = 'React';
   config.headers.Authorization = `Bearer ${KeycloakClient.keycloak.token}`;
   return config;
 });
