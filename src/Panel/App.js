@@ -6,6 +6,7 @@ import Header from './Header';
 import Holism from '../Base/Holism';
 import useLocalStorageState from '../Base/UseLocalStorageState';
 import Footer from './Footer';
+import Message from './Message';
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useLocalStorageState(true, 'isSidebarOpen');
@@ -80,6 +81,7 @@ function App() {
         <MainRouting />
       </div>
       <Footer />
+      <Message />
     </div>
   </div>
 }
