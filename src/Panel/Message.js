@@ -39,20 +39,24 @@ const Message = () => {
 
     useEffect(() => {
         if (type === 'success') {
-            setClasses('bg-green-400 text-gray-900');
+            setClasses('bg-green-400 text-white');
         }
-        if (type === 'info') {
-            setClasses('bg-blue-400 text-gray-900');
+        else if (type === 'info') {
+            setClasses('bg-blue-400 text-white');
         }
-        if (type === 'warning') {
+        else if (type === 'warning') {
             setClasses('bg-yellow-400 text-gray-900');
         }
-        if (type === 'error') {
-            setClasses('bg-red-400 text-gray-900');
+        else if (type === 'error') {
+            setClasses('bg-red-400 text-white-900');
+        }
+        else {
+            setClasses(null);
         }
     }, [type]);
 
     const hide = () => {
+        setMessage(null);
         setIsShown(false);
     }
 
@@ -63,7 +67,10 @@ const Message = () => {
         }}
         key={id}
         type={type}
-        className={classes}
+        className={classes + ' rounded-md'}
+        ContentProps={{
+            className: classes
+        }}
         open={isShown}
         autoHideDuration={60000}
         onClose={hide}
