@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { get } from '../../Base/Api';
 import Holism from '../../Base/Holism';
 import { ListContext } from './List';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const table = ({ data, headers, row }) => {
 
@@ -82,11 +83,11 @@ const Items = ({ entity, card, headers, row }) => {
         load();
     }, []);
 
-    return <div id='items' className='bg-white p-6 rounded-lg'>
+    return <div id='items' className='bg-white p-6 rounded-lg flex items-center justify-center '>
         {
             loading
                 ?
-                <div>loading...</div>
+                <CircularProgress />
                 :
                 (
                     card
