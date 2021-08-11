@@ -3,7 +3,7 @@ import Holism from "../Base/Holism";
 const KeycloakClient = {
     keycloak: null,
     user: null,
-    checkLogin: () => {
+    checkLogin: (callback) => {
         var conf = {
             url: process.env.REACT_APP_ACCOUNTS_URL + '/auth',
             realm: process.env.REACT_APP_ACCOUNTS_REALM,
@@ -30,6 +30,9 @@ const KeycloakClient = {
                     }
                     KeycloakClient.user = name;
                     Holism.emit(Holism.accountUpdated);
+                    if (callback && typeof callback === "function") {
+                        callback();
+                    }
                 } else {
                     console.error('Not Authenticated');
                     KeycloakClient.keycloak.login();

@@ -18,10 +18,11 @@ axiosApi.interceptors.response.use(
     response
   ,
   error => {
-    if (error.response.status === 401) {
-      localStorage.removeItem("authUser")
-      //location.href = ("/error-page")
-      console.error('we got unauthorized from API');
+    if (error.response.status === 401 || error.response.status === 403) {
+      var url = new URL(KeycloakClient.keycloak.createLogoutUrl());
+      url.search = KeycloakClient.keycloak.createLoginUrl();
+      window.newUrl = url;
+      //document.location = url;
       return;
     }
     if (error.response.status === 400 || error.response.status === 500) {
