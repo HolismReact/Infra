@@ -1,6 +1,6 @@
 const Footer = () => {
-    return <div className="h-10 bg-green-200">
-        footer
+    return <div id='footer' className="h-10 flex items-center justify-center text-sm font-semibold">
+        Copyright @ 2021
     </div>
 };
 

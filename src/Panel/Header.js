@@ -55,7 +55,7 @@ const Header = ({onMenuIconClicked}) => {
         },
     ]
 
-    return <div className={"flex items-center p-10 justify-between " + (isOpen ? "h-20" : "h-0")} >
+    return <div id='header' className={"flex items-center p-10 justify-between " + (isOpen ? "h-20" : "h-0")} >
         <div>
             <div className='bg-white rounded-md p-1.5 px-2.5 text-gray-600 cursor-pointer' onClick={onMenuIconClicked}>
                 {menuSvg}

@@ -18,12 +18,16 @@ axiosApi.interceptors.response.use(
     response
   ,
   error => {
-    if (error.response.status === 401 || error.response.status === 403) {
+    if (error.response.status === 401) {
       var url = new URL(KeycloakClient.keycloak.createLogoutUrl());
       url.search = KeycloakClient.keycloak.createLoginUrl();
       window.newUrl = url;
-      //document.location = url;
+      KeycloakClient.checkLogin();
       return;
+    }
+    if (error.response.status === 403)
+    {
+      alert('you are logged in, but you do not have access to this section');
     }
     if (error.response.status === 400 || error.response.status === 500) {
       var messages = '';

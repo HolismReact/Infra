@@ -18,6 +18,7 @@ const Holism = {
     componentLoaded: 'component_loaded',
     accountUpdated: 'account_updated',
     itemCreated: 'item_created',
+    showMessage: 'show_message',
     randomId: () => {
         return Math.random().toString(36).replace(/[^a-z]+/g, '');
     },
@@ -64,6 +65,21 @@ const Holism = {
         lg: 1024,
         xl: 1280,
         xxl: 1536
+    },
+    success: (message, action) => {
+
+    },
+    info: (message, action) => {
+
+    },
+    warning: (message, action) => {
+
+    },
+    error: (message, action) => {
+
+    },
+    message: (message, action, type) => {
+        Holism.emit(Holism.showMessage, { message, action, type });
     }
 };
 

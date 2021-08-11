@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import Header from './Header';
 import Holism from '../Base/Holism';
 import useLocalStorageState from '../Base/UseLocalStorageState';
+import Footer from './Footer';
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useLocalStorageState(true, 'isSidebarOpen');
@@ -48,9 +49,9 @@ function App() {
         :
         null
     }
-    <div className="flex-1">
+    <div className="flex-1 flex flex-col">
       <Header onMenuIconClicked={toggleMenu} />
-      <div className="p-10 pt-5">
+      <div id='content' className="p-10 pt-5 flex-1">
         <div className={"mb-10 " + (hasSubtitleOrBreadcrumb ? "h-12" : "h-6")}>
           <div className="font-medium mb-2 tracking-wider	text-xl text-gray-900">{pageTitle}</div>
           {
@@ -78,6 +79,7 @@ function App() {
         </div>
         <MainRouting />
       </div>
+      <Footer />
     </div>
   </div>
 }
