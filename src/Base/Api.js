@@ -1,5 +1,6 @@
 import axios from "axios"
 import KeycloakClient from "../Accounts/KeycloakClient";
+import Holism from "./Holism";
 
 const axiosApi = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -27,7 +28,7 @@ axiosApi.interceptors.response.use(
     }
     if (error.response.status === 403)
     {
-      alert('you are logged in, but you do not have access to this section');
+      Holism.error('you are logged in, but you do not have access to this section');
     }
     if (error.response.status === 400 || error.response.status === 500) {
       var messages = '';

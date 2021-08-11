@@ -72,7 +72,7 @@ const Message = () => {
             className: classes
         }}
         open={isShown}
-        autoHideDuration={60000}
+        autoHideDuration={6000}
         onClose={hide}
         message={message}
         action={

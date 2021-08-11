@@ -6,6 +6,8 @@ import Items from "./Items";
 import ListActions from "./ListActions";
 import Holism from '../../Base/Holism';
 
+const listActionIconStyle = "text-gray-700 hover:text-blue-500 cursor-pointer";
+
 export const ListContext = React.createContext({
   isCreationDialogOpen: false,
   setIsCreationDialogOpen: () => { },
@@ -27,6 +29,22 @@ const toggleFilteringIcon = <svg
     d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
   ></path>
 </svg>
+
+const reloadIcon =
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    stroke="currentColor"
+    className="h-6 w-6"
+    viewBox="0 0 24 24"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+    ></path>
+  </svg>
 
 const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, entity, headers, row, card, create }) => {
   const [isCreationDialogOpen, setIsCreationDialogOpen] = useState(false);
@@ -73,10 +91,19 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
             ?
             <span
               id='showHideFiltering'
-              className="text-gray-700 hover:text-blue-500 cursor-pointer"
+              className={listActionIconStyle + " pr-4"}
               onClick={toggleFiltering}>{toggleFilteringIcon}</span>
             :
             null
+        }
+        {
+          <span
+            id='reload'
+            onClick={() => Holism.emit(Holism.reloadRequirement)}
+            className={listActionIconStyle}
+          >
+            {reloadIcon}
+          </span>
         }
       </div>
     </div>

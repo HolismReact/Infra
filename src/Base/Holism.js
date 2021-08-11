@@ -19,6 +19,7 @@ const Holism = {
     accountUpdated: 'account_updated',
     itemCreated: 'item_created',
     showMessage: 'show_message',
+    reloadRequirement: 'reload_requirement',
     randomId: () => {
         return Math.random().toString(36).replace(/[^a-z]+/g, '');
     },

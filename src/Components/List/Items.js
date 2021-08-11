@@ -69,11 +69,18 @@ const Items = ({ entity, card, headers, row }) => {
         return () => {
             Holism.removeListener(Holism.itemCreated, load);
         }
-    });
+    }, []);
+
+    useEffect(() => {
+        Holism.on(Holism.reloadRequirement, load);
+        return () => {
+            Holism.removeListener(Holism.reload, load);
+        }
+    }, [])
 
     useEffect(() => {
         load();
-    }, [reloadedTimes]);
+    }, []);
 
     return <div id='items' className='bg-white p-6 rounded-lg'>
         {
