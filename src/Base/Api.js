@@ -47,6 +47,14 @@ axiosApi.interceptors.response.use(
           }
         }
       }
+      else {
+        messages = data;
+      }
+      if (messages.indexOf('IDX10223') > -1) {
+        KeycloakClient.checkLogin();
+        return;
+        //KeycloakClient.keycloak.updateToken();
+      }
       console.log(messages);
       Holism.error(messages);
     }
