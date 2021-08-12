@@ -20,7 +20,7 @@ const KeycloakClient = {
 
             KeycloakClient.keycloak.init({
                 checkLoginIframe: false
-            }).success(function (auth) {
+            }).then(function (auth) {
                 if (auth) {
                     var name;
                     if (KeycloakClient.keycloak.tokenParsed['family_name'] || KeycloakClient.keycloak.tokenParsed['given_name']) {
@@ -37,7 +37,9 @@ const KeycloakClient = {
                     console.error('Not Authenticated');
                     KeycloakClient.keycloak.login();
                 }
-            })
+            }).catch(error => {
+                console.log(error);
+            });
         } else {
             throw new Error('Security is not configured.')
         }
