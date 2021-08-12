@@ -29,16 +29,22 @@ const table = ({ data, headers, row }) => {
             {
                 row && typeof row === 'function'
                     ?
-                    data.map((item, index) => <tr
-                        key={item.id}
-                        className={'py-3 ' + ((index === data.length - 1) ? '' : 'border-b')}
-                    >
-                        {React.Children
-                            .toArray(row(item).props.children)
-                            .map(itemElemen => React.cloneElement(itemElemen, {
-                                className: 'text-gray-900 py-3 text-sm font-light tracking-wide'
-                            }))}
-                    </tr>)
+                    data.length === 0
+                        ?
+                        <tr>
+                            <td colSpan='100' className='py-10 text-2xl font-bold text-gray-600'>No item is found</td>
+                        </tr>
+                        :
+                        data.map((item, index) => <tr
+                            key={item.id}
+                            className={'py-3 ' + ((index === data.length - 1) ? '' : 'border-b')}
+                        >
+                            {React.Children
+                                .toArray(row(item).props.children)
+                                .map(itemElemen => React.cloneElement(itemElemen, {
+                                    className: 'text-gray-900 py-3 text-sm font-light tracking-wide'
+                                }))}
+                        </tr>)
                     :
                     null
             }

@@ -2,7 +2,17 @@ import Holism from "../Base/Holism";
 
 const KeycloakClient = {
     keycloak: null,
-    user: null,
+    user: 'Anonymous',
+    role: () => {
+        if (!KeycloakClient.keycloak.tokenParsed) {
+            return 'User';
+        }
+        var role = KeycloakClient.keycloak.tokenParsed.roles.filter(i => i.charAt(0) === i.charAt(0).toUpperCase());
+        if (role.length > 0) {
+            return role[0];
+        }
+        return 'User';
+    },
     checkLogin: (callback) => {
         var conf = {
             url: process.env.REACT_APP_ACCOUNTS_URL + '/auth',
