@@ -75,6 +75,10 @@ const Enum = ({ column, entity, placeholder, hint, value, required }) => {
         Holism.setField(formContext, id, currentValue, validationResult ? false : true);
     }
 
+    useEffect(() => {
+        Holism.setField(formContext, id, currentValue, validationResult ? false : true);
+    }, [validationResult]);
+
     return <div className={fieldStyles}>
         {
             loading
