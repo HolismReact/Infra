@@ -65,7 +65,7 @@ export default function User({ onClick }) {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             </>
                         }
-                        url="/config/settings"
+                        url="#"
                         title="Settings"
                         background="bg-blue-200"
                         handler={onClick}

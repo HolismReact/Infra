@@ -58,6 +58,10 @@ const Enum = ({ column, entity, placeholder, hint, value, required }) => {
         })
     }, []);
 
+    useEffect(() => {
+        validate();
+    }, [currentValue]);
+
     const validate = (event) => {
         console.log(currentValue);
         if (required && Holism.isNothing(currentValue)) {
@@ -89,7 +93,7 @@ const Enum = ({ column, entity, placeholder, hint, value, required }) => {
                         placeholder={placeholder}
                         defaultValue={value || ""}
                         fullWidth
-                        onChange={(event) => { setCurrentValue(event.target.value); validate(); }}
+                        onChange={(event) => { setCurrentValue(event.target.value); }}
                         value={value}
                     >
                         {enumItems.map(item => <MenuItem key={item.id} value={item.id}>{item.key}</MenuItem>)}

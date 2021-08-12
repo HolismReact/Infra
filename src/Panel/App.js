@@ -7,6 +7,7 @@ import Holism from '../Base/Holism';
 import useLocalStorageState from '../Base/UseLocalStorageState';
 import Footer from './Footer';
 import Message from './Message';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useLocalStorageState(true, 'isSidebarOpen');
@@ -37,7 +38,7 @@ function App() {
   }
 
   const closeMenu = () => {
-    if (window.screen.width <= Holism.breakpoints.sm) {
+    if (window.innerWidth <= Holism.breakpoints.lg) {
       setIsSidebarOpen(false);
     }
   }
@@ -46,7 +47,11 @@ function App() {
     {
       isSidebarOpen
         ?
-        <Sidebar onClick={closeMenu} />
+        <ClickAwayListener onClickAway={closeMenu}>
+          <div id='thisDivShouldNotBeRemovedToFixRefProblemOfSidebar'>
+            <Sidebar onClick={closeMenu} />
+          </div>
+        </ClickAwayListener>
         :
         null
     }
