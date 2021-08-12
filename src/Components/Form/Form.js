@@ -55,6 +55,8 @@ const Form = ({ inputs, actions, entity, title }) => {
     <Dialog
       open={isCreationDialogOpen}
       aria-labelledby="form-dialog-title"
+      fullWidth
+      maxWidth='md'
     >
       <DialogTitle id="form-dialog-title">{title}</DialogTitle>
       <DialogContent>
