@@ -26,27 +26,29 @@ axiosApi.interceptors.response.use(
       KeycloakClient.checkLogin();
       return;
     }
-    if (error.response.status === 403)
-    {
+    if (error.response.status === 403) {
       Holism.error('you are logged in, but you do not have access to this section');
     }
     if (error.response.status === 400 || error.response.status === 500) {
       var messages = '';
       var data = error.response.data;
-      for (var item in error.response.data) {
-        if (Array.isArray(data[item])) {
-          for (var i = 0; i < data[item].length; i++) {
-            messages += data[item][i] + "<br />";
+      if (typeof data !== "string") {
+        for (var item in error.response.data) {
+          if (Array.isArray(data[item])) {
+            for (var i = 0; i < data[item].length; i++) {
+              messages += data[item][i] + "<br />";
+            }
           }
-        }
-        else if (typeof data[item] === 'object') {
-          console.log(data[item]);
-        }
-        else {
-          messages += data[item] + "<br />";
+          else if (typeof data[item] === 'object') {
+            console.log(data[item]);
+          }
+          else {
+            messages += data[item] + "<br />";
+          }
         }
       }
       console.log(messages);
+      Holism.error(messages);
     }
     throw error.response.data;
   }
