@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Filtering from "./Filtering";
 import CreateListParameters from "../../Base/CreateListParameters";
 import Sorting from "./Sorting";
@@ -51,11 +51,13 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
   const [listParameters, setListParameters] = useState(CreateListParameters());
   const [isFilteringOpen, setIsFilteringOpen] = useState();
 
-  Holism.emit(Holism.componentLoaded, {
-    pageTitle: title,
-    pageSubtitle: subtitle,
-    breadcrumbItems: breadcrumbItems
-  });
+  useEffect(() => {
+    Holism.emit(Holism.componentLoaded, {
+      pageTitle: title,
+      pageSubtitle: subtitle,
+      breadcrumbItems: breadcrumbItems
+    });
+  }, []);
 
   const toggleFiltering = () => {
     setIsFilteringOpen(!isFilteringOpen);

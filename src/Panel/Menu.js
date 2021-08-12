@@ -31,11 +31,11 @@ const MenuItemWithSubmenu = ({ item, onClick }) => {
                 </span>
                 <div className={(isSubmenuOpen ? " pt-2" : "hidden")}>
                     {
-                        item.children.map((child) => {
+                        item.children.map((child, index) => {
                             return <Link
                                 onClick={onClick}
                                 to={child.url}
-                                key={child.url}
+                                key={index}
                                 className={liStyle + " flex items-center hover:bg-gray-100"}
                             >
                                 <span className={"ml-20"}>{child.title}</span>
@@ -52,9 +52,9 @@ const MenuItemWithSubmenu = ({ item, onClick }) => {
 const Menu = ({ onClick }) => {
     return <div id="menu" className="mt-5">
         {
-            menuItems.map((item) => {
+            menuItems.map((item, index) => {
                 if (item.children && item.children.length > 0) {
-                    return <MenuItemWithSubmenu item={item} onClick={onClick} />
+                    return <MenuItemWithSubmenu key={index} item={item} onClick={onClick} />
                 }
                 else {
                     if (!item.children && !item.url) {
@@ -63,7 +63,7 @@ const Menu = ({ onClick }) => {
                     if (item.children && item.children.length === 0) {
                         throw new Error('Please remove menu items with zero childrens. Empty children array is not valid.')
                     }
-                    return (<Fragment key={item.title}>
+                    return (<Fragment key={index}>
                         <Link onClick={onClick} to={item.url} className={liStyle + " flex items-center"}>
                             <span className="px-9 flex items-cener">
                                 <span className={iconStyle}>
