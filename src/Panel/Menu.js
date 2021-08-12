@@ -3,10 +3,10 @@ import { Fragment, useState } from 'react';
 import menuItems from '../Menu.js'
 import Down from '../Components/Icons/Down.js';
 
-const liStyle = "h-10 hover:bg-gray-50 cursor-pointer text-sm tracking-wide text-gray-600 hover:text-gray-800 font-normal"
+const liStyle = "py-2 hover:bg-gray-50 cursor-pointer text-sm tracking-wide text-gray-600 hover:text-gray-800 font-normal"
 const iconStyle = "text-gray-600 hover:text-gray-900 mr-3"
 
-const MenuItemWithSubmenu = ({item, onClick}) => {
+const MenuItemWithSubmenu = ({ item, onClick }) => {
     const [isSubmenuOpen, setIsSubmenuOpen] = useState();
     const openSubmenu = () => {
         setIsSubmenuOpen(!isSubmenuOpen);
@@ -15,7 +15,13 @@ const MenuItemWithSubmenu = ({item, onClick}) => {
         <Fragment key={item.title}>
             {/* <li className="navigation-divider">{item.title}</li> */}
             <div
-                className={liStyle}
+                className={liStyle + (
+                    isSubmenuOpen
+                        ?
+                        " pb-0"
+                        :
+                        ""
+                )}
                 onClick={openSubmenu}
             >
                 <span className="px-9 flex items-center h-full">
@@ -23,7 +29,7 @@ const MenuItemWithSubmenu = ({item, onClick}) => {
                     <span>{item.title}</span>
                     <span className="flex-1 flex flex-row-reverse"><Down size="4" /></span>
                 </span>
-                <div className={(isSubmenuOpen ? "" : "hidden")}>
+                <div className={(isSubmenuOpen ? " pt-2" : "hidden")}>
                     {
                         item.children.map((child) => {
                             return <Link
@@ -43,12 +49,12 @@ const MenuItemWithSubmenu = ({item, onClick}) => {
     );
 };
 
-const Menu = ({onClick}) => {
+const Menu = ({ onClick }) => {
     return <div id="menu" className="mt-5">
         {
             menuItems.map((item) => {
                 if (item.children && item.children.length > 0) {
-                    return <MenuItemWithSubmenu item={item} onClick={onClick}/>
+                    return <MenuItemWithSubmenu item={item} onClick={onClick} />
                 }
                 else {
                     if (!item.children && !item.url) {
