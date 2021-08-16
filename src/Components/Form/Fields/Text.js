@@ -57,7 +57,7 @@ const Text = ({ column, required, placeholder, hint, value }) => {
             required={required ? true : false}
             helperText={helpText}
             value={currentValue}
-            onChange={() => setCurrentValue(event.target.value)}
+            onChange={(e) => setCurrentValue(e.target.value)}
             fullWidth
         />
     </div>

@@ -57,7 +57,7 @@ const LongText = ({ column, required, placeholder, hint, value }) => {
             required={required ? true : false}
             helperText={helpText}
             value={value}
-            onChange={() => setCurrentValue(event.target.value)}
+            onChange={(e) => setCurrentValue(e.target.value)}
             multiline
             fullWidth
             rows={4}

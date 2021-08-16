@@ -9,6 +9,7 @@ import Visibility from '@material-ui/icons/Visibility';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { fieldStyles } from './FieldStyle';
 import { FormContext } from '../Form';
+import Holism from '../../../Base/Holism';
 
 const Browse = ({ column, required, placeholder, hint, value }) => {
 
@@ -66,7 +67,7 @@ const Browse = ({ column, required, placeholder, hint, value }) => {
                 required={required ? true : false}
                 helperText={helpText}
                 value={currentValue}
-                onChange={() => setCurrentValue(event.target.value)}
+                onChange={(e) => setCurrentValue(e.target.value)}
                 startAdornment={
                     <InputAdornment position="start">
                     </InputAdornment>
