@@ -7,11 +7,16 @@ import { fieldStyles } from './FieldStyle';
 const LongText = ({ column, required, placeholder, hint, value }) => {
 
     const [id, setId] = useState(null);
+    const [currentValue, setCurrentValue] = useState(value);
     const htmlInput = useRef();
     const [helpText, setHelpText] = useState(hint);
     const [validationResult, setValidationResult] = useState(null);
     const initialHint = hint;
     var formContext = useContext(FormContext);
+
+    useEffect(() => {
+        validate();
+    }, [currentValue]);
 
     useEffect(() => {
         setId(`longText_${column}`);
@@ -29,8 +34,7 @@ const LongText = ({ column, required, placeholder, hint, value }) => {
     }, [id, formContext]);
 
     const validate = (event) => {
-        var newValue = htmlInput.current.value;
-        if (required && Holism.isNothing(newValue)) {
+        if (required && Holism.isNothing(currentValue)) {
             setValidationResult('invalid required');
             setHelpText(required);
         }
@@ -38,8 +42,11 @@ const LongText = ({ column, required, placeholder, hint, value }) => {
             setValidationResult(null);
             setHelpText(initialHint);
         }
-        Holism.setField(formContext, id, newValue, validationResult ? false : true);
     }
+
+    useEffect(() => {
+        Holism.setField(formContext, id, currentValue, validationResult ? false : true);
+    }, [validationResult]);
 
     return <div className={fieldStyles}>
         <TextField
@@ -50,7 +57,7 @@ const LongText = ({ column, required, placeholder, hint, value }) => {
             required={required ? true : false}
             helperText={helpText}
             value={value}
-            onChange={validate}
+            onChange={() => setCurrentValue(event.target.value)}
             multiline
             fullWidth
             rows={4}
