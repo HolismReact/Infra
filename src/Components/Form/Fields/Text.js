@@ -10,7 +10,7 @@ const Text = ({ column, required, placeholder, hint, value }) => {
     const [currentValue, setCurrentValue] = useState(value);
     const htmlInput = useRef();
     const [helpText, setHelpText] = useState(hint);
-    const [validationResult, setValidationResult] = useState(null);
+    const [validationState, setValidationState] = useState(null);
     const initialHint = hint;
     var formContext = useContext(FormContext);
 
@@ -24,35 +24,42 @@ const Text = ({ column, required, placeholder, hint, value }) => {
 
     useEffect(() => {
         Holism.addFieldToFormContext(formContext, id, undefined, false);
-        const handle = () => {
-            validate();
-        };
-        Holism.on(Holism.formSubmissionEvent, handle);
+        Holism.on(Holism.formSubmissionEvent, validate);
         return () => {
-            Holism.removeListener(Holism.formSubmissionEvent, handle);
+            Holism.removeListener(Holism.formSubmissionEvent, validate);
         }
     }, [id, formContext]);
 
     const validate = () => {
         if (required && Holism.isNothing(currentValue)) {
-            setValidationResult('invalid required');
+            setValidationState('invalid required ' + Date.now());
             setHelpText(required);
         }
         else {
-            setValidationResult(null);
+            setValidationState('valid ' + Date.now());
             setHelpText(initialHint);
         }
     }
 
+    const isValid = () => {
+        if (!validationState) {
+            return false;
+        }
+        if (validationState.indexOf('invalid') > -1) {
+            return false;
+        }
+        return true;
+    }
+
     useEffect(() => {
-        Holism.setField(formContext, id, currentValue, validationResult ? false : true);
-    }, [validationResult]);
+        Holism.setField(formContext, id, currentValue, isValid() ? true : false);
+    }, [validationState]);
 
     return <div className={fieldStyles}>
         <TextField
             id={id}
             inputRef={htmlInput}
-            error={validationResult ? true : false}
+            error={isValid() ? false : true}
             label={placeholder}
             required={required ? true : false}
             helperText={helpText}
