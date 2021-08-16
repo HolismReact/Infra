@@ -7,21 +7,18 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 export const FormContext = React.createContext();
-
-const defaultActions =
-  <>
-  </>
 
 const Form = ({ inputs, actions, entity, title }) => {
   // is edit, or is create? get id from somewhere
   // file upload
   // if is edit, load entity (only if they don't provide their own get method)
   // save
-  const { isCreationDialogOpen, setIsCreationDialogOpen, reloadItems } = useContext(ListContext);
+  const { isCreationDialogOpen, setIsCreationDialogOpen } = useContext(ListContext);
   const [fields, setFields] = useState([]);
-  const [loading, setLoading] = useState();
+  const [progress, setInProgress] = useState();
 
   useEffect(() => {
     console.log(fields);
@@ -40,14 +37,14 @@ const Form = ({ inputs, actions, entity, title }) => {
       data[fields[i].id.split('_')[1]] = fields[i].value;
     }
     console.log(data);
-    setLoading(true);
+    setInProgress(true);
     post(`${entity}/create`, data).then(data => {
       setIsCreationDialogOpen(false);
       Holism.emit(Holism.itemCreated);
-      setLoading(false);
+      setInProgress(false);
     }, error => {
       console.error(error);
-      setLoading(false);
+      setInProgress(false);
     })
     event.preventDefault();
   }
@@ -72,14 +69,23 @@ const Form = ({ inputs, actions, entity, title }) => {
       <DialogActions>
         <div id='actions' className='mt-4'>
           {
-            actions || <>
-              <Button variant="outlined" onClick={() => setIsCreationDialogOpen(false)}>
-                Cancel
-              </Button>
-              <Button variant="outlined" className='bg-green-200 ml-2' onClick={handleSubmit}>
-                Save
-              </Button>
-            </>
+            actions ||
+            <div className="mr-6 mb-6" >
+              {
+                progress
+                  ?
+                  <CircularProgress size={30} />
+                  :
+                  <>
+                    <Button variant="outlined" onClick={() => setIsCreationDialogOpen(false)}>
+                      Cancel
+                    </Button>
+                    <Button variant="outlined" className='bg-green-200 ml-2' onClick={handleSubmit}>
+                      Save
+                    </Button>
+                  </>
+              }
+            </div>
           }
         </div>
       </DialogActions>

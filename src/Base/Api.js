@@ -19,14 +19,18 @@ axiosApi.interceptors.response.use(
     response
   ,
   error => {
-    if (error.response.status === 401) {
+    if (error.response === undefined && error.message) {
+      Holism.error(error.toString());
+      return;
+    }
+    if (error.response && error.response.status === 401) {
       var url = new URL(KeycloakClient.keycloak.createLogoutUrl());
       url.search = KeycloakClient.keycloak.createLoginUrl();
       window.newUrl = url;
       KeycloakClient.checkLogin();
       return;
     }
-    if (error.response.status === 403) {
+    if (error.response && error.response.status === 403) {
       Holism.error('you are logged in, but you do not have access to this section');
     }
     if (error.response.status === 400 || error.response.status === 500) {
@@ -58,7 +62,6 @@ axiosApi.interceptors.response.use(
       console.log(messages);
       Holism.error(messages);
     }
-    throw error.response.data;
   }
 )
 
