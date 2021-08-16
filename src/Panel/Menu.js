@@ -2,12 +2,18 @@ import { Link } from 'react-router-dom';
 import { Fragment, useState } from 'react';
 import menuItems from '../Menu.js'
 import Down from '../Components/Icons/Down.js';
+import { useLocation } from "react-router-dom";
 
 const liStyle = "py-2 hover:bg-gray-50 cursor-pointer text-sm tracking-wide text-gray-600 hover:text-gray-800 font-normal"
 const iconStyle = "text-gray-600 hover:text-gray-900 mr-3"
 
 const MenuItemWithSubmenu = ({ item, onClick }) => {
-    const [isSubmenuOpen, setIsSubmenuOpen] = useState();
+    let location = useLocation();
+
+    const [isSubmenuOpen, setIsSubmenuOpen] = useState(() => {
+        var isOpen = item.children.filter(i => i.url === location.pathname).length > 0;
+        return isOpen;
+    });
     const openSubmenu = () => {
         setIsSubmenuOpen(!isSubmenuOpen);
     };
@@ -33,10 +39,13 @@ const MenuItemWithSubmenu = ({ item, onClick }) => {
                     {
                         item.children.map((child, index) => {
                             return <Link
-                                onClick={onClick}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    onClick();
+                                }}
                                 to={child.url}
                                 key={index}
-                                className={liStyle + " flex items-center hover:bg-gray-100"}
+                                className={liStyle + " flex items-center hover:bg-gray-100" + (child.url === location.pathname ? " bg-gray-200" : '')}
                             >
                                 <span className={"ml-20"}>{child.title}</span>
                             </Link>
