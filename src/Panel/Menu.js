@@ -4,7 +4,7 @@ import menuItems from '../Menu.js'
 import Down from '../Components/Icons/Down.js';
 import { useLocation } from "react-router-dom";
 
-const liStyle = "py-2 hover:bg-gray-50 cursor-pointer text-sm tracking-wide text-gray-600 hover:text-gray-800 font-normal"
+const liStyle = "py-2 hover:bg-gray-50 cursor-pointer text-sm tracking-wide text-gray-600 hover:text-gray-800 font-normal relative"
 const iconStyle = "text-gray-600 hover:text-gray-900 mr-3"
 
 const MenuItemWithSubmenu = ({ item, onClick }) => {
@@ -45,8 +45,15 @@ const MenuItemWithSubmenu = ({ item, onClick }) => {
                                 }}
                                 to={child.url}
                                 key={index}
-                                className={liStyle + " flex items-center hover:bg-gray-100" + (child.url === location.pathname ? " bg-gray-200" : '')}
+                                className={liStyle + " flex items-center hover:bg-gray-100" + (child.url === location.pathname ? " bg-gray-200 text-blue-800 hover:text-blue-800" : '')}
                             >
+                                {
+                                    child.url === location.pathname
+                                        ?
+                                        <span className="w-2 bg-blue-600 h-full absolute rounded-tr-md rounded-br-md"></span>
+                                        :
+                                        null
+                                }
                                 <span className={"ml-20"}>{child.title}</span>
                             </Link>
                         })
