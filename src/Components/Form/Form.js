@@ -97,3 +97,4 @@ export { Form };
 export { Text } from './Fields/Text';
 export { Enum } from './Fields/Enum';
 export { LongText } from './Fields/LongText';
+export { Browse } from './Fields/Browse';
