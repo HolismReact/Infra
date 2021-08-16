@@ -72,7 +72,6 @@ const Enum = ({ column, entity, placeholder, hint, value, required }) => {
             setValidationResult(null);
             setHelpText(initialHint);
         }
-        Holism.setField(formContext, id, currentValue, validationResult ? false : true);
     }
 
     useEffect(() => {
