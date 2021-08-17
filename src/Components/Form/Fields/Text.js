@@ -1,45 +1,66 @@
-import Input from '@material-ui/core/Input';
+import TextField from '@material-ui/core/TextField';
 import Holism from '../../../Base/Holism';
 import { useState, useEffect, useRef, useContext } from 'react';
 import { FormContext } from '../Form';
 import { fieldStyles } from './FieldStyle';
-import { Field } from './Field';
 
-const Text = ({ column, required, placeholder, hint, value, handleChange }) => {
+const Text = ({ column, required, placeholder, hint, value }) => {
 
+    const [id, setId] = useState();
+    const [currentValue, setCurrentValue] = useState(value);
     const htmlInput = useRef();
+    const [helpText, setHelpText] = useState(hint);
+    const [validationResult, setValidationResult] = useState(null);
+    const initialHint = hint;
+    var formContext = useContext(FormContext);
 
-    const getValidationState = (currentValue) => {
-        if (required && Holism.isNothing(currentValue)) {
-            return 'invalid required';
+    useEffect(() => {
+        validate();
+    }, [currentValue]);
+
+    useEffect(() => {
+        setId(`text_${column}`);
+    }, [column]);
+
+    useEffect(() => {
+        Holism.addFieldToFormContext(formContext, id, undefined, false);
+        const handle = () => {
+            validate();
+        };
+        Holism.on(Holism.formSubmissionEvent, handle);
+        return () => {
+            Holism.removeListener(Holism.formSubmissionEvent, handle);
         }
-        return 'valid';
+    }, [id, formContext]);
+
+    const validate = () => {
+        if (required && Holism.isNothing(currentValue)) {
+            setValidationResult('invalid required');
+            setHelpText(required);
+        }
+        else {
+            setValidationResult(null);
+            setHelpText(initialHint);
+        }
     }
 
-    return <Field
-        className={fieldStyles}
-        type='text'
-        validationStateProvider={getValidationState}
-        column={column}
-        placeholder={placeholder}
-        hint={hint}
-        value={value}
-    >
-        {
-            ({ value, handleChange }) => {
-                return <Input
-                    inputRef={htmlInput}
-                    required={required ? true : false}
-                    onChange={handleChange}
-                />
-            }
-        }
-        {/* <Input
+    useEffect(() => {
+        Holism.setField(formContext, id, currentValue, validationResult ? false : true);
+    }, [validationResult]);
+
+    return <div className={fieldStyles}>
+        <TextField
+            id={id}
             inputRef={htmlInput}
+            error={validationResult ? true : false}
+            label={placeholder}
             required={required ? true : false}
-            onChange={handleChange}
-        /> */}
-    </Field>
+            helperText={helpText}
+            value={currentValue}
+            onChange={(e) => setCurrentValue(e.target.value)}
+            fullWidth
+        />
+    </div>
 };
 
 export { Text }
