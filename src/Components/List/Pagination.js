@@ -12,7 +12,7 @@ const textStyle = "text-blue-900 p-2 font-light text-xs items-center cursor-poin
 
 const Pagination = ({ metadata }) => {
     return <div id='pagination' className="flex justify-between items-center">
-        <span id='goToPage' className={textStyle + " text-left"}>
+        <Button id='goToPage' className={textStyle + " text-left"}>
             {/* <TextField
                 label="Page"
                 variant="outlined"
@@ -22,7 +22,7 @@ const Pagination = ({ metadata }) => {
             />
             <Button className="ml-2" variant="outlined">Go</Button> */}
             Go to page
-        </span>
+        </Button>
         <div id='pageLinks' className="flex-1">
             <IconButton><FirstPageIcon /></IconButton>
             <IconButton><ChevronLeftIcon /></IconButton>
@@ -30,13 +30,13 @@ const Pagination = ({ metadata }) => {
             <IconButton><ChevronRightIcon /></IconButton>
             <IconButton><LastPageIcon /></IconButton>
         </div>
-        <span id='statsAndPageSize' className={textStyle + " text-right"}>
+        <Button id='statsAndPageSize' className={textStyle + " text-right"}>
             <span className="text-blue-900">7893</span>
             <span className="mx-2">-</span>
             <span className="text-blue-900">8939</span>
             <span className="mx-2">/</span>
             <span className="text-blue-900">29839293</span>
-        </span>
+        </Button>
     </div>
 }
 
