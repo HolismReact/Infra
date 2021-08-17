@@ -3,8 +3,9 @@ import { get } from '../../Base/Api';
 import Holism from '../../Base/Holism';
 import { ListContext } from './List';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Pagination from './Pagination';
 
-const table = ({ data, headers, row }) => {
+const table = ({ data, metadata, headers, row }) => {
 
     let headerElements = [];
 
@@ -49,6 +50,13 @@ const table = ({ data, headers, row }) => {
                     null
             }
         </tbody>
+        <tfoot>
+            <tr>
+                <td colSpan='100' className="pt-8">
+                    <Pagination metadata={metadata} />
+                </td>
+            </tr>
+        </tfoot>
     </table>
 };
 
@@ -113,9 +121,10 @@ const Items = ({ entity, card, headers, row }) => {
                         ?
                         data.map(item => <div className='item' key={item.id}>
                             {card(item)}
+                            <Pagination metadata={metadata} />
                         </div>)
                         :
-                        table({ loading, data, headers, row })
+                        table({ loading, data, metadata, headers, row })
                 )
         }
     </div>
