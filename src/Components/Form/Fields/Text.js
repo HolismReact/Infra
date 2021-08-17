@@ -10,12 +10,12 @@ const Text = ({ column, required, placeholder, hint, value }) => {
     const [currentValue, setCurrentValue] = useState(value);
     const htmlInput = useRef();
     const [helpText, setHelpText] = useState(hint);
-    const [validationResult, setValidationResult] = useState(null);
+    const [validationState, setValidationState] = useState(null);
     const initialHint = hint;
     var formContext = useContext(FormContext);
 
     useEffect(() => {
-        validate();
+        isValid();
     }, [currentValue]);
 
     useEffect(() => {
@@ -25,7 +25,7 @@ const Text = ({ column, required, placeholder, hint, value }) => {
     useEffect(() => {
         Holism.addFieldToFormContext(formContext, id, undefined, false);
         const handle = () => {
-            validate();
+            isValid();
         };
         Holism.on(Holism.formSubmissionEvent, handle);
         return () => {
@@ -33,26 +33,26 @@ const Text = ({ column, required, placeholder, hint, value }) => {
         }
     }, [id, formContext]);
 
-    const validate = () => {
+    const isValid = () => {
         if (required && Holism.isNothing(currentValue)) {
-            setValidationResult('invalid required');
+            setValidationState('invalid required');
             setHelpText(required);
+            return false;
         }
-        else {
-            setValidationResult(null);
-            setHelpText(initialHint);
-        }
+        setValidationState(null);
+        setHelpText(initialHint);
+        return true;
     }
 
     useEffect(() => {
-        Holism.setField(formContext, id, currentValue, validationResult ? false : true);
-    }, [validationResult]);
+        Holism.setField(formContext, id, currentValue, isValid() ? true : false);
+    }, [currentValue]);
 
     return <div className={fieldStyles}>
         <TextField
             id={id}
             inputRef={htmlInput}
-            error={validationResult ? true : false}
+            error={validationState ? true : false}
             label={placeholder}
             required={required ? true : false}
             helperText={helpText}
