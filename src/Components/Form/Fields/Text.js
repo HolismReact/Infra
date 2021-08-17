@@ -5,7 +5,7 @@ import { FormContext } from '../Form';
 import { fieldStyles } from './FieldStyle';
 import { Field } from './Field';
 
-const Text = ({ column, required, placeholder, hint, value }) => {
+const Text = ({ column, required, placeholder, hint, value, handleChange }) => {
 
     const htmlInput = useRef();
 
@@ -25,11 +25,20 @@ const Text = ({ column, required, placeholder, hint, value }) => {
         hint={hint}
         value={value}
     >
-        <Input
+        {
+            ({ value, handleChange }) => {
+                return <Input
+                    inputRef={htmlInput}
+                    required={required ? true : false}
+                    onChange={handleChange}
+                />
+            }
+        }
+        {/* <Input
             inputRef={htmlInput}
             required={required ? true : false}
-            onChange={(e) => setCurrentValue(e.target.value)}
-        />
+            onChange={handleChange}
+        /> */}
     </Field>
 };
 

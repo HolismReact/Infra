@@ -9,8 +9,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 const Field = ({ column, placeholder, children, type, value, hint, validationStateProvider }) => {
 
     const [id, setId] = useState();
-    const [helpTextId, setHelpTextId] = useState(hint);
-    const [currentValue, setCurrentValue] = useState(value);
+    const [helpTextId, setHelpTextId] = useState();
+    const [currentValue, setCurrentValue] = useState(value || "");
     const [helpText, setHelpText] = useState(hint);
     const initialHint = hint;
     var formContext = useContext(FormContext);
@@ -58,11 +58,15 @@ const Field = ({ column, placeholder, children, type, value, hint, validationSta
             <InputLabel htmlFor={id}>{placeholder}</InputLabel>
             {
                 React.cloneElement(children, {
-                    id: id,
+                    // id: id,
                     value: currentValue,
-                    "aria-describedby": helpTextId
+                    // "aria-describedby": helpTextId,
+                    handleChange: (e) => { console.log(e.target.value); setCurrentValue(e.target.value) }
                 })
             }
+            {/* {
+                children(currentValue, setCurrentValue)
+            } */}
             <FormHelperText id={helpTextId}>{helpText}</FormHelperText>
         </FormControl>
     </div>
