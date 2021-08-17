@@ -56,12 +56,25 @@ const Items = ({ entity, card, headers, row }) => {
     const [loading, setLoading] = useState();
     const [reloadedTimes, setReloadedTimes] = useState(0);
     const [data, setData] = useState([]);
+    const [metadata, setMetadata] = useState({});
     const { listParameters, reloadItems } = useContext(ListContext);
 
     const load = () => {
+        listParameters.storeInLocalStorage();
         setLoading(true);
-        get(`${entity}/list?filters=${listParameters.filtersQueryString()}`).then((data) => {
-            setData(data.data);
+        let url = `${entity}/list?pageNumber=${listParameters.pageNumber}&pageSize=${listParameters.pageSize}`;
+        const filters = listParameters.filtersQueryString();
+        if (filters) {
+            url += `${url}&filters=${filters}`;
+        }
+        const sorts = listParameters.sortsQueryString();
+        if (sorts) {
+            url += `${url}&sorts=${sorts}`;
+        }
+        get(url).then((result) => {
+            const { data, ...metadata } = result;
+            setData(data);
+            setMetadata(metadata);
             setLoading(false);
             console.log(listParameters);
         }, (error) => {

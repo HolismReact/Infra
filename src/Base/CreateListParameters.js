@@ -1,9 +1,19 @@
-const CreateListParameters = () => {
+const CreateListParameters = (userGuid, entity) => {
+    var key = '';
+    if (userGuid) {
+        key += userGuid;
+    }
+    if (entity) {
+        key += `_${entity}`;
+    }
+    key += '_listParameters';
+    var value = window.localStorage.getItem(key);
+    var existingParameters = (value === null ? {} : JSON.parse(value));
     const listParameters = {
-        pageNumber: 1,
-        pageSize: 10,
-        filters: [],
-        sorts: [],
+        pageNumber: existingParameters.pageNumber || 1,
+        pageSize: existingParameters.pageSize || 5,
+        filters: existingParameters.filters || [],
+        sorts: existingParameters.sorts || [],
         addFilter: (property, operator, value) => {
             var isAdded = false;
             for (var i = 0; i < listParameters.filters.length; i++) {
@@ -24,7 +34,7 @@ const CreateListParameters = () => {
         create: function () {
             return listParameters;
         },
-        filtersQueryString: function() {
+        filtersQueryString: function () {
             //filters=title_contains_hi&stateId_eq_closed&userAge_gt_35
             var query = "";
             for (var i = 0; i < listParameters.filters.length; i++) {
@@ -33,6 +43,18 @@ const CreateListParameters = () => {
             }
             query = query.slice(1);
             return query;
+        },
+        sortsQueryString: function () {
+            var query = "";
+            for (var i = 0; i < listParameters.sorts.length; i++) {
+                var sort = listParametsr.sort[0];
+                query += `&${sort.property}_${sort.direction}`;
+            }
+            query = query.slice(1);
+            return query;
+        },
+        storeInLocalStorage: function () {
+            window.localStorage.setItem(key, JSON.stringify(listParameters));
         }
     }
     return listParameters;

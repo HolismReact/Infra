@@ -5,6 +5,7 @@ import Sorting from "./Sorting";
 import Items from "./Items";
 import ListActions from "./ListActions";
 import Holism from '../../Base/Holism';
+import KeycloakClient from '../../Accounts/KeycloakClient';
 
 const listActionIconStyle = "text-gray-700 hover:text-blue-500 cursor-pointer";
 
@@ -48,7 +49,7 @@ const reloadIcon =
 
 const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, entity, headers, row, card, create }) => {
   const [isCreationDialogOpen, setIsCreationDialogOpen] = useState(false);
-  const [listParameters, setListParameters] = useState(CreateListParameters());
+  const [listParameters, setListParameters] = useState(CreateListParameters(KeycloakClient.keycloak.subject, entity));
   const [isFilteringOpen, setIsFilteringOpen] = useState();
 
   useEffect(() => {
