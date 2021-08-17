@@ -102,7 +102,7 @@ const Items = ({ entity, card, headers, row }) => {
     useEffect(() => {
         Holism.on(Holism.reloadRequirement, load);
         return () => {
-            Holism.removeListener(Holism.reload, load);
+            Holism.removeListener(Holism.reloadRequirement, load);
         }
     }, [])
 
