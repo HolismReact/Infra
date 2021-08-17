@@ -15,7 +15,7 @@ const Text = ({ column, required, placeholder, hint, value }) => {
     var formContext = useContext(FormContext);
 
     useEffect(() => {
-        isValid();
+        validate();
     }, [currentValue]);
 
     useEffect(() => {
@@ -24,35 +24,42 @@ const Text = ({ column, required, placeholder, hint, value }) => {
 
     useEffect(() => {
         Holism.addFieldToFormContext(formContext, id, undefined, false);
-        const handle = () => {
-            isValid();
-        };
-        Holism.on(Holism.formSubmissionEvent, handle);
+        Holism.on(Holism.formSubmissionEvent, validate);
         return () => {
-            Holism.removeListener(Holism.formSubmissionEvent, handle);
+            Holism.removeListener(Holism.formSubmissionEvent, validate);
         }
     }, [id, formContext]);
 
-    const isValid = () => {
+    const validate = () => {
         if (required && Holism.isNothing(currentValue)) {
-            setValidationState('invalid required');
+            setValidationState('invalid required ' + Date.now());
             setHelpText(required);
+        }
+        else {
+            setValidationState('valid ' + Date.now());
+            setHelpText(initialHint);
+        }
+    }
+
+    const isValid = () => {
+        if (!validationState) {
             return false;
         }
-        setValidationState(null);
-        setHelpText(initialHint);
+        if (validationState.indexOf('invalid') > -1) {
+            return false;
+        }
         return true;
     }
 
     useEffect(() => {
         Holism.setField(formContext, id, currentValue, isValid() ? true : false);
-    }, [currentValue]);
+    }, [validationState]);
 
     return <div className={fieldStyles}>
         <TextField
             id={id}
             inputRef={htmlInput}
-            error={validationState ? true : false}
+            error={isValid() ? false : true}
             label={placeholder}
             required={required ? true : false}
             helperText={helpText}

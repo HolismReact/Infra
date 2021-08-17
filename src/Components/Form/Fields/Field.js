@@ -25,7 +25,8 @@ const Field = ({ column, placeholder, children, type, value, hint, validationSta
     }, [id]);
 
     useEffect(() => {
-        validationStateProvider(currentValue);
+        var newState = validationStateProvider(currentValue) + Date.now();
+        setValidationState(newState);
     }, [currentValue]);
 
     useEffect(() => {
