@@ -4,8 +4,10 @@ import Holism from '../../Base/Holism';
 import { ListContext } from './List';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Pagination from './Pagination';
+import { ItemAction } from './ItemAction';
+import DeleteAction from './DeleteAction';
 
-const table = ({ data, metadata, headers, row }) => {
+const table = ({ data, metadata, headers, row, itemActions, hasDelete }) => {
 
     let headerElements = [];
 
@@ -24,6 +26,13 @@ const table = ({ data, metadata, headers, row }) => {
                 {
                     headerElements
                 }
+                {
+                    (itemActions || hasDelete)
+                        ?
+                        <td></td>
+                        :
+                        null
+                }
             </tr>
         </thead>
         <tbody>
@@ -40,11 +49,27 @@ const table = ({ data, metadata, headers, row }) => {
                             key={item.id}
                             className={'py-3 ' + ((index === data.length - 1) ? '' : 'border-b')}
                         >
-                            {React.Children
-                                .toArray(row(item).props.children)
-                                .map(itemElemen => React.cloneElement(itemElemen, {
-                                    className: 'text-gray-900 py-3 text-sm font-light tracking-wide'
-                                }))}
+                            {
+                                React.Children
+                                    .toArray(row(item).props.children)
+                                    .map(itemElemen => React.cloneElement(itemElemen, {
+                                        className: 'text-gray-900 py-3 text-sm font-light tracking-wide'
+                                    }))
+                            }
+                            {
+                                (itemActions || hasDelete)
+                                    ?
+                                    <td>
+                                        {
+                                            itemActions
+                                        }
+                                        {
+                                            <DeleteAction item={item} />
+                                        }
+                                    </td>
+                                    :
+                                    null
+                            }
                         </tr>)
                     :
                     null
@@ -66,7 +91,7 @@ const table = ({ data, metadata, headers, row }) => {
     </table>
 };
 
-const Items = ({ entity, card, headers, row }) => {
+const Items = ({ entity, card, headers, row, hasDelete }) => {
     const [loading, setLoading] = useState();
     const [reloadedTimes, setReloadedTimes] = useState(0);
     const [data, setData] = useState([]);
@@ -126,11 +151,11 @@ const Items = ({ entity, card, headers, row }) => {
                     card
                         ?
                         data.map(item => <div className='item' key={item.id}>
-                            {card(item)}
+                            {card(item, hasDelete)}
                             <Pagination metadata={metadata} />
                         </div>)
                         :
-                        table({ loading, data, metadata, headers, row })
+                        table({ loading, data, metadata, headers, row, hasDelete })
                 )
         }
     </div>

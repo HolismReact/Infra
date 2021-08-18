@@ -47,7 +47,7 @@ const reloadIcon =
     ></path>
   </svg>
 
-const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, entity, headers, row, card, create }) => {
+const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, entity, headers, row, card, create, itemActions, hasDelete }) => {
   const [isCreationDialogOpen, setIsCreationDialogOpen] = useState(false);
   const [listParameters, setListParameters] = useState(CreateListParameters(KeycloakClient.keycloak.subject, entity));
   const [isFilteringOpen, setIsFilteringOpen] = useState();
@@ -111,7 +111,14 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
       </div>
     </div>
 
-    <Items entity={entity} headers={headers} row={row} card={card} />
+    <Items
+      entity={entity}
+      headers={headers}
+      row={row}
+      card={card}
+      itemActions={itemActions}
+      hasDelete={hasDelete}
+    />
     {
       create
         ?
