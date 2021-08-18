@@ -50,13 +50,19 @@ const table = ({ data, metadata, headers, row }) => {
                     null
             }
         </tbody>
-        <tfoot>
-            <tr>
-                <td colSpan='100' className="pt-8">
-                    <Pagination metadata={metadata} />
-                </td>
-            </tr>
-        </tfoot>
+        {
+            data.length === 0
+                ?
+                null
+                :
+                <tfoot>
+                    <tr>
+                        <td colSpan='100' className="pt-8">
+                            <Pagination metadata={metadata} />
+                        </td>
+                    </tr>
+                </tfoot>
+        }
     </table>
 };
 
