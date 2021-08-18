@@ -1,5 +1,6 @@
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
+import Tooltip from '@material-ui/core/Tooltip';
 import { useHistory } from 'react-router-dom';
 
 const getIcon = ({ icon }) => {
@@ -18,28 +19,30 @@ const getIcon = ({ icon }) => {
     }
 }
 
-const ItemAction = ({ item, icon, click, goTo }) => {
+const ItemAction = ({ title, item, icon, click, goTo }) => {
 
     const history = useHistory();
 
     return <span className="itemAction">
-        <IconButton onClick={() => {
-            if (goTo) {
-                if (typeof goTo === 'function') {
-                    history.push(goTo(item));
+        <Tooltip title={title || ""}>
+            <IconButton onClick={() => {
+                if (goTo) {
+                    if (typeof goTo === 'function') {
+                        history.push(goTo(item));
+                    }
+                    else {
+                        history.push(goTo);
+                    }
                 }
                 else {
-                    history.push(goTo);
+                    click(item)
                 }
-            }
-            else {
-                click(item)
-            }
-        }}>
-            {
-                getIcon({ icon })
-            }
-        </IconButton>
+            }}>
+                {
+                    getIcon({ icon })
+                }
+            </IconButton>
+        </Tooltip>
     </span>
 };
 

@@ -49,7 +49,7 @@ const Sorting = ({ sorts }) => {
     }
 
     return <>
-        <div id='sorting' className='mr-2 p-2 flex items-center cursor-pointer text-gray-700 
+        <div id='sorting' className='mr-4 flex items-center cursor-pointer text-gray-700 
         hover:text-blue-500'>
             <div id='currentSort' className="mr-2 uppercase text-xs text-gray-500 font-light tracking-wider flex items-center">
                 {currentSort.caption

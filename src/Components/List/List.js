@@ -94,7 +94,7 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
             ?
             <span
               id='showHideFiltering'
-              className={listActionIconStyle + " pr-4"}
+              className={listActionIconStyle + " mr-4"}
               onClick={toggleFiltering}>{toggleFilteringIcon}</span>
             :
             null
