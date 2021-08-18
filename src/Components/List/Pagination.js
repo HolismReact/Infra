@@ -14,6 +14,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import PositiveInteger from "../Inputs/PositiveInteger";
+import Integer from "../Inputs/Integer";
 
 const textStyle = "text-blue-900 p-2 font-light text-xs items-center cursor-pointer uppercase hover:bg-blue-50 rounded-lg";
 
@@ -33,6 +34,7 @@ const Pagination = ({ metadata }) => {
         <Dialog
             open={pageNumberDialogIsOpen}
             aria-labelledby="dialog-title"
+            TransitionProps={{ onEntered: () => { document.querySelector('#goToPageInput').focus() } }}
         >
             <DialogTitle id="dialog-title">Go to page</DialogTitle>
             <DialogContent>
@@ -41,7 +43,11 @@ const Pagination = ({ metadata }) => {
                     onSubmit={() => { }}
                 >
                     <div id='fields'>
-                        <PositiveInteger />
+                        <PositiveInteger onEnter={(value) => {
+                            if (value) {
+                                goToPage(value)
+                            }
+                        }} />
                     </div>
                 </form>
             </DialogContent>
