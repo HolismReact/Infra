@@ -6,10 +6,26 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import { post } from '../../Base/Api';
+import Holism from '../../Base/Holism';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-const DeleteAction = ({ item }) => {
+const DeleteAction = ({ entity, item }) => {
 
     const [confirmationDialogIsOpen, setConfirmationDialogVisibility] = useState(false);
+    const [progress, setProgress] = useState(false);
+
+    const deleteItem = () => {
+        setProgress(true);
+        post(`${entity}/delete/${item.id}`).then(data => {
+            Holism.success("Item is deleted successfully");
+            setProgress(false);
+            Holism.emit(Holism.reloadRequirement);
+        }, error => {
+            Holism.error(error);
+            setProgress(false);
+        });
+    }
 
     const confirmationDialog = <Dialog
         open={confirmationDialogIsOpen}
@@ -28,7 +44,7 @@ const DeleteAction = ({ item }) => {
                     No
                 </Button>
                 <Button variant="outlined" className='bg-green-200 ml-2' onClick={() => {
-
+                    deleteItem();
                 }}>
                     Yes
                 </Button>
@@ -36,12 +52,21 @@ const DeleteAction = ({ item }) => {
         </DialogActions>
     </Dialog>
 
-    return <ItemAction
-        icon={<DeleteIcon />}
-        click={() => {
-            setConfirmationDialogVisibility(true);
-        }}
-    />
+    return <>
+        {confirmationDialog}
+        {
+            progress
+                ?
+                <CircularProgress />
+                :
+                <ItemAction
+                    icon={<DeleteIcon />}
+                    click={() => {
+                        setConfirmationDialogVisibility(true);
+                    }}
+                />
+        }
+    </>
 }
 
 export default DeleteAction;
