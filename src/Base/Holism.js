@@ -81,6 +81,9 @@ const Holism = {
     },
     message: (message, action, type) => {
         Holism.emit(Holism.showMessage, { message: message, action: action, type: type });
+    },
+    goTo: (url) => {
+        //history.push(url);
     }
 };
 

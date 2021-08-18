@@ -59,9 +59,11 @@ const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete })
                             {
                                 (itemActions || hasDelete)
                                     ?
-                                    <td className="flex items-center">
+                                    <td className="flex items-center justify-end">
                                         {
-                                            itemActions
+                                            React.Children.toArray(itemActions.props.children).map(itemAction => React.cloneElement(itemAction, {
+                                                item: item
+                                            }))
                                         }
                                         {
                                             <DeleteAction entity={entity} item={item} />
@@ -117,8 +119,7 @@ const Items = ({ entity, card, headers, row, hasDelete, itemActions }) => {
             setLoading(false);
             console.log(listParameters);
         }, (error) => {
-            //error(error);
-            console.error(error);
+            Holism.error(error);
             setLoading(false);
         });
     };

@@ -48,7 +48,7 @@ function App() {
       isSidebarOpen
         ?
         <ClickAwayListener onClickAway={closeMenu}>
-          <div id='thisDivShouldNotBeRemovedToFixRefProblemOfSidebar' className="w-72 absolute z-10 lg:w-1/5 lg:static bg-white h-full">
+          <div id='thisDivShouldNotBeRemovedToFixRefProblemOfSidebar' className="w-72 absolute border-r lg:border-r-0 z-10 lg:w-1/5 lg:static bg-white h-full">
             <Sidebar onClick={closeMenu} />
           </div>
         </ClickAwayListener>
