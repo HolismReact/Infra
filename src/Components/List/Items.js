@@ -59,7 +59,7 @@ const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete })
                             {
                                 (itemActions || hasDelete)
                                     ?
-                                    <td>
+                                    <td className="flex items-center">
                                         {
                                             itemActions
                                         }
@@ -91,7 +91,7 @@ const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete })
     </table>
 };
 
-const Items = ({ entity, card, headers, row, hasDelete }) => {
+const Items = ({ entity, card, headers, row, hasDelete, itemActions }) => {
     const [loading, setLoading] = useState();
     const [reloadedTimes, setReloadedTimes] = useState(0);
     const [data, setData] = useState([]);
@@ -155,7 +155,7 @@ const Items = ({ entity, card, headers, row, hasDelete }) => {
                             <Pagination metadata={metadata} />
                         </div>)
                         :
-                        table({ entity, loading, data, metadata, headers, row, hasDelete })
+                        table({ entity, loading, data, metadata, headers, row ,itemActions, hasDelete })
                 )
         }
     </div>
