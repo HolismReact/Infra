@@ -1,5 +1,6 @@
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
+import { useHistory } from 'react-router-dom';
 
 const getIcon = ({ icon }) => {
     switch (typeof icon) {
@@ -17,10 +18,28 @@ const getIcon = ({ icon }) => {
     }
 }
 
-const ItemAction = ({ item, icon, click }) => {
+const ItemAction = ({ item, icon, click, goTo }) => {
+
+    const history = useHistory();
 
     return <span className="itemAction">
-        <IconButton onClick={() => click(item)}>{getIcon({ icon })}</IconButton>
+        <IconButton onClick={() => {
+            if (goTo) {
+                if (typeof goTo === 'function') {
+                    history.push(goTo(item));
+                }
+                else {
+                    history.push(goTo);
+                }
+            }
+            else {
+                click(item)
+            }
+        }}>
+            {
+                getIcon({ icon })
+            }
+        </IconButton>
     </span>
 };
 
