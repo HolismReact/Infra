@@ -112,7 +112,13 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
     </div>
 
     <Items entity={entity} headers={headers} row={row} card={card} />
-    {create()}
+    {
+      create
+        ?
+        create()
+        :
+        null
+    }
   </ListContext.Provider>
 };
 

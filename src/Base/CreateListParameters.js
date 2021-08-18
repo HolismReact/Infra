@@ -47,7 +47,7 @@ const CreateListParameters = (userGuid, entity) => {
         sortsQueryString: function () {
             var query = "";
             for (var i = 0; i < listParameters.sorts.length; i++) {
-                var sort = listParametsr.sort[0];
+                var sort = listParameters.sort[0];
                 query += `&${sort.property}_${sort.direction}`;
             }
             query = query.slice(1);
