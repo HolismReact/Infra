@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Holism from '../Base/Holism';
 
 const menuSvg = <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -19,7 +20,7 @@ const upSvg = <svg
     ></path>
 </svg>
 
-const Header = ({onMenuIconClicked}) => {
+const Header = ({ onMenuIconClicked }) => {
 
     const [isOpen, setIsOpen] = useState();
 
@@ -36,7 +37,18 @@ const Header = ({onMenuIconClicked}) => {
         {
             name: "maximize",
             svgContent:
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />,
+            onClick: () => {
+                if (document.fullscreenEnabled) {
+                    if (document.webkitIsFullScreen) {
+                        document.exitFullscreen();
+                    } else {
+                        document.documentElement.requestFullscreen();
+                    }
+                } else {
+                    Holism.warning("Your browser does not support fullscreen.");
+                }
+            }
         },
         {
             name: "apps",
@@ -63,7 +75,7 @@ const Header = ({onMenuIconClicked}) => {
         </div>
         <div className='flex items-center justify-center'>
             {
-                icons.map((icon, index) => <div key={icon.name} className={(index === 0 ? "" : "ml-6 ") + 'text-gray-600 cursor-pointer hover:text-blue-500'}>
+                icons.map((icon, index) => <div onClick={icon.onClick || (() => { })} key={icon.name} className={(index === 0 ? "" : "ml-6 ") + 'text-gray-600 cursor-pointer hover:text-blue-500'}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         {icon.svgContent}
                     </svg>
