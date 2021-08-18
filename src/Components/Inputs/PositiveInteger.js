@@ -1,28 +1,23 @@
-import TextField from '@material-ui/core/TextField';
-import React, { useState } from 'react';
+import TextField from "@material-ui/core/TextField";
+import React, { useState } from "react";
 
 const PositiveInteger = () => {
-    const [value, setValue] = useState('hi');
+  const [value, setValue] = useState("");
 
-    const handleChange = (e) => {
-        var newValue = e.target.value;
-        if (isNaN(newValue * 1)) {
-            e.preventDefault();
-            setValue(value);
-            return;
-        }
-        if (newValue * 1 <= 0) {
-            e.preventDefault();
-            setValue(value);
-            return;
-        }
-        setValue(value);
+  const handleChange = (e) => {
+    var newValue = Number(e.target.value);
+    if (isNaN(newValue) || newValue < 0) { // not integer or negative
+      return;
     }
+    if (newValue === 0) { // empty input
+      setValue("");
+    }
+    else { // positive integer
+      setValue(newValue.toFixed(0));
+    }
+  };
 
-    return <TextField
-        value={value}
-        onChange={handleChange}
-    />
-}
+  return <TextField value={value} onChange={handleChange} />;
+};
 
 export default PositiveInteger;
