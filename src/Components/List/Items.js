@@ -7,7 +7,7 @@ import Pagination from './Pagination';
 import { ItemAction } from './ItemAction';
 import DeleteAction from './DeleteAction';
 
-const table = ({ data, metadata, headers, row, itemActions, hasDelete }) => {
+const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete }) => {
 
     let headerElements = [];
 
@@ -64,7 +64,7 @@ const table = ({ data, metadata, headers, row, itemActions, hasDelete }) => {
                                             itemActions
                                         }
                                         {
-                                            <DeleteAction item={item} />
+                                            <DeleteAction entity={entity} item={item} />
                                         }
                                     </td>
                                     :
@@ -151,11 +151,11 @@ const Items = ({ entity, card, headers, row, hasDelete }) => {
                     card
                         ?
                         data.map(item => <div className='item' key={item.id}>
-                            {card(item, hasDelete)}
+                            {card({ entity, item, hasDelete })}
                             <Pagination metadata={metadata} />
                         </div>)
                         :
-                        table({ loading, data, metadata, headers, row, hasDelete })
+                        table({ entity, loading, data, metadata, headers, row, hasDelete })
                 )
         }
     </div>
