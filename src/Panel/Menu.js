@@ -7,6 +7,12 @@ import { useLocation } from "react-router-dom";
 const liStyle = "py-2 hover:bg-gray-50 cursor-pointer text-sm tracking-wide text-gray-600 hover:text-gray-800 font-normal relative"
 const iconStyle = "text-gray-600 hover:text-gray-900 mr-3"
 
+const leftBlueLine = (url) => {
+    if (url === location.pathname) {
+        return <span className="w-2 bg-blue-600 h-full absolute rounded-tr-md rounded-br-md top-0 left-0"></span>
+    }
+}
+
 const MenuItemWithSubmenu = ({ item, onClick }) => {
     let location = useLocation();
 
@@ -48,11 +54,7 @@ const MenuItemWithSubmenu = ({ item, onClick }) => {
                                 className={liStyle + " flex items-center hover:bg-gray-100" + (child.url === location.pathname ? " bg-gray-200 text-blue-800 hover:text-blue-800" : '')}
                             >
                                 {
-                                    child.url === location.pathname
-                                        ?
-                                        <span className="w-2 bg-blue-600 h-full absolute rounded-tr-md rounded-br-md"></span>
-                                        :
-                                        null
+                                    leftBlueLine(child.url)
                                 }
                                 <span className={"ml-20"}>{child.title}</span>
                             </Link>
@@ -66,6 +68,8 @@ const MenuItemWithSubmenu = ({ item, onClick }) => {
 };
 
 const Menu = ({ onClick }) => {
+    let location = useLocation();
+
     return <div id="menu" className="mt-5">
         {
             menuItems.map((item, index) => {
@@ -80,11 +84,14 @@ const Menu = ({ onClick }) => {
                         throw new Error('Please remove menu items with zero childrens. Empty children array is not valid.')
                     }
                     return (<Fragment key={index}>
-                        <Link onClick={onClick} to={item.url} className={liStyle + " flex items-center"}>
+                        <Link onClick={onClick} to={item.url} className={liStyle + " flex items-center relative" + (item.url === location.pathname ? " bg-gray-200 text-blue-800 hover:text-blue-800" : '')}>
                             <span className="px-9 flex items-cener">
                                 <span className={iconStyle}>
                                     <item.iconSvg />
                                 </span>
+                                {
+                                    leftBlueLine(item.url)
+                                }
                                 <span>{item.title}</span>
                             </span>
                         </Link>
