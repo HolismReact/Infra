@@ -7,6 +7,17 @@ const Title = ({ }) => {
     const [pageSubtitle, setPageSubtitle] = useState('');
     const [breadcrumbItems, setBreadcrumbItems] = useState([]);
     const [hasSubtitleOrBreadcrumb, setHasSubtitleOrBreadcrum] = useState();
+    const [isShown, setIsShown] = useState(true);
+
+    useEffect(() => {
+        const showHide = () => {
+            setIsShown(false);
+        };
+        Holism.on(Holism.makeRoom, showHide);
+        return () => {
+            Holism.removeListener(Holism.makeRoom, showHide);
+        };
+    });
 
     useEffect(() => {
         const setTitleAndSubtitle = ({ pageTitle, pageSubtitle, breadcrumbItems }) => {
@@ -23,15 +34,15 @@ const Title = ({ }) => {
     });
 
     useEffect(() => {
-      if (Holism.isSomething(pageSubtitle) || (breadcrumbItems.length > 0)) {
-        setHasSubtitleOrBreadcrum(true);
-      }
-      else {
-        setHasSubtitleOrBreadcrum(false);
-      }
+        if (Holism.isSomething(pageSubtitle) || (breadcrumbItems.length > 0)) {
+            setHasSubtitleOrBreadcrum(true);
+        }
+        else {
+            setHasSubtitleOrBreadcrum(false);
+        }
     }, [pageSubtitle, breadcrumbItems]);
 
-    return <div className={"mb-10 " + (hasSubtitleOrBreadcrumb ? "h-12" : "h-6")}>
+    return <div className={"mb-10 " + (hasSubtitleOrBreadcrumb ? "h-12" : "h-6") + (isShown ? "" : " hidden")}>
         <div className="font-medium mb-2 tracking-wider	text-xl text-gray-900">{pageTitle}</div>
         {
             hasSubtitleOrBreadcrumb
