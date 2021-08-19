@@ -1,22 +1,7 @@
 import React, { useContext } from 'react';
 import Button from '@material-ui/core/Button';
 import { ListContext } from './List';
-
-const add =
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        stroke="currentColor"
-        className="h-6 w-6"
-        viewBox="0 0 24 24"
-    >
-        <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-        ></path>
-    </svg>
+import AddIcon from '@material-ui/icons/Add';
 
 const ListActions = ({ actions, create }) => {
 
@@ -34,7 +19,7 @@ const ListActions = ({ actions, create }) => {
                     <Button
                         className="bg-green-200 hover:bg-green-400"
                         variant="outlined"
-                        startIcon={add}
+                        startIcon={<AddIcon />}
                         onClick={showCreationDialog}
                     >
                         Create
