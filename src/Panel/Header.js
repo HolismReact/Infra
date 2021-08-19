@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Holism from '../Base/Holism';
 import MessageIcon from '@material-ui/icons/Message';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';;
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
 import AppsIcon from '@material-ui/icons/Apps';

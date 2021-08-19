@@ -8,7 +8,7 @@ const liStyle = "py-2 hover:bg-gray-50 cursor-pointer text-sm tracking-wide text
 const iconStyle = "text-gray-600 hover:text-gray-900 mr-3"
 
 const leftBlueLine = (url) => {
-    if (url === location.pathname) {
+    if (url === window.location.pathname) {
         return <span className="w-2 bg-blue-600 h-full absolute rounded-tr-md rounded-br-md top-0 left-0"></span>
     }
 }
