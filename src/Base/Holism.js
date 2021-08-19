@@ -20,6 +20,8 @@ const Holism = {
     itemCreated: 'item_created',
     showMessage: 'show_message',
     reloadRequirement: 'reload_requirement',
+    makeRoom: 'make_room',
+    returnBackToNormalForm: 'return_back_to_normal_form',
     randomId: () => {
         return Math.random().toString(36).replace(/[^a-z]+/g, '');
     },

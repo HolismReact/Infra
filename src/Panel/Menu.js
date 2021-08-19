@@ -92,7 +92,7 @@ const Menu = ({ onClick }) => {
                                 {
                                     leftBlueLine(item.url)
                                 }
-                                <span>{item.title}</span>
+                                <span className="flex items-center">{item.title}</span>
                             </span>
                         </Link>
                     </Fragment>)

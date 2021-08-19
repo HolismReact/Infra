@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Holism from '../Base/Holism';
 import MessageIcon from '@material-ui/icons/Message';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -10,31 +10,35 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 const Header = ({ onMenuIconClicked }) => {
 
-    const [isOpen, setIsOpen] = useState();
-
-    const toggleHeader = () => {
-        setIsOpen(!isOpen);
-    }
+    const [isFullScreen, setIsFullScreen] = useState(document.webkitIsFullScreen);
+    const [isOpen, setIsOpen] = useState(true);
 
     const items = [
         {
             name: "closeHeader",
-            icon: <ExpandLessIcon />
-
+            icon: <ExpandLessIcon />,
+            onClick: () => Holism.emit(Holism.makeRoom)
         },
         {
             name: "maximize",
             icon:
                 <>
-                    <span><FullscreenIcon /></span>
-                    <span><FullscreenExitIcon /></span>
+                    {
+                        isFullScreen
+                            ?
+                            <span><FullscreenExitIcon /></span>
+                            :
+                            <span ><FullscreenIcon /></span>
+                    }
                 </>,
             onClick: () => {
                 if (document.fullscreenEnabled) {
                     if (document.webkitIsFullScreen) {
                         document.exitFullscreen();
+                        setIsFullScreen(false);
                     } else {
                         document.documentElement.requestFullscreen();
+                        setIsFullScreen(true);
                     }
                 } else {
                     Holism.warning("Your browser does not support fullscreen.");
@@ -55,7 +59,17 @@ const Header = ({ onMenuIconClicked }) => {
         },
     ]
 
-    return <div id='header' className={"flex items-center p-10 justify-between " + (isOpen ? "h-20" : "h-0")} >
+    useEffect(() => {
+        const contract = () => {
+            setIsOpen(false);
+        };
+        Holism.on(Holism.makeRoom, contract);
+        return () => {
+            Holism.removeListener(Holism.makeRoom, contract);
+        };
+    });
+
+    return <div id='header' className={"flex items-center p-10 justify-between " + (true ? "h-20" : "h-0") + (isOpen ? " " : " hidden")} >
         <div>
             <div className='bg-white rounded-md p-1.5 px-2.5 text-gray-600 cursor-pointer' onClick={onMenuIconClicked}>
                 <MenuIcon />
