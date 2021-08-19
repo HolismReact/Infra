@@ -5,12 +5,22 @@ const Footer = () => {
     const [isShown, setIsShown] = useState(true);
 
     useEffect(() => {
-        const showHide = () => {
+        const hide = () => {
             setIsShown(false);
         };
-        Holism.on(Holism.makeRoom, showHide);
+        Holism.on(Holism.makeRoom, hide);
         return () => {
-            Holism.removeListener(Holism.makeRoom, showHide);
+            Holism.removeListener(Holism.makeRoom, hide);
+        };
+    });
+
+    useEffect(() => {
+        const show = () => {
+            setIsShown(true);
+        };
+        Holism.on(Holism.returnBackToNormalForm, show);
+        return () => {
+            Holism.removeListener(Holism.returnBackToNormalForm, show);
         };
     });
 
