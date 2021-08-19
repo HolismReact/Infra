@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Fragment, useState } from 'react';
 import menuItems from '../Menu.js'
-import Down from '../Components/Icons/Down.js';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useLocation } from "react-router-dom";
 
 const liStyle = "py-2 hover:bg-gray-50 cursor-pointer text-sm tracking-wide text-gray-600 hover:text-gray-800 font-normal relative"
@@ -39,7 +39,7 @@ const MenuItemWithSubmenu = ({ item, onClick }) => {
                 <span className="px-9 flex items-center h-full">
                     <span className="flex items-center mr-3"><item.iconSvg /></span>
                     <span>{item.title}</span>
-                    <span className="flex-1 flex flex-row-reverse"><Down size="4" /></span>
+                    <span className="flex-1 flex flex-row-reverse"><ExpandMoreIcon /></span>
                 </span>
                 <div className={(isSubmenuOpen ? " pt-2" : "hidden")}>
                     {

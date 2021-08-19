@@ -1,33 +1,8 @@
 import React, { useState } from 'react';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-
-const twoWaySvg = <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    stroke="currentColor"
-    className="h-6 w-6"
-    viewBox="0 0 24 24"
->
-    <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-        d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"
-    ></path>
-</svg>
-
-const ascending = <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" />
-</svg>
-
-const descending = <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4" />
-</svg>
-
-const close = <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-</svg>
+import SortIcon from '@material-ui/icons/Sort';
+import CloseIcon from '@material-ui/icons/Close';
 
 const Sorting = ({ sorts }) => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -54,16 +29,14 @@ const Sorting = ({ sorts }) => {
             <div id='currentSort' className="mr-2 uppercase text-xs text-gray-500 font-light tracking-wider flex items-center">
                 {currentSort.caption
                     ?
-                    <span onClick={resetSort}>{close}</span>
+                    <span onClick={resetSort}><CloseIcon /></span>
                     :
                     null
                 }
                 {currentSort.caption}
             </div>
             <div className="flex items-center" onClick={handleClick} aria-controls='sortsMenu'>
-                {twoWaySvg}
-                {/* {ascending}
-                {descending} */}
+                <SortIcon />
             </div>
         </div>
         <Menu
