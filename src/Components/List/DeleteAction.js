@@ -16,6 +16,7 @@ const DeleteAction = ({ entity, item }) => {
     const [progress, setProgress] = useState(false);
 
     const deleteItem = () => {
+        setConfirmationDialogVisibility(false);
         setProgress(true);
         post(`${entity}/delete/${item.id}`).then(data => {
             Holism.success("Item is deleted successfully");

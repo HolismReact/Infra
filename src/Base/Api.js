@@ -32,6 +32,8 @@ axiosApi.interceptors.response.use(
     }
     if (error.response && error.response.status === 403) {
       Holism.error('you are logged in, but you do not have access to this section');
+      // todo: redirect user to "403" page.
+      return;
     }
     if (error.response.status === 400 || error.response.status === 500) {
       var messages = '';

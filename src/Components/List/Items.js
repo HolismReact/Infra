@@ -4,10 +4,9 @@ import Holism from '../../Base/Holism';
 import { ListContext } from './List';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Pagination from './Pagination';
-import { ItemAction } from './ItemAction';
-import DeleteAction from './DeleteAction';
+import ItemActions from './ItemActions';
 
-const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete }) => {
+const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete, hasEdit, edit, create }) => {
 
     let headerElements = [];
 
@@ -57,17 +56,18 @@ const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete })
                                     }))
                             }
                             {
-                                (itemActions || hasDelete)
+                                (itemActions || hasDelete || hasEdit || edit)
                                     ?
                                     <td className="flex items-center justify-end">
-                                        {
-                                            React.Children.toArray(itemActions.props.children).map(itemAction => React.cloneElement(itemAction, {
-                                                item: item
-                                            }))
-                                        }
-                                        {
-                                            <DeleteAction entity={entity} item={item} />
-                                        }
+                                        <ItemActions 
+                                            entity={entity}
+                                            item={item}
+                                            itemActions={itemActions}
+                                            hasDelete={hasDelete}
+                                            hasEdit={hasEdit}
+                                            editionComponent={edit}
+                                            creationComponent={create}
+                                        />
                                     </td>
                                     :
                                     null
@@ -93,7 +93,7 @@ const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete })
     </table>
 };
 
-const Items = ({ entity, card, headers, row, hasDelete, itemActions }) => {
+const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, itemActions }) => {
     const [loading, setLoading] = useState();
     const [reloadedTimes, setReloadedTimes] = useState(0);
     const [data, setData] = useState([]);
@@ -152,11 +152,11 @@ const Items = ({ entity, card, headers, row, hasDelete, itemActions }) => {
                     card
                         ?
                         data.map(item => <div className='item' key={item.id}>
-                            {card({ entity, item, hasDelete })}
+                            {card({ entity, item, hasDelete, hasEdit, edit })}
                             <Pagination metadata={metadata} />
                         </div>)
                         :
-                        table({ entity, loading, data, metadata, headers, row ,itemActions, hasDelete })
+                        table({ entity, loading, data, metadata, headers, row, itemActions, hasDelete, hasEdit, edit, create })
                 )
         }
     </div>

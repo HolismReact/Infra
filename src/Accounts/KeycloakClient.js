@@ -1,5 +1,7 @@
 import Holism from "../Base/Holism";
 
+// todo: redirect user to "403" page if his role is not equivalent to role in .env file
+
 const KeycloakClient = {
     keycloak: null,
     user: 'Anonymous',
