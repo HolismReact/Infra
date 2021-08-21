@@ -61,7 +61,7 @@ const DeleteAction = ({ entity, item }) => {
                 <CircularProgress />
                 :
                 <ItemAction
-                    icon={<DeleteIcon />}
+                    icon={<DeleteIcon style={{ color: '#EF4444' }} />}
                     click={() => {
                         setConfirmationDialogVisibility(true);
                     }}

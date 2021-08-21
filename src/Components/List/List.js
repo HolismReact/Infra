@@ -19,7 +19,7 @@ export const ListContext = React.createContext({
   reloadItems: () => { }
 });
 
-const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, entity, headers, row, card, create, itemActions, hasDelete, hasEdit }) => {
+const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, entity, headers, row, card, create, itemActions, hasDelete, hasEdit, edit }) => {
   const [isCreationDialogOpen, setIsCreationDialogOpen] = useState(false);
   const [listParameters, setListParameters] = useState(CreateListParameters(KeycloakClient.keycloak.subject, entity));
   const [isFilteringOpen, setIsFilteringOpen] = useState();
@@ -92,6 +92,7 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
       itemActions={itemActions}
       hasDelete={hasDelete}
       hasEdit={hasEdit}
+      edit={edit}
     />
     {
       create

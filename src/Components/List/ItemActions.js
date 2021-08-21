@@ -4,6 +4,9 @@ import DeleteAction from './DeleteAction';
 import EditAction from './EditAction';
 
 const ItemActions = ({ entity, item, itemActions, hasDelete, hasEdit, editionComponent, creationComponent }) => {
+
+    const [something, setSomething] = useState();
+
     return <>
         {
             React.Children.toArray(itemActions.props.children).map(itemAction => React.cloneElement(itemAction, {
@@ -20,7 +23,7 @@ const ItemActions = ({ entity, item, itemActions, hasDelete, hasEdit, editionCom
         {
             hasEdit || editionComponent
                 ?
-                <EditAction entity={entity} item={item} editComponent={editionComponent} createComponent={creationComponent} />
+                <EditAction entity={entity} item={item} editionComponent={editionComponent} creationComponent={creationComponent} />
                 :
                 null
         }
