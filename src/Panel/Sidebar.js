@@ -4,7 +4,7 @@ import Menu from './Menu.js';
 
 export default function Sidebar({ onClick }) {
     return (
-        <div>
+        <div className="h-full">
             <Branding onClick={onClick} />
             <User onClick={onClick} />
             <Menu onClick={onClick} />
