@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import MainRouting from '../Base/MainRouting';
 import Sidebar from './Sidebar';
 import Header from './Header';
@@ -8,20 +8,41 @@ import Footer from './Footer';
 import Message from './Message';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Title from './Title';
+// https://dev.to/codeply/helpful-page-layouts-using-tailwind-css-1a3k
 
 function App() {
 
   const [isSidebarOpen, setIsSidebarOpen] = useLocalStorageState(true, 'isSidebarOpen');
+  const [mainContentWidth, setMainContentWidth] = useLocalStorageState(true, 'mainContentWidth');
 
   const toggleMenu = () => {
     setIsSidebarOpen(!isSidebarOpen);
   }
 
   const closeMenu = () => {
-    if (window.innerWidth <= Holism.breakpoints.lg) {
+    if (window.innerWidth < Holism.breakpoints.lg) {
       setIsSidebarOpen(false);
     }
   }
+
+  useEffect(() => {
+    if (window.innerWidth < Holism.breakpoints.lg) {
+      setMainContentWidth('100vw');
+    }
+    else {
+      if (isSidebarOpen) {
+        if (window.innerWidth >= Holism.breakpoints.xxl) {
+          setMainContentWidth('83.33vw')
+        }
+        else {
+          setMainContentWidth('80vw');
+        }
+      }
+      else {
+        setMainContentWidth('100vw');
+      }
+    }
+  }, [isSidebarOpen]);
 
   return <div className="flex">
     {
@@ -31,9 +52,13 @@ function App() {
           <div
             id='thisDivShouldNotBeRemovedToFixRefProblemOfSidebar'
             className={
-              "w-72 absolute border-r z-10 bg-white top-0 bottom-0 "
+              "w-72 absolute border-r border-b z-10 bg-white top-0 bottom-0 "
               +
-              /*large*/"lg:w-1/5 lg:static lg:border-r-0"
+              /*large*/"lg:w-1/5 lg:static lg:border-r-0 lg:border-b-0 "
+              +
+              /*xlarge*/ ""
+              +
+              /*2x large*/ "2xl:w-1/6"
             }
           >
             <Sidebar onClick={closeMenu} />
@@ -42,9 +67,21 @@ function App() {
         :
         null
     }
-    <div className="flex-1 flex flex-col min-h-screen">
+    <div
+      className=
+      {
+        /*small*/"flex-1 flex flex-col min-h-screen"
+        /*medium*/
+      }
+    >
       <Header onMenuIconClicked={toggleMenu} />
-      <div id='content' className="p-10 pt-5 flex-1">
+      <div
+        id='content'
+        className="p-10 pt-5 flex-1"
+        style={{
+          maxWidth: mainContentWidth
+        }}
+      >
         <Title />
         <MainRouting />
       </div>

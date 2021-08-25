@@ -24,7 +24,7 @@ const Tabs = ({ params, itemTabs }) => {
 		setTabNumber(newValue);
 	};
 	return (
-		<div className="hi" style={{ width: 'calc(100vw - 2.5rem - 18rem)' }}>
+		<div>
 			<MuiTabs
 				value={tabNumber}
 				onChange={handleChange}
