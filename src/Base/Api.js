@@ -35,6 +35,9 @@ axiosApi.interceptors.response.use(
       // todo: redirect user to "403" page.
       return;
     }
+    if (error.response.status === 404) {
+      throw new Error('404\nService does not exist');
+    }
     if (error.response.status === 400 || error.response.status === 500) {
       var messages = '';
       var data = error.response.data;
