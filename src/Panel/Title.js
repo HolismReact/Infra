@@ -52,31 +52,39 @@ const Title = ({ }) => {
         }
     }, [pageSubtitle, breadcrumbItems]);
 
-    return <div className={"mb-10 " + (hasSubtitleOrBreadcrumb ? "h-12" : "h-6") + (isShown ? "" : " hidden")}>
-        <div className="font-medium mb-2 tracking-wider	text-xl text-gray-900">{pageTitle}</div>
+    return <>
         {
-            hasSubtitleOrBreadcrumb
+            (Holism.isNothing(pageTitle + pageSubtitle) && breadcrumbItems.length === 0)
                 ?
-                <div className="text-xs tracking-wider text-gray-700 flex items-center">
+                <div></div>
+                :
+                <div className={"mb-10 " + (hasSubtitleOrBreadcrumb ? "h-12" : "h-6") + (isShown ? "" : " hidden")}>
+                    <div className="font-medium mb-2 tracking-wider	text-xl text-gray-900">{pageTitle}</div>
                     {
-                        pageSubtitle ||
-                        (
-                            breadcrumbItems.map((item, index) => <span key={item.title}>
-                                <span>{item.title}</span>
-                                {index === breadcrumbItems.length - 1
-                                    ?
-                                    null
-                                    :
-                                    <span className="mx-2" style={{ 'font-size': '10px' }}>/</span>
+                        hasSubtitleOrBreadcrumb
+                            ?
+                            <div className="text-xs tracking-wider text-gray-700 flex items-center">
+                                {
+                                    pageSubtitle ||
+                                    (
+                                        breadcrumbItems.map((item, index) => <span key={item.title}>
+                                            <span>{item.title}</span>
+                                            {index === breadcrumbItems.length - 1
+                                                ?
+                                                null
+                                                :
+                                                <span className="mx-2" style={{ 'font-size': '10px' }}>/</span>
+                                            }
+                                        </span>)
+                                    )
                                 }
-                            </span>)
-                        )
+                            </div>
+                            :
+                            null
                     }
                 </div>
-                :
-                null
         }
-    </div>
+    </>
 }
 
 export default Title;
