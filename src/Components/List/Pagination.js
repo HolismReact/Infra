@@ -125,7 +125,7 @@ const Pagination = ({ metadata }) => {
         </DialogActions>
     </Dialog>
 
-    return <div id='pagination' className="flex justify-between items-center">
+    return <div id='pagination' className="flex justify-between items-center w-full">
         {pageNumberDialog}
         {pageSizeDialog}
         <Button id='goToPage' className={textStyle + " text-left"} onClick={() => setPageNumberDialogVisibility(true)}>

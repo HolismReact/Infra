@@ -59,7 +59,7 @@ const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete, h
                                 (itemActions || hasDelete || hasEdit || edit)
                                     ?
                                     <td className="flex items-center justify-end">
-                                        <ItemActions 
+                                        <ItemActions
                                             entity={entity}
                                             item={item}
                                             itemActions={itemActions}
@@ -113,7 +113,9 @@ const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, i
             url += `${url}&sorts=${sorts}`;
         }
         get(url).then((result) => {
-            console.log(result);
+            if (!result) {
+                return;
+            }
             const { data, ...metadata } = result;
             setData(data);
             setMetadata(metadata);
@@ -143,7 +145,17 @@ const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, i
         load();
     }, []);
 
-    return <div id='items' className='bg-white p-6 rounded-lg flex items-center justify-center '>
+    return <div id='items' className={
+        'bg-white p-6 rounded-lg flex items-center justify-center '
+        +
+        (
+            card
+                ?
+                " flex-col"
+                :
+                ""
+        )
+    }>
         {
             loading
                 ?
@@ -152,10 +164,36 @@ const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, i
                 (
                     card
                         ?
-                        data.map(item => <div className='item' key={item.id}>
-                            {card({ entity, item, hasDelete, hasEdit, edit })}
+                        <>
+                            {
+                                data.map((item, index) =>
+                                    <div
+                                        className={'item w-full py-4 ' + (index === 0 ? '' : 'border-t')}
+                                        key={item.id}>
+                                        {card(item)}
+                                        {
+                                            (itemActions || hasDelete || hasEdit || edit)
+                                                ?
+                                                <td className="flex items-center justify-end">
+                                                    <ItemActions
+                                                        entity={entity}
+                                                        item={item}
+                                                        itemActions={itemActions}
+                                                        hasDelete={hasDelete}
+                                                        hasEdit={hasEdit}
+                                                        editionComponent={edit}
+                                                        creationComponent={create}
+                                                    />
+                                                </td>
+                                                :
+                                                null
+                                        }
+                                    </div>
+                                )
+                            }
+                            <br />
                             <Pagination metadata={metadata} />
-                        </div>)
+                        </>
                         :
                         table({ entity, loading, data, metadata, headers, row, itemActions, hasDelete, hasEdit, edit, create })
                 )
