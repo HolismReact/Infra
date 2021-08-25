@@ -1,7 +1,8 @@
 const path = require(`path`);
 const aliases = {
   '@Form': 'src/Components/Form/Form',
-  '@List': 'src/Components/List/List'
+  '@List': 'src/Components/List/List',
+  '@Holism': 'src/Components/Export'
 };
 
 const resolvedAliases = Object.fromEntries(
