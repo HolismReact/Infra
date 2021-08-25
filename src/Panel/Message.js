@@ -69,12 +69,14 @@ const Message = () => {
         type={type}
         className={classes + ' rounded-md'}
         ContentProps={{
-            className: classes
+            className: classes,
+            style: { whiteSpace: 'pre-line' }
         }}
         open={isShown}
         autoHideDuration={6000}
         onClose={hide}
         message={message}
+        bodyStyle={{ whiteSpace: 'pre-line' }}
         action={
             <>
                 {

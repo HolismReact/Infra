@@ -113,6 +113,7 @@ const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, i
             url += `${url}&sorts=${sorts}`;
         }
         get(url).then((result) => {
+            console.log(result);
             const { data, ...metadata } = result;
             setData(data);
             setMetadata(metadata);

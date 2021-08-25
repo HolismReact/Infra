@@ -42,14 +42,14 @@ axiosApi.interceptors.response.use(
         for (var item in error.response.data) {
           if (Array.isArray(data[item])) {
             for (var i = 0; i < data[item].length; i++) {
-              messages += data[item][i] + "<br />";
+              messages += data[item][i] + "\n";
             }
           }
           else if (typeof data[item] === 'object') {
             console.log(data[item]);
           }
           else {
-            messages += data[item] + "<br />";
+            messages += data[item] + "\n";
           }
         }
       }
@@ -62,7 +62,7 @@ axiosApi.interceptors.response.use(
         //KeycloakClient.keycloak.updateToken();
       }
       console.log(messages);
-      Holism.error(messages);
+      throw new Error(messages);
     }
   }
 )
@@ -72,12 +72,12 @@ export async function get(url) {
     axiosApi.get(url, {
       crossDomain: true
     }).then(response => {
-      return response.data;
+      return response?.data;
     })
 }
 
 export async function post(url, data) {
   return await axiosApi
     .post(url, { ...data })
-    .then(response => response.data);
+    .then(response => response?.data);
 }
