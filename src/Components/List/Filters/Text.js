@@ -1,8 +1,4 @@
 import Holism from "../../../Base/Holism";
-import TextField from '@material-ui/core/TextField';
-import { useContext } from 'react';
-import { ListContext } from "../List";
-import filterOperator from "../../../Base/FilterOperator";
 import Filter from "./Filter";
 
 const Text = ({ column, placeholder }) => {
@@ -15,18 +11,26 @@ const Text = ({ column, placeholder }) => {
         console.error(`column is not provided in Text`);
     }
 
-    const { listParameters } = useContext(ListContext);
-
-    const handleChange = (event) => {
-        const value = event.target.value;
-        listParameters.addFilter(column, filterOperator.contains, value);
-    }
-
-    return <Filter>
-        <TextField
-            onChange={handleChange}
-            label={placeholder}
-        />
+    return <Filter
+        type='text'
+        column={column}
+        placeholder={placeholder}
+    >
+        {
+            ({ value, handleChange }) => {
+                return <Input
+                    value={value}
+                    inputRef={htmlInput}
+                    required={required ? true : false}
+                    onChange={handleChange}
+                />
+            }
+        }
+        {/* <Input
+        inputRef={htmlInput}
+        required={required ? true : false}
+        onChange={handleChange}
+    /> */}
     </Filter>
 };
 

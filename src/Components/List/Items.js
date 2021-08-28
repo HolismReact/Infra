@@ -98,7 +98,7 @@ const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, i
     const [reloadedTimes, setReloadedTimes] = useState(0);
     const [data, setData] = useState([]);
     const [metadata, setMetadata] = useState({});
-    const { listParameters, reloadItems } = useContext(ListContext);
+    const { listParameters } = useContext(ListContext);
 
     const load = () => {
         listParameters.storeInLocalStorage();

@@ -1,17 +1,18 @@
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { ListContext } from './List';
 import Button from '@material-ui/core/Button';
+import Holism from '../../Base/Holism';
 
 const Filtering = ({ filters }) => {
 
-    var { listParameters, reloadItems } = useContext(ListContext);
+    const { listParameters } = useContext(ListContext);
 
     if (!filters || filters.props.children.length === 0) {
         return <div></div>
     }
 
     const applyFilters = () => {
-        reloadItems();
+        Holism.emit(Holism.reloadRequirement);
     };
 
     const resetFilters = () => {
@@ -20,7 +21,13 @@ const Filtering = ({ filters }) => {
     }
 
     return <div id='filtering' className="bg-white p-6 rounded-lg relative">
-        {filters}
+        <div className="flex flex-wrap ">
+            {
+                filters.props.children.map(filter => React.cloneElement(filter, {
+                    className: "ml-4"
+                }))
+            }
+        </div>
         <div className="flex justify-end mt-6">
             <Button
                 variant="outlined"

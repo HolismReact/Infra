@@ -9,20 +9,20 @@ import KeycloakClient from '../../Accounts/KeycloakClient';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import Filter from './Filters/Filter';
 import CachedIcon from '@material-ui/icons/Cached';
+import useLocalStorageState from '../../Base/UseLocalStorageState';
 
 const listActionIconStyle = "text-gray-700 hover:text-blue-500 cursor-pointer";
 
 export const ListContext = React.createContext({
   isCreationDialogOpen: false,
   setIsCreationDialogOpen: () => { },
-  listParameters: {},
-  reloadItems: () => { }
+  listParameters: {}
 });
 
 const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, entity, headers, row, card, create, itemActions, hasDelete, hasEdit, edit }) => {
   const [isCreationDialogOpen, setIsCreationDialogOpen] = useState(false);
   const [listParameters, setListParameters] = useState(CreateListParameters(KeycloakClient.keycloak.subject, entity));
-  const [isFilteringOpen, setIsFilteringOpen] = useState();
+  const [isFilteringOpen, setIsFilteringOpen] = useLocalStorageState(false, `${KeycloakClient.keycloak.subject}_${entity}_isFilteringOpen`);
 
   useEffect(() => {
     Holism.emit(Holism.componentLoaded, {
@@ -40,7 +40,6 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
     isCreationDialogOpen,
     setIsCreationDialogOpen,
     listParameters: listParameters,
-    reloadItems: () => { }
   }} id='list'>
 
     {

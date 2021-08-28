@@ -26,6 +26,34 @@ const Holism = {
     randomId: () => {
         return Math.random().toString(36).replace(/[^a-z]+/g, '');
     },
+    // addFilterToListContext: (listContext, id, value) => {
+    //     if (!id) {
+    //         return;
+    //     }
+    //     const { filters, setFilters } = listContext;
+    //     for (var i = 0; i < filters.length; i++) {
+    //         if (filters[i].id === id) {
+    //             return;
+    //         }
+    //     }
+    //     setFilters((previousFields) => {
+    //         return [{
+    //             id: id,
+    //             value: value
+    //         }, ...previousFields]
+    //     });
+    // },
+    // setFilter: (listContext, id, value) => {
+    //     const { setFilters } = listContext;
+    //     setFilters((previousFilters) => {
+    //         for (var i = 0; i < previousFilters.length; i++) {
+    //             if (previousFilters[i].id === id) {
+    //                 previousFilters[i].value = value;
+    //             }
+    //         }
+    //         return [...previousFilters];
+    //     });
+    // },
     addFieldToFormContext: (formContext, id, value, isValid) => {
         if (!id) {
             return;

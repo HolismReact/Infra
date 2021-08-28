@@ -55,6 +55,9 @@ const CreateListParameters = (userGuid, entity) => {
         },
         storeInLocalStorage: function () {
             window.localStorage.setItem(key, JSON.stringify(listParameters));
+        },
+        getKey: function() {
+            return key;
         }
     }
     return listParameters;
