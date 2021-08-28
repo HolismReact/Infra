@@ -3,12 +3,13 @@ import { ListContext } from "../List";
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import InputLabel from '@material-ui/core/InputLabel';
+import filterOperator from '../../../Base/FilterOperator';
 
 const Filter = ({ column, placeholder, children, type, value }) => {
 
     const [id, setId] = useState();
     const [currentValue, setCurrentValue] = useState(value || "");
-    var listContext = useContext(ListContext);
+    var { listParameters } = useContext(ListContext);
 
     useEffect(() => {
         setId(`${type}_${column}`);
@@ -17,7 +18,7 @@ const Filter = ({ column, placeholder, children, type, value }) => {
     const handleChange = (e) => {
         setCurrentValue(e.target.value);
     };
-    
+
     useEffect(() => {
         listParameters.addFilter(column, filterOperator.contains, currentValue);
     }, [currentValue]);
@@ -27,12 +28,13 @@ const Filter = ({ column, placeholder, children, type, value }) => {
         >
             <InputLabel htmlFor={id}>{placeholder}</InputLabel>
             {
-                React.cloneElement(children, {
-                    // id: id,
-                    value: currentValue,
-                    // "aria-describedby": helpTextId,
-                    handleChange: handleChange
-                })
+                children
+                // React.cloneElement(children, {
+                //     // id: id,
+                //     //value: currentValue,
+                //     // "aria-describedby": helpTextId,
+                //     //handleChange: handleChange
+                // })
             }
             {/* {
                 children(currentValue, setCurrentValue)

@@ -42,14 +42,6 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
     listParameters: listParameters,
   }} id='list'>
 
-    {
-      isFilteringOpen
-        ?
-        <Filtering filters={filters} />
-        :
-        null
-    }
-
     <div className='flex items-center justify-between px-6 py-2'>
       <ListActions actions={listActions} create={create} />
       <div className="flex items-center">
@@ -81,6 +73,16 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
         }
       </div>
     </div>
+
+
+
+    {
+      isFilteringOpen
+        ?
+        <Filtering filters={filters} />
+        :
+        null
+    }
 
     <Items
       entity={entity}
