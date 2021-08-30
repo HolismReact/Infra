@@ -11,7 +11,7 @@ import { fieldStyles } from './FieldStyle';
 import { FormContext } from '../Form';
 import Holism from '../../../Base/Holism';
 
-const Browse = ({ column, required, placeholder, hint, value }) => {
+const Browse = ({ column, entity, required, placeholder, hint, value }) => {
 
     const [id, setId] = useState();
     const [currentValue, setCurrentValue] = useState(value);
@@ -26,7 +26,7 @@ const Browse = ({ column, required, placeholder, hint, value }) => {
     }, [currentValue]);
 
     useEffect(() => {
-        setId(`text_${column}`);
+        setId(`browse_${column}`);
     }, [column]);
 
     useEffect(() => {
@@ -65,17 +65,16 @@ const Browse = ({ column, required, placeholder, hint, value }) => {
                 id={id}
                 inputRef={htmlInput}
                 required={required ? true : false}
-                helperText={helpText}
                 value={currentValue}
                 onChange={(e) => setCurrentValue(e.target.value)}
-                startAdornment={
-                    <InputAdornment position="start">
-                    </InputAdornment>
-                }
+                // startAdornment={
+                //     <InputAdornment position="start">
+                //     </InputAdornment>
+                // }
                 endAdornment={
                     <InputAdornment position="end">
                         <IconButton
-                            aria-label="toggle password visibility"
+                            aria-label={"browse for " + entity}
                             onClick={() => { }}
                             onMouseDown={() => { }}
                         >
