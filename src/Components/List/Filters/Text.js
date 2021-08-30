@@ -1,5 +1,6 @@
 import Holism from "../../../Base/Holism";
 import Filter from "./Filter";
+import Input from '@material-ui/core/Input';
 
 const Text = ({ column, placeholder }) => {
 
@@ -20,8 +21,7 @@ const Text = ({ column, placeholder }) => {
             ({ value, handleChange }) => {
                 return <Input
                     value={value}
-                    inputRef={htmlInput}
-                    required={required ? true : false}
+                    // inputRef={htmlInput}
                     onChange={handleChange}
                 />
             }

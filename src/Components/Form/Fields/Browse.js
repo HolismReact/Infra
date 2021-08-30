@@ -10,14 +10,27 @@ import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { fieldStyles } from './FieldStyle';
 import { FormContext } from '../Form';
 import Holism from '../../../Base/Holism';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
+import Slide from '@material-ui/core/Slide';
+import CloseIcon from '@material-ui/icons/Close';
+import Tooltip from '@material-ui/core/Tooltip';
 
-const Browse = ({ column, entity, required, placeholder, hint, value }) => {
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+});
+
+const Browse = ({ column, required, placeholder, hint, value, entity, browser }) => {
 
     const [id, setId] = useState();
     const [currentValue, setCurrentValue] = useState(value);
     const htmlInput = useRef();
     const [helpText, setHelpText] = useState(hint);
     const [validationResult, setValidationResult] = useState(null);
+    const [isBrowserDialogOpen, setIsBrowserDialogOpen] = useState(false);
     const initialHint = hint;
     var formContext = useContext(FormContext);
 
@@ -55,7 +68,42 @@ const Browse = ({ column, entity, required, placeholder, hint, value }) => {
         Holism.setField(formContext, id, currentValue, validationResult ? false : true);
     }, [validationResult]);
 
+    const browserDialog = <Dialog
+        open={isBrowserDialogOpen}
+        aria-labelledby="form-dialog-title"
+        fullScreen
+        TransitionComponent={Transition}
+        onClose={() => setIsBrowserDialogOpen(false)}
+    >
+        <DialogTitle
+            id="form-dialog-title"
+            className="bg-gray-100"
+        >
+            <div className="flex items-center">
+                <IconButton onClick={() => setIsBrowserDialogOpen(false)} aria-label="close">
+                    <CloseIcon />
+                </IconButton>
+                <span className="ml-4">{"Find " + entity || ""}</span>
+            </div>
+        </DialogTitle>
+        <DialogContent>
+            {browser}
+        </DialogContent>
+        <DialogActions>
+            <div id='actions' className='mt-4'>
+                {
+                    <div className="mr-6 mb-6" >
+                        <Button variant="outlined" onClick={() => setIsBrowserDialogOpen(false)}>
+                            Cancel
+                        </Button>
+                    </div>
+                }
+            </div>
+        </DialogActions>
+    </Dialog>
+
     return <div className={fieldStyles}>
+        {browserDialog}
         <FormControl
             error={validationResult ? true : false}
             fullWidth
@@ -73,13 +121,15 @@ const Browse = ({ column, entity, required, placeholder, hint, value }) => {
                 // }
                 endAdornment={
                     <InputAdornment position="end">
-                        <IconButton
-                            aria-label={"browse for " + entity}
-                            onClick={() => { }}
-                            onMouseDown={() => { }}
-                        >
-                            <MoreHorizIcon />
-                        </IconButton>
+                        <Tooltip title={"Find " + (entity || "")}>
+                            <IconButton
+                                aria-label={"Find " + entity}
+                                onClick={() => setIsBrowserDialogOpen(true)}
+                                onMouseDown={() => { }}
+                            >
+                                <MoreHorizIcon />
+                            </IconButton>
+                        </Tooltip>
                     </InputAdornment>
                 }
             />

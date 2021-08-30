@@ -16,31 +16,33 @@ const cards = ({ data, itemActions, hasDelete, hasEdit, edit, entity, create, me
                 <div className={noItemIsFoundStyle}>No item is found</div>
                 :
                 <>
-                data.map((item, index) =>
-                    <div
-                        className={'item w-full py-4 ' + (index === 0 ? '' : 'border-t')}
-                        key={item.id}>
-                        {card(item)}
-                        {
-                            (itemActions || hasDelete || hasEdit || edit)
-                                ?
-                                <td className="flex items-center justify-end">
-                                    <ItemActions
-                                        entity={entity}
-                                        item={item}
-                                        itemActions={itemActions}
-                                        hasDelete={hasDelete}
-                                        hasEdit={hasEdit}
-                                        editionComponent={edit}
-                                        creationComponent={create}
-                                    />
-                                </td>
-                                :
-                                null
-                        }
-                    </div>
-                    )
-                    <br />
+                    {
+                        data.map((item, index) =>
+                            <div
+                                className={'item w-full py-4 ' + (index === 0 ? '' : 'border-t')}
+                                key={item.id}>
+                                {card(item)}
+                                {
+                                    (itemActions || hasDelete || hasEdit || edit)
+                                        ?
+                                        <td className="flex items-center justify-end">
+                                            <ItemActions
+                                                entity={entity}
+                                                item={item}
+                                                itemActions={itemActions}
+                                                hasDelete={hasDelete}
+                                                hasEdit={hasEdit}
+                                                editionComponent={edit}
+                                                creationComponent={create}
+                                            />
+                                        </td>
+                                        :
+                                        null
+                                }
+                            </div>
+                        )
+                    }
+                    < br />
                     <Pagination metadata={metadata} />
                 </>
         }
