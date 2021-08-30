@@ -143,6 +143,16 @@ const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, i
     const [metadata, setMetadata] = useState({});
     const { listParameters } = useContext(ListContext);
 
+    Holism.ensure([entity])
+
+    if (!row && !card) {
+        throw new Error('You should either provide a row or a card component');
+    }
+
+    if (row && !headers) {
+        throw new Error('When you provide row, you should also provide headers component');
+    }
+
     const load = () => {
         listParameters.storeInLocalStorage();
         setLoading(true);

@@ -20,6 +20,8 @@ const Form = ({ inputs, actions, entity, title }) => {
   const [fields, setFields] = useState([]);
   const [progress, setInProgress] = useState();
 
+  Holism.ensure([entity]);
+
   useEffect(() => {
     console.log(fields);
   }, [fields]);
