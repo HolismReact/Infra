@@ -6,6 +6,47 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Pagination from './Pagination';
 import ItemActions from './ItemActions';
 
+const noItemIsFoundStyle = 'py-10 text-2xl font-bold text-gray-600';
+
+const cards = ({ data, itemActions, hasDelete, hasEdit, edit, entity, create, metadata, card }) => {
+    return <>
+        {
+            data.length === 0
+                ?
+                <div className={noItemIsFoundStyle}>No item is found</div>
+                :
+                <>
+                data.map((item, index) =>
+                    <div
+                        className={'item w-full py-4 ' + (index === 0 ? '' : 'border-t')}
+                        key={item.id}>
+                        {card(item)}
+                        {
+                            (itemActions || hasDelete || hasEdit || edit)
+                                ?
+                                <td className="flex items-center justify-end">
+                                    <ItemActions
+                                        entity={entity}
+                                        item={item}
+                                        itemActions={itemActions}
+                                        hasDelete={hasDelete}
+                                        hasEdit={hasEdit}
+                                        editionComponent={edit}
+                                        creationComponent={create}
+                                    />
+                                </td>
+                                :
+                                null
+                        }
+                    </div>
+                    )
+                    <br />
+                    <Pagination metadata={metadata} />
+                </>
+        }
+    </>
+}
+
 const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete, hasEdit, edit, create }) => {
 
     let headerElements = [];
@@ -41,7 +82,7 @@ const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete, h
                     data.length === 0
                         ?
                         <tr>
-                            <td colSpan='100' className='py-10 text-2xl font-bold text-gray-600'>No item is found</td>
+                            <td colSpan='100' className={noItemIsFoundStyle}>No item is found</td>
                         </tr>
                         :
                         data.map((item, index) => <tr
@@ -164,36 +205,7 @@ const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, i
                 (
                     card
                         ?
-                        <>
-                            {
-                                data.map((item, index) =>
-                                    <div
-                                        className={'item w-full py-4 ' + (index === 0 ? '' : 'border-t')}
-                                        key={item.id}>
-                                        {card(item)}
-                                        {
-                                            (itemActions || hasDelete || hasEdit || edit)
-                                                ?
-                                                <td className="flex items-center justify-end">
-                                                    <ItemActions
-                                                        entity={entity}
-                                                        item={item}
-                                                        itemActions={itemActions}
-                                                        hasDelete={hasDelete}
-                                                        hasEdit={hasEdit}
-                                                        editionComponent={edit}
-                                                        creationComponent={create}
-                                                    />
-                                                </td>
-                                                :
-                                                null
-                                        }
-                                    </div>
-                                )
-                            }
-                            <br />
-                            <Pagination metadata={metadata} />
-                        </>
+                        cards({ entity, loading, data, metadata, card, itemActions, hasDelete, hasEdit, edit, create })
                         :
                         table({ entity, loading, data, metadata, headers, row, itemActions, hasDelete, hasEdit, edit, create })
                 )
