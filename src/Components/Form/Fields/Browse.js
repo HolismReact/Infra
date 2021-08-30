@@ -87,7 +87,7 @@ const Browse = ({ column, required, placeholder, hint, value, entity, browser })
             </div>
         </DialogTitle>
         <DialogContent>
-            {browser}
+            {browser()}
         </DialogContent>
         <DialogActions>
             <div id='actions' className='mt-4'>

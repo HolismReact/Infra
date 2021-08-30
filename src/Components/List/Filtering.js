@@ -23,7 +23,8 @@ const Filtering = ({ filters }) => {
     return <div id='filtering' className="bg-white p-6 rounded-lg relative">
         <div className="flex flex-wrap ">
             {
-                filters.props.children.map(filter => React.cloneElement(filter, {
+                filters.props.children.map((filter, index) => React.cloneElement(filter, {
+                    key: index,
                     className: "ml-4"
                 }))
             }
