@@ -23,6 +23,7 @@ const Holism = {
     makeRoom: 'make_room',
     returnBackToNormalForm: 'return_back_to_normal_form',
     editRequested: 'edit_requested',
+    entitySelected: 'entity_slected',
     randomId: () => {
         return Math.random().toString(36).replace(/[^a-z]+/g, '');
     },

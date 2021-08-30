@@ -6,7 +6,9 @@ import CreateListParameters from '../../Base/CreateListParameters';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import CachedIcon from '@material-ui/icons/Cached';
 import useLocalStorageState from '../../Base/UseLocalStorageState';
-import { ListContext } from '../List/List';
+import { ItemAction, ListContext } from '../List/List';
+import CheckIcon from '@material-ui/icons/Check';
+import Holism from '../../Base/Holism';
 
 const listActionIconStyle = "text-gray-700 hover:text-blue-500 cursor-pointer";
 
@@ -18,6 +20,16 @@ const Browse = ({ sorts, filters, row, card, entity, headers }) => {
     const toggleFiltering = () => {
         setIsFilteringOpen(!isFilteringOpen);
     }
+
+    const itemActions = <>
+        <ItemAction
+            icon={<CheckIcon />}
+            title={'Select ' + entity}
+            click={(item) => {
+                Holism.emit(Holism.entitySelected, item);
+            }}
+        />
+    </>
 
     return <ListContext.Provider value={{
         listParameters: listParameters,
@@ -66,6 +78,7 @@ const Browse = ({ sorts, filters, row, card, entity, headers }) => {
             headers={headers}
             row={row}
             card={card}
+            itemActions={itemActions}
         />
     </ListContext.Provider>
 }

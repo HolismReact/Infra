@@ -23,7 +23,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Browse = ({ column, required, placeholder, hint, value, entity, browser }) => {
+const Browse = ({ column, required, placeholder, hint, value, entity, browser, valueDisplayer }) => {
 
     const [id, setId] = useState();
     const [currentValue, setCurrentValue] = useState(value);
@@ -67,6 +67,21 @@ const Browse = ({ column, required, placeholder, hint, value, entity, browser })
     useEffect(() => {
         Holism.setField(formContext, id, currentValue, validationResult ? false : true);
     }, [validationResult]);
+
+    useEffect(() => {
+        const handleEntitySelection = (entity) => {
+            console.log(entity);
+            setIsBrowserDialogOpen(false);
+            setCurrentValue(valueDisplayer(entity));
+            if (column.endsWith('Guid')) {
+                Holism.setField(formContext, id, entity.guid, validationResult ? false : true);
+            }
+        }
+        Holism.on(Holism.entitySelected, handleEntitySelection);
+        return () => {
+            Holism.removeListener(Holism.entitySelected, handleEntitySelection);
+        }
+    });
 
     const browserDialog = <Dialog
         open={isBrowserDialogOpen}
