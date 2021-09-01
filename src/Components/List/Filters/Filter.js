@@ -5,7 +5,14 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import InputLabel from '@material-ui/core/InputLabel';
 import filterOperator from '../../../Base/FilterOperator';
 
-const Filter = ({ column, placeholder, children, type, value }) => {
+const Filter = ({
+    column,
+    placeholder,
+    children,
+    type,
+    value,
+    renderInput
+}) => {
 
     const [id, setId] = useState();
     const [currentValue, setCurrentValue] = useState(value || "");
@@ -28,7 +35,10 @@ const Filter = ({ column, placeholder, children, type, value }) => {
         >
             <InputLabel htmlFor={id}>{placeholder}</InputLabel>
             {
-                children
+                renderInput(currentValue, setCurrentValue)
+            }
+            {
+                // children
                 // React.cloneElement(children, {
                 //     // id: id,
                 //     //value: currentValue,

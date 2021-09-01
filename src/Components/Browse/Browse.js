@@ -12,7 +12,7 @@ import Holism from '../../Base/Holism';
 
 const listActionIconStyle = "text-gray-700 hover:text-blue-500 cursor-pointer";
 
-const Browse = ({ sorts, filters, row, card, entity, headers }) => {
+const Browse = ({ sorts, filters, row, card, entity, headers,  callerId }) => {
 
     const [listParameters, setListParameters] = useState(CreateListParameters(KeycloakClient.keycloak.subject, entity));
     const [isFilteringOpen, setIsFilteringOpen] = useLocalStorageState(false, `${KeycloakClient.keycloak.subject}_${entity}_isFilteringOpen`);
@@ -26,7 +26,7 @@ const Browse = ({ sorts, filters, row, card, entity, headers }) => {
             icon={<CheckIcon />}
             title={'Select ' + entity}
             click={(item) => {
-                Holism.emit(Holism.entitySelected, item);
+                Holism.emit(Holism.entitySelected, { item, callerId });
             }}
         />
     </>

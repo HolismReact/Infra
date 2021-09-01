@@ -16,8 +16,14 @@ const Text = ({ column, placeholder }) => {
         type='text'
         column={column}
         placeholder={placeholder}
+        renderInput={({ value, onChange }) => {
+            return <Input
+                value={value}
+                onChange={onChange}
+            />
+        }}
     >
-        {
+        {/* {
             ({ value, handleChange }) => {
                 return <Input
                     value={value}
@@ -25,7 +31,7 @@ const Text = ({ column, placeholder }) => {
                     onChange={handleChange}
                 />
             }
-        }
+        } */}
         {/* <Input
         inputRef={htmlInput}
         required={required ? true : false}

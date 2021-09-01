@@ -34,6 +34,11 @@ const Browse = ({ column, required, placeholder, hint, value, entity, browser, v
     const initialHint = hint;
     var formContext = useContext(FormContext);
 
+    const ClonedBrowser = React.cloneElement(browser(), {
+        callerId: id
+    });
+    console.log(ClonedBrowser);
+
     useEffect(() => {
         validate();
     }, [currentValue]);
@@ -69,12 +74,14 @@ const Browse = ({ column, required, placeholder, hint, value, entity, browser, v
     }, [validationResult]);
 
     useEffect(() => {
-        const handleEntitySelection = (entity) => {
-            console.log(entity);
+        const handleEntitySelection = ({ item, callerId }) => {
+            if (callerId != id) {
+                return;
+            }
             setIsBrowserDialogOpen(false);
-            setCurrentValue(valueDisplayer(entity));
+            setCurrentValue(valueDisplayer(item));
             if (column.endsWith('Guid')) {
-                Holism.setField(formContext, id, entity.guid, validationResult ? false : true);
+                Holism.setField(formContext, id, item.guid, validationResult ? false : true);
             }
         }
         Holism.on(Holism.entitySelected, handleEntitySelection);
@@ -102,7 +109,7 @@ const Browse = ({ column, required, placeholder, hint, value, entity, browser, v
             </div>
         </DialogTitle>
         <DialogContent>
-            {browser()}
+            {ClonedBrowser}
         </DialogContent>
         <DialogActions>
             <div id='actions' className='mt-4'>
