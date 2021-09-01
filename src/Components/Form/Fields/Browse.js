@@ -26,7 +26,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const Browse = ({ column, required, placeholder, hint, value, entity, browser, valueDisplayer }) => {
 
     const [id, setId] = useState();
-    const [currentValue, setCurrentValue] = useState(value);
+    const [currentValue, setCurrentValue] = useState(value || "");
     const htmlInput = useRef();
     const [helpText, setHelpText] = useState(hint);
     const [validationResult, setValidationResult] = useState(null);
@@ -34,10 +34,9 @@ const Browse = ({ column, required, placeholder, hint, value, entity, browser, v
     const initialHint = hint;
     var formContext = useContext(FormContext);
 
-    const ClonedBrowser = React.cloneElement(browser(), {
+    const clonedBrowser = React.cloneElement(browser(), {
         callerId: id
     });
-    console.log(ClonedBrowser);
 
     useEffect(() => {
         validate();
@@ -70,10 +69,6 @@ const Browse = ({ column, required, placeholder, hint, value, entity, browser, v
     }
 
     useEffect(() => {
-        Holism.setField(formContext, id, currentValue, validationResult ? false : true);
-    }, [validationResult]);
-
-    useEffect(() => {
         const handleEntitySelection = ({ item, callerId }) => {
             if (callerId != id) {
                 return;
@@ -82,6 +77,9 @@ const Browse = ({ column, required, placeholder, hint, value, entity, browser, v
             setCurrentValue(valueDisplayer(item));
             if (column.endsWith('Guid')) {
                 Holism.setField(formContext, id, item.guid, validationResult ? false : true);
+            }
+            else if (column.endsWith('Id')) {
+                Holism.setField(formContext, id, item.id, validationResult ? false : true);
             }
         }
         Holism.on(Holism.entitySelected, handleEntitySelection);
@@ -109,7 +107,7 @@ const Browse = ({ column, required, placeholder, hint, value, entity, browser, v
             </div>
         </DialogTitle>
         <DialogContent>
-            {ClonedBrowser}
+            {clonedBrowser}
         </DialogContent>
         <DialogActions>
             <div id='actions' className='mt-4'>
