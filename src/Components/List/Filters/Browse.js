@@ -21,6 +21,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const Browse = ({ column, placeholder, entity, browser, valueDisplayer }) => {
 
     const [isBrowserDialogOpen, setIsBrowserDialogOpen] = useState(false);
+    const [currentValue, setCurrentValue] = useState("");
 
     const clonedBrowser = React.cloneElement(browser(), {
         callerId: `${column}_browser`
@@ -28,7 +29,7 @@ const Browse = ({ column, placeholder, entity, browser, valueDisplayer }) => {
 
     useEffect(() => {
         const handleEntitySelection = ({ item, callerId }) => {
-            if (callerId != id) {
+            if (callerId != `${column}_browser`) {
                 return;
             }
             setIsBrowserDialogOpen(false);
@@ -58,7 +59,9 @@ const Browse = ({ column, placeholder, entity, browser, valueDisplayer }) => {
             className="bg-gray-100"
         >
             <div className="flex items-center">
-                <IconButton onClick={() => setIsBrowserDialogOpen(false)} aria-label="close">
+                <IconButton
+                    onClick={() => setIsBrowserDialogOpen(false)} aria-label="close"
+                >
                     <CloseIcon />
                 </IconButton>
                 <span className="ml-4">{"Find " + entity || ""}</span>
@@ -71,7 +74,10 @@ const Browse = ({ column, placeholder, entity, browser, valueDisplayer }) => {
             <div id='actions' className='mt-4'>
                 {
                     <div className="mr-6 mb-6" >
-                        <Button variant="outlined" onClick={() => setIsBrowserDialogOpen(false)}>
+                        <Button
+                            variant="outlined"
+                            onClick={() => setIsBrowserDialogOpen(false)}
+                        >
                             Cancel
                         </Button>
                     </div>
@@ -80,32 +86,35 @@ const Browse = ({ column, placeholder, entity, browser, valueDisplayer }) => {
         </DialogActions>
     </Dialog>
 
-    return <Filter
-        type='text'
-        column={column}
-        placeholder={placeholder}
-        renderInput={(value, onChange) => <Input
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-            // startAdornment={
-            //     <InputAdornment position="start">
-            //     </InputAdornment>
-            // }
-            endAdornment={
-                <InputAdornment position="end">
-                    <Tooltip title={"Find " + (entity || "")}>
-                        <IconButton
-                            aria-label={"Find " + entity}
-                            onClick={() => setIsBrowserDialogOpen(true)}
-                            onMouseDown={() => { }}
-                        >
-                            <MoreHorizIcon />
-                        </IconButton>
-                    </Tooltip>
-                </InputAdornment>
-            }
-        />}
-    />
+    return <>
+        {browserDialog}
+        <Filter
+            type='text'
+            column={column}
+            placeholder={placeholder}
+            renderInput={(value, onChange) => <Input
+                value={currentValue}
+                onChange={(e) => onChange(e.target.value)}
+                // startAdornment={
+                //     <InputAdornment position="start">
+                //     </InputAdornment>
+                // }
+                endAdornment={
+                    <InputAdornment position="end">
+                        <Tooltip title={"Find " + (entity || "")}>
+                            <IconButton
+                                aria-label={"Find " + entity}
+                                onClick={() => setIsBrowserDialogOpen(true)}
+                                onMouseDown={() => { }}
+                            >
+                                <MoreHorizIcon />
+                            </IconButton>
+                        </Tooltip>
+                    </InputAdornment>
+                }
+            />}
+        />
+    </>
 }
 
 export { Browse };

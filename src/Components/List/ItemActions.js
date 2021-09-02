@@ -9,9 +9,12 @@ const ItemActions = ({ entity, item, itemActions, hasDelete, hasEdit, editionCom
 
     return <>
         {
-            React.Children.toArray(itemActions.props.children).map(itemAction => React.cloneElement(itemAction, {
-                item: item
-            }))
+            itemActions ?
+                React.Children.toArray(itemActions.props.children).map(itemAction => React.cloneElement(itemAction, {
+                    item: item
+                }))
+                :
+                null
         }
         {
             hasDelete
