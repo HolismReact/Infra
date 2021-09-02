@@ -9,10 +9,11 @@ import useLocalStorageState from '../../Base/UseLocalStorageState';
 import { ItemAction, ListContext } from '../List/List';
 import CheckIcon from '@material-ui/icons/Check';
 import Holism from '../../Base/Holism';
+import Collapse from '@material-ui/core/Collapse';
 
 const listActionIconStyle = "text-gray-700 hover:text-blue-500 cursor-pointer";
 
-const Browse = ({ sorts, filters, row, card, entity, headers,  callerId }) => {
+const Browse = ({ sorts, filters, row, card, entity, headers, callerId }) => {
 
     const [listParameters, setListParameters] = useState(CreateListParameters(KeycloakClient.keycloak.subject, entity));
     const [isFilteringOpen, setIsFilteringOpen] = useLocalStorageState(false, `${KeycloakClient.keycloak.subject}_${entity}_isFilteringOpen`);
@@ -65,13 +66,11 @@ const Browse = ({ sorts, filters, row, card, entity, headers,  callerId }) => {
             </div>
         </div>
 
-        {
-            isFilteringOpen
-                ?
+        <Collapse in={isFilteringOpen}>
+            <div className='mb-4'>
                 <Filtering filters={filters} />
-                :
-                null
-        }
+            </div>
+        </Collapse>
 
         <Items
             entity={entity}

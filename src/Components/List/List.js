@@ -10,6 +10,7 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import Filter from './Filters/Filter';
 import CachedIcon from '@material-ui/icons/Cached';
 import useLocalStorageState from '../../Base/UseLocalStorageState';
+import Collapse from '@material-ui/core/Collapse';
 
 const listActionIconStyle = "text-gray-700 hover:text-blue-500 cursor-pointer";
 
@@ -74,15 +75,11 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
       </div>
     </div>
 
-
-
-    {
-      isFilteringOpen
-        ?
+    <Collapse in={isFilteringOpen}>
+      <div className='mb-4'>
         <Filtering filters={filters} />
-        :
-        null
-    }
+      </div>
+    </Collapse>
 
     <Items
       entity={entity}
@@ -111,3 +108,4 @@ export { Enum } from './Filters/Enum';
 export { Ascending } from './Sorts/Ascending';
 export { ListAction } from './ListAction';
 export { ItemAction } from './ItemAction';
+export { Browse } from './Filters/Browse';
