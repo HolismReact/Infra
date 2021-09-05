@@ -97,6 +97,7 @@ const Form = ({ inputs, actions, entity, title }) => {
 
 export { Form };
 export { Text } from './Fields/Text';
+export { Hidden } from './Fields/Hidden';
 export { Enum } from './Fields/Enum';
 export { LongText } from './Fields/LongText';
 export { Browse } from './Fields/Browse';
