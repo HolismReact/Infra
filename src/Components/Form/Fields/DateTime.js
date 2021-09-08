@@ -1,5 +1,5 @@
 import 'date-fns';
-import { KeyboardDatePicker, } from '@material-ui/pickers';
+import { KeyboardDateTimePicker, } from '@material-ui/pickers';
 import Holism from '../../../Base/Holism';
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { FormContext } from '../Form';
@@ -17,7 +17,7 @@ const DateTime = ({ column, required, placeholder, hint, value }) => {
     const [currentValue, setCurrentValue] = React.useState(new Date(value) || new Date());
 
     useEffect(() => {
-        setId(`text_${column}`);
+        setId(`dateTime_${column}`);
     }, [column]);
 
     useEffect(() => {
@@ -58,17 +58,17 @@ const DateTime = ({ column, required, placeholder, hint, value }) => {
     }, [validationState]);
 
     return <div className={fieldStyles}>
-        <KeyboardDatePicker
-            margin="normal"
+        <KeyboardDateTimePicker
             error={isValid() ? false : true}
             id={id}
             label={placeholder}
-            format="MM/dd/yyyy"
+            format="MM/dd/yyyy HH:mm"
             value={currentValue}
             onChange={(date) => { setCurrentValue(date) }}
             KeyboardButtonProps={{
                 'aria-label': 'Change ' + placeholder,
             }}
+            fullWidth
         />
     </div>
 }

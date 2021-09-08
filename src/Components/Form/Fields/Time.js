@@ -17,7 +17,7 @@ const Time = ({ column, required, placeholder, hint, value }) => {
     const [currentValue, setCurrentValue] = React.useState(new Date(value) || new Date());
 
     useEffect(() => {
-        setId(`text_${column}`);
+        setId(`time_${column}`);
     }, [column]);
 
     useEffect(() => {
@@ -59,16 +59,15 @@ const Time = ({ column, required, placeholder, hint, value }) => {
 
     return <div className={fieldStyles}>
         <KeyboardTimePicker
-            margin="normal"
             error={isValid() ? false : true}
             id={id}
             label={placeholder}
-            format="MM/dd/yyyy"
             value={currentValue}
-            onChange={(date) => { setCurrentValue(date) }}
+            onChange={(time) => { setCurrentValue(time) }}
             KeyboardButtonProps={{
                 'aria-label': 'Change ' + placeholder,
             }}
+            fullWidth
         />
     </div>
 }
