@@ -9,17 +9,19 @@ import {
 } from '@material-ui/pickers';
 
 const DateTime = ({ }) => {
-    return <KeyboardDatePicker
-        margin="normal"
-        id="date-picker-dialog"
-        label="Date picker dialog"
-        format="MM/dd/yyyy"
-        value={selectedDate}
-        onChange={handleDateChange}
-        KeyboardButtonProps={{
-            'aria-label': 'change date',
-        }}
-    />
+    return <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <KeyboardDatePicker
+            margin="normal"
+            id="date-picker-dialog"
+            label="Date picker dialog"
+            format="MM/dd/yyyy"
+            value={selectedDate}
+            onChange={handleDateChange}
+            KeyboardButtonProps={{
+                'aria-label': 'change date',
+            }}
+        />
+    </MuiPickersUtilsProvider>
 }
 
 export { DateTime };
