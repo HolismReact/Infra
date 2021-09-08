@@ -1,29 +1,76 @@
 import 'date-fns';
-import React from 'react';
-import {
-    MuiPickersUtilsProvider,
-    KeyboardTimePicker,
-    KeyboardDatePicker,
-} from '@material-ui/pickers';
+import { KeyboardDatePicker, } from '@material-ui/pickers';
+import Holism from '../../../Base/Holism';
+import React, { useState, useEffect, useRef, useContext } from 'react';
+import { FormContext } from '../Form';
+import { fieldStyles } from './FieldStyle';
 
-const DateTime = ({ }) => {
-    const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+const DateTime = ({ column, required, placeholder, hint, value }) => {
 
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-    };
+    Holism.ensure([column, placeholder]);
+    const [id, setId] = useState();
+    const [helpText, setHelpText] = useState(hint);
+    const [validationState, setValidationState] = useState(null);
+    const initialHint = hint;
+    var formContext = useContext(FormContext);
 
-    return <KeyboardDatePicker
-        margin="normal"
-        id="date-picker-dialog"
-        label="Date picker dialog"
-        format="MM/dd/yyyy"
-        value={selectedDate}
-        onChange={handleDateChange}
-        KeyboardButtonProps={{
-            'aria-label': 'change date',
-        }}
-    />
+    const [currentValue, setCurrentValue] = React.useState(new Date(value) || new Date());
+
+    useEffect(() => {
+        setId(`text_${column}`);
+    }, [column]);
+
+    useEffect(() => {
+        validate();
+    }, [currentValue]);
+
+    useEffect(() => {
+        Holism.addFieldToFormContext(formContext, id, undefined, false);
+        Holism.on(Holism.formSubmissionEvent, validate);
+        return () => {
+            Holism.removeListener(Holism.formSubmissionEvent, validate);
+        }
+    }, [id, formContext]);
+
+    const validate = () => {
+        if (required && Holism.isNothing(currentValue)) {
+            setValidationState('invalid required ' + Date.now());
+            setHelpText(required);
+        }
+        else {
+            setValidationState('valid ' + Date.now());
+            setHelpText(initialHint);
+        }
+    }
+
+    const isValid = () => {
+        if (!validationState) {
+            return false;
+        }
+        if (validationState.indexOf('invalid') > -1) {
+            return false;
+        }
+        return true;
+    }
+
+    useEffect(() => {
+        Holism.setField(formContext, id, currentValue, isValid() ? true : false);
+    }, [validationState]);
+
+    return <div className={fieldStyles}>
+        <KeyboardDatePicker
+            margin="normal"
+            error={isValid() ? false : true}
+            id={id}
+            label={placeholder}
+            format="MM/dd/yyyy"
+            value={currentValue}
+            onChange={(date) => { setCurrentValue(date) }}
+            KeyboardButtonProps={{
+                'aria-label': 'Change ' + placeholder,
+            }}
+        />
+    </div>
 }
 
 export { DateTime };
