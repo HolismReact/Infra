@@ -23,7 +23,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Browse = ({ column, required, placeholder, hint, value, browser, valueDisplayer }) => {
+const Browse = ({ column, required, placeholder, hint, value, browser, display, choose}) => {
 
     const [id, setId] = useState();
     const [currentValue, setCurrentValue] = useState(value || "");
@@ -69,18 +69,24 @@ const Browse = ({ column, required, placeholder, hint, value, browser, valueDisp
     }
 
     useEffect(() => {
+        if(typeof choose !== "function")
+            throw new Error(`Please set "choose"="function" for ${column} `)
+
         const handleEntitySelection = ({ item, callerId }) => {
             if (callerId != id) {
                 return;
             }
             setIsBrowserDialogOpen(false);
-            setCurrentValue(valueDisplayer(item));
-            if (column.endsWith('Guid')) {
-                Holism.setField(formContext, id, item.guid, validationResult ? false : true);
-            }
-            else if (column.endsWith('Id')) {
-                Holism.setField(formContext, id, item.id, validationResult ? false : true);
-            }
+            setCurrentValue(display(item));
+            debugger;
+             var selected= choose(item)
+             Holism.setField(formContext, id, selected, validationResult ? false : true);
+            // if (column.endsWith('Guid')) {
+            //     Holism.setField(formContext, id, item.guid, validationResult ? false : true);
+            // }
+            // else if (column.endsWith('Id')) {
+            //     Holism.setField(formContext, id, item.id, validationResult ? false : true);
+            // }
         }
         Holism.on(Holism.entitySelected, handleEntitySelection);
         return () => {
