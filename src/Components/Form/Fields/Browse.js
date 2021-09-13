@@ -33,6 +33,7 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
     const [isBrowserDialogOpen, setIsBrowserDialogOpen] = useState(false);
     const initialHint = hint;
     var formContext = useContext(FormContext);
+    Holism.ensure([column])
 
     const clonedBrowser = React.cloneElement(browser(), {
         callerId: id
@@ -69,8 +70,16 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
     }
 
     useEffect(() => {
-        if(typeof choose !== "function")
-            throw new Error(`Please set "choose"="function" for ${column} `)
+        // 1- if choose is provider it shoud be a function
+
+        // 2- use choose then fallback then throw exption
+
+        // 3- if return value of choose is not define throw exption 
+
+        // 4- if fallback returns no value throw exption 
+
+        // if(typeof choose !== "function")
+        //     throw new Error(`Please set "choose"="function" for ${column} `)
 
         const handleEntitySelection = ({ item, callerId }) => {
             if (callerId != id) {
@@ -78,9 +87,8 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
             }
             setIsBrowserDialogOpen(false);
             setCurrentValue(display(item));
-            debugger;
-             var selected= choose(item)
-             Holism.setField(formContext, id, selected, validationResult ? false : true);
+            let selected= choose(item)
+            Holism.setField(formContext, id, selected, validationResult ? false : true);
             // if (column.endsWith('Guid')) {
             //     Holism.setField(formContext, id, item.guid, validationResult ? false : true);
             // }

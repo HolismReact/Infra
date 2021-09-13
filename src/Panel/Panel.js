@@ -10,7 +10,7 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Title from './Title';
 // https://dev.to/codeply/helpful-page-layouts-using-tailwind-css-1a3k
 
-function App() {
+function Panel() {
 
   const [isSidebarOpen, setIsSidebarOpen] = useLocalStorageState(true, 'isSidebarOpen');
   const [mainContentWidth, setMainContentWidth] = useLocalStorageState(true, 'mainContentWidth');
@@ -91,4 +91,4 @@ function App() {
   </div>
 }
 
-export default App;
+export default Panel;
