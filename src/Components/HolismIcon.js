@@ -1,7 +1,6 @@
 import Icon from '@material-ui/core/Icon';
 
 const HolismIcon = ({ icon }) => {
-    console.log(icon);
     switch (typeof icon) {
         case 'object':
             const iconType = typeof icon?.type;

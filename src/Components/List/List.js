@@ -76,7 +76,7 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
     </div>
 
     <Collapse in={isFilteringOpen}>
-      <div className='mb-4'>
+      <div className='mb-2'>
         <Filtering filters={filters} />
       </div>
     </Collapse>
@@ -109,3 +109,4 @@ export { Ascending } from './Sorts/Ascending';
 export { ListAction } from './ListAction';
 export { ItemAction } from './ItemAction';
 export { Browse } from './Filters/Browse';
+export { get, post } from '../../Base/Api';
