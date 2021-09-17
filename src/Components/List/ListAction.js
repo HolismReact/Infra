@@ -1,10 +1,11 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
+import HolismIcon from '../HolismIcon';
 
-const ListAction = ({icon, title, act}) => {
+const ListAction = ({ icon, title, act }) => {
     return <Button
         variant="outlined"
-        startIcon={icon}
+        startIcon={HolismIcon({ icon })}
         onClick={act}
         className='ml-2'
     >

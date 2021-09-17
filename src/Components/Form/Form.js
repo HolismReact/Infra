@@ -45,7 +45,7 @@ const Form = ({ inputs, actions, entity, title }) => {
       Holism.emit(Holism.itemCreated);
       setInProgress(false);
     }, error => {
-      console.error(error);
+      Holism.error(error);
       setInProgress(false);
     })
     event.preventDefault();

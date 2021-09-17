@@ -10,9 +10,18 @@ const ItemActions = ({ entity, item, itemActions, hasDelete, hasEdit, editionCom
     return <>
         {
             itemActions ?
-                React.Children.toArray(itemActions.props.children).map(itemAction => React.cloneElement(itemAction, {
-                    item: item
-                }))
+                React
+                    .Children
+                    .toArray(
+                        typeof (itemActions === 'function')
+                        ?
+                        itemActions().props.children
+                        :
+                        itemActions.props.children
+                    )
+                    .map(itemAction => React.cloneElement(itemAction, {
+                        item: item
+                    }))
                 :
                 null
         }
