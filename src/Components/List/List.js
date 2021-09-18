@@ -110,3 +110,4 @@ export { ListAction } from './ListAction';
 export { ItemAction } from './ItemAction';
 export { Browse } from './Filters/Browse';
 export { get, post } from '../../Base/Api';
+export { ValueWithTitle } from '../Show/ValueWithTitle';

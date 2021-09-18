@@ -76,7 +76,7 @@ const Message = () => {
         autoHideDuration={6000}
         onClose={hide}
         message={message}
-        bodyStyle={{ whiteSpace: 'pre-line' }}
+        bodystyle={{ whiteSpace: 'pre-line' }}
         action={
             <>
                 {

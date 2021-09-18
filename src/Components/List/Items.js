@@ -8,7 +8,8 @@ import ItemActions from './ItemActions';
 
 const noItemIsFoundStyle = 'py-10 text-2xl font-bold text-gray-600';
 
-const cards = ({ data, itemActions, hasDelete, hasEdit, edit, entity, create, metadata, card }) => {
+const cards = ({ data, itemActions, hasDelete, hasEdit, edit, entity, create, metadata, card, setItem }) => {
+
     return <>
         {
             data.length === 0
@@ -34,6 +35,7 @@ const cards = ({ data, itemActions, hasDelete, hasEdit, edit, entity, create, me
                                                 hasEdit={hasEdit}
                                                 editionComponent={edit}
                                                 creationComponent={create}
+                                                setItem={setItem}
                                             />
                                         </td>
                                         :
@@ -49,7 +51,7 @@ const cards = ({ data, itemActions, hasDelete, hasEdit, edit, entity, create, me
     </>
 }
 
-const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete, hasEdit, edit, create }) => {
+const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete, hasEdit, edit, create, setItem }) => {
 
     let headerElements = [];
 
@@ -110,6 +112,7 @@ const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete, h
                                             hasEdit={hasEdit}
                                             editionComponent={edit}
                                             creationComponent={create}
+                                            setItem={setItem}
                                         />
                                     </td>
                                     :
@@ -143,6 +146,10 @@ const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, i
     const [metadata, setMetadata] = useState({});
     const { listParameters } = useContext(ListContext);
 
+    const setItem = (item) => {
+        console.log('setting item ', item);
+    }
+
     Holism.ensure([entity])
 
     if (!row && !card) {
@@ -159,11 +166,11 @@ const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, i
         let url = `${entity}/list?pageNumber=${listParameters.pageNumber}&pageSize=${listParameters.pageSize}`;
         const filters = listParameters.filtersQueryString();
         if (filters) {
-            url += `${url}&filters=${filters}`;
+            url += `&filters=${filters}`;
         }
         const sorts = listParameters.sortsQueryString();
         if (sorts) {
-            url += `${url}&sorts=${sorts}`;
+            url += `&sorts=${sorts}`;
         }
         get(url).then((result) => {
             if (!result) {
@@ -217,9 +224,9 @@ const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, i
                 (
                     card
                         ?
-                        cards({ entity, loading, data, metadata, card, itemActions, hasDelete, hasEdit, edit, create })
+                        cards({ entity, loading, data, metadata, card, itemActions, hasDelete, hasEdit, edit, create, setItem })
                         :
-                        table({ entity, loading, data, metadata, headers, row, itemActions, hasDelete, hasEdit, edit, create })
+                        table({ entity, loading, data, metadata, headers, row, itemActions, hasDelete, hasEdit, edit, create, setItem })
                 )
         }
     </div>

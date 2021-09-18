@@ -5,7 +5,7 @@ import HolismIcon from '../HolismIcon';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import React, { useState } from 'react';
 
-const ItemAction = ({ title, item, icon, click, goTo }) => {
+const ItemAction = ({ title, item, icon, click, goTo, setItem }) => {
 
     const history = useHistory();
 
@@ -28,7 +28,7 @@ const ItemAction = ({ title, item, icon, click, goTo }) => {
                             }
                         }
                         else {
-                            click(item, setProgress)
+                            click({ item, setProgress, setItem })
                         }
                     }}>
                         {

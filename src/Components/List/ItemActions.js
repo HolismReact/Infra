@@ -3,7 +3,7 @@ import { ItemAction } from './ItemAction';
 import DeleteAction from './DeleteAction';
 import EditAction from './EditAction';
 
-const ItemActions = ({ entity, item, itemActions, hasDelete, hasEdit, editionComponent, creationComponent }) => {
+const ItemActions = ({ entity, item, itemActions, hasDelete, hasEdit, editionComponent, creationComponent, setItem }) => {
 
     const [something, setSomething] = useState();
 
