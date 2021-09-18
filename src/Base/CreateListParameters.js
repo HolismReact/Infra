@@ -1,3 +1,5 @@
+import Holism from "./Holism";
+
 const CreateListParameters = (userGuid, entity) => {
     var key = '';
     if (userGuid) {
@@ -10,7 +12,8 @@ const CreateListParameters = (userGuid, entity) => {
     var value = window.localStorage.getItem(key);
     var existingParameters = (value === null ? {} : JSON.parse(value));
     const listParameters = {
-        pageNumber: existingParameters.pageNumber || 1,
+        //pageNumber: existingParameters.pageNumber || 1,
+        pageNumber: 1,
         pageSize: existingParameters.pageSize || 5,
         filters: existingParameters.filters || [],
         sorts: existingParameters.sorts || [],
@@ -39,9 +42,13 @@ const CreateListParameters = (userGuid, entity) => {
             var query = "";
             for (var i = 0; i < listParameters.filters.length; i++) {
                 var filter = listParameters.filters[i];
-                query += `&${filter.property}_${filter.operator}_${filter.value}`;
+                if (Holism.isSomething(filter.value)) {
+                    query += `&${filter.property}_${filter.operator}_${filter.value}`;
+                }
             }
-            query = query.slice(1);
+            if (query.startsWith('&')) {
+                query = query.slice(1);
+            }
             return query;
         },
         sortsQueryString: function () {
@@ -56,7 +63,7 @@ const CreateListParameters = (userGuid, entity) => {
         storeInLocalStorage: function () {
             window.localStorage.setItem(key, JSON.stringify(listParameters));
         },
-        getKey: function() {
+        getKey: function () {
             return key;
         }
     }

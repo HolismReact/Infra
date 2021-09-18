@@ -15,7 +15,7 @@ const ItemActions = ({ entity, item, itemActions, hasDelete, hasEdit, editionCom
                     .toArray(
                         typeof (itemActions === 'function')
                         ?
-                        itemActions().props.children
+                        itemActions(item).props.children
                         :
                         itemActions.props.children
                     )
