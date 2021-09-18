@@ -19,20 +19,26 @@ const Form = ({ inputs, actions, entity, title }) => {
   const { isCreationDialogOpen, setIsCreationDialogOpen } = useContext(ListContext);
   const [fields, setFields] = useState([]);
   const [progress, setInProgress] = useState();
+  const [isValid, setIsValid] = useState(false);
 
   Holism.ensure([entity]);
 
   useEffect(() => {
     console.log(fields);
+    for (let i = 0; i < fields.length; i++) {
+      if (!fields[i].isValid) {
+        setIsValid(false);
+        return;
+      }
+    }
+    setIsValid(true);
   }, [fields]);
 
   const handleSubmit = (event) => {
     Holism.emit(Holism.formSubmissionEvent);
-    for (let i = 0; i < fields.length; i++) {
-      if (!fields[i].isValid) {
-        event.preventDefault();
-        return;
-      }
+    if (!isValid) {
+      event.preventDefault();
+      return;
     }
     var data = {};
     for (let i = 0; i < fields.length; i++) {
@@ -79,10 +85,18 @@ const Form = ({ inputs, actions, entity, title }) => {
                   <CircularProgress size={30} />
                   :
                   <>
-                    <Button variant="outlined" onClick={() => setIsCreationDialogOpen(false)}>
+                    <Button
+                      variant="outlined"
+                      onClick={() => setIsCreationDialogOpen(false)}
+                    >
                       Cancel
                     </Button>
-                    <Button variant="outlined" className='bg-green-200 ml-2' onClick={handleSubmit}>
+                    <Button
+                      variant="outlined"
+                      className={'ml-2' + (isValid ? " bg-green-200" : "")}
+                      onClick={handleSubmit}
+                      disabled={!isValid}
+                    >
                       Save
                     </Button>
                   </>
