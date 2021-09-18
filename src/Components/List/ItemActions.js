@@ -20,7 +20,8 @@ const ItemActions = ({ entity, item, itemActions, hasDelete, hasEdit, editionCom
                         itemActions.props.children
                     )
                     .map(itemAction => React.cloneElement(itemAction, {
-                        item: item
+                        item: item,
+                        setItem: setItem
                     }))
                 :
                 null

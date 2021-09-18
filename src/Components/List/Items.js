@@ -26,7 +26,7 @@ const cards = ({ data, itemActions, hasDelete, hasEdit, edit, entity, create, me
                                 {
                                     (itemActions || hasDelete || hasEdit || edit)
                                         ?
-                                        <td className="flex items-center justify-end">
+                                        <div className="flex items-center justify-end">
                                             <ItemActions
                                                 entity={entity}
                                                 item={item}
@@ -37,7 +37,7 @@ const cards = ({ data, itemActions, hasDelete, hasEdit, edit, entity, create, me
                                                 creationComponent={create}
                                                 setItem={setItem}
                                             />
-                                        </td>
+                                        </div>
                                         :
                                         null
                                 }
@@ -147,7 +147,14 @@ const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, i
     const { listParameters } = useContext(ListContext);
 
     const setItem = (item) => {
-        console.log('setting item ', item);
+        setData((data) => {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].id === item.id) {
+                    data[i] = item;
+                }
+            }
+            return [...data];
+        });
     }
 
     Holism.ensure([entity])
