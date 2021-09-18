@@ -179,6 +179,11 @@ const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, i
         if (sorts) {
             url += `&sorts=${sorts}`;
         }
+        if (window.location.search)
+        {
+            const query = window.location.search.slice(1);
+            url += `&${query}`;
+        }
         get(url).then((result) => {
             if (!result) {
                 return;
