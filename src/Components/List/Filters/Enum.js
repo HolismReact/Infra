@@ -1,27 +1,19 @@
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
 import useLocalStorageState from '../../../Base/UseLocalStorageState';
 import Holism from '../../../Base/Holism';
-import React, { useEffect, useState, useContext, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { get } from '../../../Base/Api';
-import { ListContext } from '../List';
+import Filter from './Filter';
+import filterOperator from '../../../Base/FilterOperator';
 
 const Enum = ({ column, entity, placeholder }) => {
 
     Holism.ensure([column, placeholder, entity]);
 
-    const [id, setId] = useState(null);
-    const [labelId, setLabelId] = useState(null);
     const htmlSelect = useRef();
     const [loading, setLoading] = useState();
     const [enumItems, setEnumItems] = useLocalStorageState([], entity + 'Enum');
-    const listContext = useContext(ListContext);
-
-    useEffect(() => {
-        setId(`enum_${column}`);
-    }, [column]);
 
     useEffect(() => {
         if (enumItems.length !== 0) {
@@ -29,7 +21,6 @@ const Enum = ({ column, entity, placeholder }) => {
         }
         setLoading(true);
         get(`/${entity}/all`).then(data => {
-            console.log(data);
             setEnumItems(data);
             setLoading(false);
         }, error => {
@@ -38,27 +29,27 @@ const Enum = ({ column, entity, placeholder }) => {
         })
     }, []);
 
-    return <div>
-        {
-            loading
+    return <Filter
+        type='select'
+        column={column}
+        placeholder={placeholder}
+        operator={filterOperator.equals}
+        renderInput={(value, setValue) => {
+            return loading
                 ?
-                <div>loadin...</div>
+                <div>loading...</div>
                 :
-                <FormControl
+                <Select
+                    value={value}
+                    ref={htmlSelect}
+                    placeholder={placeholder}
                     fullWidth
+                    onChange={(event) => { setValue(event.target.value) }}
                 >
-                    <InputLabel id={labelId}>{placeholder}</InputLabel>
-                    <Select
-                        ref={htmlSelect}
-                        placeholder={placeholder}
-                        fullWidth
-                        //onChange={(event) => { setCurrentValue(event.target.value); validate(); }}
-                    >
-                        {enumItems.map(item => <MenuItem key={item.id} value={item.id}>{item.key}</MenuItem>)}
-                    </Select>
-                </FormControl>
-        }
-    </div>
+                    {enumItems.map(item => <MenuItem key={item.id} value={item.id}>{item.key}</MenuItem>)}
+                </Select>
+        }}
+    />
 };
 
 export { Enum }

@@ -4,22 +4,14 @@ import Input from '@material-ui/core/Input';
 
 const Text = ({ column, placeholder }) => {
 
-    if (Holism.isNothing(placeholder)) {
-        console.error(`placeholder is not provided in Text`);
-    }
-
-    if (Holism.isNothing(column)) {
-        console.error(`column is not provided in Text`);
-    }
-
     return <Filter
         type='text'
         column={column}
         placeholder={placeholder}
-        renderInput={({ value, onChange }) => {
+        renderInput={(value, setValue) => {
             return <Input
                 value={value}
-                onChange={onChange}
+                onChange={(event) => setValue(event.target.value)}
             />
         }}
     >

@@ -11,8 +11,11 @@ const Filter = ({
     children,
     type,
     value,
-    renderInput
+    renderInput,
+    operator
 }) => {
+
+    Holism.ensure(column, placeholder);
 
     const [id, setId] = useState();
     const [currentValue, setCurrentValue] = useState(value || "");
@@ -22,16 +25,13 @@ const Filter = ({
         setId(`${type}_${column}`);
     }, [column]);
 
-    const handleChange = (e) => {
-        setCurrentValue(e.target.value);
-    };
-
     useEffect(() => {
-        listParameters.addFilter(column, filterOperator.contains, currentValue);
+        listParameters.addFilter(column, operator || filterOperator.contains, currentValue);
     }, [currentValue]);
 
-    return <div className="filter mt-4 mr-4">
+    return <div className="filter mt-4 mr-4 w-64">
         <FormControl
+            fullWidth
         >
             <InputLabel htmlFor={id}>{placeholder}</InputLabel>
             {
