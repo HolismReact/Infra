@@ -86,6 +86,7 @@ const Form = ({ inputs, actions, entity, title }) => {
                   :
                   <>
                     <Button
+                      tabindex="-1"
                       variant="outlined"
                       onClick={() => setIsCreationDialogOpen(false)}
                     >
