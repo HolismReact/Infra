@@ -19,9 +19,17 @@ const Filtering = ({ filters }) => {
         listParameters.filters = [];
         applyFilters();
     }
+
+    const handleKeyPress = (event) => {
+        if (event.charCode != 13) {
+            return;
+        }
+        applyFilters();
+    }
+
     const filtersArray = filters.props.children.map ? filters.props.children : [filters.props.children];
 
-    return <div id='filtering' className="bg-white p-6 rounded-lg relative">
+    return <div id='filtering' className="bg-white p-6 rounded-lg relative" onKeyPress={(event) => handleKeyPress(event)}>
         <div className="flex flex-wrap ">
             {
                 filtersArray.map((filter, index) => React.cloneElement(filter, {
