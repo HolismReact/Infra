@@ -123,3 +123,4 @@ const Holism = {
 };
 
 export default Holism;
+export { Holism };
