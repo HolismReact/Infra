@@ -59,9 +59,18 @@ const Form = ({ inputs, actions, entity, title }) => {
   return <FormContext.Provider value={{ fields, setFields }}>
     <Dialog
       open={isCreationDialogOpen}
+      id='dialogForm'
       aria-labelledby="form-dialog-title"
       fullWidth
       maxWidth='md'
+      TransitionProps={{
+        onEntered: () => {
+          var firstField = document.querySelector('#dialogForm .field:first-child input');
+          if (firstField && firstField.focus) {
+            firstField.focus();
+          }
+        }
+      }}
     >
       <DialogTitle id="form-dialog-title">{title}</DialogTitle>
       <DialogContent>
@@ -86,7 +95,7 @@ const Form = ({ inputs, actions, entity, title }) => {
                   :
                   <>
                     <Button
-                      tabindex="-1"
+                      tabIndex="-1"
                       variant="outlined"
                       onClick={() => setIsCreationDialogOpen(false)}
                     >
