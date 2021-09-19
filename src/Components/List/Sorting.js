@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import SortIcon from '@material-ui/icons/Sort';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
 import CloseIcon from '@material-ui/icons/Close';
+import { ListContext } from './List';
 
 const Sorting = ({ sorts }) => {
+
     const [anchorEl, setAnchorEl] = useState(null);
     const [currentSort, setCurrentSort] = useState({});
+    const { listParameters } = useContext(ListContext);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -23,6 +26,11 @@ const Sorting = ({ sorts }) => {
     const resetSort = () => {
         setCurrentSort({});
     }
+
+    useEffect(() => {
+        listParameters.sorts = [currentSort];
+        Holism.emit(Holism.reloadRequirement);
+    }, [currentSort]);
 
     return <>
         <div id='sorting' className='mr-4 flex items-center cursor-pointer text-gray-700 
@@ -51,7 +59,12 @@ const Sorting = ({ sorts }) => {
             transformOrigin={{ vertical: "top", horizontal: "right" }}
         >
             {
-                sorts.map(sort => <MenuItem key={sort.caption} onClick={() => handleClose(sort)}>{sort.caption}</MenuItem>)
+                sorts.map(sort => <MenuItem
+                    key={sort.caption}
+                    onClick={() => handleClose(sort)}
+                >
+                    {sort.caption}
+                </MenuItem>)
             }
         </Menu>
     </>
