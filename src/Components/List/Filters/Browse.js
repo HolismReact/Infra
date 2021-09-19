@@ -18,10 +18,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Browse = ({ column, placeholder, entity, browser, valueDisplayer }) => {
+const Browse = ({ column, placeholder, entity, browser, display, choose }) => {
 
     const [isBrowserDialogOpen, setIsBrowserDialogOpen] = useState(false);
-    const [currentValue, setCurrentValue] = useState("");
+    const [displayValue, setDisplayValue] = useState("");
+    const [chosenValue, setChosenValue] = useState("");
 
     const clonedBrowser = React.cloneElement(browser(), {
         callerId: `${column}_browser`
@@ -33,12 +34,17 @@ const Browse = ({ column, placeholder, entity, browser, valueDisplayer }) => {
                 return;
             }
             setIsBrowserDialogOpen(false);
-            setCurrentValue(valueDisplayer(item));
-            if (column.endsWith('Guid')) {
-                console.log(item, 'guid');
+            setDisplayValue(display(item));
+            if (choose && typeof choose === 'function') {
+                setChosenValue(choose(item));
             }
-            else if (column.endsWith('Id')) {
-                console.log(item, 'id');
+            else {
+                if (column.endsWith('Guid')) {
+                    setChosenValue(item.guid);
+                }
+                else if (column.endsWith('Id')) {
+                    setChosenValue(item.id);
+                }
             }
         }
         Holism.on(Holism.entitySelected, handleEntitySelection);
@@ -92,9 +98,9 @@ const Browse = ({ column, placeholder, entity, browser, valueDisplayer }) => {
             type='text'
             column={column}
             placeholder={placeholder}
-            renderInput={(value, onChange) => <Input
-                value={currentValue}
-                onChange={(e) => onChange(e.target.value)}
+            renderInput={(value, setValue) => <Input
+                value={displayValue}
+                onChange={(e) => setValue(chosenValue)}
                 // startAdornment={
                 //     <InputAdornment position="start">
                 //     </InputAdornment>
