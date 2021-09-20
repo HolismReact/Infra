@@ -18,7 +18,9 @@ const Sorting = ({ sorts }) => {
 
     const handleClose = (sort) => {
         if (sort) {
-            setCurrentSort(sort);
+            if (sort.caption) {
+                setCurrentSort(sort);
+            }
         }
         setAnchorEl(null);
     };
@@ -61,7 +63,10 @@ const Sorting = ({ sorts }) => {
             {
                 sorts.map(sort => <MenuItem
                     key={sort.caption}
-                    onClick={() => handleClose(sort)}
+                    onClick={(event) => {
+                        handleClose(sort);
+                        event.preventDefault();
+                    }}
                 >
                     {sort.caption}
                 </MenuItem>)
