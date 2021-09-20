@@ -82,19 +82,40 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
         //     throw new Error(`Please set "choose"="function" for ${column} `)
 
         const handleEntitySelection = ({ item, callerId }) => {
+            debugger;
             if (callerId != id) {
                 return;
             }
+            item = item.item;
             setIsBrowserDialogOpen(false);
             setCurrentValue(display(item));
-            let selected= choose(item)
-            Holism.setField(formContext, id, selected, validationResult ? false : true);
-            // if (column.endsWith('Guid')) {
-            //     Holism.setField(formContext, id, item.guid, validationResult ? false : true);
-            // }
-            // else if (column.endsWith('Id')) {
-            //     Holism.setField(formContext, id, item.id, validationResult ? false : true);
-            // }
+            if (typeof choose == "function") {
+                try {
+                    let selected = choose(item);
+                    Holism.setField(formContext, id, selected, validationResult ? false : true);
+                } catch (error) {
+                    throw new Error(`No return value specified for Browse ${column} `)
+                }
+            }
+            else {
+                if (column.endsWith('Guid')) {
+                    Holism.setField(formContext, id, item.guid, validationResult ? false : true);
+                }
+                else if (column.endsWith('Id')) {
+                    Holism.setField(formContext, id, item.id, validationResult ? false : true);
+                }
+                else {
+                    throw new Error(`No return value specified for Browse ${column} `)
+                }
+            }
+            // let selected= choose(item)
+            // Holism.setField(formContext, id, selected, validationResult ? false : true);
+            // // if (column.endsWith('Guid')) {
+            // //     Holism.setField(formContext, id, item.guid, validationResult ? false : true);
+            // // }
+            // // else if (column.endsWith('Id')) {
+            // //     Holism.setField(formContext, id, item.id, validationResult ? false : true);
+            // // }
         }
         Holism.on(Holism.entitySelected, handleEntitySelection);
         return () => {
