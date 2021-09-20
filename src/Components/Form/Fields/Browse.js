@@ -23,7 +23,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Browse = ({ column, required, placeholder, hint, value, browser, display, choose}) => {
+const Browse = ({ column, required, placeholder, hint, value, browser, display, choose }) => {
 
     const [id, setId] = useState();
     const [currentValue, setCurrentValue] = useState(value || "");
@@ -70,52 +70,37 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
     }
 
     useEffect(() => {
-        // 1- if choose is provider it shoud be a function
-
-        // 2- use choose then fallback then throw exption
-
-        // 3- if return value of choose is not define throw exption 
-
-        // 4- if fallback returns no value throw exption 
-
-        // if(typeof choose !== "function")
-        //     throw new Error(`Please set "choose"="function" for ${column} `)
-
         const handleEntitySelection = ({ item, callerId }) => {
-            debugger;
             if (callerId != id) {
                 return;
             }
             item = item.item;
             setIsBrowserDialogOpen(false);
-            setCurrentValue(display(item));
+
+            var dispalyItem = display(item);
+            if (typeof dispalyItem == "undefined")
+                throw new Error(`No dispaly value specified for Browse ${column} `)
+            setCurrentValue(dispalyItem);
+
             if (typeof choose == "function") {
                 try {
                     let selected = choose(item);
+                    if (typeof selected == "undefined" || typeof selected === "function")
+                        throw new Error(`No return value specified for Browse ${column} `)
                     Holism.setField(formContext, id, selected, validationResult ? false : true);
                 } catch (error) {
                     throw new Error(`No return value specified for Browse ${column} `)
                 }
             }
-            else {
-                if (column.endsWith('Guid')) {
-                    Holism.setField(formContext, id, item.guid, validationResult ? false : true);
-                }
-                else if (column.endsWith('Id')) {
-                    Holism.setField(formContext, id, item.id, validationResult ? false : true);
-                }
-                else {
-                    throw new Error(`No return value specified for Browse ${column} `)
-                }
+            else if (column.endsWith('Guid')) {
+                Holism.setField(formContext, id, item.guid, validationResult ? false : true);
             }
-            // let selected= choose(item)
-            // Holism.setField(formContext, id, selected, validationResult ? false : true);
-            // // if (column.endsWith('Guid')) {
-            // //     Holism.setField(formContext, id, item.guid, validationResult ? false : true);
-            // // }
-            // // else if (column.endsWith('Id')) {
-            // //     Holism.setField(formContext, id, item.id, validationResult ? false : true);
-            // // }
+            else if (column.endsWith('Id')) {
+                Holism.setField(formContext, id, item.id, validationResult ? false : true);
+            }
+            else {
+                throw new Error(`No return value specified for Browse ${column} `)
+            }
         }
         Holism.on(Holism.entitySelected, handleEntitySelection);
         return () => {
