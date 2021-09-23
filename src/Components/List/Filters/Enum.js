@@ -46,7 +46,13 @@ const Enum = ({ column, entity, placeholder }) => {
                     fullWidth
                     onChange={(event) => { setValue(event.target.value) }}
                 >
-                    {enumItems.map(item => <MenuItem key={item.id} value={item.id}>{item.key}</MenuItem>)}
+                    {
+                        enumItems
+                            ?
+                            enumItems.map(item => <MenuItem key={item.id} value={item.id}>{item.key}</MenuItem>)
+                            :
+                            null
+                    }
                 </Select>
         }}
     />
