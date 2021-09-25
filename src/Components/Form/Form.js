@@ -41,12 +41,14 @@ const Form = ({ inputs, actions, entity, title }) => {
       return;
     }
     var data = {};
+    new URLSearchParams(window.location.search).forEach((value, key) => data[key] = value);
     for (let i = 0; i < fields.length; i++) {
       data[fields[i].id.split('_')[1]] = fields[i].value;
     }
     console.log(data);
     setInProgress(true);
-    post(`${entity}/create`, data).then(data => {
+    let url = `${entity}/create`;
+    post(url, data).then(data => {
       setIsCreationDialogOpen(false);
       Holism.emit(Holism.itemCreated);
       setInProgress(false);
@@ -128,3 +130,7 @@ export { Browse } from './Fields/Browse';
 export { DateOnly as Date } from './Fields/Date';
 export { Time } from './Fields/Time';
 export { DateTime } from './Fields/DateTime';
+export { Holism } from '../../Base/Holism';
+export { app } from '../../Base/App';
+export { useQueryStringState } from '../../Base/UseQueryStringState';
+export { useLocalStorageState } from '../../Base/UseLocalStorageState';

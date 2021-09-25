@@ -113,3 +113,5 @@ export { get, post } from '../../Base/Api';
 export { ValueWithTitle } from '../Show/ValueWithTitle';
 export { Holism } from '../../Base/Holism';
 export { app } from '../../Base/App';
+export { useQueryStringState } from '../../Base/UseQueryStringState';
+export { useLocalStorageState } from '../../Base/UseLocalStorageState';

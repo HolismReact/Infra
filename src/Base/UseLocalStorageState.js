@@ -14,3 +14,4 @@ const useLocalStorageState = (defaultValue, key) => {
 }
 
 export default useLocalStorageState;
+export { useLocalStorageState };
