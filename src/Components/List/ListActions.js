@@ -2,8 +2,9 @@ import React, { useContext } from 'react';
 import Button from '@material-ui/core/Button';
 import { ListContext } from './List';
 import AddIcon from '@material-ui/icons/Add';
+import HolismIcon from '../HolismIcon';
 
-const ListActions = ({ actions, create }) => {
+const ListActions = ({ actions, create, creationButton }) => {
 
     const { setIsCreationDialogOpen } = useContext(ListContext);
 
@@ -19,10 +20,22 @@ const ListActions = ({ actions, create }) => {
                     <Button
                         className="bg-green-200 hover:bg-green-400"
                         variant="outlined"
-                        startIcon={<AddIcon />}
+                        startIcon={
+                            (creationButton && creationButton.icon)
+                                ?
+                                <HolismIcon icon={creationButton.icon} />
+                                :
+                                <AddIcon />
+                        }
                         onClick={showCreationDialog}
                     >
-                        Create
+                        {
+                            (creationButton && creationButton.text)
+                                ?
+                                creationButton.text
+                                :
+                                "Create"
+                        }
                     </Button>
                     :
                     null

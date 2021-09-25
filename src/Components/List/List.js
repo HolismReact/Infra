@@ -20,7 +20,7 @@ export const ListContext = React.createContext({
   listParameters: {}
 });
 
-const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, entity, headers, row, card, create, itemActions, hasDelete, hasEdit, edit }) => {
+const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, entity, headers, row, card, create, itemActions, hasDelete, hasEdit, edit, creationButton }) => {
   const [isCreationDialogOpen, setIsCreationDialogOpen] = useState(false);
   const [listParameters, setListParameters] = useState(CreateListParameters(KeycloakClient.keycloak.subject, entity));
   const [isFilteringOpen, setIsFilteringOpen] = useLocalStorageState(false, `${KeycloakClient.keycloak.subject}_${entity}_isFilteringOpen`);
@@ -44,7 +44,11 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
   }} id='list'>
 
     <div className='flex items-center justify-between px-6 py-2'>
-      <ListActions actions={listActions} create={create} />
+      <ListActions
+        actions={listActions}
+        create={create}
+        creationButton={creationButton}
+      />
       <div className="flex items-center">
         {
           sorts
@@ -115,3 +119,32 @@ export { Holism } from '../../Base/Holism';
 export { app } from '../../Base/App';
 export { useQueryStringState } from '../../Base/UseQueryStringState';
 export { useLocalStorageState } from '../../Base/UseLocalStorageState';
+
+/*
+List anatomy
+
+  List
+    ListActions
+      ListAction
+      ListAction
+      ...
+    Filtering
+      Filter1
+      Filter2
+      ...
+    Sorting
+      Sort1
+      Sort2
+    Pagination
+      GoToPage
+      PageSize
+      Page links
+  Items (tabular, card)
+    Item1
+      ItemActions
+        ItemAction1
+        ItemAction2
+        ...
+    Item2
+    ..
+*/
