@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Holism from '../Base/Holism';
+import Collapse from '@material-ui/core/Collapse';
 
 const Footer = () => {
 
@@ -25,9 +26,11 @@ const Footer = () => {
         };
     });
 
-    return <div id='footer' className={"h-10 flex items-center justify-center text-sm font-semibold text-gray-700" + (isShown ? "" : " hidden")}>
-        Copyright @ 2021
-    </div>
+    return <Collapse in={isShown}>
+        <div id='footer' className="h-10 flex items-center justify-center text-sm font-semibold text-gray-700">
+            Copyright @ 2021
+        </div>
+    </Collapse>
 };
 
 export default Footer;
