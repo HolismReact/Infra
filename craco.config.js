@@ -3,6 +3,7 @@ const aliases = {
   '@Form': 'src/Components/Form/Form',
   '@List': 'src/Components/List/List',
   '@Browse': 'src/Components/Browse/Browse',
+  '@Panel': 'src/Panel/Panel',
   '@Holism': 'src/Components/Export'
 };
 

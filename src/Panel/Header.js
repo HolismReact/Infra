@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Holism from '../Base/Holism';
-import MessageIcon from '@material-ui/icons/Message';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import FullscreenIcon from '@material-ui/icons/Fullscreen';
-import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
-import AppsIcon from '@material-ui/icons/Apps';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import MenuIcon from '@material-ui/icons/Menu';
-// import HeaderActions from '../HeaderActions.js'
+import HeaderActions from '../HeaderActions.js'
 import { FullScreen } from './HeaderActions/FullScreen';
 import { Maximize } from './HeaderActions/Maximize';
 import Collapse from '@material-ui/core/Collapse';
@@ -16,21 +10,6 @@ import Collapse from '@material-ui/core/Collapse';
 const Header = ({ onMenuIconClicked }) => {
 
     const [isShown, setIsShown] = useState(true);
-
-    const items = [
-        {
-            name: "apps",
-            icon: <AppsIcon />
-        },
-        {
-            name: "messages",
-            icon: <MessageIcon />
-        },
-        {
-            name: "notification",
-            icon: <NotificationsIcon />
-        },
-    ]
 
     useEffect(() => {
         const hide = () => {
@@ -65,10 +44,10 @@ const Header = ({ onMenuIconClicked }) => {
                         // items.map((item, index) => <div onClick={item.onClick || (() => { })} key={item.name} className={(index === 0 ? "" : "ml-6 ") + 'text-gray-600 cursor-pointer hover:text-blue-500'}>
                         //     {item.icon}
                         // </div>)
-                        // <HeaderActions />
                         <>
                             <Maximize />
                             <FullScreen />
+                            <HeaderActions />
                         </>
                     }
                 </div>

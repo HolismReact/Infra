@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { HeaderAction } from './HeaderAction';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
+import Holism from '../../Base/Holism';
 
 const FullScreen = () => {
 
