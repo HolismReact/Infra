@@ -44,6 +44,26 @@ function Panel() {
     }
   }, [isSidebarOpen]);
 
+  useEffect(() => {
+    const hide = () => {
+      setIsSidebarOpen(false);
+    };
+    Holism.on(Holism.makeRoom, hide);
+    return () => {
+      Holism.removeListener(Holism.makeRoom, hide);
+    };
+  });
+
+  useEffect(() => {
+    const show = () => {
+      setIsSidebarOpen(true);
+    };
+    Holism.on(Holism.returnBackToNormalForm, show);
+    return () => {
+      Holism.removeListener(Holism.returnBackToNormalForm, show);
+    };
+  });
+
   return <div className="flex">
     {
       isSidebarOpen
