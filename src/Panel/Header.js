@@ -8,44 +8,15 @@ import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
 import AppsIcon from '@material-ui/icons/Apps';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MenuIcon from '@material-ui/icons/Menu';
+// import HeaderActions from '../HeaderActions.js'
+import { FullScreen } from './HeaderActions/FullScreen';
+import { Maximize } from './HeaderActions/Maximize';
 
 const Header = ({ onMenuIconClicked }) => {
 
-    const [isFullScreen, setIsFullScreen] = useState(document.webkitIsFullScreen);
     const [isShown, setIsShown] = useState(true);
 
     const items = [
-        {
-            name: "closeHeader",
-            icon: <ExpandLessIcon />,
-            onClick: () => Holism.emit(Holism.makeRoom)
-        },
-        {
-            name: "maximize",
-            icon:
-                <>
-                    {
-                        isFullScreen
-                            ?
-                            <span><FullscreenExitIcon /></span>
-                            :
-                            <span ><FullscreenIcon /></span>
-                    }
-                </>,
-            onClick: () => {
-                if (document.fullscreenEnabled) {
-                    if (document.webkitIsFullScreen) {
-                        document.exitFullscreen();
-                        setIsFullScreen(false);
-                    } else {
-                        document.documentElement.requestFullscreen();
-                        setIsFullScreen(true);
-                    }
-                } else {
-                    Holism.warning("Your browser does not support fullscreen.");
-                }
-            }
-        },
         {
             name: "apps",
             icon: <AppsIcon />
@@ -89,9 +60,14 @@ const Header = ({ onMenuIconClicked }) => {
             </div>
             <div className='flex items-center justify-center'>
                 {
-                    items.map((item, index) => <div onClick={item.onClick || (() => { })} key={item.name} className={(index === 0 ? "" : "ml-6 ") + 'text-gray-600 cursor-pointer hover:text-blue-500'}>
-                        {item.icon}
-                    </div>)
+                    // items.map((item, index) => <div onClick={item.onClick || (() => { })} key={item.name} className={(index === 0 ? "" : "ml-6 ") + 'text-gray-600 cursor-pointer hover:text-blue-500'}>
+                    //     {item.icon}
+                    // </div>)
+                    // <HeaderActions />
+                    <>
+                        <Maximize />
+                        <FullScreen />
+                    </>
                 }
             </div>
         </div>
