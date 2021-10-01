@@ -33,14 +33,16 @@ const HeaderAction = ({ icon, title, url, action, component }) => {
     return <>
         <Tooltip title={title || ""}>
             <div
-                onClick={() => handleClick()}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    handleClick();
+                }}
                 className='text-gray-600 cursor-pointer hover:text-blue-500'
             >
                 <HolismIcon icon={icon} />
             </div>
         </Tooltip>
 
-        {/* This part is not working */}
         <ClickAwayListener onClickAway={() => setShowComponent(false)}>
             <div>
                 <Fade in={showComponent}>
