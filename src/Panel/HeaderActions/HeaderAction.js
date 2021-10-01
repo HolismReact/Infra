@@ -1,15 +1,17 @@
 import HolismIcon from "../../Components/HolismIcon"
 import Tooltip from '@material-ui/core/Tooltip';
 import Fade from '@material-ui/core/Fade';
+import Collapse from '@material-ui/core/Collapse';
 import React, { useState } from 'react';
 import Holism from "../../Base/Holism";
 import { useHistory } from 'react-router-dom';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 const HeaderAction = ({ icon, title, url, action, component }) => {
 
     const history = useHistory();
 
-    const Component = component;
+    const Component = component || (() => <div>NA</div>);
 
     const [showComponent, setShowComponent] = useState(false);
 
@@ -32,20 +34,22 @@ const HeaderAction = ({ icon, title, url, action, component }) => {
         <Tooltip title={title || ""}>
             <div
                 onClick={() => handleClick()}
-                className={("ml-6 ") + 'text-gray-600 cursor-pointer hover:text-blue-500'}
+                className='text-gray-600 cursor-pointer hover:text-blue-500'
             >
                 <HolismIcon icon={icon} />
             </div>
         </Tooltip>
-        {
-            component && showComponent
-                ?
+
+        {/* This part is not working */}
+        <ClickAwayListener onClickAway={() => setShowComponent(false)}>
+            <div>
                 <Fade in={showComponent}>
-                    <Component />
+                    <div>
+                        <Component />
+                    </div>
                 </Fade>
-                :
-                null
-        }
+            </div>
+        </ClickAwayListener>
     </>
 }
 
