@@ -56,7 +56,9 @@ function Panel() {
 
   useEffect(() => {
     const show = () => {
-      setIsSidebarOpen(true);
+      if (window.innerWidth >= Holism.breakpoints.lg) {
+        setIsSidebarOpen(true);
+      }
     };
     Holism.on(Holism.returnBackToNormalForm, show);
     return () => {
