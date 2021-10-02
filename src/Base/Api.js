@@ -1,5 +1,5 @@
 import axios from "axios"
-import KeycloakClient from "../Accounts/KeycloakClient";
+import app from "./App";
 import Holism from "./Holism";
 
 const axiosApi = axios.create({
@@ -10,7 +10,7 @@ axiosApi.interceptors.request.use(config => {
   config.headers['Content-Type'] = 'application/json';
   config.headers['Accept'] = 'application/json';
   config.headers['X-Client'] = 'React';
-  config.headers.Authorization = `Bearer ${KeycloakClient.keycloak.token}`;
+  config.headers.Authorization = `Bearer ${app.token()}`;
   return config;
 });
 
@@ -24,10 +24,10 @@ axiosApi.interceptors.response.use(
       return;
     }
     if (error.response && error.response.status === 401) {
-      var url = new URL(KeycloakClient.keycloak.createLogoutUrl());
-      url.search = KeycloakClient.keycloak.createLoginUrl();
+      var url = new URL(app.createLogoutUrl());
+      url.search = app.createLoginUrl();
       window.newUrl = url;
-      KeycloakClient.checkLogin();
+      app.checkLogin();
       return;
     }
     if (error.response && error.response.status === 403) {
@@ -59,9 +59,9 @@ axiosApi.interceptors.response.use(
         messages = data;
       }
       if (messages.indexOf('IDX10223') > -1) {
-        KeycloakClient.checkLogin();
+        app.checkLogin();
         return;
-        //KeycloakClient.keycloak.updateToken();
+        //app.updateToken();
       }
       console.log(messages);
       throw new Error(messages);

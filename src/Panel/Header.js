@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Holism from '../Base/Holism';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MenuIcon from '@material-ui/icons/Menu';
-import HeaderActions from './HeaderActions/HeaderAction.js'
+import HeaderActions from '../HeaderActions.js'
 import { FullScreen } from './HeaderActions/FullScreen';
 import { Maximize } from './HeaderActions/Maximize';
 import Collapse from '@material-ui/core/Collapse';

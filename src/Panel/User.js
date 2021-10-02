@@ -1,4 +1,4 @@
-import KeycloakClient from "../Accounts/KeycloakClient";
+import app from "../Base/App";
 import Holism from "../Base/Holism";
 import { useState, useEffect } from 'react';
 import PersonIcon from '@material-ui/icons/Person';
@@ -16,13 +16,13 @@ const Item = ({ url, icon, background, title, handler }) =>
 
 export default function User({ onClick }) {
 
-    const [user, setUser] = useState(KeycloakClient.user);
-    const [role, setRole] = useState(KeycloakClient.role());
+    const [user, setUser] = useState(app.user);
+    const [role, setRole] = useState(app.role());
 
     useEffect(() => {
         Holism.on(Holism.accountUpdated, () => {
-            setUser(KeycloakClient.user);
-            setRole(KeycloakClient.role());
+            setUser(app.user);
+            setRole(app.role());
         });
     }, [])
 
@@ -38,7 +38,7 @@ export default function User({ onClick }) {
                 <ul className="flex items-center justify-center">
                     <Item
                         icon={<PersonIcon {...iconStyle} />}
-                        url={KeycloakClient.keycloak.createAccountUrl()}
+                        url={app.createAccountUrl()}
                         title="Profile"
                         background="bg-green-200"
                         handler={onClick}
@@ -52,7 +52,7 @@ export default function User({ onClick }) {
                     />
                     <Item
                         icon={<ExitToAppIcon {...iconStyle} />}
-                        handler={() => KeycloakClient.keycloak.logout()}
+                        handler={() => app.logout()}
                         title="Logout"
                         background="bg-red-200"
                     />

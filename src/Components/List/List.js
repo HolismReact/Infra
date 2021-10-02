@@ -5,7 +5,7 @@ import Sorting from "./Sorting";
 import Items from "./Items";
 import ListActions from "./ListActions";
 import Holism from '../../Base/Holism';
-import KeycloakClient from '../../Accounts/KeycloakClient';
+import app from '../../Base/App';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import Filter from './Filters/Filter';
 import CachedIcon from '@material-ui/icons/Cached';
@@ -22,8 +22,8 @@ export const ListContext = React.createContext({
 
 const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, entity, headers, row, card, create, itemActions, hasDelete, hasEdit, edit, creationButton }) => {
   const [isCreationDialogOpen, setIsCreationDialogOpen] = useState(false);
-  const [listParameters, setListParameters] = useState(CreateListParameters(KeycloakClient.keycloak.subject, entity));
-  const [isFilteringOpen, setIsFilteringOpen] = useLocalStorageState(false, `${KeycloakClient.keycloak.subject}_${entity}_isFilteringOpen`);
+  const [listParameters, setListParameters] = useState(CreateListParameters(app.userGuid(), entity));
+  const [isFilteringOpen, setIsFilteringOpen] = useLocalStorageState(false, `${app.userGuid()}_${entity}_isFilteringOpen`);
 
   useEffect(() => {
     Holism.emit(Holism.componentLoaded, {

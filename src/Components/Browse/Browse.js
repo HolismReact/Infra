@@ -10,14 +10,14 @@ import { ItemAction, ListContext } from '../List/List';
 import CheckIcon from '@material-ui/icons/Check';
 import Holism from '../../Base/Holism';
 import Collapse from '@material-ui/core/Collapse';
-import KeycloakClient from '../../Accounts/KeycloakClient';
+import app from '../../Base/App';
 
 const listActionIconStyle = "text-gray-700 hover:text-blue-500 cursor-pointer";
 
 const Browse = ({ sorts, filters, row, card, entity, headers, callerId }) => {
 
-    const [listParameters, setListParameters] = useState(CreateListParameters(KeycloakClient.keycloak.subject, entity));
-    const [isFilteringOpen, setIsFilteringOpen] = useLocalStorageState(false, `${KeycloakClient.keycloak.subject}_${entity}_isFilteringOpen`);
+    const [listParameters, setListParameters] = useState(CreateListParameters(app.userGuid(), entity));
+    const [isFilteringOpen, setIsFilteringOpen] = useLocalStorageState(false, `${app.userGuid()}_${entity}_isFilteringOpen`);
 
     const toggleFiltering = () => {
         setIsFilteringOpen(!isFilteringOpen);
