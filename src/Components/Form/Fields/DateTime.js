@@ -14,7 +14,7 @@ const DateTime = ({ column, required, placeholder, hint, value }) => {
     const initialHint = hint;
     var formContext = useContext(FormContext);
 
-    const [currentValue, setCurrentValue] = React.useState(new Date(value) || new Date());
+    const [currentValue, setCurrentValue] = useState(value ? new Date(value) : new Date());
 
     useEffect(() => {
         setId(`dateTime_${column}`);

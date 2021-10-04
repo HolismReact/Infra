@@ -127,7 +127,7 @@ export { Hidden } from './Fields/Hidden';
 export { Enum } from './Fields/Enum';
 export { LongText } from './Fields/LongText';
 export { Browse } from './Fields/Browse';
-export { DateOnly as Date } from './Fields/Date';
+export { DateOnly as Date } from './Fields/DateOnly';
 export { Time } from './Fields/Time';
 export { DateTime } from './Fields/DateTime';
 export { Holism } from '../../Base/Holism';
