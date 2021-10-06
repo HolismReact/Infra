@@ -26,7 +26,7 @@ const cards = ({ data, itemActions, hasDelete, hasEdit, edit, entity, create, me
                                 {
                                     (itemActions || hasDelete || hasEdit || edit)
                                         ?
-                                        <div className="flex items-center justify-end">
+                                        <div className="flex flex-wrap items-center justify-end">
                                             <ItemActions
                                                 entity={entity}
                                                 item={item}
@@ -64,79 +64,79 @@ const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete, h
             }));
     }
 
-    return <table className="w-full text-center">
-        <thead>
-            <tr className='text-xs uppercase text-gray-900 font-light tracking-wider border-b'>
-                {
-                    headerElements
-                }
-                {
-                    (itemActions || hasDelete)
-                        ?
-                        <td></td>
-                        :
-                        null
-                }
-            </tr>
-        </thead>
-        <tbody>
-            {
-                row && typeof row === 'function'
-                    ?
-                    data.length === 0
-                        ?
-                        <tr>
-                            <td colSpan='100' className={noItemIsFoundStyle}>No item is found</td>
-                        </tr>
-                        :
-                        data.map((item, index) => <tr
-                            key={item.id}
-                            className={'py-3 ' + ((index === data.length - 1) ? '' : 'border-b')}
-                        >
-                            {
-                                React.Children
-                                    .toArray(row(item).props.children)
-                                    .map(itemElemen => React.cloneElement(itemElemen, {
-                                        className: 'text-gray-900 py-3 text-sm font-light tracking-wide'
-                                    }))
-                            }
-                            {
-                                (itemActions || hasDelete || hasEdit || edit)
-                                    ?
-                                    <td className="flex items-center justify-end">
-                                        <ItemActions
-                                            entity={entity}
-                                            item={item}
-                                            itemActions={itemActions}
-                                            hasDelete={hasDelete}
-                                            hasEdit={hasEdit}
-                                            editionComponent={edit}
-                                            creationComponent={create}
-                                            setItem={setItem}
-                                        />
-                                    </td>
-                                    :
-                                    null
-                            }
-                        </tr>)
-                    :
-                    null
-            }
-        </tbody>
+    return <>
+        <div className="w-full overflow-x-scroll">
+            <table className="w-full text-center " style={{ minWidth: '600px' }}>
+                <thead>
+                    <tr className='text-xs uppercase text-gray-900 font-light tracking-wider border-b'>
+                        {
+                            headerElements
+                        }
+                        {
+                            (itemActions || hasDelete)
+                                ?
+                                <td></td>
+                                :
+                                null
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        row && typeof row === 'function'
+                            ?
+                            data.length === 0
+                                ?
+                                <tr>
+                                    <td colSpan='100' className={noItemIsFoundStyle}>No item is found</td>
+                                </tr>
+                                :
+                                data.map((item, index) => <tr
+                                    key={item.id}
+                                    className={'py-3 ' + ((index === data.length - 1) ? '' : 'border-b')}
+                                >
+                                    {
+                                        React.Children
+                                            .toArray(row(item).props.children)
+                                            .map(itemElemen => React.cloneElement(itemElemen, {
+                                                className: 'text-gray-900 py-3 text-sm font-light tracking-wide'
+                                            }))
+                                    }
+                                    {
+                                        (itemActions || hasDelete || hasEdit || edit)
+                                            ?
+                                            <td className="flex flex-wrap items-center justify-end">
+                                                <ItemActions
+                                                    entity={entity}
+                                                    item={item}
+                                                    itemActions={itemActions}
+                                                    hasDelete={hasDelete}
+                                                    hasEdit={hasEdit}
+                                                    editionComponent={edit}
+                                                    creationComponent={create}
+                                                    setItem={setItem}
+                                                />
+                                            </td>
+                                            :
+                                            null
+                                    }
+                                </tr>)
+                            :
+                            null
+                    }
+                </tbody>
+            </table>
+        </div>
         {
             data.length === 0
                 ?
                 null
                 :
-                <tfoot>
-                    <tr>
-                        <td colSpan='100' className="pt-8">
-                            <Pagination metadata={metadata} />
-                        </td>
-                    </tr>
-                </tfoot>
+                <div className="pt-8">
+                    <Pagination metadata={metadata} />
+                </div>
         }
-    </table>
+    </>
 };
 
 const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, itemActions }) => {
@@ -217,7 +217,7 @@ const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, i
     }, []);
 
     return <div id='items' className={
-        'bg-white p-6 md:rounded-lg flex items-center justify-center '
+        'bg-white p-6 md:rounded-lg flex flex-col items-center justify-center '
         +
         (
             card
@@ -237,11 +237,11 @@ const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, i
                         ?
                         cards({ entity, loading, data, metadata, card, itemActions, hasDelete, hasEdit, edit, create, setItem })
                         :
-                        window.innerWidth < app.breakpoints.md
-                            ?
-                            <div>Only cards are shown for small screens!</div>
-                            :
-                            table({ entity, loading, data, metadata, headers, row, itemActions, hasDelete, hasEdit, edit, create, setItem })
+                        // window.innerWidth < app.breakpoints.md
+                        //     ?
+                        //     <div>Only cards are shown for small screens!</div>
+                        //     :
+                        table({ entity, loading, data, metadata, headers, row, itemActions, hasDelete, hasEdit, edit, create, setItem })
                 )
         }
     </div>
