@@ -27,6 +27,8 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
   const [isFilteringOpen, setIsFilteringOpen] = useLocalStorageState(false, `${app.userGuid()}_${entity}_isFilteringOpen`);
   const [selectedItems, setSelectedItems] = useState([]);
 
+  const hasItemSelection = listActions ? true : false;
+  
   useEffect(() => {
     console.log(selectedItems);
   }, [selectedItems]);
@@ -103,7 +105,7 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
       hasDelete={hasDelete}
       hasEdit={hasEdit}
       edit={edit}
-      hasItemSelection={true}
+      hasItemSelection={hasItemSelection}
     />
     {
       create

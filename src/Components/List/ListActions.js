@@ -6,11 +6,24 @@ import HolismIcon from '../HolismIcon';
 
 const ListActions = ({ actions, create, creationButton }) => {
 
-    const { setIsCreationDialogOpen } = useContext(ListContext);
+    const { setIsCreationDialogOpen, selectedItems } = useContext(ListContext);
 
     const showCreationDialog = () => {
         setIsCreationDialogOpen(true);
     }
+
+    const clonedListActions = React
+        .Children
+        .toArray(
+            (typeof actions === 'function')
+                ?
+                actions(selectedItems).props.children
+                :
+                actions.props.children
+        )
+        .map(listAction => React.cloneElement(listAction, {
+            
+        }))
 
     return <div id='listActions' className='flex flex-wrap items-center'>
         <div>
@@ -43,9 +56,9 @@ const ListActions = ({ actions, create, creationButton }) => {
         </div>
         <div>
             {
-                actions && typeof (actions) === 'function'
+                selectedItems.length > 0
                     ?
-                    actions()
+                    clonedListActions
                     :
                     null
             }

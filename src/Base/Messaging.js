@@ -1,21 +1,23 @@
+import app from './App';
+
 const Messaging = {
     success: (message, action) => {
-        Holism.message(message, action, 'success');
+        Messaging.message(message, action, 'success');
     },
     info: (message, action) => {
-        Holism.message(message, action, 'info');
+        Messaging.message(message, action, 'info');
     },
     warning: (message, action) => {
-        Holism.message(message, action, 'warning');
+        Messaging.message(message, action, 'warning');
     },
     error: (message, action) => {
-        Holism.message(message, action, 'error');
+        Messaging.message(message, action, 'error');
     },
     message: (message, action, type) => {
         if (message && message.message) {
             message = message.message;
         }
-        Holism.emit(Holism.showMessage, { message: message, action: action, type: type });
+        app.emit(app.showMessage, { message: message, action: action, type: type });
     }
 }
 
