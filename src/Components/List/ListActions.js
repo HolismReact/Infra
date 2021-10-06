@@ -12,18 +12,21 @@ const ListActions = ({ actions, create, creationButton }) => {
         setIsCreationDialogOpen(true);
     }
 
-    const clonedListActions = React
-        .Children
-        .toArray(
-            (typeof actions === 'function')
-                ?
-                actions(selectedItems).props.children
-                :
-                actions.props.children
-        )
-        .map(listAction => React.cloneElement(listAction, {
-            
-        }))
+    const clonedListActions = actions ?
+        React
+            .Children
+            .toArray(
+                (typeof actions === 'function')
+                    ?
+                    actions(selectedItems).props.children
+                    :
+                    actions.props.children
+            )
+            .map(listAction => React.cloneElement(listAction, {
+
+            }))
+        :
+        null
 
     return <div id='listActions' className='flex flex-wrap items-center'>
         <div>
