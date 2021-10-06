@@ -4,9 +4,15 @@ import HolismIcon from '../HolismIcon';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import app from '../../Base/App';
 
-const ListAction = ({ icon, title, click }) => {
+const cardinalities = ['1', '>2'];
+
+const ListAction = ({ icon, title, click, cardinality }) => {
 
     const [progress, setProgress] = useState(false);
+
+    if (cardinality) {
+        
+    }
 
     const reloadList = () => {
         app.emit(app.reloadRequirement)

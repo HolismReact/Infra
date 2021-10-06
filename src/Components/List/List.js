@@ -16,13 +16,20 @@ const listActionIconStyle = "text-gray-700 hover:text-blue-500 cursor-pointer";
 export const ListContext = React.createContext({
   isCreationDialogOpen: false,
   setIsCreationDialogOpen: () => { },
-  listParameters: {}
+  listParameters: {},
+  selectedItems: [],
+  setSelectedItems: () => {}
 });
 
 const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, entity, headers, row, card, create, itemActions, hasDelete, hasEdit, edit, creationButton }) => {
   const [isCreationDialogOpen, setIsCreationDialogOpen] = useState(false);
   const [listParameters, setListParameters] = useState(CreateListParameters(app.userGuid(), entity));
   const [isFilteringOpen, setIsFilteringOpen] = useLocalStorageState(false, `${app.userGuid()}_${entity}_isFilteringOpen`);
+  const [selectedItems, setSelectedItems] = useState([]);
+
+  useEffect(() => {
+    console.log(selectedItems);
+  }, [selectedItems]);
 
   useEffect(() => {
     app.emit(app.componentLoaded, {
@@ -40,6 +47,8 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
     isCreationDialogOpen,
     setIsCreationDialogOpen,
     listParameters: listParameters,
+    selectedItems: selectedItems,
+    setSelectedItems:  setSelectedItems
   }} id='list'>
 
     <div className='lg:flex items-center justify-between px-6 py-2'>
@@ -94,6 +103,7 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
       hasDelete={hasDelete}
       hasEdit={hasEdit}
       edit={edit}
+      hasItemSelection={true}
     />
     {
       create

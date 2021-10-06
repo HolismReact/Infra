@@ -5,10 +5,12 @@ import { ListContext } from './List';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Pagination from './Pagination';
 import ItemActions from './ItemActions';
+import Checkbox from '@material-ui/core/Checkbox';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const noItemIsFoundStyle = 'py-10 text-2xl font-bold text-gray-600';
 
-const cards = ({ data, itemActions, hasDelete, hasEdit, edit, entity, create, metadata, card, setItem }) => {
+const cards = ({ data, itemActions, hasDelete, hasEdit, edit, entity, create, metadata, card, setItem, hasItemSelection }) => {
 
     return <>
         {
@@ -51,7 +53,9 @@ const cards = ({ data, itemActions, hasDelete, hasEdit, edit, entity, create, me
     </>
 }
 
-const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete, hasEdit, edit, create, setItem }) => {
+const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete, hasEdit, edit, create, setItem, hasItemSelection }) => {
+
+    const listContext = useContext(ListContext);
 
     let headerElements = [];
 
@@ -69,6 +73,22 @@ const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete, h
             <table className="w-full text-center " style={{ minWidth: '600px' }}>
                 <thead>
                     <tr className='text-xs uppercase text-gray-900 font-light tracking-wider border-b'>
+                        {
+
+                            hasItemSelection ?
+                                <>
+                                    <th>
+                                        <Tooltip title="Select all">
+                                            <Checkbox
+                                                color="primary"
+                                                inputProps={{ 'aria-label': 'Select all' }}
+                                            />
+                                        </Tooltip>
+                                    </th>
+                                </>
+                                :
+                                null
+                        }
                         {
                             headerElements
                         }
@@ -95,6 +115,24 @@ const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete, h
                                     key={item.id}
                                     className={'py-3 ' + ((index === data.length - 1) ? '' : 'border-b')}
                                 >
+                                    {
+                                        hasItemSelection
+                                            ?
+                                            <td>
+                                                <Checkbox
+                                                    color="primary"
+                                                    onChange={(event) => {
+                                                        event.target.checked
+                                                            ?
+                                                            app.addItemToSelectedItems(listContext, item.id)
+                                                            :
+                                                            app.removeItemFromSelectedItems(listContext, item.id)
+                                                    }}
+                                                />
+                                            </td>
+                                            :
+                                            null
+                                    }
                                     {
                                         React.Children
                                             .toArray(row(item).props.children)
@@ -139,7 +177,7 @@ const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete, h
     </>
 };
 
-const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, itemActions }) => {
+const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, itemActions, hasItemSelection }) => {
     const [loading, setLoading] = useState();
     const [reloadedTimes, setReloadedTimes] = useState(0);
     const [data, setData] = useState([]);
@@ -235,13 +273,13 @@ const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, i
                 (
                     card
                         ?
-                        cards({ entity, loading, data, metadata, card, itemActions, hasDelete, hasEdit, edit, create, setItem })
+                        cards({ entity, loading, data, metadata, card, itemActions, hasDelete, hasEdit, edit, create, setItem, hasItemSelection })
                         :
                         // window.innerWidth < app.breakpoints.md
                         //     ?
                         //     <div>Only cards are shown for small screens!</div>
                         //     :
-                        table({ entity, loading, data, metadata, headers, row, itemActions, hasDelete, hasEdit, edit, create, setItem })
+                        table({ entity, loading, data, metadata, headers, row, itemActions, hasDelete, hasEdit, edit, create, setItem, hasItemSelection })
                 )
         }
     </div>
