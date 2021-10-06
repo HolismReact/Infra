@@ -65,7 +65,7 @@ const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete, h
     }
 
     return <>
-        <div className="w-full overflow-x-scroll">
+        <div className="w-full overflow-x-auto">
             <table className="w-full text-center " style={{ minWidth: '600px' }}>
                 <thead>
                     <tr className='text-xs uppercase text-gray-900 font-light tracking-wider border-b'>
