@@ -1,3 +1,5 @@
+import app from './App';
+
 const CreateListParameters = (userGuid, entity) => {
     var key = '';
     if (userGuid) {

@@ -1,4 +1,5 @@
 // todo: redirect user to "403" page if his role is not equivalent to role in .env file
+import app from './App';
 
 let keycloak = null;
 let token = '';
