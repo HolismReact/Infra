@@ -11,31 +11,6 @@ const Holism = {
     randomId: () => {
         return Math.random().toString(36).replace(/[^a-z]+/g, '');
     },
-    addItemToSelectedItems: (listContext, id) => {
-        if (!id) {
-            return;
-        }
-        const { selectedItems, setSelectedItems } = listContext;
-        if (selectedItems.indexOf(id) > -1) {
-            return;
-        }
-        setSelectedItems((previousSelectedItems) => {
-            return [id, ...selectedItems];
-        });
-    },
-    removeItemFromSelectedItems: (listContext, id) => {
-        if (!id) {
-            return;
-        }
-        const { selectedItems, setSelectedItems } = listContext;
-        if (selectedItems.indexOf(id) === -1) {
-            return;
-        }
-        setSelectedItems((previousSelectedItems) => {
-            selectedItems.splice(selectedItems.indexOf(id), 1);
-            return [...selectedItems];
-        });
-    },
     addFieldToFormContext: (formContext, id, value, isValid) => {
         if (!id) {
             return;

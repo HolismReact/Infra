@@ -56,6 +56,7 @@ const cards = ({ data, itemActions, hasDelete, hasEdit, edit, entity, create, me
 const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete, hasEdit, edit, create, setItem, hasItemSelection }) => {
 
     const listContext = useContext(ListContext);
+    const { selectedItems } = listContext;
 
     let headerElements = [];
 
@@ -78,9 +79,19 @@ const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete, h
                             hasItemSelection ?
                                 <>
                                     <th>
-                                        <Tooltip title="Select all">
+                                        <Tooltip
+                                            title="Select all"
+                                            placement="top"
+                                        >
                                             <Checkbox
                                                 color="primary"
+                                                onChange={(event) => {
+                                                    event.target.checked
+                                                        ?
+                                                        app.addItemsToSelectedItems(listContext, data)
+                                                        :
+                                                        app.removeItemsFromSelectedItems(listContext, data)
+                                                }}
                                                 inputProps={{ 'aria-label': 'Select all' }}
                                             />
                                         </Tooltip>
@@ -120,6 +131,7 @@ const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete, h
                                             ?
                                             <td>
                                                 <Checkbox
+                                                    checked={selectedItems.indexOf(item.id) > -1}
                                                     color="primary"
                                                     onChange={(event) => {
                                                         event.target.checked

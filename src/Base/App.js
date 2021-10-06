@@ -4,6 +4,7 @@ import Push from './Push';
 import Account from './Account';
 import Holism from "./Holism";
 import Messaging from "./Messaging";
+import List from "./List";
 
 const app = {
     ...EventManager,
@@ -11,6 +12,7 @@ const app = {
     ...Push,
     ...Account,
     ...Messaging,
+    ...List,
     ...Holism
 };
 

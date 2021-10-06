@@ -18,7 +18,7 @@ export const ListContext = React.createContext({
   setIsCreationDialogOpen: () => { },
   listParameters: {},
   selectedItems: [],
-  setSelectedItems: () => {}
+  setSelectedItems: () => { }
 });
 
 const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, entity, headers, row, card, create, itemActions, hasDelete, hasEdit, edit, creationButton }) => {
@@ -48,7 +48,7 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
     setIsCreationDialogOpen,
     listParameters: listParameters,
     selectedItems: selectedItems,
-    setSelectedItems:  setSelectedItems
+    setSelectedItems: setSelectedItems
   }} id='list'>
 
     <div className='lg:flex items-center justify-between px-6 py-2'>
