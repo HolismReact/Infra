@@ -42,13 +42,13 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
     listParameters: listParameters,
   }} id='list'>
 
-    <div className='flex items-center justify-between px-6 py-2'>
+    <div className='lg:flex items-center justify-between px-6 py-2'>
       <ListActions
         actions={listActions}
         create={create}
         creationButton={creationButton}
       />
-      <div className="flex items-center">
+      <div className="sortAndFilteringAndReload flex items-center justify-end">
         {
           sorts
             ?

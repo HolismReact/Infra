@@ -12,7 +12,7 @@ const ListActions = ({ actions, create, creationButton }) => {
         setIsCreationDialogOpen(true);
     }
 
-    return <div id='listActions' className='flex items-center'>
+    return <div id='listActions' className='flex flex-wrap items-center'>
         <div>
             {
                 create
