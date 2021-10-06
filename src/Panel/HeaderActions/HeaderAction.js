@@ -3,7 +3,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Fade from '@material-ui/core/Fade';
 import Collapse from '@material-ui/core/Collapse';
 import React, { useState } from 'react';
-import Holism from "../../Base/Holism";
+import app from "../../Base/App";
 import { useHistory } from 'react-router-dom';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
@@ -16,7 +16,7 @@ const HeaderAction = ({ icon, title, url, action, component }) => {
     const [showComponent, setShowComponent] = useState(false);
 
     const handleClick = () => {
-        if (url && Holism.isSomething(url)) {
+        if (url && app.isSomething(url)) {
             history.push(url);
         }
         else if (action && (typeof action === 'function')) {

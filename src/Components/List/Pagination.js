@@ -1,4 +1,4 @@
-import Holism from "../../Base/Holism";
+import app from "../../Base/App";
 import React, { useContext, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -35,13 +35,13 @@ const Pagination = ({ metadata }) => {
             number = pagesCount;
         }
         listParameters.pageNumber = number;
-        Holism.emit(Holism.reloadRequirement);
+        app.emit(app.reloadRequirement);
     };
 
     const setPageSize = () => {
         listParameters.pageSize = internalPageSize;
         listParameters.pageNumber = 1;
-        Holism.emit(Holism.reloadRequirement);
+        app.emit(app.reloadRequirement);
     };
 
     const pageNumberDialog = <Dialog

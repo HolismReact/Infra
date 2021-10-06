@@ -4,7 +4,6 @@ const aliases = {
   '@List': 'src/Components/List/List',
   '@Browse': 'src/Components/Browse/Browse',
   '@Panel': 'src/Panel/Panel',
-  '@Holism': 'src/Components/Export'
 };
 
 const resolvedAliases = Object.fromEntries(

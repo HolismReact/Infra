@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import MainRouting from '../Base/MainRouting';
 import Sidebar from './Sidebar';
 import Header from './Header';
-import Holism from '../Base/Holism';
+import app from '../Base/App';
 import useLocalStorageState from '../Base/UseLocalStorageState';
 import Footer from './Footer';
 import Message from './Message';
@@ -20,18 +20,18 @@ function Panel() {
   }
 
   const closeMenu = () => {
-    if (window.innerWidth < Holism.breakpoints.lg) {
+    if (window.innerWidth < app.breakpoints.lg) {
       setIsSidebarOpen(false);
     }
   }
 
   useEffect(() => {
-    if (window.innerWidth < Holism.breakpoints.lg) {
+    if (window.innerWidth < app.breakpoints.lg) {
       setMainContentWidth('100vw');
     }
     else {
       if (isSidebarOpen) {
-        if (window.innerWidth >= Holism.breakpoints.xxl) {
+        if (window.innerWidth >= app.breakpoints.xxl) {
           setMainContentWidth('83.33vw')
         }
         else {
@@ -48,21 +48,21 @@ function Panel() {
     const hide = () => {
       setIsSidebarOpen(false);
     };
-    Holism.on(Holism.makeRoom, hide);
+    app.on(app.makeRoom, hide);
     return () => {
-      Holism.removeListener(Holism.makeRoom, hide);
+      app.removeListener(app.makeRoom, hide);
     };
   });
 
   useEffect(() => {
     const show = () => {
-      if (window.innerWidth >= Holism.breakpoints.lg) {
+      if (window.innerWidth >= app.breakpoints.lg) {
         setIsSidebarOpen(true);
       }
     };
-    Holism.on(Holism.returnBackToNormalForm, show);
+    app.on(app.returnBackToNormalForm, show);
     return () => {
-      Holism.removeListener(Holism.returnBackToNormalForm, show);
+      app.removeListener(app.returnBackToNormalForm, show);
     };
   });
 

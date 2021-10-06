@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Holism from '../Base/Holism';
+import app from '../Base/App';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MenuIcon from '@material-ui/icons/Menu';
 import HeaderActions from '../HeaderActions.js'
@@ -15,9 +15,9 @@ const Header = ({ onMenuIconClicked }) => {
         const hide = () => {
             setIsShown(false);
         };
-        Holism.on(Holism.makeRoom, hide);
+        app.on(app.makeRoom, hide);
         return () => {
-            Holism.removeListener(Holism.makeRoom, hide);
+            app.removeListener(app.makeRoom, hide);
         };
     });
 
@@ -25,9 +25,9 @@ const Header = ({ onMenuIconClicked }) => {
         const show = () => {
             setIsShown(true);
         };
-        Holism.on(Holism.returnBackToNormalForm, show);
+        app.on(app.returnBackToNormalForm, show);
         return () => {
-            Holism.removeListener(Holism.returnBackToNormalForm, show);
+            app.removeListener(app.returnBackToNormalForm, show);
         };
     });
 
@@ -55,7 +55,7 @@ const Header = ({ onMenuIconClicked }) => {
         </Collapse>
         <Collapse in={!isShown}>
             <div
-                className="m-auto absolute top-0 right-0 left-0 h-0 flex justify-center" onClick={() => Holism.emit(Holism.returnBackToNormalForm)}>
+                className="m-auto absolute top-0 right-0 left-0 h-0 flex justify-center" onClick={() => app.emit(app.returnBackToNormalForm)}>
                 <ExpandMoreIcon style={{ fontSize: 40 }} className="cursor-pointer" />
             </div>
         </Collapse>

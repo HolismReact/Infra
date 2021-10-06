@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { HeaderAction } from './HeaderAction';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
-import Holism from '../../Base/Holism';
+import app from '../../Base/App';
 
 const FullScreen = () => {
 
@@ -27,7 +27,7 @@ const FullScreen = () => {
                     setIsFullScreen(true);
                 }
             } else {
-                Holism.warning("Your browser does not support fullscreen.");
+                app.warning("Your browser does not support fullscreen.");
             }
         }}
     />

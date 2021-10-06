@@ -4,7 +4,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import useLocalStorageState from '../../../Base/UseLocalStorageState';
-import Holism from '../../../Base/Holism';
+import app from '../../../Base/App';
 import React, { useEffect, useState, useContext, useRef } from 'react';
 import { get } from '../../../Base/Api';
 import { FormContext } from '../Form';
@@ -12,7 +12,7 @@ import { fieldStyles } from './FieldStyle';
 
 const Enum = ({ column, entity, placeholder, hint, value, required }) => {
 
-    if (Holism.isNothing(entity)) {
+    if (app.isNothing(entity)) {
         throw new Error(`entity is not provided for ${Enum.name}`);
     }
 
@@ -33,13 +33,13 @@ const Enum = ({ column, entity, placeholder, hint, value, required }) => {
 
     useEffect(() => {
         setLabelId(`${id}_label`);
-        Holism.addFieldToFormContext(formContext, id, undefined, false);
+        app.addFieldToFormContext(formContext, id, undefined, false);
         var handler = () => {
             validate();
         };
-        Holism.on(Holism.formSubmissionEvent, handler);
+        app.on(app.formSubmissionEvent, handler);
         return () => {
-            Holism.removeListener(Holism.formSubmissionEvent, handler);
+            app.removeListener(app.formSubmissionEvent, handler);
         }
     }, [id, formContext])
 
@@ -64,7 +64,7 @@ const Enum = ({ column, entity, placeholder, hint, value, required }) => {
 
     const validate = (event) => {
         console.log(currentValue);
-        if (required && Holism.isNothing(currentValue)) {
+        if (required && app.isNothing(currentValue)) {
             setValidationResult('invalid required');
             setHelpText(required);
         }
@@ -75,7 +75,7 @@ const Enum = ({ column, entity, placeholder, hint, value, required }) => {
     }
 
     useEffect(() => {
-        Holism.setField(formContext, id, currentValue, validationResult ? false : true);
+        app.setField(formContext, id, currentValue, validationResult ? false : true);
     }, [validationResult]);
 
     return <div className={fieldStyles}>

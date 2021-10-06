@@ -9,7 +9,6 @@ import Visibility from '@material-ui/icons/Visibility';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { fieldStyles } from './FieldStyle';
 import { FormContext } from '../Form';
-import Holism from '../../../Base/Holism';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -33,7 +32,7 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
     const [isBrowserDialogOpen, setIsBrowserDialogOpen] = useState(false);
     const initialHint = hint;
     var formContext = useContext(FormContext);
-    Holism.ensure([column])
+    app.ensure([column])
 
     const clonedBrowser = React.cloneElement(browser(), {
         callerId: id
@@ -48,18 +47,18 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
     }, [column]);
 
     useEffect(() => {
-        Holism.addFieldToFormContext(formContext, id, undefined, false);
+        app.addFieldToFormContext(formContext, id, undefined, false);
         const handle = () => {
             validate();
         };
-        Holism.on(Holism.formSubmissionEvent, handle);
+        app.on(app.formSubmissionEvent, handle);
         return () => {
-            Holism.removeListener(Holism.formSubmissionEvent, handle);
+            app.removeListener(app.formSubmissionEvent, handle);
         }
     }, [id, formContext]);
 
     const validate = () => {
-        if (required && Holism.isNothing(currentValue)) {
+        if (required && app.isNothing(currentValue)) {
             setValidationResult('invalid required');
             setHelpText(required);
         }
@@ -87,24 +86,24 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
                     let selected = choose(item);
                     if (typeof selected == "undefined" || typeof selected === "function")
                         throw new Error(`No return value specified for Browse ${column} `)
-                    Holism.setField(formContext, id, selected, validationResult ? false : true);
+                    app.setField(formContext, id, selected, validationResult ? false : true);
                 } catch (error) {
                     throw new Error(`No return value specified for Browse ${column} `)
                 }
             }
             else if (column.endsWith('Guid')) {
-                Holism.setField(formContext, id, item.guid, validationResult ? false : true);
+                app.setField(formContext, id, item.guid, validationResult ? false : true);
             }
             else if (column.endsWith('Id')) {
-                Holism.setField(formContext, id, item.id, validationResult ? false : true);
+                app.setField(formContext, id, item.id, validationResult ? false : true);
             }
             else {
                 throw new Error(`No return value specified for Browse ${column} `)
             }
         }
-        Holism.on(Holism.entitySelected, handleEntitySelection);
+        app.on(app.entitySelected, handleEntitySelection);
         return () => {
-            Holism.removeListener(Holism.entitySelected, handleEntitySelection);
+            app.removeListener(app.entitySelected, handleEntitySelection);
         }
     });
 

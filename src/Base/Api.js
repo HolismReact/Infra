@@ -1,6 +1,5 @@
 import axios from "axios"
 import app from "./App";
-import Holism from "./Holism";
 
 const axiosApi = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -20,7 +19,7 @@ axiosApi.interceptors.response.use(
   ,
   error => {
     if (error.response === undefined && error.message) {
-      Holism.error(error.toString());
+      app.error(error.toString());
       return;
     }
     if (error.response && error.response.status === 401) {

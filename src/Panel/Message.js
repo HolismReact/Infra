@@ -1,4 +1,4 @@
-import Holism from '../Base/Holism';
+import app from '../Base/App';
 import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -15,7 +15,7 @@ const Message = () => {
     const [message, setMessage] = useState();
     const [action, setAction] = useState();
     const [type, setType] = useState();
-    const [id, setId] = useState(Holism.randomId());
+    const [id, setId] = useState(app.randomId());
     const [classes, setClasses] = useState('');
 
     useEffect(() => {
@@ -24,15 +24,15 @@ const Message = () => {
             setAction(action);
             setType(type);
         }
-        Holism.on(Holism.showMessage, show);
+        app.on(app.showMessage, show);
         return () => {
-            Holism.removeListener(Holism.showMessage, show);
+            app.removeListener(app.showMessage, show);
         };
     }, []);
 
     useEffect(() => {
         if (message) {
-            setId(Holism.randomId());
+            setId(app.randomId());
             setIsShown(true);
         }
     }, [message]);

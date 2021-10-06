@@ -8,7 +8,6 @@ import CachedIcon from '@material-ui/icons/Cached';
 import useLocalStorageState from '../../Base/UseLocalStorageState';
 import { ItemAction, ListContext } from '../List/List';
 import CheckIcon from '@material-ui/icons/Check';
-import Holism from '../../Base/Holism';
 import Collapse from '@material-ui/core/Collapse';
 import app from '../../Base/App';
 
@@ -28,7 +27,7 @@ const Browse = ({ sorts, filters, row, card, entity, headers, callerId }) => {
             icon={<CheckIcon />}
             title={'Select ' + entity}
             click={(item) => {
-                Holism.emit(Holism.entitySelected, { item, callerId });
+                app.emit(app.entitySelected, { item, callerId });
             }}
         />
     </>
@@ -58,7 +57,7 @@ const Browse = ({ sorts, filters, row, card, entity, headers, callerId }) => {
                 {
                     <span
                         id='reload'
-                        onClick={() => Holism.emit(Holism.reloadRequirement)}
+                        onClick={() => app.emit(app.reloadRequirement)}
                         className={listActionIconStyle}
                     >
                         <CachedIcon />

@@ -1,5 +1,4 @@
 import app from "../Base/App";
-import Holism from "../Base/Holism";
 import { useState, useEffect } from 'react';
 import PersonIcon from '@material-ui/icons/Person';
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -20,7 +19,7 @@ export default function User({ onClick }) {
     const [role, setRole] = useState(app.role());
 
     useEffect(() => {
-        Holism.on(Holism.accountUpdated, () => {
+        app.on(app.accountUpdated, () => {
             setUser(app.user);
             setRole(app.role());
         });

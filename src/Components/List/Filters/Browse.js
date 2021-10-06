@@ -1,4 +1,4 @@
-import Holism from "../../../Base/Holism";
+import app from "../../../Base/App";
 import Filter from "./Filter";
 import Input from '@material-ui/core/Input';
 import React, { useState, useEffect } from 'react';
@@ -47,9 +47,9 @@ const Browse = ({ column, placeholder, entity, browser, display, choose }) => {
                 }
             }
         }
-        Holism.on(Holism.entitySelected, handleEntitySelection);
+        app.on(app.entitySelected, handleEntitySelection);
         return () => {
-            Holism.removeListener(Holism.entitySelected, handleEntitySelection);
+            app.removeListener(app.entitySelected, handleEntitySelection);
         }
     });
 

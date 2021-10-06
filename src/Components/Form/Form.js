@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react';
-import Holism from '../../Base/Holism';
 import { post } from '../../Base/Api';
 import { ListContext } from '../List/List';
 import Button from '@material-ui/core/Button';
@@ -21,7 +20,7 @@ const Form = ({ inputs, actions, entity, title }) => {
   const [progress, setInProgress] = useState();
   const [isValid, setIsValid] = useState(false);
 
-  Holism.ensure([entity]);
+  app.ensure([entity]);
 
   useEffect(() => {
     console.log(fields);
@@ -35,7 +34,7 @@ const Form = ({ inputs, actions, entity, title }) => {
   }, [fields]);
 
   const handleSubmit = (event) => {
-    Holism.emit(Holism.formSubmissionEvent);
+    app.emit(app.formSubmissionEvent);
     if (!isValid) {
       event.preventDefault();
       return;
@@ -50,10 +49,10 @@ const Form = ({ inputs, actions, entity, title }) => {
     let url = `${entity}/create`;
     post(url, data).then(data => {
       setIsCreationDialogOpen(false);
-      Holism.emit(Holism.itemCreated);
+      app.emit(app.itemCreated);
       setInProgress(false);
     }, error => {
-      Holism.error(error);
+      app.error(error);
       setInProgress(false);
     })
     event.preventDefault();
@@ -130,7 +129,6 @@ export { Browse } from './Fields/Browse';
 export { DateOnly as Date } from './Fields/DateOnly';
 export { Time } from './Fields/Time';
 export { DateTime } from './Fields/DateTime';
-export { Holism } from '../../Base/Holism';
 export { app } from '../../Base/App';
 export { useQueryStringState } from '../../Base/UseQueryStringState';
 export { useLocalStorageState } from '../../Base/UseLocalStorageState';

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Holism from '../Base/Holism';
+import app from '../Base/App';
 
 const Title = ({ }) => {
 
@@ -13,9 +13,9 @@ const Title = ({ }) => {
         const hide = () => {
             setIsShown(false);
         };
-        Holism.on(Holism.makeRoom, hide);
+        app.on(app.makeRoom, hide);
         return () => {
-            Holism.removeListener(Holism.makeRoom, hide);
+            app.removeListener(app.makeRoom, hide);
         };
     });
 
@@ -23,9 +23,9 @@ const Title = ({ }) => {
         const show = () => {
             setIsShown(true);
         };
-        Holism.on(Holism.returnBackToNormalForm, show);
+        app.on(app.returnBackToNormalForm, show);
         return () => {
-            Holism.removeListener(Holism.returnBackToNormalForm, show);
+            app.removeListener(app.returnBackToNormalForm, show);
         };
     });
 
@@ -37,14 +37,14 @@ const Title = ({ }) => {
                 setBreadcrumbItems(breadcrumbItems);
             }
         };
-        Holism.on(Holism.componentLoaded, setTitleAndSubtitle);
+        app.on(app.componentLoaded, setTitleAndSubtitle);
         return () => {
-            Holism.removeListener(Holism.componentLoaded, setTitleAndSubtitle);
+            app.removeListener(app.componentLoaded, setTitleAndSubtitle);
         }
     });
 
     useEffect(() => {
-        if (Holism.isSomething(pageSubtitle) || (breadcrumbItems.length > 0)) {
+        if (app.isSomething(pageSubtitle) || (breadcrumbItems.length > 0)) {
             setHasSubtitleOrBreadcrum(true);
         }
         else {
@@ -54,7 +54,7 @@ const Title = ({ }) => {
 
     return <>
         {
-            (Holism.isNothing(pageTitle + pageSubtitle) && breadcrumbItems.length === 0)
+            (app.isNothing(pageTitle + pageSubtitle) && breadcrumbItems.length === 0)
                 ?
                 <div></div>
                 :

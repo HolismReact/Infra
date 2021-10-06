@@ -1,5 +1,5 @@
 import TextField from '@material-ui/core/TextField';
-import Holism from '../../../Base/Holism';
+import app from '../../../Base/App';
 import { useState, useEffect, useRef, useContext } from 'react';
 import { FormContext } from '../Form';
 import { fieldStyles } from './FieldStyle';
@@ -23,15 +23,15 @@ const LongText = ({ column, required, placeholder, hint, value }) => {
     }, [column]);
 
     useEffect(() => {
-        Holism.addFieldToFormContext(formContext, id, undefined, false);
-        Holism.on(Holism.formSubmissionEvent, validate);
+        app.addFieldToFormContext(formContext, id, undefined, false);
+        app.on(app.formSubmissionEvent, validate);
         return () => {
-            Holism.removeListener(Holism.formSubmissionEvent, validate);
+            app.removeListener(app.formSubmissionEvent, validate);
         }
     }, [id, formContext]);
 
     const validate = () => {
-        if (required && Holism.isNothing(currentValue)) {
+        if (required && app.isNothing(currentValue)) {
             setValidationState('invalid required ' + Date.now());
             setHelpText(required);
         }
@@ -52,7 +52,7 @@ const LongText = ({ column, required, placeholder, hint, value }) => {
     }
 
     useEffect(() => {
-        Holism.setField(formContext, id, currentValue, isValid() ? true : false);
+        app.setField(formContext, id, currentValue, isValid() ? true : false);
     }, [validationState]);
 
     return <div className={fieldStyles}>

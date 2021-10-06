@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import { post } from '../../Base/Api';
-import Holism from '../../Base/Holism';
+import app from '../../Base/App';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const DeleteAction = ({ entity, item }) => {
@@ -19,11 +19,11 @@ const DeleteAction = ({ entity, item }) => {
         setConfirmationDialogVisibility(false);
         setProgress(true);
         post(`${entity}/delete/${item.id}`).then(data => {
-            Holism.success("Item is deleted successfully");
+            app.success("Item is deleted successfully");
             setProgress(false);
-            Holism.emit(Holism.reloadRequirement);
+            app.emit(app.reloadRequirement);
         }, error => {
-            Holism.error(error);
+            app.error(error);
             setProgress(false);
         });
     }

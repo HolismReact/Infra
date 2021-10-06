@@ -4,7 +4,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import SortIcon from '@material-ui/icons/Sort';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
 import CloseIcon from '@material-ui/icons/Close';
-import { Holism, ListContext } from './List';
+import { ListContext } from './List';
+import app from '../../Base/App';
 
 const Sorting = ({ sorts }) => {
 
@@ -31,7 +32,7 @@ const Sorting = ({ sorts }) => {
 
     useEffect(() => {
         listParameters.sorts = [currentSort];
-        Holism.emit(Holism.reloadRequirement);
+        app.emit(app.reloadRequirement);
     }, [currentSort]);
 
     return <>

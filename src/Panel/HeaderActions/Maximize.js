@@ -1,13 +1,12 @@
 import { HeaderAction } from "./HeaderAction"
 import ExpandLessIcon from '@material-ui/icons/ExpandLess'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import Holism from "../../Base/Holism";
+import app from "../../Base/App";
 
 const Maximize = () => {
     return <HeaderAction
         title="Maximize"
         icon={ExpandLessIcon}
-        action={() => Holism.emit(Holism.makeRoom)}
+        action={() => app.emit(app.makeRoom)}
     />
 }
 

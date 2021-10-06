@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Holism from '../Base/Holism';
+import app from '../Base/App';
 import Collapse from '@material-ui/core/Collapse';
 
 const Footer = () => {
@@ -10,9 +10,9 @@ const Footer = () => {
         const hide = () => {
             setIsShown(false);
         };
-        Holism.on(Holism.makeRoom, hide);
+        app.on(app.makeRoom, hide);
         return () => {
-            Holism.removeListener(Holism.makeRoom, hide);
+            app.removeListener(app.makeRoom, hide);
         };
     });
 
@@ -20,9 +20,9 @@ const Footer = () => {
         const show = () => {
             setIsShown(true);
         };
-        Holism.on(Holism.returnBackToNormalForm, show);
+        app.on(app.returnBackToNormalForm, show);
         return () => {
-            Holism.removeListener(Holism.returnBackToNormalForm, show);
+            app.removeListener(app.returnBackToNormalForm, show);
         };
     });
 

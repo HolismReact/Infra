@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { get } from '../../Base/Api';
-import Holism from '../../Base/Holism';
+import app from '../../Base/App';
 import { ListContext } from './List';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Pagination from './Pagination';
@@ -157,7 +157,7 @@ const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, i
         });
     }
 
-    Holism.ensure([entity])
+    app.ensure([entity])
 
     if (!row && !card) {
         throw new Error('You should either provide a row or a card component');
@@ -194,22 +194,22 @@ const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, i
             setLoading(false);
             console.log(listParameters);
         }, (error) => {
-            Holism.error(error);
+            app.error(error);
             setLoading(false);
         });
     };
 
     useEffect(() => {
-        Holism.on(Holism.itemCreated, load);
+        app.on(app.itemCreated, load);
         return () => {
-            Holism.removeListener(Holism.itemCreated, load);
+            app.removeListener(app.itemCreated, load);
         }
     }, []);
 
     useEffect(() => {
-        Holism.on(Holism.reloadRequirement, load);
+        app.on(app.reloadRequirement, load);
         return () => {
-            Holism.removeListener(Holism.reloadRequirement, load);
+            app.removeListener(app.reloadRequirement, load);
         }
     }, [])
 

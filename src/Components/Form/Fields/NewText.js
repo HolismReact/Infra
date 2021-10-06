@@ -1,5 +1,5 @@
 import Input from '@material-ui/core/Input';
-import Holism from '../../../Base/Holism';
+import app from '../../../Base/App';
 import { useState, useEffect, useRef, useContext } from 'react';
 import { FormContext } from '../Form';
 import { fieldStyles } from './FieldStyle';
@@ -10,7 +10,7 @@ const Text = ({ column, required, placeholder, hint, value, handleChange }) => {
     const htmlInput = useRef();
 
     const getValidationState = (currentValue) => {
-        if (required && Holism.isNothing(currentValue)) {
+        if (required && app.isNothing(currentValue)) {
             return 'invalid required';
         }
         return 'valid';

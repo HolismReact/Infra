@@ -1,4 +1,4 @@
-import Holism from "../../../Base/Holism";
+import app from "../../../Base/App";
 import Filter from "./Filter";
 import Input from '@material-ui/core/Input';
 

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { ListContext } from './List';
 import Button from '@material-ui/core/Button';
-import Holism from '../../Base/Holism';
+import app from '../../Base/App';
 
 const Filtering = ({ filters }) => {
 
@@ -12,7 +12,7 @@ const Filtering = ({ filters }) => {
     }
 
     const applyFilters = () => {
-        Holism.emit(Holism.reloadRequirement);
+        app.emit(app.reloadRequirement);
     };
 
     const resetFilters = () => {

@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Holism, ListContext } from "../List";
+import { ListContext } from "../List";
+import app from '../../../Base/App';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -15,7 +16,7 @@ const Filter = ({
     operator
 }) => {
 
-    Holism.ensure(column, placeholder);
+    app.ensure(column, placeholder);
 
     const [id, setId] = useState();
     const [currentValue, setCurrentValue] = useState(value || "");

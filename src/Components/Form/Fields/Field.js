@@ -1,4 +1,4 @@
-import Holism from '../../../Base/Holism';
+import app from '../../../Base/App';
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { FormContext } from '../Form';
 import { fieldStyles } from './FieldStyle';
@@ -30,10 +30,10 @@ const Field = ({ column, placeholder, children, type, value, hint, validationSta
     }, [currentValue]);
 
     useEffect(() => {
-        Holism.addFieldToFormContext(formContext, id, undefined, false);
-        Holism.on(Holism.formSubmissionEvent, validationStateProvider);
+        app.addFieldToFormContext(formContext, id, undefined, false);
+        app.on(app.formSubmissionEvent, validationStateProvider);
         return () => {
-            Holism.removeListener(Holism.formSubmissionEvent, validationStateProvider);
+            app.removeListener(app.formSubmissionEvent, validationStateProvider);
         }
     }, [id, formContext]);
 
@@ -48,7 +48,7 @@ const Field = ({ column, placeholder, children, type, value, hint, validationSta
     }
 
     useEffect(() => {
-        Holism.setField(formContext, id, currentValue, isValid() ? true : false);
+        app.setField(formContext, id, currentValue, isValid() ? true : false);
     }, [validationState]);
 
     return <div className={fieldStyles}>

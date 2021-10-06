@@ -1,5 +1,3 @@
-import Holism from "./Holism";
-
 // todo: redirect user to "403" page if his role is not equivalent to role in .env file
 
 let keycloak = null;
@@ -73,7 +71,7 @@ const Account = {
                     token = keycloak.token;
                     user = name;
                     userGuid = keycloak.subject;
-                    Holism.emit(Holism.accountUpdated);
+                    app.emit(app.accountUpdated);
                     if (callback && typeof callback === "function") {
                         callback();
                     }

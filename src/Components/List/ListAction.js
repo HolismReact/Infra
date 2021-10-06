@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import HolismIcon from '../HolismIcon';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Holism from '../../Base/Holism';
+import app from '../../Base/App';
 
 const ListAction = ({ icon, title, click }) => {
 
     const [progress, setProgress] = useState(false);
 
     const reloadList = () => {
-        Holism.emit(Holism.reloadRequirement)
+        app.emit(app.reloadRequirement)
     }
 
     return <span className="listAction"> {

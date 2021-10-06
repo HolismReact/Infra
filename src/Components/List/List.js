@@ -4,7 +4,6 @@ import CreateListParameters from "../../Base/CreateListParameters";
 import Sorting from "./Sorting";
 import Items from "./Items";
 import ListActions from "./ListActions";
-import Holism from '../../Base/Holism';
 import app from '../../Base/App';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import Filter from './Filters/Filter';
@@ -26,7 +25,7 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
   const [isFilteringOpen, setIsFilteringOpen] = useLocalStorageState(false, `${app.userGuid()}_${entity}_isFilteringOpen`);
 
   useEffect(() => {
-    Holism.emit(Holism.componentLoaded, {
+    app.emit(app.componentLoaded, {
       pageTitle: title,
       pageSubtitle: subtitle,
       breadcrumbItems: breadcrumbItems
@@ -70,7 +69,7 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
         {
           <span
             id='reload'
-            onClick={() => Holism.emit(Holism.reloadRequirement)}
+            onClick={() => app.emit(app.reloadRequirement)}
             className={listActionIconStyle}
           >
             <CachedIcon />
@@ -115,7 +114,6 @@ export { ItemAction } from './ItemAction';
 export { Browse } from './Filters/Browse';
 export { get, post } from '../../Base/Api';
 export { ValueWithTitle } from '../Show/ValueWithTitle';
-export { Holism } from '../../Base/Holism';
 export { app } from '../../Base/App';
 export { useQueryStringState } from '../../Base/UseQueryStringState';
 export { useLocalStorageState } from '../../Base/UseLocalStorageState';

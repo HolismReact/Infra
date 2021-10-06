@@ -1,5 +1,3 @@
-import Holism from "./Holism";
-
 const CreateListParameters = (userGuid, entity) => {
     var key = '';
     if (userGuid) {
@@ -42,7 +40,7 @@ const CreateListParameters = (userGuid, entity) => {
             var query = "";
             for (var i = 0; i < listParameters.filters.length; i++) {
                 var filter = listParameters.filters[i];
-                if (Holism.isSomething(filter.value)) {
+                if (app.isSomething(filter.value)) {
                     query += `&${filter.property}_${filter.operator}_${filter.value}`;
                 }
             }
