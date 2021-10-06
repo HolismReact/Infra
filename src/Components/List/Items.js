@@ -179,8 +179,7 @@ const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, i
         if (sorts) {
             url += `&sorts=${sorts}`;
         }
-        if (window.location.search)
-        {
+        if (window.location.search) {
             const query = window.location.search.slice(1);
             url += `&${query}`;
         }
@@ -238,7 +237,11 @@ const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, i
                         ?
                         cards({ entity, loading, data, metadata, card, itemActions, hasDelete, hasEdit, edit, create, setItem })
                         :
-                        table({ entity, loading, data, metadata, headers, row, itemActions, hasDelete, hasEdit, edit, create, setItem })
+                        window.innerWidth < app.breakpoints.md
+                            ?
+                            <div>Only cards are shown for small screens!</div>
+                            :
+                            table({ entity, loading, data, metadata, headers, row, itemActions, hasDelete, hasEdit, edit, create, setItem })
                 )
         }
     </div>

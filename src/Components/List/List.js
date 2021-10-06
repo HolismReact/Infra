@@ -48,7 +48,7 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
         create={create}
         creationButton={creationButton}
       />
-      <div className="sortAndFilteringAndReload flex items-center justify-end">
+      <div className="sortAndFilteringAndReload flex items-center justify-end my-4 lg:my-0">
         {
           sorts
             ?
