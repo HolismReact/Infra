@@ -218,7 +218,7 @@ const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, i
     }, []);
 
     return <div id='items' className={
-        'bg-white p-6 rounded-lg flex items-center justify-center '
+        'bg-white p-6 md:rounded-lg flex items-center justify-center '
         +
         (
             card
