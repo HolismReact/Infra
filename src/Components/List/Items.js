@@ -132,7 +132,7 @@ const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete, h
                 ?
                 null
                 :
-                <div className="pt-8">
+                <div className="pt-8 w-full">
                     <Pagination metadata={metadata} />
                 </div>
         }
