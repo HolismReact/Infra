@@ -21,14 +21,32 @@ export const ListContext = React.createContext({
   setSelectedItems: () => { }
 });
 
-const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, entity, headers, row, card, create, itemActions, hasDelete, hasEdit, edit, creationButton }) => {
+const List = ({ 
+  title,
+  subtitle,
+  breadcrumbItems,
+  filters,
+  listActions,
+  sorts,
+  entity,
+  headers,
+  row,
+  card,
+  create,
+  itemActions,
+  hasDelete,
+  hasEdit,
+  edit,
+  creationButton,
+  classProvider
+}) => {
   const [isCreationDialogOpen, setIsCreationDialogOpen] = useState(false);
   const [listParameters, setListParameters] = useState(CreateListParameters(app.userGuid(), entity));
   const [isFilteringOpen, setIsFilteringOpen] = useLocalStorageState(false, `${app.userGuid()}_${entity}_isFilteringOpen`);
   const [selectedItems, setSelectedItems] = useState([]);
 
   const hasItemSelection = listActions ? true : false;
-  
+
   useEffect(() => {
     console.log(selectedItems);
   }, [selectedItems]);
@@ -106,6 +124,7 @@ const List = ({ title, subtitle, breadcrumbItems, filters, listActions, sorts, e
       hasEdit={hasEdit}
       edit={edit}
       hasItemSelection={hasItemSelection}
+      classProvider={classProvider}
     />
     {
       create

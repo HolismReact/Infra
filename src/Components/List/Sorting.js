@@ -62,8 +62,8 @@ const Sorting = ({ sorts }) => {
             transformOrigin={{ vertical: "top", horizontal: "right" }}
         >
             {
-                sorts.map(sort => <MenuItem
-                    key={sort.caption}
+                sorts.map((sort, index) => <MenuItem
+                    key={index}
                     onClick={(event) => {
                         handleClose(sort);
                         event.preventDefault();

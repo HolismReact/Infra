@@ -10,7 +10,20 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 const noItemIsFoundStyle = 'py-10 text-2xl font-bold text-gray-600';
 
-const cards = ({ data, itemActions, hasDelete, hasEdit, edit, entity, create, metadata, card, setItem, hasItemSelection }) => {
+const cards = ({
+    data,
+    itemActions,
+    hasDelete,
+    hasEdit,
+    edit,
+    entity,
+    create,
+    metadata,
+    card,
+    setItem,
+    hasItemSelection,
+    classProvider
+}) => {
 
     return <>
         {
@@ -22,8 +35,14 @@ const cards = ({ data, itemActions, hasDelete, hasEdit, edit, entity, create, me
                     {
                         data.map((item, index) =>
                             <div
-                                className={'item w-full py-4 ' + (index === 0 ? '' : 'border-t')}
-                                key={item.id}>
+                                className=
+                                {
+                                    'item w-full py-4 px-6 overflow-hidden ' +
+                                    (index === 0 ? '' : 'border-t ') +
+                                    classProvider(item)
+                                }
+                                key={item.id}
+                            >
                                 {card(item)}
                                 {
                                     (itemActions || hasDelete || hasEdit || edit)
@@ -53,7 +72,21 @@ const cards = ({ data, itemActions, hasDelete, hasEdit, edit, entity, create, me
     </>
 }
 
-const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete, hasEdit, edit, create, setItem, hasItemSelection }) => {
+const table = ({
+    entity,
+    data,
+    metadata,
+    headers,
+    row,
+    itemActions,
+    hasDelete,
+    hasEdit,
+    edit,
+    create,
+    setItem,
+    hasItemSelection,
+    classProvider
+}) => {
 
     const listContext = useContext(ListContext);
     const { selectedItems } = listContext;
@@ -70,7 +103,7 @@ const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete, h
     }
 
     return <>
-        <div className="w-full overflow-x-auto">
+        <div className="w-full overflow-x-auto px-6">
             <table className="w-full text-center " style={{ minWidth: '600px' }}>
                 <thead>
                     <tr className='text-xs uppercase text-gray-900 font-light tracking-wider border-b'>
@@ -124,7 +157,12 @@ const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete, h
                                 :
                                 data.map((item, index) => <tr
                                     key={item.id}
-                                    className={'py-3 ' + ((index === data.length - 1) ? '' : 'border-b')}
+                                    className=
+                                    {
+                                        'py-3 ' +
+                                        ((index === data.length - 1) ? '' : 'border-b ') +
+                                        classProvider(item)
+                                    }
                                 >
                                     {
                                         hasItemSelection
@@ -182,14 +220,26 @@ const table = ({ entity, data, metadata, headers, row, itemActions, hasDelete, h
                 ?
                 null
                 :
-                <div className="pt-8 w-full">
+                <div className="pt-8 w-full px-6">
                     <Pagination metadata={metadata} />
                 </div>
         }
     </>
 };
 
-const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, itemActions, hasItemSelection }) => {
+const Items = ({
+    entity,
+    card,
+    headers,
+    row,
+    hasDelete,
+    hasEdit,
+    edit,
+    create,
+    itemActions,
+    hasItemSelection,
+    classProvider
+}) => {
     const [loading, setLoading] = useState();
     const [reloadedTimes, setReloadedTimes] = useState(0);
     const [data, setData] = useState([]);
@@ -208,6 +258,13 @@ const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, i
     }
 
     app.ensure([entity])
+
+    if (!classProvider) {
+        classProvider = () => '';
+    }
+    if (typeof classProvider !== 'function') {
+        console.warn('classProvider should be a function');
+    }
 
     if (!row && !card) {
         throw new Error('You should either provide a row or a card component');
@@ -267,7 +324,7 @@ const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, i
     }, []);
 
     return <div id='items' className={
-        'bg-white p-6 md:rounded-lg flex flex-col items-center justify-center '
+        'bg-white py-6 md:rounded-lg flex flex-col items-center justify-center '
         +
         (
             card
@@ -285,13 +342,42 @@ const Items = ({ entity, card, headers, row, hasDelete, hasEdit, edit, create, i
                 (
                     card
                         ?
-                        cards({ entity, loading, data, metadata, card, itemActions, hasDelete, hasEdit, edit, create, setItem, hasItemSelection })
+                        cards({
+                            entity,
+                            loading,
+                            data,
+                            metadata,
+                            card,
+                            itemActions,
+                            hasDelete,
+                            hasEdit,
+                            edit,
+                            create,
+                            setItem,
+                            hasItemSelection,
+                            classProvider
+                        })
                         :
                         // window.innerWidth < app.breakpoints.md
                         //     ?
                         //     <div>Only cards are shown for small screens!</div>
                         //     :
-                        table({ entity, loading, data, metadata, headers, row, itemActions, hasDelete, hasEdit, edit, create, setItem, hasItemSelection })
+                        table({ 
+                            entity, 
+                            loading, 
+                            data, 
+                            metadata, 
+                            headers, 
+                            row, 
+                            itemActions, 
+                            hasDelete, 
+                            hasEdit, 
+                            edit, 
+                            create, 
+                            setItem, 
+                            hasItemSelection,
+                            classProvider
+                        })
                 )
         }
     </div>
