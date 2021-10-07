@@ -51,7 +51,7 @@ const ListActions = ({ actions, create, creationButton }) => {
                 create
                     ?
                     <Button
-                        className="bg-green-200 hover:bg-green-400"
+                        className="bg-green-200 hover:bg-green-400 mt-2 lg:mt-0 mr-2"
                         variant="outlined"
                         startIcon={
                             (creationButton && creationButton.icon)
@@ -76,17 +76,20 @@ const ListActions = ({ actions, create, creationButton }) => {
         </div>
         <div>
             {
-                clonedListActions.map((action, index) => {
+                clonedListActions?.map((action, index) => {
                     if (action.props.minCardinality) {
-                        if (selectedItems.length >= action.props.minCardinality)
-                        {
+                        if (selectedItems.length >= action.props.minCardinality) {
                             return <span key={index}>
                                 {
                                     action
                                 }
                             </span>
                         }
-                        return null;
+                        return <span key={index}>
+                            {
+                                action
+                            }
+                        </span>
                     }
                     else {
                         return <span key={index}>

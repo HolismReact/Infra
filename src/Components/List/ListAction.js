@@ -1,18 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { ListContext } from './List';
 import Button from '@material-ui/core/Button';
 import HolismIcon from '../HolismIcon';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import app from '../../Base/App';
 
-const cardinalities = ['1', '>2'];
-
-const ListAction = ({ icon, title, click, cardinality }) => {
+const ListAction = ({ icon, title, click, minCardinality }) => {
 
     const [progress, setProgress] = useState(false);
-
-    if (cardinality) {
-
-    }
+    const { selectedItems } = useContext(ListContext);
 
     const reloadList = () => {
         app.emit(app.reloadRequirement)
@@ -21,7 +17,7 @@ const ListAction = ({ icon, title, click, cardinality }) => {
     return <span className="listAction">
         <Button
             variant="outlined"
-            disabled={progress}
+            disabled={progress || (minCardinality && minCardinality > selectedItems.length)}
             startIcon={
                 progress
                     ?
@@ -32,7 +28,7 @@ const ListAction = ({ icon, title, click, cardinality }) => {
                     HolismIcon({ icon })
             }
             onClick={() => click({ setProgress, reloadList })}
-            className='ml-2'
+            className='mr-2 mt-2 lg:mt-0'
         >
             {title}
         </Button>
