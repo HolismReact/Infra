@@ -10,7 +10,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 const noItemIsFoundStyle = 'py-10 text-2xl font-bold text-gray-600';
 
-const cards = ({
+const Cards = ({
     data,
     itemActions,
     hasDelete,
@@ -126,7 +126,7 @@ const cards = ({
     </>
 }
 
-const table = ({
+const Table = ({
     entity,
     data,
     metadata,
@@ -396,7 +396,7 @@ const Items = ({
                 (
                     card
                         ?
-                        cards({
+                        Cards({
                             entity,
                             loading,
                             data,
@@ -414,9 +414,9 @@ const Items = ({
                         :
                         // window.innerWidth < app.breakpoints.md
                         //     ?
-                        //     <div>Only cards are shown for small screens!</div>
+                        //     <div>Only Cards are shown for small screens!</div>
                         //     :
-                        table({
+                        Table({
                             entity,
                             loading,
                             data,
