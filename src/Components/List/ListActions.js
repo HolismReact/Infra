@@ -76,11 +76,26 @@ const ListActions = ({ actions, create, creationButton }) => {
         </div>
         <div>
             {
-                selectedItems.length > 0
-                    ?
-                    clonedListActions
-                    :
-                    null
+                clonedListActions.map((action, index) => {
+                    if (action.props.minCardinality) {
+                        if (selectedItems.length >= action.props.minCardinality)
+                        {
+                            return <span key={index}>
+                                {
+                                    action
+                                }
+                            </span>
+                        }
+                        return null;
+                    }
+                    else {
+                        return <span key={index}>
+                            {
+                                action
+                            }
+                        </span>
+                    }
+                })
             }
         </div>
     </div>
