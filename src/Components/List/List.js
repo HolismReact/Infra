@@ -71,7 +71,7 @@ const List = ({
     setSelectedItems: setSelectedItems
   }} id='list'>
 
-    <div className='lg:flex items-center justify-between px-6 py-2'>
+    <div className='lg:flex items-center justify-between px-6 py-2 lg:h-14'>
       <ListActions
         actions={listActions}
         create={create}

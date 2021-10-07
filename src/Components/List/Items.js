@@ -25,7 +25,34 @@ const cards = ({
     classProvider
 }) => {
 
+    const listContext = useContext(ListContext);
+    const { selectedItems } = listContext;
+
     return <>
+        {
+
+            hasItemSelection ?
+                <div className="w-full flex justify-start px-6">
+                    <Tooltip
+                        title="Select all"
+                        placement="top"
+                    >
+                        <Checkbox
+                            color="primary"
+                            onChange={(event) => {
+                                event.target.checked
+                                    ?
+                                    app.addItemsToSelectedItems(listContext, data)
+                                    :
+                                    app.removeItemsFromSelectedItems(listContext, data)
+                            }}
+                            inputProps={{ 'aria-label': 'Select all' }}
+                        />
+                    </Tooltip>
+                </div>
+                :
+                null
+        }
         {
             data.length === 0
                 ?
@@ -43,7 +70,32 @@ const cards = ({
                                 }
                                 key={item.id}
                             >
-                                {card(item)}
+                                {
+                                    hasItemSelection
+                                        ?
+                                        <div className="flex flex-row">
+                                            <div className="flex items-center justify-center w-10 mr-4">
+                                                <Checkbox
+                                                    checked={selectedItems.indexOf(item.id) > -1}
+                                                    color="primary"
+                                                    onChange={(event) => {
+                                                        event.target.checked
+                                                            ?
+                                                            app.addItemToSelectedItems(listContext, item.id)
+                                                            :
+                                                            app.removeItemFromSelectedItems(listContext, item.id)
+                                                    }}
+                                                />
+                                            </div>
+                                            <div>
+                                                {
+                                                    card(item)
+                                                }
+                                            </div>
+                                        </div>
+                                        :
+                                        card(item)
+                                }
                                 {
                                     (itemActions || hasDelete || hasEdit || edit)
                                         ?
@@ -66,7 +118,9 @@ const cards = ({
                         )
                     }
                     < br />
-                    <Pagination metadata={metadata} />
+                    <div className="px-6 w-full">
+                        <Pagination metadata={metadata} />
+                    </div>
                 </>
         }
     </>
@@ -362,19 +416,19 @@ const Items = ({
                         //     ?
                         //     <div>Only cards are shown for small screens!</div>
                         //     :
-                        table({ 
-                            entity, 
-                            loading, 
-                            data, 
-                            metadata, 
-                            headers, 
-                            row, 
-                            itemActions, 
-                            hasDelete, 
-                            hasEdit, 
-                            edit, 
-                            create, 
-                            setItem, 
+                        table({
+                            entity,
+                            loading,
+                            data,
+                            metadata,
+                            headers,
+                            row,
+                            itemActions,
+                            hasDelete,
+                            hasEdit,
+                            edit,
+                            create,
+                            setItem,
                             hasItemSelection,
                             classProvider
                         })
