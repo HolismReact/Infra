@@ -8,8 +8,8 @@ const HolismIcon = ({ icon }) => {
                 iconType === 'function'
                 || (iconType === 'object' && typeof icon.type?.render ===
                     'function')) {
-                const Icon = icon
-                return <Icon />;
+                const PassedIcon = icon
+                return <PassedIcon />;
             }
             if (icon.props) {
                 return icon;

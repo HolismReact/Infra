@@ -18,15 +18,17 @@ const ListAction = ({ icon, title, click, minCardinality }) => {
         <Button
             variant="outlined"
             disabled={progress || (minCardinality && minCardinality > selectedItems.length)}
-            startIcon={
-                progress
-                    ?
-                    <CircularProgress
-                        size={20}
-                    />
-                    :
-                    HolismIcon({ icon })
-            }
+            // startIcon={
+            //     progress
+            //         ?
+            //         <CircularProgress
+            //             size={20}
+            //         />
+            //         :
+            //         HolismIcon({ icon })
+            // }
+            startIcon={<CircularProgress size={20} />}
+            /* HolismIcon creates 321 error in production build */
             onClick={() => click({ setProgress, reloadList })}
             className='mr-2 mt-2 lg:mt-0'
         >
