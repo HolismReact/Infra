@@ -8,7 +8,7 @@ let userGuid = '';
 
 const Account = {
     keycloak: () => {
-        return keycloak;
+        return keycloak || {};
     },
     token: () => {
         return token;
@@ -20,22 +20,28 @@ const Account = {
         return userGuid;
     },
     createLoginUrl: () => {
-        return keycloak.createLoginUrl();
+        if (typeof Account.keycloak().createLoginUrl === 'function') {
+            return Account.keycloak().createLoginUrl();
+        }
+        return 'NA';
     },
     updateToken: () => {
-        return keycloak.updateToken();
+        return Account.keycloak().updateToken();
     },
     createAccountUrl: () => {
-        return keycloak.createAccountUrl();
+        if (typeof Account.keycloak().createAccountUrl === 'function') {
+            return Account.keycloak().createAccountUrl();
+        }
+        return 'NA';
     },
     createLogoutUrl: () => {
-        return keycloak.createLogoutUrl();
+        return Account.keycloak().createLogoutUrl();
     },
     logout: () => {
-        return keycloak.logout();
+        return Account.keycloak().logout();
     },
     role: () => {
-        if (!keycloak.tokenParsed) {
+        if (!Account.keycloak().tokenParsed) {
             return 'User';
         }
         var role = keycloak.tokenParsed.roles.filter(i => i.charAt(0) === i.charAt(0).toUpperCase());

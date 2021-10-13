@@ -8,20 +8,29 @@ import Panel from './Panel/Panel';
 import app from './Base/App';
 import Push from './Base/Push';
 
+const render = () => {
+  app.configPusher();
+  ReactDOM.render(
+    <React.StrictMode>
+      <BrowserRouter>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <Panel />
+        </MuiPickersUtilsProvider>
+      </BrowserRouter>
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
+}
+
 window.app = app;
 
-app.checkLogin(
-  () => {
-    app.configPusher();
-    ReactDOM.render(
-      <React.StrictMode>
-        <BrowserRouter>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Panel />
-          </MuiPickersUtilsProvider>
-        </BrowserRouter>
-      </React.StrictMode>,
-      document.getElementById('root')
-    );
-  }
-);
+if (process.env.REACT_APP_SECURITY === 'off') {
+  render();
+}
+else {
+  app.checkLogin(
+    () => {
+      render();
+    }
+  );
+}
