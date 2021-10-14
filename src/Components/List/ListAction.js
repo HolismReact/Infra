@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { ListContext } from './List';
 import Button from '@material-ui/core/Button';
-import HolismIcon from '../HolismIcon';
+// import HolismIcon from '../HolismIcon';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import app from '../../Base/App';
 
