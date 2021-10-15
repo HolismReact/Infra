@@ -1,7 +1,7 @@
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import { useHistory } from 'react-router-dom';
-// import HolismIcon from '../HolismIcon';
+import HolismIcon from '../HolismIcon';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import React, { useState } from 'react';
 
@@ -32,12 +32,12 @@ const ItemAction = ({ title, item, icon, click, goTo, setItem }) => {
                         }
                     }}>
                         {
-                            /*HolismIcon({ icon })*/
-                            <CircularProgress
-                                variant="determinate"
-                                value={100}
-                                size={20}
-                            />
+                            HolismIcon({ icon })
+                            // <CircularProgress
+                            //     variant="determinate"
+                            //     value={100}
+                            //     size={20}
+                            // />
                         }
                     </IconButton>
                 </Tooltip>
