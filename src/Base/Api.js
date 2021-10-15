@@ -18,18 +18,17 @@ axiosApi.interceptors.response.use(
     response
   ,
   error => {
-    if (error.response === undefined && error.message) {
-      app.error(error.toString());
-      return;
+    if (error.response === undefined) {
+      throw new Error(error.message ? error.toString() : 'Unknown error');
     }
-    if (error.response && error.response.status === 401) {
+    if (error.response.status === 401 || (error.response.status === 500 && error.response.data === "An error occured processing your authentication.")) {
       var url = new URL(app.createLogoutUrl());
       url.search = app.createLoginUrl();
       window.newUrl = url;
       app.checkLogin();
-      return;
+      throw new Error('You need to login again.');
     }
-    if (error.response && error.response.status === 403) {
+    if (error.response.status === 403) {
       throw new Error('you are logged in, but you do not have access to this section');
       // todo: redirect user to "403" page.
     }
@@ -59,7 +58,7 @@ axiosApi.interceptors.response.use(
       }
       if (messages.indexOf('IDX10223') > -1) {
         app.checkLogin();
-        return;
+        throw new Error('You need to login again.');
         //app.updateToken();
       }
       console.log(messages);
