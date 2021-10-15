@@ -20,6 +20,12 @@ module.exports = {
       },
     },
     webpack: {
-      alias: resolvedAliases
+      alias: resolvedAliases,
+      // this config, causes HolismIcon to throw react error 321 for builds
+      // configure: {
+      //   resolve: {
+      //     symlinks: false,
+      //   },
+      // },
     },
   }
