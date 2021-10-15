@@ -20,11 +20,6 @@ module.exports = {
       },
     },
     webpack: {
-      alias: resolvedAliases,
-      configure: {
-        resolve: {
-          symlinks: false,
-        },
-      },
+      alias: resolvedAliases
     },
   }
