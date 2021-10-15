@@ -10,6 +10,12 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Title from './Title';
 // https://dev.to/codeply/helpful-page-layouts-using-tailwind-css-1a3k
 
+require('react-dom');
+window.React2 = require('react');
+if (window.React1 !== window.React2) {
+  console.warn('two reacts outside component');
+}
+
 function Panel() {
 
   const [isSidebarOpen, setIsSidebarOpen] = useLocalStorageState(true, 'isSidebarOpen');
@@ -17,6 +23,12 @@ function Panel() {
 
   const toggleMenu = () => {
     setIsSidebarOpen(!isSidebarOpen);
+  }
+
+  require('react-dom');
+  window.React2 = require('react');
+  if (window.React1 !== window.React2) {
+    console.warn('two reacts inside component');
   }
 
   const closeMenu = () => {

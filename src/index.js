@@ -24,6 +24,8 @@ const render = () => {
 
 window.app = app;
 
+window.React1 = require('react');
+
 if (process.env.REACT_APP_SECURITY === 'off') {
   render();
 }
