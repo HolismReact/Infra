@@ -3,6 +3,7 @@ import { Fragment, useState } from 'react';
 import menuItems from '../Menu.js'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useLocation } from "react-router-dom";
+import HolismIcon from '../Components/HolismIcon.js';
 
 const liStyle = "py-2 hover:bg-gray-50 cursor-pointer text-sm tracking-wide text-gray-600 hover:text-gray-800 font-normal relative"
 const iconStyle = "text-gray-600 hover:text-gray-900 mr-3"
@@ -37,7 +38,11 @@ const MenuItemWithSubmenu = ({ item, onClick }) => {
                 onClick={openSubmenu}
             >
                 <span className="px-9 flex items-center h-full">
-                    <span className="flex items-center mr-3"><item.iconSvg /></span>
+                    <span className="flex items-center mr-3">
+                        {
+                            <HolismIcon icon={item.icon} />
+                        }
+                    </span>
                     <span>{item.title}</span>
                     <span className="flex-1 flex flex-row-reverse"><ExpandMoreIcon /></span>
                 </span>
@@ -87,7 +92,9 @@ const Menu = ({ onClick }) => {
                         <Link onClick={onClick} to={item.url} className={liStyle + " flex items-center relative" + (item.url === location.pathname ? " bg-gray-200 text-blue-800 hover:text-blue-800" : '')}>
                             <span className="px-9 flex items-cener">
                                 <span className={iconStyle}>
-                                    <item.iconSvg />
+                                    {
+                                        <HolismIcon icon={item.icon} />
+                                    }
                                 </span>
                                 {
                                     leftBlueLine(item.url)
