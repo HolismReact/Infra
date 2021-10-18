@@ -21,7 +21,7 @@ export const ListContext = React.createContext({
   setSelectedItems: () => { }
 });
 
-const List = ({ 
+const List = ({
   title,
   subtitle,
   breadcrumbItems,
@@ -148,6 +148,7 @@ export { ValueWithTitle } from '../Show/ValueWithTitle';
 export { app } from '../../Base/App';
 export { useQueryStringState } from '../../Base/UseQueryStringState';
 export { useLocalStorageState } from '../../Base/UseLocalStorageState';
+export { Boolean } from './Properties/Boolean';
 
 /*
 List anatomy
