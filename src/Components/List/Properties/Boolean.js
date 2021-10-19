@@ -14,7 +14,8 @@ const Boolean = ({
     const [progress, setProgress] = useState(false);
     const [currentValue, setCurrentValue] = useState(value || false);
 
-    const onChange = () => {
+    const onChange = (e) => {
+        console.log(e);
         if (!action || app.isNothing(action)) {
             return;
         }
@@ -22,7 +23,7 @@ const Boolean = ({
         post(action).then(data => {
             setProgress(false);
             app.success('Applied');
-            setCurrentValue(!currentValue);
+            setCurrentValue(data.isActive);
         }, error => {
             app.error(error);
             setProgress(false);
@@ -31,7 +32,7 @@ const Boolean = ({
 
     const control = <Switch
         checked={currentValue}
-        onChange={() => { }}
+        onChange={(e) => onChange(e)}
         inputProps={{ 'aria-label': title }}
     />
     return <div className="property boolean ">
