@@ -7,11 +7,11 @@ import app from "../../Base/App";
 import { useHistory } from 'react-router-dom';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
-const HeaderAction = ({ icon, title, url, action, component }) => {
+const HeaderAction = ({ icon, title, url, action, component, ...rest }) => {
 
     const history = useHistory();
 
-    const Component = component || (() => <div>NA</div>);
+    const Component = component || (() => <div></div>);
 
     const [showComponent, setShowComponent] = useState(false);
 
@@ -30,14 +30,15 @@ const HeaderAction = ({ icon, title, url, action, component }) => {
         }
     }
 
-    return <>
+    return <div className="headerAction relative">
         <Tooltip title={title || ""}>
             <div
+                rest
                 onClick={(e) => {
                     e.stopPropagation();
                     handleClick();
                 }}
-                className='text-gray-600 cursor-pointer hover:text-blue-500'
+                className='ml-4 text-gray-600 cursor-pointer hover:text-blue-500'
             >
                 <HolismIcon icon={icon} />
             </div>
@@ -46,13 +47,13 @@ const HeaderAction = ({ icon, title, url, action, component }) => {
         <ClickAwayListener onClickAway={() => setShowComponent(false)}>
             <div>
                 <Fade in={showComponent}>
-                    <div>
+                    <div className="absolute top-10 right-0 z-50">
                         <Component />
                     </div>
                 </Fade>
             </div>
         </ClickAwayListener>
-    </>
+    </div>
 }
 
 export { HeaderAction }
