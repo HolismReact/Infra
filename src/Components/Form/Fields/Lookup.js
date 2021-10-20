@@ -3,17 +3,17 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
-import useLocalStorageState from '../../../Base/UseLocalStorageState';
 import app from '../../../Base/App';
 import React, { useEffect, useState, useContext, useRef } from 'react';
 import { get } from '../../../Base/Api';
 import { FormContext } from '../Form';
 import { fieldStyles } from './FieldStyle';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-const Enum = ({ column, entity, placeholder, hint, value, required }) => {
+const Lookup = ({ column, entity, placeholder, hint, value, required, display }) => {
 
     if (app.isNothing(entity)) {
-        throw new Error(`entity is not provided for ${Enum.name}`);
+        throw new Error(`entity is not provided for ${Lookup.name}`);
     }
 
     const [id, setId] = useState(null);
@@ -22,13 +22,13 @@ const Enum = ({ column, entity, placeholder, hint, value, required }) => {
     const htmlSelect = useRef();
     const [helpText, setHelpText] = useState(hint);
     const [loading, setLoading] = useState();
-    const [enumItems, setEnumItems] = useLocalStorageState([], entity + 'Enum');
+    const [lookupItems, setLookupItems] = useState([]);
     const initialHint = hint;
     const [validationResult, setValidationResult] = useState(null);
     var formContext = useContext(FormContext);
 
     useEffect(() => {
-        setId(`enum_${column}`);
+        setId(`lookup_${column}`);
     }, [column]);
 
     useEffect(() => {
@@ -44,15 +44,15 @@ const Enum = ({ column, entity, placeholder, hint, value, required }) => {
     }, [id, formContext])
 
     useEffect(() => {
-        if (enumItems.length !== 0) {
+        if (lookupItems.length !== 0) {
             return;
         }
         setLoading(true);
         get(`/${entity}/all`).then(data => {
-            setEnumItems(data);
+            setLookupItems(data);
             setLoading(false);
         }, error => {
-            console.log(error);
+            app.error(error);
             setLoading(false);
         })
     }, []);
@@ -81,7 +81,7 @@ const Enum = ({ column, entity, placeholder, hint, value, required }) => {
         {
             loading
                 ?
-                <div>loadin...</div>
+                <CircularProgress />
                 :
                 <FormControl
                     fullWidth
@@ -98,7 +98,14 @@ const Enum = ({ column, entity, placeholder, hint, value, required }) => {
                         onChange={(event) => { setCurrentValue(event.target.value); }}
                         value={value}
                     >
-                        {enumItems.map(item => <MenuItem key={item.id} value={item.id}>{item.key}</MenuItem>)}
+                        {lookupItems.map(item => <MenuItem
+                            key={item.id}
+                            value={item.id}
+                        >
+                            {
+                                display(item)
+                            }
+                        </MenuItem>)}
                     </Select>
                     <FormHelperText>{helpText}</FormHelperText>
                 </FormControl>
@@ -106,4 +113,4 @@ const Enum = ({ column, entity, placeholder, hint, value, required }) => {
     </div>
 };
 
-export { Enum };
+export { Lookup };
