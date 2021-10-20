@@ -37,19 +37,21 @@ const Boolean = ({
     />
     return <div className="property boolean ">
         {
-            progress 
-            ?
-            <CircularProgress />
-            :
-            title
+            progress
                 ?
-                <Tooltip title={title || ""}>
-                    {
-                        control
-                    }
-                </Tooltip>
+                <CircularProgress
+                    size={33}
+                />
                 :
-                control
+                title
+                    ?
+                    <Tooltip title={title || ""}>
+                        {
+                            control
+                        }
+                    </Tooltip>
+                    :
+                    control
         }
     </div>
 }
