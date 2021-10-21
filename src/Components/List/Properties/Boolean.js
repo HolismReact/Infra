@@ -31,7 +31,7 @@ const Boolean = ({
     }
 
     const control = <Switch
-        checked={currentValue}
+        checked={currentValue || false}
         onChange={(e) => onChange(e)}
         inputProps={{ 'aria-label': title }}
     />
