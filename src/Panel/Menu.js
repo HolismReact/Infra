@@ -25,7 +25,7 @@ const MenuItemWithSubmenu = ({ item, onClick }) => {
         setIsSubmenuOpen(!isSubmenuOpen);
     };
     return (
-        <Fragment key={item.title}>
+        <Fragment key={app.t(item.title)}>
             {/* <li className="navigation-divider">{item.title}</li> */}
             <div
                 className={liStyle + (
@@ -43,7 +43,7 @@ const MenuItemWithSubmenu = ({ item, onClick }) => {
                             <HolismIcon icon={item.icon} />
                         }
                     </span>
-                    <span>{item.title}</span>
+                    <span>{app.t(item.title)}</span>
                     <span className="flex-1 flex flex-row-reverse"><ExpandMoreIcon /></span>
                 </span>
                 <div className={(isSubmenuOpen ? " pt-2" : "hidden")}>
@@ -61,7 +61,7 @@ const MenuItemWithSubmenu = ({ item, onClick }) => {
                                 {
                                     leftBlueLine(child.url)
                                 }
-                                <span className={"ml-20"}>{child.title}</span>
+                                <span className={"ml-20"}>{app.t(child.title)}</span>
                             </Link>
                         })
                     }
@@ -99,7 +99,7 @@ const Menu = ({ onClick }) => {
                                 {
                                     leftBlueLine(item.url)
                                 }
-                                <span className="flex items-center">{item.title}</span>
+                                <span className="flex items-center">{app.t(item.title)}</span>
                             </span>
                         </Link>
                     </Fragment>)

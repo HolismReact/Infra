@@ -2,13 +2,16 @@ import axios from "axios"
 import app from "./App";
 
 const axiosApi = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: process.env.REACT_APP_API_URL
 })
 
 axiosApi.interceptors.request.use(config => {
   config.headers['Content-Type'] = 'application/json';
   config.headers['Accept'] = 'application/json';
   config.headers['X-Client'] = 'React';
+  if (localStorage.getItem('locale')) {
+    config.headers['Locale'] = localStorage.getItem('locale');
+  }
   config.headers.Authorization = `Bearer ${app.token()}`;
   return config;
 });

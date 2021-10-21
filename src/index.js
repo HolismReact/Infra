@@ -6,10 +6,10 @@ import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import Panel from './Panel/Panel';
 import app from './Base/App';
+import { get } from './Base/Api';
 import Push from './Base/Push';
 
-const render = () => {
-  app.configPusher();
+const renderReact = () => {
   ReactDOM.render(
     <React.StrictMode>
       <BrowserRouter>
@@ -20,6 +20,22 @@ const render = () => {
     </React.StrictMode>,
     document.getElementById('root')
   );
+}
+
+const render = () => {
+  app.configPusher();
+  if (process.env.REACT_APP_HAS_MULTIPLE_LOCALES) {
+    get('/locale/translations')
+      .then(data => {
+        app.setTranslations(data);
+        renderReact();
+      }, error => {
+        console.error(error);
+      });
+  }
+  else {
+    renderReact();
+  }
 }
 
 window.app = app;

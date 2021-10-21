@@ -39,18 +39,6 @@ function Panel() {
   }
 
   useEffect(() => {
-    if (!process.env.REACT_APP_HAS_MULTIPLE_LOCALES) {
-      return;
-    }
-    get('/locale/translations')
-    .then(data => {
-      app.translations = data;
-    }, error => {
-      console.log(error);
-    });
-  }, []);
-
-  useEffect(() => {
     if (window.innerWidth < app.breakpoints.lg) {
       setMainContentWidth('100vw');
     }
