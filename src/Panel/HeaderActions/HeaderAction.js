@@ -47,7 +47,7 @@ const HeaderAction = ({ icon, title, url, action, component, ...rest }) => {
         <ClickAwayListener onClickAway={() => setShowComponent(false)}>
             <div>
                 <Fade in={showComponent}>
-                    <div className="absolute top-10 right-0 z-50">
+                    <div className="absolute top-10 right-0 z-50 shadow-xl">
                         <Component />
                     </div>
                 </Fade>
