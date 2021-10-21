@@ -3,6 +3,7 @@ import MainRouting from '../Base/MainRouting';
 import Sidebar from './Sidebar';
 import Header from './Header';
 import app from '../Base/App';
+import {get} from '../Base/Api';
 import useLocalStorageState from '../Base/UseLocalStorageState';
 import Footer from './Footer';
 import Message from './Message';
@@ -36,6 +37,18 @@ function Panel() {
       setIsSidebarOpen(false);
     }
   }
+
+  useEffect(() => {
+    if (!process.env.REACT_APP_HAS_MULTIPLE_LOCALES) {
+      return;
+    }
+    get('/locale/translations')
+    .then(data => {
+      app.translations = data;
+    }, error => {
+      console.log(error);
+    });
+  }, []);
 
   useEffect(() => {
     if (window.innerWidth < app.breakpoints.lg) {

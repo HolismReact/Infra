@@ -5,6 +5,7 @@ import Account from './Account';
 import Holism from "./Holism";
 import Messaging from "./Messaging";
 import List from "./List";
+import Globalization from './Globalization';
 
 const app = {
     ...EventManager,
@@ -13,7 +14,8 @@ const app = {
     ...Account,
     ...Messaging,
     ...List,
-    ...Holism
+    ...Holism,
+    ...Globalization
 };
 
 export default app;
