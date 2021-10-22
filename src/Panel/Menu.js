@@ -7,11 +7,16 @@ import HolismIcon from '../Components/HolismIcon.js';
 import app from '../Base/App';
 
 const liStyle = "py-2 hover:bg-gray-50 cursor-pointer text-sm tracking-wide text-gray-600 hover:text-gray-800 font-normal relative"
-const iconStyle = "text-gray-600 hover:text-gray-900 mr-3"
+const iconStyle = "text-gray-600 hover:text-gray-900"
 
 const leftBlueLine = (url) => {
     if (url === window.location.pathname) {
-        return <span className="w-2 bg-blue-600 h-full absolute rounded-tr-md rounded-br-md top-0 left-0"></span>
+        return <span
+            className={
+                "w-2 bg-blue-600 h-full absolute top-0"
+                + (app.isRtl() ? " rounded-tl-md rounded bl-md right-0 " : " rounded-tr-md rounded-br-md left-0 ")
+            }
+        ></span>
     }
 }
 
@@ -57,7 +62,12 @@ const MenuItemWithSubmenu = ({ item, onClick }) => {
                                 }}
                                 to={child.url}
                                 key={index}
-                                className={liStyle + " flex items-center hover:bg-gray-100" + (child.url === location.pathname ? " bg-gray-200 text-blue-800 hover:text-blue-800" : '')}
+                                className={
+                                    liStyle
+                                    + " flex items-center hover:bg-gray-100"
+                                    + (child.url === location.pathname ? " bg-gray-200 text-blue-800 hover:text-blue-800" : '')
+                                    + (app.isRtl() ? " flex-row-reverse " : "")
+                                }
                             >
                                 {
                                     leftBlueLine(child.url)
@@ -90,9 +100,28 @@ const Menu = ({ onClick }) => {
                         throw new Error('Please remove menu items with zero childrens. Empty children array is not valid.')
                     }
                     return (<Fragment key={index}>
-                        <Link onClick={onClick} to={item.url} className={liStyle + " flex items-center relative" + (item.url === location.pathname ? " bg-gray-200 text-blue-800 hover:text-blue-800" : '')}>
-                            <span className="px-9 flex items-cener">
-                                <span className={iconStyle}>
+                        <Link
+                            onClick={onClick}
+                            to={item.url}
+                            className={
+                                liStyle
+                                + " flex items-center relative"
+                                + (item.url === location.pathname ? " bg-gray-200 text-blue-800 hover:text-blue-800" : '')
+                                + (app.isRtl() ? " flex-row-reverse " : "")
+                            }
+                        >
+                            <span
+                                className={
+                                    "px-9 flex items-cener"
+                                    + (app.isRtl() ? " flex-row-reverse " : "")
+                                }
+                            >
+                                <span
+                                    className={
+                                        iconStyle
+                                        + (app.isRtl() ? " ml-3 " : " mr-3 ")
+                                    }
+                                >
                                     {
                                         <HolismIcon icon={item.icon} />
                                     }
