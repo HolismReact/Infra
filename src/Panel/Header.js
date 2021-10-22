@@ -33,13 +33,24 @@ const Header = ({ onMenuIconClicked }) => {
 
     return <>
         <Collapse in={isShown}>
-            <div id='header' className="flex items-center p-10 justify-between h-20" >
+            <div
+                id='header'
+                className={
+                    "flex items-center p-10 justify-between h-20"
+                    + (app.isRtl() ? " flex-row-reverse " : "")
+                }
+            >
                 <div>
                     <div className='bg-white rounded-md p-1.5 px-2.5 text-gray-600 cursor-pointer' onClick={onMenuIconClicked}>
                         <MenuIcon />
                     </div>
                 </div>
-                <div className='flex items-center justify-center'>
+                <div
+                    className={
+                        'flex items-center justify-center'
+                        + (app.isRtl() ? " flex-row-reverse " : "")
+                    }
+                >
                     {
                         // items.map((item, index) => <div onClick={item.onClick || (() => { })} key={item.name} className={(index === 0 ? "" : "ml-6 ") + 'text-gray-600 cursor-pointer hover:text-blue-500'}>
                         //     {item.icon}

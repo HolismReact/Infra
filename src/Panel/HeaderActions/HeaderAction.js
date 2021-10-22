@@ -38,7 +38,10 @@ const HeaderAction = ({ icon, title, url, action, component, ...rest }) => {
                     e.stopPropagation();
                     handleClick();
                 }}
-                className='ml-4 text-gray-600 cursor-pointer hover:text-blue-500'
+                className={
+                    'text-gray-600 cursor-pointer hover:text-blue-500'
+                    + (app.isRtl() ? " mr-4 " : " ml-4 ")
+                }
             >
                 <HolismIcon icon={icon} />
             </div>
