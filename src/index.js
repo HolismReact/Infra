@@ -25,9 +25,10 @@ const renderReact = () => {
 const render = () => {
   app.configPusher();
   if (process.env.REACT_APP_HAS_MULTIPLE_LOCALES) {
-    get('/locale/translations')
+    get('/locale/data')
       .then(data => {
-        app.setTranslations(data);
+        app.setTranslations(data.Translations);
+        app.setLocale(data.Locale);
         renderReact();
       }, error => {
         console.error(error);

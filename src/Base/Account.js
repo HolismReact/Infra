@@ -58,6 +58,9 @@ const Account = {
         };
 
         if (conf.url && conf.realm && conf.client) {
+            if (!window["Keycloak"]) {
+                throw new Error("Keycloak script is not loaded. Make sure internet is connected, and make sure accounts panel is up and running.")
+            }
             keycloak = new window["Keycloak"]({
                 url: conf.url,
                 realm: conf.realm,

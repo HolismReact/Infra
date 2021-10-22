@@ -3,7 +3,7 @@ import MainRouting from '../Base/MainRouting';
 import Sidebar from './Sidebar';
 import Header from './Header';
 import app from '../Base/App';
-import {get} from '../Base/Api';
+import { get } from '../Base/Api';
 import useLocalStorageState from '../Base/UseLocalStorageState';
 import Footer from './Footer';
 import Message from './Message';
@@ -79,7 +79,12 @@ function Panel() {
     };
   });
 
-  return <div className="flex">
+  return <div
+    className={
+      "flex " +
+      (app.isRtl() ? "flex-row-reverse " : "")
+    }
+  >
     {
       isSidebarOpen
         ?

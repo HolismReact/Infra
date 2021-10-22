@@ -8,6 +8,16 @@ const Globalization = {
             return Globalization.translations[text];
         }
         return text;
+    },
+    locale: {},
+    setLocale: (locale) => {
+        Globalization.locale = locale;
+    },
+    getLocale: () => {
+        return Globalization.locale;
+    },
+    isRtl: () => {
+        return Globalization.locale.isRtl;
     }
 }
 
