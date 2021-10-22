@@ -158,7 +158,11 @@ const Table = ({
 
     return <>
         <div className="w-full overflow-x-auto px-6">
-            <table className="w-full text-center " style={{ minWidth: '600px' }}>
+            <table
+                className="w-full text-center "
+                style={{ minWidth: '600px' }}
+                dir={app.isRtl() ? "rtl" : "ltr"}
+            >
                 <thead>
                     <tr className='text-xs uppercase text-gray-900 font-light tracking-wider border-b'>
                         {

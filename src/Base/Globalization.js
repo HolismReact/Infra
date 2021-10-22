@@ -1,9 +1,14 @@
+import app from "./App";
+
 const Globalization = {
     translations: [],
     setTranslations: (translations) => {
         Globalization.translations = translations;
     },
     t: (text) => {
+        if (!text) {
+            return text;
+        }
         if (Globalization.translations.hasOwnProperty(text)) {
             return Globalization.translations[text];
         }

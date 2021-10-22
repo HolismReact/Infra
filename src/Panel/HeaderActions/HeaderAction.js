@@ -31,7 +31,7 @@ const HeaderAction = ({ icon, title, url, action, component, ...rest }) => {
     }
 
     return <div className="headerAction relative">
-        <Tooltip title={title || ""}>
+        <Tooltip title={app.t(title || "")}>
             <div
                 //rest
                 onClick={(e) => {
