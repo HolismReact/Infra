@@ -50,7 +50,12 @@ const HeaderAction = ({ icon, title, url, action, component, ...rest }) => {
         <ClickAwayListener onClickAway={() => setShowComponent(false)}>
             <div>
                 <Fade in={showComponent}>
-                    <div className="absolute top-10 right-0 z-50 shadow-xl">
+                    <div
+                        className={
+                            "absolute top-10 z-50 shadow-xl"
+                            + (app.isRtl() ? " left-0 " : " right-0 ")
+                        }
+                    >
                         <Component />
                     </div>
                 </Fade>
