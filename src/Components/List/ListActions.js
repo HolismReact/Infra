@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Button from '@material-ui/core/Button';
-import { ListContext } from './List';
+import { app, ListContext } from './List';
 import AddIcon from '@material-ui/icons/Add';
 import HolismIcon from '../HolismIcon';
 
@@ -45,7 +45,14 @@ const ListActions = ({ actions, create, creationButton }) => {
                 }))
     }
 
-    return <div id='listActions' className='flex flex-wrap items-center'>
+    return <div
+        id='listActions'
+        className=
+        {
+            'flex flex-wrap items-center'
+            + (app.isRtl() ? " flex-row-reverse " : "")
+        }
+    >
         <div>
             {
                 create

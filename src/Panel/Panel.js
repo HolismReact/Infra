@@ -92,9 +92,11 @@ function Panel() {
           <div
             id='thisDivShouldNotBeRemovedToFixRefProblemOfSidebar'
             className={
-              "w-72 absolute border-r border-b z-10 bg-white top-0 bottom-0 "
+              "w-72 absolute border-b z-10 bg-white top-0 bottom-0 "
+              + (app.isRtl() ? " border-l " : " border-r ")
               +
-              /*large*/"lg:w-1/5 lg:static lg:border-r-0 lg:border-b-0 "
+              /*large*/"lg:w-1/5 lg:static lg:border-b-0 "
+              + (app.isRtl() ? " lg:border-l-0 " : " lg:border-r-0 ")
               +
               /*xlarge*/ ""
               +

@@ -71,13 +71,23 @@ const List = ({
     setSelectedItems: setSelectedItems
   }} id='list'>
 
-    <div className='lg:flex items-center justify-between px-6 py-2 lg:h-14'>
+    <div
+      className={
+        'lg:flex items-center justify-between px-6 py-2 lg:h-14'
+        + (app.isRtl() ? " lg:flex-row-reverse " : "")
+      }
+    >
       <ListActions
         actions={listActions}
         create={create}
         creationButton={creationButton}
       />
-      <div className="sortAndFilteringAndReload flex items-center justify-end my-4 lg:my-0">
+      <div
+        className={
+          "sortAndFilteringAndReload flex items-center justify-end my-4 lg:my-0"
+          + (app.isRtl() ? " flex-row-reverse " : "")
+        }
+      >
         {
           sorts
             ?
@@ -90,8 +100,14 @@ const List = ({
             ?
             <span
               id='showHideFiltering'
-              className={listActionIconStyle + " mr-4"}
-              onClick={toggleFiltering}><FilterListIcon /></span>
+              className={
+                listActionIconStyle
+                + (app.isRtl() ? " ml-4 " : " mr-4")
+              }
+              onClick={toggleFiltering}
+            >
+              <FilterListIcon />
+            </span>
             :
             null
         }

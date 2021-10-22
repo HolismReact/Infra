@@ -14,7 +14,13 @@ const leftBlueLine = (url) => {
         return <span
             className={
                 "w-2 bg-blue-600 h-full absolute top-0"
-                + (app.isRtl() ? " rounded-tl-md rounded bl-md right-0 " : " rounded-tr-md rounded-br-md left-0 ")
+                + (
+                    app.isRtl()
+                        ?
+                        " rounded-tl-md rounded-bl-md right-0 "
+                        :
+                        " rounded-tr-md rounded-br-md left-0 "
+                )
             }
         ></span>
     }
