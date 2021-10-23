@@ -32,6 +32,8 @@ const render = () => {
         renderReact();
       }, error => {
         console.error(error);
+        renderReact();
+        alert(error);
       });
   }
   else {
