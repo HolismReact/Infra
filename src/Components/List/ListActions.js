@@ -72,9 +72,9 @@ const ListActions = ({ actions, create, creationButton }) => {
                         {
                             (creationButton && creationButton.text)
                                 ?
-                                creationButton.text
+                                app.t(creationButton.text)
                                 :
-                                "Create"
+                                app.t("Create")
                         }
                     </Button>
                     :
