@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import HolismIcon from '../HolismIcon';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import React, { useState } from 'react';
+import { app } from './List';
 
 const ItemAction = ({ title, item, icon, click, goTo, setItem }) => {
 
@@ -17,7 +18,7 @@ const ItemAction = ({ title, item, icon, click, goTo, setItem }) => {
                 ?
                 <CircularProgress />
                 :
-                <Tooltip title={title || ""}>
+                <Tooltip title={app.t(title || "")}>
                     <IconButton onClick={() => {
                         if (goTo) {
                             if (typeof goTo === 'function') {

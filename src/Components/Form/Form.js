@@ -74,7 +74,7 @@ const Form = ({ inputs, actions, entity, title }) => {
         }
       }}
     >
-      <DialogTitle id="form-dialog-title">{title}</DialogTitle>
+      <DialogTitle id="form-dialog-title">{app.t(title)}</DialogTitle>
       <DialogContent>
         <form
           noValidate
@@ -101,7 +101,7 @@ const Form = ({ inputs, actions, entity, title }) => {
                       variant="outlined"
                       onClick={() => setIsCreationDialogOpen(false)}
                     >
-                      Cancel
+                      {app.t('Cancel')}
                     </Button>
                     <Button
                       variant="outlined"
@@ -109,7 +109,7 @@ const Form = ({ inputs, actions, entity, title }) => {
                       onClick={handleSubmit}
                       disabled={!isValid}
                     >
-                      Save
+                      {app.t('Save')}
                     </Button>
                   </>
               }

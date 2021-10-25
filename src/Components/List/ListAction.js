@@ -37,7 +37,7 @@ const ListAction = ({ icon, title, click, minCardinality }) => {
             onClick={() => click({ setProgress, reloadList })}
             className='mr-2 mt-2 lg:mt-0'
         >
-            {title}
+            {app.t(title)}
         </Button>
     </span>
 };

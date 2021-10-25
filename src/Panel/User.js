@@ -8,7 +8,7 @@ const iconStyle = { style: { fill: "#1F2937", fontSize: 16 } }
 
 const Item = ({ url, icon, background, title, handler }) =>
     <li className={background + " mr-1 ml-1 rounded-md cursor-pointer"} onClick={handler}>
-        <a href={url} className="h-9 w-12 flex items-center justify-center" title={title} data-toggle="tooltip">
+        <a href={url} className="h-9 w-12 flex items-center justify-center" title={app.t(title)} data-toggle="tooltip">
             {icon}
         </a>
     </li>
@@ -33,7 +33,7 @@ export default function User({ onClick }) {
             </span> */}
             <div className="flex flex-col justify-center mt-4">
                 <div className="text-center font-medium antialiased tracking-wide	text-gray-800 mb-2">{user}</div>
-                <p className="text-center text-gray-400 text-sm mb-4">{role}</p>
+                <p className="text-center text-gray-400 text-sm mb-4">{app.t(role)}</p>
                 <ul className="flex items-center justify-center">
                     <Item
                         icon={<PersonIcon {...iconStyle} />}

@@ -56,7 +56,7 @@ const Cards = ({
         {
             data.length === 0
                 ?
-                <div className={noItemIsFoundStyle}>No item is found</div>
+                <div className={noItemIsFoundStyle}>{app.t("No item is found")}</div>
                 :
                 <>
                     {
@@ -69,6 +69,7 @@ const Cards = ({
                                     classProvider(item)
                                 }
                                 key={item.id}
+                                dir={app.isRtl() ? "rtl" : "ltr"}
                             >
                                 {
                                     hasItemSelection
@@ -152,7 +153,10 @@ const Table = ({
         headerElements = React.Children
             .toArray(headers.props.children)
             .map(header => React.cloneElement(header, {
-                className: "text-gray-900 py-3 font-light text-xs"
+                className: "text-gray-900 py-3 font-light text-xs",
+                children: React.Children.toArray(header.props.children).map(child => {
+                    return typeof child === "string" ? app.t(child) : child;
+                })
             }));
     }
 
@@ -210,7 +214,7 @@ const Table = ({
                             data.length === 0
                                 ?
                                 <tr>
-                                    <td colSpan='100' className={noItemIsFoundStyle}>No item is found</td>
+                                    <td colSpan='100' className={noItemIsFoundStyle}>{app.t("No item is found")}</td>
                                 </tr>
                                 :
                                 data.map((item, index) => <tr

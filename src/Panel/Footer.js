@@ -27,8 +27,12 @@ const Footer = () => {
     });
 
     return <Collapse in={isShown}>
-        <div id='footer' className="h-10 flex items-center justify-center text-sm font-semibold text-gray-700 mt-4">
-            Copyright @ 2021
+        <div
+            id='footer'
+            className="h-10 flex items-center justify-center text-sm font-semibold text-gray-700 mt-4"
+            dir={app.isRtl() ? "rtl" : "ltr"}
+        >
+            {app.t("Copyright")} @ 2021
         </div>
     </Collapse>
 };
