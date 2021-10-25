@@ -123,7 +123,7 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
                 <IconButton onClick={() => setIsBrowserDialogOpen(false)} aria-label="close">
                     <CloseIcon />
                 </IconButton>
-                <span className="ml-4">{"Find"}</span>
+                <span className="ml-4">{app.t("Find")}</span>
             </div>
         </DialogTitle>
         <DialogContent>
@@ -134,7 +134,7 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
                 {
                     <div className="mr-6 mb-6" >
                         <Button variant="outlined" onClick={() => setIsBrowserDialogOpen(false)}>
-                            Cancel
+                            {app.t('Cancel')}
                         </Button>
                     </div>
                 }
@@ -148,7 +148,7 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
             error={validationResult ? true : false}
             fullWidth
         >
-            <InputLabel htmlFor={id}>{placeholder}</InputLabel>
+            <InputLabel htmlFor={id}>{app.t(placeholder)}</InputLabel>
             <Input
                 id={id}
                 inputRef={htmlInput}
@@ -161,9 +161,9 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
                 // }
                 endAdornment={
                     <InputAdornment position="end">
-                        <Tooltip title={"Find"}>
+                        <Tooltip title={app.t("Find")}>
                             <IconButton
-                                aria-label={"Find"}
+                                aria-label={app.t("Find")}
                                 onClick={() => setIsBrowserDialogOpen(true)}
                                 onMouseDown={() => { }}
                             >
@@ -173,7 +173,7 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
                     </InputAdornment>
                 }
             />
-            <FormHelperText>{helpText}</FormHelperText>
+            <FormHelperText>{app.t(helpText)}</FormHelperText>
         </FormControl>
     </div>
 };

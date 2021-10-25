@@ -56,7 +56,7 @@ const Field = ({ column, placeholder, children, type, value, hint, validationSta
             error={isValid() ? false : true}
             fullWidth
         >
-            <InputLabel htmlFor={id}>{placeholder}</InputLabel>
+            <InputLabel htmlFor={id}>{app.t(placeholder)}</InputLabel>
             {
                 React.cloneElement(children, {
                     // id: id,
@@ -68,7 +68,7 @@ const Field = ({ column, placeholder, children, type, value, hint, validationSta
             {/* {
                 children(currentValue, setCurrentValue)
             } */}
-            <FormHelperText id={helpTextId}>{helpText}</FormHelperText>
+            <FormHelperText id={helpTextId}>{app.t(helpText)}</FormHelperText>
         </FormControl>
     </div>
 };

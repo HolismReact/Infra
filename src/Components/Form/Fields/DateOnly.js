@@ -61,12 +61,12 @@ const DateOnly = ({ column, required, placeholder, hint, value }) => {
         <KeyboardDatePicker
             error={isValid() ? false : true}
             id={id}
-            label={placeholder}
+            label={app.t(placeholder)}
             format="MM/dd/yyyy"
             value={currentValue}
             onChange={(date) => { setCurrentValue(date) }}
             KeyboardButtonProps={{
-                'aria-label': 'Change ' + placeholder,
+                'aria-label': app.t('Change') + ' ' + app.t(placeholder),
             }}
             fullWidth
         />

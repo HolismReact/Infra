@@ -9,6 +9,7 @@ import React, { useEffect, useState, useContext, useRef } from 'react';
 import { get } from '../../../Base/Api';
 import { FormContext } from '../Form';
 import { fieldStyles } from './FieldStyle';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const Enum = ({ column, entity, placeholder, hint, value, required }) => {
 
@@ -81,7 +82,7 @@ const Enum = ({ column, entity, placeholder, hint, value, required }) => {
         {
             loading
                 ?
-                <div>loadin...</div>
+                <CircularProgress />
                 :
                 <FormControl
                     fullWidth

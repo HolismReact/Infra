@@ -60,6 +60,7 @@ const Form = ({ inputs, actions, entity, title }) => {
   }
   return <FormContext.Provider value={{ fields, setFields }}>
     <Dialog
+      /*dir={app.isRtl() ? "rtl" : "ltr"}*/
       open={isCreationDialogOpen}
       id='dialogForm'
       aria-labelledby="form-dialog-title"
