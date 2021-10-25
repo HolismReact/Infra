@@ -54,7 +54,7 @@ const Title = ({ }) => {
 
     return <>
         {
-            (app.isNothing(pageTitle + pageSubtitle) && breadcrumbItems.length === 0)
+            (app.isNothing(pageTitle) && app.isNothing(pageSubtitle) && breadcrumbItems.length === 0)
                 ?
                 <div></div>
                 :
