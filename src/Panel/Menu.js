@@ -5,6 +5,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { useLocation } from "react-router-dom";
 import HolismIcon from '../Components/HolismIcon.js';
 import app from '../Base/App';
+import Collapse from '@material-ui/core/Collapse';
 
 const liStyle = "py-2 hover:bg-gray-50 cursor-pointer text-sm tracking-wide text-gray-600 hover:text-gray-800 font-normal relative"
 const iconStyle = "text-gray-600 hover:text-gray-900"
@@ -56,33 +57,49 @@ const MenuItemWithSubmenu = ({ item, onClick }) => {
                         }
                     </span>
                     <span>{app.t(item.title)}</span>
-                    <span className="flex-1 flex flex-row-reverse"><ExpandMoreIcon /></span>
+                    <span
+                        className={
+                            "flex-1 flex flex-row-reverse "
+                        }
+                    >
+                        <span
+                            className={
+                                "transition-all "
+                                + (isSubmenuOpen ? " transform rotate-180 " : "  ")
+                            }
+                        >
+                            <ExpandMoreIcon
+                            />
+                        </span>
+                    </span>
                 </span>
-                <div className={(isSubmenuOpen ? " pt-2" : "hidden")}>
-                    {
-                        item.children.map((child, index) => {
-                            return <Link
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    onClick();
-                                }}
-                                to={child.url}
-                                key={index}
-                                className={
-                                    liStyle
-                                    + " flex items-center hover:bg-gray-100"
-                                    + (child.url === location.pathname ? " bg-gray-200 text-blue-800 hover:text-blue-800" : '')
-                                    + (app.isRtl() ? " flex-row-reverse " : "")
-                                }
-                            >
-                                {
-                                    leftBlueLine(child.url)
-                                }
-                                <span className={"ml-20"}>{app.t(child.title)}</span>
-                            </Link>
-                        })
-                    }
-                </div>
+                <Collapse in={isSubmenuOpen}>
+                    <div className=" pt-2">
+                        {
+                            item.children.map((child, index) => {
+                                return <Link
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        onClick();
+                                    }}
+                                    to={child.url}
+                                    key={index}
+                                    className={
+                                        liStyle
+                                        + " flex items-center hover:bg-gray-100"
+                                        + (child.url === location.pathname ? " bg-gray-200 text-blue-800 hover:text-blue-800" : '')
+                                        + (app.isRtl() ? " flex-row-reverse " : "")
+                                    }
+                                >
+                                    {
+                                        leftBlueLine(child.url)
+                                    }
+                                    <span className={"ml-20"}>{app.t(child.title)}</span>
+                                </Link>
+                            })
+                        }
+                    </div>
+                </Collapse>
             </div>
 
         </Fragment>
