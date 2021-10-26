@@ -35,13 +35,13 @@ const Pagination = ({ metadata }) => {
             number = pagesCount;
         }
         listParameters.pageNumber = number;
-        app.emit(app.reloadRequirement);
+        app.emit(app.reloadRequested);
     };
 
     const setPageSize = () => {
         listParameters.pageSize = internalPageSize;
         listParameters.pageNumber = 1;
-        app.emit(app.reloadRequirement);
+        app.emit(app.reloadRequested);
     };
 
     const pageNumberDialog = <Dialog

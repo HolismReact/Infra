@@ -11,7 +11,7 @@ const ListAction = ({ icon, title, click, minCardinality }) => {
     const { selectedItems } = useContext(ListContext);
 
     const reloadList = () => {
-        app.emit(app.reloadRequirement)
+        app.emit(app.reloadRequested)
     }
 
     return <span className="listAction">

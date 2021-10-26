@@ -20,6 +20,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const Browse = ({ column, placeholder, entity, browser, display, choose }) => {
 
+    const [selectedEntity, setSelectedEntity] = useState(null);
     const [isBrowserDialogOpen, setIsBrowserDialogOpen] = useState(false);
     const [displayValue, setDisplayValue] = useState("");
     const [chosenValue, setChosenValue] = useState("");
@@ -29,23 +30,37 @@ const Browse = ({ column, placeholder, entity, browser, display, choose }) => {
     });
 
     useEffect(() => {
+        const reset = () => {
+            setSelectedEntity(null);
+        };
+        app.on(app.resetFilters, reset);
+        return () => {
+            app.removeListener(app.resetFilters, reset);
+        }
+    }, []);
+
+    useEffect(() => {
+        setDisplayValue(display(selectedEntity));
+        if (choose && typeof choose === 'function') {
+            setChosenValue(choose(selectedEntity));
+        }
+        else {
+            if (column.endsWith('Guid')) {
+                setChosenValue(selectedEntity.guid);
+            }
+            else if (column.endsWith('Id')) {
+                setChosenValue(selectedEntity.id);
+            }
+        }
+    }, [selectedEntity]);
+
+    useEffect(() => {
         const handleEntitySelection = ({ item, callerId }) => {
             if (callerId != `${column}_browser`) {
                 return;
             }
+            setSelectedEntity(item.item);
             setIsBrowserDialogOpen(false);
-            setDisplayValue(display(item));
-            if (choose && typeof choose === 'function') {
-                setChosenValue(choose(item));
-            }
-            else {
-                if (column.endsWith('Guid')) {
-                    setChosenValue(item.guid);
-                }
-                else if (column.endsWith('Id')) {
-                    setChosenValue(item.id);
-                }
-            }
         }
         app.on(app.entitySelected, handleEntitySelection);
         return () => {

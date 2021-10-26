@@ -23,6 +23,16 @@ const Filter = ({
     var { listParameters } = useContext(ListContext);
 
     useEffect(() => {
+        const reset = () => {
+            setCurrentValue(value || "");
+        };
+        app.on(app.resetFilters, reset);
+        return () => {
+            app.removeListener(app.resetFilters, reset);
+        }
+    }, []);
+
+    useEffect(() => {
         setId(`${type}_${column}`);
     }, [column]);
 

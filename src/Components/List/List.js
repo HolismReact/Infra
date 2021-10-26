@@ -114,7 +114,7 @@ const List = ({
         {
           <span
             id='reload'
-            onClick={() => app.emit(app.reloadRequirement)}
+            onClick={() => app.emit(app.reloadRequested)}
             className={listActionIconStyle}
           >
             <CachedIcon />

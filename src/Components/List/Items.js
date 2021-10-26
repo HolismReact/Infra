@@ -375,9 +375,9 @@ const Items = ({
     }, []);
 
     useEffect(() => {
-        app.on(app.reloadRequirement, load);
+        app.on(app.reloadRequested, load);
         return () => {
-            app.removeListener(app.reloadRequirement, load);
+            app.removeListener(app.reloadRequested, load);
         }
     }, [])
 

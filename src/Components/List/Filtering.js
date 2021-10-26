@@ -12,11 +12,12 @@ const Filtering = ({ filters }) => {
     }
 
     const applyFilters = () => {
-        app.emit(app.reloadRequirement);
+        app.emit(app.reloadRequested);
     };
 
     const resetFilters = () => {
         listParameters.filters = [];
+        app.emit(app.resetFilters);
         applyFilters();
     }
 
