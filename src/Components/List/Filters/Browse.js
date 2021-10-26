@@ -40,6 +40,11 @@ const Browse = ({ column, placeholder, entity, browser, display, choose }) => {
     }, []);
 
     useEffect(() => {
+        if (!selectedEntity) {
+            setDisplayValue(null);
+            setChosenValue(null);
+            return;
+        }
         setDisplayValue(display(selectedEntity));
         if (choose && typeof choose === 'function') {
             setChosenValue(choose(selectedEntity));

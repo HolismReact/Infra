@@ -8,12 +8,16 @@ import Panel from './Panel/Panel';
 import app from './Base/App';
 import { get } from './Base/Api';
 import Push from './Base/Push';
+import { ru, faIR } from 'date-fns/locale'
 
 const renderReact = () => {
   ReactDOM.render(
     <React.StrictMode>
       <BrowserRouter>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <MuiPickersUtilsProvider
+          utils={DateFnsUtils}
+          // locale={faIR}
+        >
           <Panel />
         </MuiPickersUtilsProvider>
       </BrowserRouter>
