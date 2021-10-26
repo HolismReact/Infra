@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import PersonIcon from '@material-ui/icons/Person';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { useHistory } from 'react-router-dom';
 
 const iconStyle = { style: { fill: "#1F2937", fontSize: 16 } }
 
@@ -14,6 +15,8 @@ const Item = ({ url, icon, background, title, handler }) =>
     </li>
 
 export default function User({ onClick }) {
+
+    const history = useHistory();
 
     const [user, setUser] = useState(app.user);
     const [role, setRole] = useState(app.role());
@@ -44,10 +47,12 @@ export default function User({ onClick }) {
                     />
                     <Item
                         icon={<SettingsIcon {...iconStyle} />}
-                        url="#"
                         title="Settings"
                         background="bg-blue-200"
-                        handler={onClick}
+                        handler={() => {
+                            onClick();
+                            history.push('/settings');
+                        }}
                     />
                     <Item
                         icon={<ExitToAppIcon {...iconStyle} />}
