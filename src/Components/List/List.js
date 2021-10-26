@@ -165,6 +165,7 @@ export { app } from '../../Base/App';
 export { useQueryStringState } from '../../Base/UseQueryStringState';
 export { useLocalStorageState } from '../../Base/UseLocalStorageState';
 export { Boolean } from './Properties/Boolean';
+export { Color } from './Properties/Color';
 
 /*
 List anatomy
