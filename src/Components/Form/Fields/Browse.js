@@ -26,6 +26,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const Browse = ({ column, required, placeholder, hint, value, browser, display, choose }) => {
 
     const [id, setId] = useState();
+    const [selectedEntity, setSelectedEntity] = useState(null);
     const [currentValue, setCurrentValue] = useState(value || "");
     const htmlInput = useRef();
     const [helpText, setHelpText] = useState(hint);
@@ -33,7 +34,7 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
     const [isBrowserDialogOpen, setIsBrowserDialogOpen] = useState(false);
     const initialHint = hint;
     var formContext = useContext(FormContext);
-    app.ensure([column])
+    app.ensure([column, placeholder, display])
 
     const clonedBrowser = React.cloneElement(browser(), {
         callerId: id
@@ -41,7 +42,7 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
 
     useEffect(() => {
         validate();
-    }, [currentValue]);
+    }, [selectedEntity]);
 
     useEffect(() => {
         setId(`browse_${column}`);
@@ -59,12 +60,12 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
     }, [id, formContext]);
 
     const validate = () => {
-        if (required && app.isNothing(currentValue)) {
+        if (required && app.isNothing(selectedEntity)) {
             setValidationResult('invalid required');
             setHelpText(required);
         }
         else {
-            setValidationResult(null);
+            setValidationResult('valid');
             setHelpText(initialHint);
         }
     }
@@ -74,39 +75,48 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
             if (callerId != id) {
                 return;
             }
-            item = item.item;
+            setSelectedEntity(item.item);
             setIsBrowserDialogOpen(false);
-
-            var dispalyItem = display(item);
-            if (typeof dispalyItem == "undefined")
-                throw new Error(`No dispaly value specified for Browse ${column} `)
-            setCurrentValue(dispalyItem);
-
-            if (typeof choose == "function") {
-                try {
-                    let selected = choose(item);
-                    if (typeof selected == "undefined" || typeof selected === "function")
-                        throw new Error(`No return value specified for Browse ${column} `)
-                    app.setField(formContext, id, selected, validationResult ? false : true);
-                } catch (error) {
-                    throw new Error(`No return value specified for Browse ${column} `)
-                }
-            }
-            else if (column.endsWith('Guid')) {
-                app.setField(formContext, id, item.guid, validationResult ? false : true);
-            }
-            else if (column.endsWith('Id')) {
-                app.setField(formContext, id, item.id, validationResult ? false : true);
-            }
-            else {
-                throw new Error(`No return value specified for Browse ${column} `)
-            }
         }
         app.on(app.entitySelected, handleEntitySelection);
         return () => {
             app.removeListener(app.entitySelected, handleEntitySelection);
         }
     });
+
+    useEffect(() => {
+        if (!selectedEntity) {
+            return;
+        }
+        if (typeof display(selectedEntity) == "undefined")
+            throw new Error(`No dispaly value specified for Browse ${column} `)
+        setCurrentValue(display(selectedEntity));
+    }, [selectedEntity]);
+
+    useEffect(() => {
+        if (!selectedEntity) {
+            app.setField(formContext, id, selectedEntity, false);
+        }
+        else if (typeof choose == "function") {
+            try {
+                let chosenValue = choose(selectedEntity);
+                if (typeof chosenValue == "undefined" || typeof chosenValue === "function")
+                    throw new Error(`No return value specified for ${column} browser chooser function`)
+                app.setField(formContext, id, chosenValue, validationResult === 'valid' ? true : false);
+            } catch (error) {
+                throw new Error(`No return value specified for ${column} browser chooser function`);
+            }
+        }
+        else if (column.endsWith('Guid')) {
+            app.setField(formContext, id, selectedEntity.guid, validationResult === 'valid' ? true : false);
+        }
+        else if (column.endsWith('Id')) {
+            app.setField(formContext, id, selectedEntity.id, validationResult === 'valid' ? true : false);
+        }
+        else {
+            throw new Error(`No return value specified for ${column} browser chooser function`);
+        }
+    }, [validationResult]);
 
     const browserDialog = <Dialog
         open={isBrowserDialogOpen}
@@ -145,7 +155,7 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
     return <div className={fieldStyles}>
         {browserDialog}
         <FormControl
-            error={validationResult ? true : false}
+            error={validationResult !== 'valid' ? true : false}
             fullWidth
         >
             <InputLabel htmlFor={id}>{app.t(placeholder)}</InputLabel>
