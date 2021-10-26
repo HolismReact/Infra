@@ -20,7 +20,11 @@ const Boolean = ({
             return;
         }
         setProgress(true);
-        post(action).then(data => {
+        var url = action;
+        if (typeof action === 'function') {
+            url = action(e.target.checked);
+        }
+        post(url).then(data => {
             setProgress(false);
             app.success('Applied');
             setCurrentValue(data.isActive);
