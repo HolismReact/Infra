@@ -137,5 +137,6 @@ export default Panel;
 export { HeaderAction } from './HeaderActions/HeaderAction';
 export { FullScreen } from './HeaderActions/FullScreen';
 export { Maximize } from './HeaderActions/Maximize';
+export { Page } from '../Components/Page/Page';
 export { app } from '../Base/App';
 export { get, post } from '../Base/Api';
