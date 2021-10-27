@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { get } from '../../Base/Api';
 import app from '../../Base/App';
-import { ListContext } from './List';
+import { ListContext, useLocalStorageState } from './List';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Pagination from './Pagination';
 import ItemActions from './ItemActions';
 import Checkbox from '@material-ui/core/Checkbox';
 import Tooltip from '@material-ui/core/Tooltip';
+import Collapse from '@material-ui/core/Collapse';
 
 const noItemIsFoundStyle = 'py-10 text-2xl font-bold text-gray-600';
 
@@ -22,7 +23,8 @@ const Cards = ({
     card,
     setItem,
     hasItemSelection,
-    classProvider
+    classProvider,
+    showTopPagiation
 }) => {
 
     const listContext = useContext(ListContext);
@@ -30,35 +32,42 @@ const Cards = ({
 
     return <>
         {
-
-            hasItemSelection ?
-                <div className="w-full flex justify-start px-6">
-                    <Tooltip
-                        title="Select all"
-                        placement="top"
-                    >
-                        <Checkbox
-                            color="primary"
-                            onChange={(event) => {
-                                event.target.checked
-                                    ?
-                                    app.addItemsToSelectedItems(listContext, data)
-                                    :
-                                    app.removeItemsFromSelectedItems(listContext, data)
-                            }}
-                            inputProps={{ 'aria-label': 'Select all' }}
-                        />
-                    </Tooltip>
-                </div>
-                :
-                null
-        }
-        {
             data.length === 0
                 ?
                 <div className={noItemIsFoundStyle}>{app.t("No item is found")}</div>
                 :
                 <>
+                    <Collapse in={showTopPagiation} className="w-full">
+                        <div className="px-6 w-full">
+                            <Pagination metadata={metadata} />
+                        </div>
+                        <br />
+                    </Collapse>
+                    {
+
+                        hasItemSelection ?
+                            <div className="w-full flex justify-start px-6">
+                                <Tooltip
+                                    title="Select all"
+                                    placement="top"
+                                >
+                                    <Checkbox
+                                        color="primary"
+                                        onChange={(event) => {
+                                            event.target.checked
+                                                ?
+                                                app.addItemsToSelectedItems(listContext, data)
+                                                :
+                                                app.removeItemsFromSelectedItems(listContext, data)
+                                        }}
+                                        inputProps={{ 'aria-label': 'Select all' }}
+                                    />
+                                </Tooltip>
+                            </div>
+                            :
+                            null
+                    }
+                    <br />
                     {
                         data.map((item, index) =>
                             <div
@@ -140,7 +149,8 @@ const Table = ({
     create,
     setItem,
     hasItemSelection,
-    classProvider
+    classProvider,
+    showTopPagiation
 }) => {
 
     const listContext = useContext(ListContext);
@@ -161,6 +171,17 @@ const Table = ({
     }
 
     return <>
+        {
+            data.length === 0
+                ?
+                null
+                :
+                <Collapse in={showTopPagiation} className="w-full">
+                    <div className="w-full px-6">
+                        <Pagination metadata={metadata} />
+                    </div>
+                </Collapse>
+        }
         <div className="w-full overflow-x-auto px-6">
             <table
                 className="w-full text-center "
@@ -302,11 +323,25 @@ const Items = ({
     hasItemSelection,
     classProvider
 }) => {
+
+    app.ensure([entity]);
+
     const [loading, setLoading] = useState();
     const [reloadedTimes, setReloadedTimes] = useState(0);
     const [data, setData] = useState([]);
     const [metadata, setMetadata] = useState({});
     const { listParameters } = useContext(ListContext);
+    const [showTopPagiation, setTopPaginationVisibility] = useLocalStorageState(false, `${app.userGuid()}_${entity}_isTopPaginationShown`);
+
+    useEffect(() => {
+        const setVisibility = () => {
+            setTopPaginationVisibility(!showTopPagiation);
+        };
+        app.on(app.toggleTopPagination, setVisibility);
+        return () => {
+            app.removeListener(app.toggleTopPagination, setVisibility);
+        }
+    });
 
     const setItem = (item) => {
         setData((data) => {
@@ -318,8 +353,6 @@ const Items = ({
             return [...data];
         });
     }
-
-    app.ensure([entity])
 
     if (!classProvider) {
         classProvider = () => '';
@@ -417,7 +450,8 @@ const Items = ({
                             create,
                             setItem,
                             hasItemSelection,
-                            classProvider
+                            classProvider,
+                            showTopPagiation
                         })
                         :
                         // window.innerWidth < app.breakpoints.md
@@ -438,7 +472,8 @@ const Items = ({
                             create,
                             setItem,
                             hasItemSelection,
-                            classProvider
+                            classProvider,
+                            showTopPagiation
                         })
                 )
         }

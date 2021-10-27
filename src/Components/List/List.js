@@ -10,6 +10,7 @@ import Filter from './Filters/Filter';
 import CachedIcon from '@material-ui/icons/Cached';
 import useLocalStorageState from '../../Base/UseLocalStorageState';
 import Collapse from '@material-ui/core/Collapse';
+import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
 
 const listActionIconStyle = "text-gray-700 hover:text-blue-500 cursor-pointer";
 
@@ -89,6 +90,18 @@ const List = ({
         }
       >
         {
+          <span
+            id='showHideTopPagination'
+            className={
+              listActionIconStyle
+              + " mr-2 "
+            }
+            onClick={() => app.emit(app.toggleTopPagination)}
+          >
+            <SwapHorizIcon />
+          </span>
+        }
+        {
           sorts
             ?
             <Sorting sorts={sorts} />
@@ -102,7 +115,7 @@ const List = ({
               id='showHideFiltering'
               className={
                 listActionIconStyle
-                + (app.isRtl() ? " ml-4 " : " mr-4")
+                + (app.isRtl() ? " ml-2 " : " mr-2 ")
               }
               onClick={toggleFiltering}
             >

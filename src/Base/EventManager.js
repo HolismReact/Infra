@@ -20,5 +20,6 @@ const EventManager = {
     returnBackToNormalForm: 'return_back_to_normal_form',
     editRequested: 'edit_requested',
     entitySelected: 'entity_slected',
+    toggleTopPagination: 'toggle_top_pagination'
 };
 export default EventManager;
