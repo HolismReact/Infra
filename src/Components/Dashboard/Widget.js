@@ -2,7 +2,7 @@ const Widget = ({
     children
 }) => {
     return <div
-        className="bg-white md:rounded-lg"
+        className="widget bg-white md:rounded-lg"
     >
         {children}
     </div>

@@ -2,8 +2,11 @@ const Section = ({
     children
 }) => {
     return <div
-        className="flex flex-row"
+        className="section flex flex-row w-full"
     >
+        <div>
+            {children.length}
+        </div>
         {children}
     </div>
 }
