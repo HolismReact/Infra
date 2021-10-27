@@ -119,7 +119,7 @@ function Panel() {
       <Header onMenuIconClicked={toggleMenu} />
       <div
         id='content'
-        className="md:p-10 pt-5 flex-1"
+        className="md:p-10 md:pt-4 pt-5 flex-1"
         style={{
           maxWidth: mainContentWidth
         }}

@@ -61,17 +61,17 @@ const Title = ({ }) => {
                 <div
                     className=
                     {
-                        "mb-10 "
+                        "mb-7 "
                         + (hasSubtitleOrBreadcrumb ? "h-12" : "h-6")
                         + (isShown ? "" : " hidden")
                         + (app.isRtl() ? " text-right pr-10 md:pr-0 " : " pl-10 md:pl-0 ")
                     }
                 >
-                    <div className="font-medium mb-2 tracking-wider	text-xl text-gray-900">{app.t(pageTitle)}</div>
+                    <div className="font-medium mb-2 tracking-wider	text-xl text-gray-700">{app.t(pageTitle)}</div>
                     {
                         hasSubtitleOrBreadcrumb
                             ?
-                            <div className="text-xs tracking-wider text-gray-700 flex items-center">
+                            <div className="text-xs tracking-wider text-gray-500">
                                 {
                                     pageSubtitle ||
                                     (
