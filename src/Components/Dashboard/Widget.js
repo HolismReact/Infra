@@ -19,7 +19,7 @@ const Widget = ({
             (title || icon)
                 ?
                 <div
-                    className="widgetTopBar flex items-start justify-between"
+                    className="widgetTopBar flex items-start justify-between mb-4 "
                 >
                     {
                         title
@@ -50,9 +50,6 @@ const Widget = ({
                 </div>
                 :
                 null
-        }
-        {
-            allSiblingsCount
         }
         {children}
     </div>
