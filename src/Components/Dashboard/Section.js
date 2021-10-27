@@ -38,7 +38,7 @@ const Section = ({
         widgetWidth = "23%";
     }
     else if (count === 3) {
-        widgetWidth = "32%";
+        widgetWidth = "31.5%";
     }
     else if (count === 2) {
         widgetWidth = "48.5%";

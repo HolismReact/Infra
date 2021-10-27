@@ -1,5 +1,10 @@
+import HolismIcon from "../HolismIcon";
+
 const Widget = ({
     title,
+    icon,
+    color,
+    menuItems,
     span,
     allSiblingsCount,
     children
@@ -11,12 +16,37 @@ const Widget = ({
         }
     >
         {
-            title
+            (title || icon)
                 ?
                 <div
-                    className="uppercase text-sm text-gray-800 font-light mb-3 tracking-wider"
+                    className="widgetTopBar flex items-start justify-between"
                 >
-                    {title}
+                    {
+                        title
+                            ?
+                            <div
+                                className="uppercase text-sm text-gray-800 font-light mb-3 tracking-wider"
+                            >
+                                {title}
+                            </div>
+                            :
+                            null
+                    }
+                    {
+                        icon
+                            ?
+                            <div
+                                className=
+                                {
+                                    "w-10 h-10 rounded-full flex justify-center items-center text-white "
+                                    + (color || " bg-green-400 ")
+                                }
+                            >
+                                <HolismIcon icon={icon} />
+                            </div>
+                            :
+                            null
+                    }
                 </div>
                 :
                 null
