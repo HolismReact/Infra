@@ -36,8 +36,13 @@ const Sorting = ({ sorts }) => {
     }, [currentSort]);
 
     return <>
-        <div id='sorting' className='mr-2 flex items-center cursor-pointer text-gray-700 
-        hover:text-blue-500'>
+        <div
+            id='sorting'
+            className={
+                'flex items-center cursor-pointer text-gray-700 hover:text-blue-500'
+                + (app.isRtl() ? " ml-2 " : " mr-2 ")
+            }
+        >
             <div id='currentSort' className="uppercase text-xs text-gray-500 font-light tracking-wider flex items-center">
                 {currentSort.caption
                     ?

@@ -94,7 +94,7 @@ const List = ({
             id='showHideTopPagination'
             className={
               listActionIconStyle
-              + " mr-2 "
+              + (app.isRtl() ? " ml-2 " : " mr-2 ")
             }
             onClick={() => app.emit(app.toggleTopPagination)}
           >
