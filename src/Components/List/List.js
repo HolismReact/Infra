@@ -11,6 +11,7 @@ import CachedIcon from '@material-ui/icons/Cached';
 import useLocalStorageState from '../../Base/UseLocalStorageState';
 import Collapse from '@material-ui/core/Collapse';
 import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const listActionIconStyle = "text-gray-700 hover:text-blue-500 cursor-pointer";
 
@@ -119,7 +120,9 @@ const List = ({
               }
               onClick={toggleFiltering}
             >
-              <FilterListIcon />
+              <Tooltip title={app.t('Filters')}>
+                <FilterListIcon />
+              </Tooltip>
             </span>
             :
             null
@@ -130,7 +133,9 @@ const List = ({
             onClick={() => app.emit(app.reloadRequested)}
             className={listActionIconStyle}
           >
-            <CachedIcon />
+            <Tooltip title={app.t('Reload')}>
+              <CachedIcon />
+            </Tooltip>
           </span>
         }
       </div>

@@ -1,3 +1,4 @@
+import { app } from '@Panel';
 import HolismIcon from "../HolismIcon";
 
 const Widget = ({
@@ -19,7 +20,10 @@ const Widget = ({
             (title || icon)
                 ?
                 <div
-                    className="widgetTopBar flex items-start justify-between mb-4 "
+                    className={
+                        "widgetTopBar flex items-start justify-between mb-4 "
+                        + (app.isRtl() ? " flex-row-reverse " : "")
+                    }
                 >
                     {
                         title
@@ -29,9 +33,9 @@ const Widget = ({
                                     "uppercase text-sm text-gray-800 font-light tracking-wider truncate cursor-default "
                                     + " mb-3 "
                                 }
-                                title={title}
+                                title={app.t(title)}
                             >
-                                {title}
+                                {app.t(title)}
                             </div>
                             :
                             null

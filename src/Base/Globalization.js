@@ -5,6 +5,9 @@ const Globalization = {
     setTranslations: (translations) => {
         Globalization.translations = translations;
     },
+    getTranslations: () => {
+        return Globalization.translations;
+    },
     t: (text) => {
         if (!text) {
             return text;

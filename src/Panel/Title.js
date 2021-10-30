@@ -73,10 +73,10 @@ const Title = ({ }) => {
                             ?
                             <div className="text-xs tracking-wider text-gray-500">
                                 {
-                                    pageSubtitle ||
+                                    app.t(pageSubtitle) ||
                                     (
-                                        breadcrumbItems.map((item, index) => <span key={item.title}>
-                                            <span>{item.title}</span>
+                                        breadcrumbItems.map((item, index) => <span key={index}>
+                                            <span>{app.t(item.title)}</span>
                                             {index === breadcrumbItems.length - 1
                                                 ?
                                                 null

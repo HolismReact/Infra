@@ -49,7 +49,7 @@ const Pagination = ({ metadata }) => {
         aria-labelledby="dialog-title"
         TransitionProps={{ onEntered: () => { document.querySelector('#goToPageInput').focus() } }}
     >
-        <DialogTitle id="dialog-title">Go to page</DialogTitle>
+        <DialogTitle id="dialog-title">{app.t('Go to page')}</DialogTitle>
         <DialogContent>
             <form
                 noValidate
@@ -67,7 +67,7 @@ const Pagination = ({ metadata }) => {
         <DialogActions>
             <div id='actions' className='mt-4'>
                 <Button variant="outlined" onClick={() => setPageNumberDialogVisibility(false)}>
-                    Cancel
+                    {app.t('Cancel')}
                 </Button>
                 <Button variant="outlined" className='bg-green-200 ml-2' onClick={() => {
                     var value = document.querySelector('#goToPageInput').value;
@@ -75,7 +75,7 @@ const Pagination = ({ metadata }) => {
                         goToPage(value);
                     }
                 }}>
-                    Save
+                    {app.t('Go')}
                 </Button>
             </div>
         </DialogActions>
@@ -86,7 +86,7 @@ const Pagination = ({ metadata }) => {
         aria-labelledby="dialog-title"
         TransitionProps={{ onEntered: () => { /*document.querySelector('#pageSizeSelect').focus()*/ } }}
     >
-        <DialogTitle id="dialog-title">Select page size</DialogTitle>
+        <DialogTitle id="dialog-title">{app.t('Select page size')}</DialogTitle>
         <DialogContent>
             <form
                 noValidate
@@ -94,7 +94,7 @@ const Pagination = ({ metadata }) => {
             >
                 <div id='fields'>
                     <FormControl fullWidth>
-                        <InputLabel id="pageSizeSelectLabelId">Page size</InputLabel>
+                        <InputLabel id="pageSizeSelectLabelId">{app.t('Page size')}</InputLabel>
                         <Select
                             labelId="pageSizeSelectLabelId"
                             id="pageSizeSelect"
@@ -114,12 +114,16 @@ const Pagination = ({ metadata }) => {
         <DialogActions>
             <div id='actions' className='mt-4'>
                 <Button variant="outlined" onClick={() => setPageSizeDialogVisibility(false)}>
-                    Cancel
+                    {
+                        app.t('Cancel')
+                    }
                 </Button>
                 <Button variant="outlined" className='bg-green-200 ml-2' onClick={() => {
                     setPageSize();
                 }}>
-                    Save
+                    {
+                        app.t('Save')
+                    }
                 </Button>
             </div>
         </DialogActions>
@@ -127,7 +131,10 @@ const Pagination = ({ metadata }) => {
 
     return <div
         id='pagination'
-        className="flex flex-col md:flex-row justify-between items-center w-full"
+        className={
+            "flex flex-col md:flex-row justify-between items-center w-full"
+            + (app.isRtl() ? " md:flex-row-reverse " : "")
+        }
     >
         {pageNumberDialog}
         {pageSizeDialog}
@@ -140,16 +147,60 @@ const Pagination = ({ metadata }) => {
                 InputLabelProps={{ className: "text-sm" }}
             />
             <Button className="ml-2" variant="outlined">Go</Button> */}
-            Page #
+            {app.t('Page')} #
         </Button>
-        <div id='pageLinks' className="flex-1 items-center flex justify-center">
-            <IconButton disabled={pageNumber === 1} onClick={() => goToPage(1)}><FirstPageIcon /></IconButton>
-            <IconButton disabled={pageNumber === 1} onClick={() => goToPage(pageNumber - 1)}><ChevronLeftIcon /></IconButton>
+        <div
+            id='pageLinks'
+            className={
+                "flex-1 items-center flex justify-center"
+                + (app.isRtl() ? " flex-row-reverse " : "")
+            }
+        >
+            <IconButton disabled={pageNumber === 1} onClick={() => goToPage(1)}>
+                <Tooltip title={app.t('First page')}>
+                    {
+                        app.isRtl()
+                            ?
+                            <LastPageIcon />
+                            :
+                            <FirstPageIcon />
+                    }
+                </Tooltip>
+            </IconButton>
+            <IconButton disabled={pageNumber === 1} onClick={() => goToPage(pageNumber - 1)}>
+                <Tooltip title={app.t('Previous page')}>
+                    {
+                        app.isRtl()
+                            ?
+                            <ChevronRightIcon />
+                            :
+                            <ChevronLeftIcon />
+                    }
+                </Tooltip>
+            </IconButton>
             <span className="mx-4">{pageNumber}</span>
-            <IconButton disabled={pageNumber >= pagesCount} onClick={() => goToPage(pageNumber + 1)}><ChevronRightIcon /></IconButton>
-            <Tooltip title={pagesCount || ""}>
+            <IconButton disabled={pageNumber >= pagesCount} onClick={() => goToPage(pageNumber + 1)}>
+                <Tooltip title={app.t('Next page')}>
+                    {
+                        app.isRtl()
+                            ?
+                            <ChevronLeftIcon />
+                            :
+                            <ChevronRightIcon />
+                    }
+                </Tooltip>
+            </IconButton>
+            <Tooltip title={app.t('Last page') + (pagesCount ? ` - ${pagesCount}` : "")}>
                 <span>
-                    <IconButton disabled={pageNumber >= pagesCount} onClick={() => goToPage(pagesCount)}><LastPageIcon /></IconButton>
+                    <IconButton disabled={pageNumber >= pagesCount} onClick={() => goToPage(pagesCount)}>
+                        {
+                            app.isRtl()
+                                ?
+                                <FirstPageIcon />
+                                :
+                                <LastPageIcon />
+                        }
+                    </IconButton>
                 </span>
             </Tooltip>
         </div>
