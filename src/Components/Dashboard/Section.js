@@ -1,4 +1,5 @@
 import React, { useState, useLayoutEffect, useEffect, useRef } from 'react';
+import { app } from '../List/List';
 
 function useWindowSize() {
     const [size, setSize] = useState([0, 0]);
@@ -24,7 +25,8 @@ const Section = ({
 
     const ref = useRef(null);
     const [windowWidth, windowHeight] = useWindowSize();
-    const [count] = useState(children.length);
+    const [sectionWidth, setSectionWidth] = useState(null);
+    const [count] = useState(children.length ? children.length : (children.props ? 1 : null));
     const [width, setWidth] = useState(null);
 
     const clonedChildren = React.Children
@@ -34,29 +36,24 @@ const Section = ({
         }));
 
     let widgetWidth = "";
-    if (count === 4) {
-        widgetWidth = "23%";
-    }
-    else if (count === 3) {
-        widgetWidth = "31.5%";
-    }
-    else if (count === 2) {
-        widgetWidth = "48.5%";
-    }
-    else if (count === 1) {
-        widgetWidth = "w-full";
-    }
-    else {
+
+    if (count < 1 || count > 4) {
         throw new Error('Dashboard widgets are only supported in 1,2,3, and 4 widgets per section.');
     }
 
     useEffect(() => {
+        setSectionWidth(ref.current.offsetWidth);
+        console.log('section width = ' + sectionWidth);
     }, [ref]);
 
     return <div
         className={
-            "section flex flex-row justify-between w-full mb-6 "
-            + `windowWidth_${windowHeight}`
+            "section grid justify-between w-full grid gap-6 "
+            + /* from zero */ " grid-cols-1 "
+            + /* sm */ " sm:grid-cols-" + (count > 2 ? '2' : count)
+            + /* md */ " md:grid-cols-" + (count > 3 ? '2' : count)
+            + /* lg */ " lg:grid-cols-" + count
+            + ` windowWidth_${windowHeight}`
         }
         ref={ref}
     >

@@ -36,7 +36,7 @@ const Header = ({ onMenuIconClicked }) => {
             <div
                 id='header'
                 className={
-                    "flex items-center p-10 justify-between h-20"
+                    "flex items-center p-5 md:p-10 justify-between h-20"
                     + (app.isRtl() ? " flex-row-reverse " : "")
                 }
             >

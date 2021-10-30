@@ -12,7 +12,7 @@ const Widget = ({
 
     return <div
         className={
-            "widget bg-white md:rounded-lg p-6"
+            "widget bg-white md:rounded-lg p-6 "
         }
     >
         {
@@ -25,7 +25,11 @@ const Widget = ({
                         title
                             ?
                             <div
-                                className="uppercase text-sm text-gray-800 font-light mb-3 tracking-wider"
+                                className={
+                                    "uppercase text-sm text-gray-800 font-light tracking-wider truncate cursor-default "
+                                    + " mb-3 "
+                                }
+                                title={title}
                             >
                                 {title}
                             </div>

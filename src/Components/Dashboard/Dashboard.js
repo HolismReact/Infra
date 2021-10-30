@@ -17,7 +17,7 @@ const Dashboard = ({
     }, []);
 
     return <div
-        className="dashboard py-6"
+        className="dashboard py-6 grid gap-6 "
     >
         {children}
     </div>
