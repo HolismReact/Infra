@@ -50,8 +50,20 @@ const MenuItemWithSubmenu = ({ item, onClick }) => {
                 )}
                 onClick={openSubmenu}
             >
-                <span className="px-9 flex items-center h-full">
-                    <span className="flex items-center mr-3">
+                <span
+                    className=
+                    {
+                        "px-9 flex items-center h-full"
+                        + (app.isRtl() ? " flex-row-reverse " : "")
+                    }
+                >
+                    <span
+                        className=
+                        {
+                            "flex items-center"
+                            + (app.isRtl() ? " ml-3 " : " mr-3 ")
+                        }
+                    >
                         {
                             <HolismIcon icon={item.icon} />
                         }
@@ -59,7 +71,8 @@ const MenuItemWithSubmenu = ({ item, onClick }) => {
                     <span>{app.t(item.title)}</span>
                     <span
                         className={
-                            "flex-1 flex flex-row-reverse "
+                            "flex-1 flex "
+                            + (app.isRtl() ? "" : " flex-row-reverse ")
                         }
                     >
                         <span
@@ -94,7 +107,7 @@ const MenuItemWithSubmenu = ({ item, onClick }) => {
                                     {
                                         leftBlueLine(child.url)
                                     }
-                                    <span className={"ml-20"}>{app.t(child.title)}</span>
+                                    <span className={app.isRtl() ? "mr-20" : "ml-20"}>{app.t(child.title)}</span>
                                 </Link>
                             })
                         }
