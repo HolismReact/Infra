@@ -43,13 +43,13 @@ const Filtering = ({ filters }) => {
             <Button
                 variant="outlined"
                 onClick={resetFilters}>
-                Reset
+                {app.t('Reset')}
             </Button>
             <Button
                 className="bg-green-200 hover:bg-green-400 ml-2"
                 variant="outlined"
                 onClick={applyFilters}>
-                Apply
+                {app.t('Apply')}
             </Button>
         </div>
     </div>
