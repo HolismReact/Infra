@@ -30,7 +30,7 @@ const HeaderAction = ({ icon, title, url, action, component, ...rest }) => {
         }
     }
 
-    return <div className="headerAction relative">
+    return <div className="headerAction relative select-none">
         <Tooltip title={app.t(title || "")}>
             <div
                 //rest

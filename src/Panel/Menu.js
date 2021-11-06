@@ -7,7 +7,7 @@ import HolismIcon from '../Components/HolismIcon.js';
 import app from '../Base/App';
 import Collapse from '@material-ui/core/Collapse';
 
-const liStyle = "py-2 hover:bg-gray-50 cursor-pointer text-sm tracking-wide text-gray-600 hover:text-gray-800 font-normal relative"
+const liStyle = "py-2 hover:bg-gray-50 cursor-pointer text-sm tracking-wide text-gray-600 hover:text-gray-800 font-normal relative select-none"
 const iconStyle = "text-gray-600 hover:text-gray-900"
 
 const leftBlueLine = (url) => {
