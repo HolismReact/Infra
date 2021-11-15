@@ -27,10 +27,14 @@ const Globalization = {
     isRtl: () => {
         return Globalization.locale.isRtl;
     },
-    browserLocale: () => {
+    browserLocale: {
+        date: Intl.DateTimeFormat().resolvedOptions(),
+        number: Intl.NumberFormat().resolvedOptions()
+    },
+    now: () => {
         return {
-            date: Intl.DateTimeFormat().resolvedOptions(),
-            number: Intl.NumberFormat().resolvedOptions()
+            local: new Date().toLocaleString(),
+            utc: new Date().toUTCString()
         }
     }
 }
