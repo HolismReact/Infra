@@ -16,7 +16,7 @@ const renderReact = () => {
       <BrowserRouter>
         <MuiPickersUtilsProvider
           utils={DateFnsUtils}
-          // locale={faIR}
+        // locale={faIR}
         >
           <Panel />
         </MuiPickersUtilsProvider>
