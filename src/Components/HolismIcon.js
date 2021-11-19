@@ -1,6 +1,7 @@
 import Icon from '@material-ui/core/Icon';
 
-const HolismIcon = ({ icon }) => {
+const HolismIcon = ({ icon, className }) => {
+    const styles = className ?? "";
     switch (typeof icon) {
         case 'object':
             const iconType = typeof icon?.type;
@@ -9,22 +10,23 @@ const HolismIcon = ({ icon }) => {
                 || (iconType === 'object' && typeof icon.type?.render ===
                     'function')) {
                 const PassedIcon = icon
-                return <PassedIcon />;
+                return <PassedIcon className={styles} />;
             }
             if (icon.props) {
-                return icon;
+                return <span className={styles}>{icon}</span>;
             }
             return <>{icon}</>;
         case 'function':
             return icon()
         case 'string':
             if (icon.indexOf('svg') > -1) {
-                return icon;
+                return <span className={styles}>{icon}</span>;
             }
-            return <Icon>{icon}</Icon>;
+            return <Icon className={styles}>{icon}</Icon>;
         default:
-            return <span>Iconless</span>;
+            return <span className={styles}>Iconless</span>;
     }
 }
 
 export default HolismIcon;
+export { HolismIcon };
