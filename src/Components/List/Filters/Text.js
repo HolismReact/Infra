@@ -7,7 +7,7 @@ const Text = ({ column, placeholder }) => {
     return <Filter
         type='text'
         column={column}
-        placeholder={placeholder}
+        placeholder={app.t(placeholder)}
         renderInput={(value, setValue) => {
             return <Input
                 value={value}
