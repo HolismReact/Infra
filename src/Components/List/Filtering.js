@@ -31,22 +31,22 @@ const Filtering = ({ filters }) => {
     const filtersArray = filters.props.children.map ? filters.props.children : [filters.props.children];
 
     return <div id='filtering' className="bg-white p-6 md:rounded-lg relative" onKeyPress={(event) => handleKeyPress(event)}>
-        <div className="flex flex-wrap ">
+        <div className={"flex flex-wrap " + (app.isRtl() ? ' flex-row-reverse ' : '')}>
             {
                 filtersArray.map((filter, index) => React.cloneElement(filter, {
                     key: index,
-                    className: "ml-4"
+                    className: (app.isRtl() ? 'mr-4' : "ml-4")
                 }))
             }
         </div>
-        <div className="flex justify-end mt-6">
+        <div className={"flex justify-end mt-6" + (app.isRtl() ? ' flex-row-reverse ' : '')}>
             <Button
                 variant="outlined"
                 onClick={resetFilters}>
                 {app.t('Reset')}
             </Button>
             <Button
-                className="bg-green-200 hover:bg-green-400 ml-2"
+                className={"bg-green-200 hover:bg-green-400 " + (app.isRtl() ? 'mr-2' : ' ml-2')}
                 variant="outlined"
                 onClick={applyFilters}>
                 {app.t('Apply')}

@@ -44,7 +44,7 @@ const Filter = ({
         <FormControl
             fullWidth
         >
-            <InputLabel htmlFor={id}>{placeholder}</InputLabel>
+            <InputLabel htmlFor={id}>{app.t(placeholder)}</InputLabel>
             {
                 renderInput(currentValue, setCurrentValue)
             }

@@ -117,7 +117,7 @@ const Browse = ({ column, placeholder, entity, browser, display, choose }) => {
         <Filter
             type='text'
             column={column}
-            placeholder={placeholder}
+            placeholder={app.t(placeholder)}
             renderInput={(value, setValue) => <Input
                 value={displayValue}
                 onChange={(e) => setValue(chosenValue)}

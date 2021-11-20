@@ -42,7 +42,7 @@ const Enum = ({ column, entity, placeholder }) => {
                 <Select
                     value={value}
                     ref={htmlSelect}
-                    placeholder={placeholder}
+                    placeholder={app.t(placeholder)}
                     fullWidth
                     onChange={(event) => { setValue(event.target.value) }}
                 >
