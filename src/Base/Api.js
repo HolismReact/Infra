@@ -43,6 +43,9 @@ axiosApi.interceptors.response.use(
       var data = error.response.data;
       if (typeof data !== "string") {
         for (var item in error.response.data) {
+          if (item.toLocaseCase && item.toLocaseCase() === 'type') {
+            continue;
+          }
           if (Array.isArray(data[item])) {
             for (var i = 0; i < data[item].length; i++) {
               messages += data[item][i] + "\n";
