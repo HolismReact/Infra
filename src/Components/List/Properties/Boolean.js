@@ -34,11 +34,17 @@ const Boolean = ({
         });
     }
 
-    const control = <Switch
+    const control = action
+    ?
+    <Switch
         checked={currentValue || false}
         onChange={(e) => onChange(e)}
         inputProps={{ 'aria-label': title }}
     />
+    :
+    <div className={"" + (value === true ? " bg-green-600 " : " bg-red-600 ")}>
+
+    </div>
     return <div className="property boolean ">
         {
             progress
