@@ -33,7 +33,7 @@ const ItemAction = ({ title, item, icon, click, goTo, setItem }) => {
                         }
                     }}>
                         {
-                            HolismIcon({ icon })
+                            <HolismIcon icon={icon} />
                             // <CircularProgress
                             //     variant="determinate"
                             //     value={100}

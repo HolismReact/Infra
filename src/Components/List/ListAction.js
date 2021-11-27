@@ -25,7 +25,7 @@ const ListAction = ({ icon, title, click, minCardinality }) => {
                         size={20}
                     />
                     :
-                    HolismIcon({ icon })
+                    <HolismIcon icon={icon} />
                 // <CircularProgress
                 //     variant="determinate"
                 //     value={100}

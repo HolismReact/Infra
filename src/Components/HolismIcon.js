@@ -13,7 +13,7 @@ const HolismIcon = ({ icon, className }) => {
                 return <PassedIcon className={styles} />;
             }
             if (icon.props) {
-                return <span className={styles}>{icon}</span>;
+                return icon;
             }
             return <>{icon}</>;
         case 'function':
