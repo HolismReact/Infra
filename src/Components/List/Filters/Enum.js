@@ -49,7 +49,7 @@ const Enum = ({ column, entity, placeholder }) => {
                     {
                         enumItems
                             ?
-                            enumItems.map(item => <MenuItem key={item.id} value={item.id}>{item.key.replace(/([A-Z])/g, " $1")}</MenuItem>)
+                            enumItems.map(item => <MenuItem key={item.id} value={item.id}>{item.titleizedKey}</MenuItem>)
                             :
                             null
                     }

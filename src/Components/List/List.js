@@ -184,6 +184,7 @@ export { useQueryStringState } from '../../Base/UseQueryStringState';
 export { useLocalStorageState } from '../../Base/UseLocalStorageState';
 export { Boolean } from './Properties/Boolean';
 export { Color } from './Properties/Color';
+export { Chip } from './Properties/Chip';
 
 /*
 List anatomy
