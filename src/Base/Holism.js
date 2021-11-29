@@ -12,6 +12,9 @@ const Holism = {
         return Math.random().toString(36).replace(/[^a-z]+/g, '');
     },
     addFieldToFormContext: (formContext, id, value, isValid) => {
+        if (!formContext) {
+            return;
+        }
         if (!id) {
             return;
         }
@@ -30,6 +33,9 @@ const Holism = {
         });
     },
     setField: (formContext, id, value, isValid) => {
+        if (!formContext) {
+            return;
+        }
         const { setFields } = formContext;
         setFields((previousFields) => {
             for (var i = 0; i < previousFields.length; i++) {
