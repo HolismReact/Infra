@@ -31,8 +31,8 @@ const render = () => {
   if (process.env.REACT_APP_HAS_MULTIPLE_LOCALES) {
     get('/locale/data')
       .then(data => {
-        app.setTranslations(data.Translations);
-        app.setLocale(data.Locale);
+        app.setTranslations(data.translations);
+        app.setLocale(data.locale);
         renderReact();
       }, error => {
         console.error(error);
