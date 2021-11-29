@@ -141,3 +141,4 @@ export { Page } from '../Components/Page/Page';
 export { HolismIcon } from '../Components/HolismIcon';
 export { app } from '../Base/App';
 export { get, post } from '../Base/Api';
+export { PagePadding } from './Styles';
