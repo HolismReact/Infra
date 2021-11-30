@@ -182,7 +182,7 @@ export { ValueWithTitle } from '../Show/ValueWithTitle';
 export { app } from '../../Base/App';
 export { useQueryStringState } from '../../Base/UseQueryStringState';
 export { useLocalStorageState } from '../../Base/UseLocalStorageState';
-export { Boolean } from './Properties/Boolean';
+export { BooleanProperty } from './Properties/Boolean';
 export { Color } from './Properties/Color';
 export { Chip } from './Properties/Chip';
 

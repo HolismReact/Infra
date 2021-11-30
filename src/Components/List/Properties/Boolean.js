@@ -3,8 +3,11 @@ import Switch from '@material-ui/core/Switch';
 import Tooltip from '@material-ui/core/Tooltip';
 import { app, post } from '../List';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import CheckIcon from '@material-ui/icons/Check';
+import ClearIcon from '@material-ui/icons/Clear';
+import HolismIcon from '../../HolismIcon';
 
-const Boolean = ({
+const BooleanProperty = ({
     column,
     title,
     value,
@@ -35,16 +38,22 @@ const Boolean = ({
     }
 
     const control = action
-    ?
-    <Switch
-        checked={currentValue || false}
-        onChange={(e) => onChange(e)}
-        inputProps={{ 'aria-label': title }}
-    />
-    :
-    <div className={"" + (value === true ? " bg-green-600 " : " bg-red-600 ")}>
-
-    </div>
+        ?
+        <Switch
+            checked={currentValue || false}
+            onChange={(e) => onChange(e)}
+            inputProps={{ 'aria-label': title }}
+        />
+        :
+        <div className={"" + (value === true ? " text-green-600 " : " text-red-600 ")}>
+            {
+                value === true
+                    ?
+                    <HolismIcon icon={CheckIcon} />
+                    :
+                    <HolismIcon icon={ClearIcon} />
+            }
+        </div>
     return <div className="property boolean ">
         {
             progress
@@ -66,4 +75,4 @@ const Boolean = ({
     </div>
 }
 
-export { Boolean }
+export { BooleanProperty }
