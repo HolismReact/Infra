@@ -6,7 +6,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import React, { useState } from 'react';
 import { app } from './List';
 
-const ItemAction = ({ title, item, icon, click, goTo, setItem }) => {
+const ItemAction = ({ title, item, icon, click, goTo, dialog, setItem, color }) => {
 
     const history = useHistory();
 
@@ -28,12 +28,21 @@ const ItemAction = ({ title, item, icon, click, goTo, setItem }) => {
                                 history.push(goTo);
                             }
                         }
-                        else {
+                        else if (click && typeof click === 'function') {
                             click({ item, setProgress, setItem })
+                        }
+                        else if (dialog) {
+                            console.info('showing dialog ...');
+                        }
+                        else {
+                            console.warn(`No action is assigned to item action. Title is '${title}'`)
                         }
                     }}>
                         {
-                            <HolismIcon icon={icon} />
+                            <HolismIcon
+                                icon={icon}
+                                className={color}
+                            />
                             // <CircularProgress
                             //     variant="determinate"
                             //     value={100}
