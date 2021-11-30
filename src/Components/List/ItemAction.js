@@ -20,7 +20,9 @@ const ItemAction = ({ title, item, icon, click, goTo, dialog, setItem, color }) 
                 :
                 <Tooltip title={app.t(title || "")}>
                     <IconButton onClick={() => {
+                        app.selectedItem = item;
                         if (goTo) {
+                            app.selectedItem = item;
                             if (typeof goTo === 'function') {
                                 history.push(goTo(item));
                             }

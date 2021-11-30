@@ -6,8 +6,14 @@ import ImportExportIcon from '@material-ui/icons/ImportExport';
 import CloseIcon from '@material-ui/icons/Close';
 import { ListContext } from './List';
 import app from '../../Base/App';
+import Holism from '../../Base/Holism';
 
 const Sorting = ({ sorts }) => {
+
+    sorts.map(sort => {
+        const { captoin, column, direction } = sort;
+        Holism.ensure([caption, column, direction]);
+    })
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [currentSort, setCurrentSort] = useState({});
