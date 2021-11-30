@@ -185,6 +185,7 @@ export { useLocalStorageState } from '../../Base/UseLocalStorageState';
 export { BooleanProperty } from './Properties/Boolean';
 export { Color } from './Properties/Color';
 export { Chip } from './Properties/Chip';
+export { Progress } from '../Progress';
 
 /*
 List anatomy

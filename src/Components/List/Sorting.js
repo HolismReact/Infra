@@ -11,8 +11,14 @@ import Holism from '../../Base/Holism';
 const Sorting = ({ sorts }) => {
 
     sorts.map(sort => {
-        const { captoin, column, direction } = sort;
-        Holism.ensure([caption, column, direction]);
+        const { caption, column, direction, key } = sort;
+        Holism.ensure(caption);
+        if (key) {
+            Holism.ensure(key);
+        }
+        else {
+            Holism.ensure([column, direction]);
+        }
     })
 
     const [anchorEl, setAnchorEl] = useState(null);
