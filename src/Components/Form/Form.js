@@ -11,7 +11,7 @@ import app from '../../Base/App';
 
 export const FormContext = React.createContext();
 
-const Form = ({ inputs, actions, entity, title }) => {
+const Form = ({ inputs, actions, entity, title, small }) => {
   // is edit, or is create? get id from somewhere
   // file upload
   // if is edit, load entity (only if they don't provide their own get method)
@@ -65,7 +65,7 @@ const Form = ({ inputs, actions, entity, title }) => {
       id='dialogForm'
       aria-labelledby="form-dialog-title"
       fullWidth
-      maxWidth='md'
+      maxWidth={small ? 'sm' : 'md'}
       TransitionProps={{
         onEntered: () => {
           var firstField = document.querySelector('#dialogForm .field:first-child input');
