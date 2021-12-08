@@ -1,5 +1,5 @@
 import routes from '../Routes.js';
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import NotFound from '../Panel/NotFound';
 
 const MainRouting = () => {
@@ -10,10 +10,13 @@ const MainRouting = () => {
                     <Route
                         key={route.path}
                         path={route.path}
-                        exact
-                        element={route.component} />)
+                        element={route.component()}
+                    />)
             }
-            <Route path='*' element={<NotFound />} />
+            <Route
+                path='*'
+                element={<NotFound />}
+            />
         </Routes>
     );
 }
