@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import app from '../Base/App';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MenuIcon from '@material-ui/icons/Menu';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import MenuIcon from '@mui/icons-material/Menu';
 import HeaderActions from '../HeaderActions.js'
 import { FullScreen } from './HeaderActions/FullScreen';
 import { Maximize } from './HeaderActions/Maximize';

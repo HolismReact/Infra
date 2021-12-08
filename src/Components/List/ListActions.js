@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import Button from '@material-ui/core/Button';
 import { app, ListContext } from './List';
-import AddIcon from '@material-ui/icons/Add';
+import AddIcon from '@mui/icons-material/Add';
 import HolismIcon from '../HolismIcon';
 
 const ListActions = ({ actions, create, creationButton }) => {

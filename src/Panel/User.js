@@ -1,9 +1,9 @@
 import app from "../Base/App";
 import { useState, useEffect } from 'react';
-import PersonIcon from '@material-ui/icons/Person';
-import SettingsIcon from '@material-ui/icons/Settings';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { useHistory } from 'react-router-dom';
+import PersonIcon from '@mui/icons-material/Person';
+import SettingsIcon from '@mui/icons-material/Settings';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { useNavigate } from 'react-router-dom';
 
 const iconStyle = { style: { fill: "#1F2937", fontSize: 16 } }
 
@@ -16,7 +16,7 @@ const Item = ({ url, icon, background, title, handler }) =>
 
 export default function User({ onClick }) {
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const [user, setUser] = useState(app.user);
     const [role, setRole] = useState(app.role());
@@ -51,7 +51,7 @@ export default function User({ onClick }) {
                         background="bg-blue-200"
                         handler={() => {
                             onClick();
-                            history.push('/settings');
+                            navigate('/settings');
                         }}
                     />
                     <Item

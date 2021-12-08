@@ -1,10 +1,10 @@
 import routes from '../Routes.js';
-import { Route, Switch } from 'react-router-dom';
+import { Routes, Route, Link } from "react-router-dom";
 import NotFound from '../Panel/NotFound';
 
 const MainRouting = () => {
     return (
-        <Switch>
+        <Routes>
             {
                 routes.map(route =>
                     <Route
@@ -16,7 +16,7 @@ const MainRouting = () => {
             <Route path="*">
                 <NotFound />
             </Route>
-        </Switch>
+        </Routes>
     );
 }
 

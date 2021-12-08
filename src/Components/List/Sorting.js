@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import SortIcon from '@material-ui/icons/Sort';
-import ImportExportIcon from '@material-ui/icons/ImportExport';
-import CloseIcon from '@material-ui/icons/Close';
+import SortIcon from '@mui/icons-material/Sort';
+import ImportExportIcon from '@mui/icons-material/ImportExport';
+import CloseIcon from '@mui/icons-material/Close';
 import { ListContext } from './List';
 import app from '../../Base/App';
 import Holism from '../../Base/Holism';

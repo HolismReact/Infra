@@ -3,11 +3,11 @@ import Filtering from "../List/Filtering";
 import Sorting from "../List/Sorting";
 import Items from "../List/Items";
 import CreateListParameters from '../../Base/CreateListParameters';
-import FilterListIcon from '@material-ui/icons/FilterList';
-import CachedIcon from '@material-ui/icons/Cached';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import CachedIcon from '@mui/icons-material/Cached';
 import useLocalStorageState from '../../Base/UseLocalStorageState';
 import { ItemAction, ListContext } from '../List/List';
-import CheckIcon from '@material-ui/icons/Check';
+import CheckIcon from '@mui/icons-material/Check';
 import Collapse from '@material-ui/core/Collapse';
 import app from '../../Base/App';
 

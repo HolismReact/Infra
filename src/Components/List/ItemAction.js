@@ -1,6 +1,6 @@
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import HolismIcon from '../HolismIcon';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import React, { useState } from 'react';
@@ -8,7 +8,7 @@ import { app } from './List';
 
 const ItemAction = ({ title, item, icon, click, goTo, dialog, setItem, color }) => {
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const [progress, setProgress] = useState(false);
 
@@ -24,10 +24,10 @@ const ItemAction = ({ title, item, icon, click, goTo, dialog, setItem, color }) 
                         if (goTo) {
                             app.selectedItem = item;
                             if (typeof goTo === 'function') {
-                                history.push(goTo(item));
+                                navigate(goTo(item));
                             }
                             else {
-                                history.push(goTo);
+                                navigate(goTo);
                             }
                         }
                         else if (click && typeof click === 'function') {

@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Fragment, useState } from 'react';
 import menuItems from '../Menu.js'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useLocation } from "react-router-dom";
 import HolismIcon from '../Components/HolismIcon.js';
 import app from '../Base/App';

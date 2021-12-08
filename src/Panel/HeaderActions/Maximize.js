@@ -1,5 +1,5 @@
 import { HeaderAction } from "./HeaderAction"
-import ExpandLessIcon from '@material-ui/icons/ExpandLess'
+import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import app from "../../Base/App";
 
 const Maximize = () => {

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import EditIcon from '@material-ui/icons/Edit';
+import EditIcon from '@mui/icons-material/Edit';
 import { ItemAction } from './ItemAction';
 import app from '../../Base/App';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const EditAction = ({ entity, item, hasEdit, creationComponent, editionComponent }) => {
 
-    var history = useHistory();
+    var history = useNavigate();
 
     return <>
         <ItemAction
@@ -19,14 +19,14 @@ const EditAction = ({ entity, item, hasEdit, creationComponent, editionComponent
                             app.emit(app.editRequested, { type: 'dialog', item: item });
                         }
                         else if (typeof result === 'string') {
-                            history.push(result);
+                            navigate(result);
                         }
                         else {
                             app.error('what is this component?');
                         }
                     }
                     else if (typeof editionComponent === 'string') {
-                        history.push(editionComponent);
+                        navigate(editionComponent);
                     }
                     else {
                         app.error('what is this component?');

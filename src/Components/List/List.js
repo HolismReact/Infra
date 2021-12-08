@@ -5,12 +5,12 @@ import Sorting from "./Sorting";
 import Items from "./Items";
 import ListActions from "./ListActions";
 import app from '../../Base/App';
-import FilterListIcon from '@material-ui/icons/FilterList';
+import FilterListIcon from '@mui/icons-material/FilterList';
 import Filter from './Filters/Filter';
-import CachedIcon from '@material-ui/icons/Cached';
+import CachedIcon from '@mui/icons-material/Cached';
 import useLocalStorageState from '../../Base/UseLocalStorageState';
 import Collapse from '@material-ui/core/Collapse';
-import SwapHorizIcon from '@material-ui/icons/SwapHoriz';
+import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import Tooltip from '@material-ui/core/Tooltip';
 
 const listActionIconStyle = "text-gray-700 hover:text-blue-500 cursor-pointer";

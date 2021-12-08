@@ -63,7 +63,7 @@ const Holism = {
         xxl: 1536
     },
     goTo: (url) => {
-        //history.push(url);
+        //navigate(url);
     }
 };
 

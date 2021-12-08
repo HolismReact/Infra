@@ -4,12 +4,12 @@ import Fade from '@material-ui/core/Fade';
 import Collapse from '@material-ui/core/Collapse';
 import React, { useState } from 'react';
 import app from "../../Base/App";
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 const HeaderAction = ({ icon, title, url, action, component, ...rest }) => {
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const Component = component || (() => <div></div>);
 
@@ -17,7 +17,7 @@ const HeaderAction = ({ icon, title, url, action, component, ...rest }) => {
 
     const handleClick = () => {
         if (url && app.isSomething(url)) {
-            history.push(url);
+            navigate(url);
         }
         else if (action && (typeof action === 'function')) {
             action()
