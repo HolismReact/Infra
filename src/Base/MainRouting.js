@@ -11,11 +11,9 @@ const MainRouting = () => {
                         key={route.path}
                         path={route.path}
                         exact
-                        component={route.component} />)
+                        element={route.component} />)
             }
-            <Route path="*">
-                <NotFound />
-            </Route>
+            <Route path='*' element={<NotFound />} />
         </Routes>
     );
 }
