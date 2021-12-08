@@ -1,4 +1,4 @@
-import Input from '@material-ui/core/Input';
+import Input from '@mui/material/Input';
 import app from '../../../Base/App';
 import { useState, useEffect, useRef, useContext } from 'react';
 import { FormContext } from '../Form';

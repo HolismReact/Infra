@@ -1,6 +1,6 @@
 import app from "../../../Base/App";
 import Filter from "./Filter";
-import Input from '@material-ui/core/Input';
+import Input from '@mui/material/Input';
 
 const Text = ({ column, placeholder }) => {
 

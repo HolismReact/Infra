@@ -1,5 +1,5 @@
 import 'date-fns';
-import { KeyboardDateTimePicker, } from '@material-ui/pickers';
+import DatePicker from '@mui/lab/DatePicker';
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { FormContext } from '../Form';
 import { fieldStyles } from './FieldStyle';
@@ -58,7 +58,7 @@ const DateTime = ({ column, required, placeholder, hint, value }) => {
     }, [validationState]);
 
     return <div className={fieldStyles}>
-        <KeyboardDateTimePicker
+        <DatePicker
             error={isValid() ? false : true}
             id={id}
             label={app.t(placeholder)}

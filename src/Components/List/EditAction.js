@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const EditAction = ({ entity, item, hasEdit, creationComponent, editionComponent }) => {
 
-    var history = useNavigate();
+    const navigate = useNavigate();
 
     return <>
         <ItemAction

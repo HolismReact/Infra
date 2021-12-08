@@ -2,12 +2,12 @@ import React, { useState, useEffect, useContext } from 'react';
 import { get } from '../../Base/Api';
 import app from '../../Base/App';
 import { ListContext, useLocalStorageState } from './List';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress';
 import Pagination from './Pagination';
 import ItemActions from './ItemActions';
-import Checkbox from '@material-ui/core/Checkbox';
-import Tooltip from '@material-ui/core/Tooltip';
-import Collapse from '@material-ui/core/Collapse';
+import Checkbox from '@mui/material/Checkbox';
+import Tooltip from '@mui/material/Tooltip';
+import Collapse from '@mui/material/Collapse';
 
 const noItemIsFoundStyle = 'py-10 text-2xl font-bold text-gray-600';
 

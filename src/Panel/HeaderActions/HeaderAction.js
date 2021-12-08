@@ -1,11 +1,11 @@
 import HolismIcon from "../../Components/HolismIcon"
-import Tooltip from '@material-ui/core/Tooltip';
-import Fade from '@material-ui/core/Fade';
-import Collapse from '@material-ui/core/Collapse';
+import Tooltip from '@mui/material/Tooltip';
+import Fade from '@mui/material/Fade';
+import Collapse from '@mui/material/Collapse';
 import React, { useState } from 'react';
 import app from "../../Base/App";
 import { useNavigate } from 'react-router-dom';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
 
 const HeaderAction = ({ icon, title, url, action, component, ...rest }) => {
 

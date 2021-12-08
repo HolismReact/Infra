@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { ListContext } from './List';
-import Button from '@material-ui/core/Button';
+import Button from '@mui/material/Button';
 import app from '../../Base/App';
 
 const Filtering = ({ filters }) => {

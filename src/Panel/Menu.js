@@ -5,7 +5,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useLocation } from "react-router-dom";
 import HolismIcon from '../Components/HolismIcon.js';
 import app from '../Base/App';
-import Collapse from '@material-ui/core/Collapse';
+import Collapse from '@mui/material/Collapse';
 
 const liStyle = "py-2 hover:bg-gray-50 cursor-pointer text-sm tracking-wide text-gray-600 hover:text-gray-800 font-normal relative select-none"
 const iconStyle = "text-gray-600 hover:text-gray-900"

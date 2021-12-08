@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import app from '../Base/App';
-import Collapse from '@material-ui/core/Collapse';
+import Collapse from '@mui/material/Collapse';
 
 const Footer = () => {
 

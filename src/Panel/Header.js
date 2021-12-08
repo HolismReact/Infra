@@ -5,7 +5,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import HeaderActions from '../HeaderActions.js'
 import { FullScreen } from './HeaderActions/FullScreen';
 import { Maximize } from './HeaderActions/Maximize';
-import Collapse from '@material-ui/core/Collapse';
+import Collapse from '@mui/material/Collapse';
 
 const Header = ({ onMenuIconClicked }) => {
 

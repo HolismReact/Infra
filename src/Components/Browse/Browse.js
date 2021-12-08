@@ -8,7 +8,7 @@ import CachedIcon from '@mui/icons-material/Cached';
 import useLocalStorageState from '../../Base/UseLocalStorageState';
 import { ItemAction, ListContext } from '../List/List';
 import CheckIcon from '@mui/icons-material/Check';
-import Collapse from '@material-ui/core/Collapse';
+import Collapse from '@mui/material/Collapse';
 import app from '../../Base/App';
 
 const listActionIconStyle = "text-gray-700 hover:text-blue-500 cursor-pointer";

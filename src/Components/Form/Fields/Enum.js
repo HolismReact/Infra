@@ -1,15 +1,15 @@
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
 import useLocalStorageState from '../../../Base/UseLocalStorageState';
 import app from '../../../Base/App';
 import React, { useEffect, useState, useContext, useRef } from 'react';
 import { get } from '../../../Base/Api';
 import { FormContext } from '../Form';
 import { fieldStyles } from './FieldStyle';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Enum = ({ column, entity, placeholder, hint, value, required }) => {
 

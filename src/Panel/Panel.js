@@ -7,7 +7,7 @@ import { get } from '../Base/Api';
 import useLocalStorageState from '../Base/UseLocalStorageState';
 import Footer from './Footer';
 import Message from './Message';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Title from './Title';
 // https://dev.to/codeply/helpful-page-layouts-using-tailwind-css-1a3k
 

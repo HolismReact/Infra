@@ -1,17 +1,17 @@
 import app from "../../../Base/App";
 import Filter from "./Filter";
-import Input from '@material-ui/core/Input';
+import Input from '@mui/material/Input';
 import React, { useState, useEffect } from 'react';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from '@material-ui/core/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
-import Tooltip from '@material-ui/core/Tooltip';
-import Slide from '@material-ui/core/Slide';
-import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import Tooltip from '@mui/material/Tooltip';
+import Slide from '@mui/material/Slide';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 const Transition = React.forwardRef(function Transition(props, ref) {

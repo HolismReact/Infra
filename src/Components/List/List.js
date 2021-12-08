@@ -9,9 +9,9 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import Filter from './Filters/Filter';
 import CachedIcon from '@mui/icons-material/Cached';
 import useLocalStorageState from '../../Base/UseLocalStorageState';
-import Collapse from '@material-ui/core/Collapse';
+import Collapse from '@mui/material/Collapse';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from '@mui/material/Tooltip';
 
 const listActionIconStyle = "text-gray-700 hover:text-blue-500 cursor-pointer";
 
