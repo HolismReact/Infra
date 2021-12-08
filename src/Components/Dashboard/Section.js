@@ -1,5 +1,4 @@
 import React, { useState, useLayoutEffect, useEffect, useRef } from 'react';
-import { app } from '../List/List';
 
 function useWindowSize() {
     const [size, setSize] = useState([0, 0]);
@@ -27,7 +26,6 @@ const Section = ({
     const [windowWidth, windowHeight] = useWindowSize();
     const [sectionWidth, setSectionWidth] = useState(null);
     const [count] = useState(children.length ? children.length : (children.props ? 1 : null));
-    const [width, setWidth] = useState(null);
 
     const clonedChildren = React.Children
         .toArray(children)
@@ -53,7 +51,7 @@ const Section = ({
             + /* sm */ " sm:grid-cols-" + (count > 2 ? '2' : count)
             + /* md */ " md:grid-cols-" + (count > 3 ? '2' : count)
             + /* lg */ " lg:grid-cols-" + count
-            + ` windowWidth_${windowHeight}`
+            + ` windowWidth_${windowWidth} windowHeight_${windowHeight}`
         }
         fullClassNamesForTailwindPurge="sm:grid-cols-2 sm:grid-cols-3 sm:grid-cols-4 md:grid-cols-2 md:grid-cols-3 md:grid-cols-4 lg:grid-cols-2 lg:grid-cols-3 lg:grid-cols-4"
         ref={ref}

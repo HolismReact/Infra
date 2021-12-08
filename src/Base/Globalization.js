@@ -1,5 +1,3 @@
-import app from "./App";
-
 const Globalization = {
     translations: [],
     setTranslations: (translations) => {

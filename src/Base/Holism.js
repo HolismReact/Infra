@@ -1,5 +1,4 @@
 var EventEmitter = require('eventemitter3');
-const eventEmitter = new EventEmitter();
 
 const Holism = {
     isSomething: value => {

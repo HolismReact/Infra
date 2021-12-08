@@ -1,4 +1,4 @@
-import React, { useState, useEffet } from 'react';
+import React, { useState } from 'react';
 import Filtering from "../List/Filtering";
 import Sorting from "../List/Sorting";
 import Items from "../List/Items";
@@ -15,7 +15,7 @@ const listActionIconStyle = "text-gray-700 hover:text-blue-500 cursor-pointer";
 
 const Browse = ({ sorts, filters, row, card, entity, headers, callerId }) => {
 
-    const [listParameters, setListParameters] = useState(CreateListParameters(app.userGuid(), entity));
+    const [listParameters] = useState(CreateListParameters(app.userGuid(), entity));
     const [isFilteringOpen, setIsFilteringOpen] = useLocalStorageState(false, `${app.userGuid()}_${entity}_isFilteringOpen`);
 
     const toggleFiltering = () => {

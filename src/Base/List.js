@@ -18,7 +18,7 @@ const List = {
         if (!items[0].id) {
             return;
         }
-        const { selectedItems, setSelectedItems } = listContext;
+        const { setSelectedItems } = listContext;
         setSelectedItems((previousSelectedItems) => {
             let newItems = items.map(i => i.id);
             return [...previousSelectedItems, ...newItems];
@@ -44,7 +44,7 @@ const List = {
         if (!items[0].id) {
             return;
         }
-        const { selectedItems, setSelectedItems } = listContext;
+        const { setSelectedItems } = listContext;
         setSelectedItems((previousSelectedItems) => {
             let itemsToBeDeleted = items.map(i => i.id);
 

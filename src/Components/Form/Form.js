@@ -99,6 +99,7 @@ const Form = ({ inputs, actions, entity, title, small }) => {
                   <>
                     <Button
                       tabIndex="-1"
+                      className="text-gray-900 border-gray-400 "
                       variant="outlined"
                       onClick={() => setIsCreationDialogOpen(false)}
                     >
@@ -106,7 +107,7 @@ const Form = ({ inputs, actions, entity, title, small }) => {
                     </Button>
                     <Button
                       variant="outlined"
-                      className={'ml-2' + (isValid ? " bg-green-200" : "")}
+                      className={'ml-2' + (isValid ? " bg-green-200 text-gray-900 border-gray-400 " : "")}
                       onClick={handleSubmit}
                       disabled={!isValid}
                     >
