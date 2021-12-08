@@ -12,6 +12,8 @@ const ItemAction = ({ title, item, icon, click, goTo, dialog, setItem, color }) 
 
     const [progress, setProgress] = useState(false);
 
+    const [dialogIsOpen, setDialogIsOpen] = useState(false)
+
     return <span className="itemAction">
         {
             (progress || progress == true)
@@ -34,7 +36,8 @@ const ItemAction = ({ title, item, icon, click, goTo, dialog, setItem, color }) 
                             click({ item, setProgress, setItem })
                         }
                         else if (dialog) {
-                            console.info('showing dialog ...');
+                            const DialogProp = dialog;
+                            <DialogProp open={dialogIsOpen} />
                         }
                         else {
                             console.warn(`No action is assigned to item action. Title is '${title}'`)

@@ -10,9 +10,25 @@ import { app } from '../List/List';
 const Dialog = ({
     title,
     content,
-    actions
+    actions,
+    small
 }) => {
-    return <Dialog onClose={handleClose} aria-labelledby="dialogTitle" open={open}>
+    return <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="dialogTitle"
+        id="dialog"
+        fullWidth
+        maxWidth={small}
+        TransitionProps={{
+            onEntered: () => {
+                var firstField = document.querySelector('#dialogForm .field:first-child input');
+                if (firstField && firstField.focus) {
+                    firstField.focus();
+                }
+            }
+        }}
+    >
         <DialogTitle id="dialogTitle">{app.t(title)}</DialogTitle>
         <DialogContent>
             {
