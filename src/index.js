@@ -1,25 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import AdapterJalali from '@date-io/date-fns-jalali';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { BrowserRouter } from 'react-router-dom';
-import DateFnsUtils from '@date-io/date-fns';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import Panel from './Panel/Panel';
 import app from './Base/App';
 import { get } from './Base/Api';
 import Push from './Base/Push';
-import { ru, faIR } from 'date-fns/locale'
 
 const renderReact = () => {
   ReactDOM.render(
     <React.StrictMode>
       <BrowserRouter>
-        <MuiPickersUtilsProvider
-          utils={DateFnsUtils}
-        // locale={faIR}
-        >
+        <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Panel />
-        </MuiPickersUtilsProvider>
+        </LocalizationProvider>
       </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')
