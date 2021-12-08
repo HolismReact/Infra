@@ -1,5 +1,3 @@
-var EventEmitter = require('eventemitter3');
-
 const Holism = {
     isSomething: value => {
         return !Holism.isNothing(value);
