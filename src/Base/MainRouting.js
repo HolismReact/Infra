@@ -6,12 +6,14 @@ const MainRouting = () => {
     return (
         <Routes>
             {
-                routes.map(route =>
-                    <Route
+                routes.map(route => {
+                    const Component = route.component;
+                    return <Route
                         key={route.path}
                         path={route.path}
-                        element={route.component()}
-                    />)
+                        element={<Component />}
+                    />
+                })
             }
             <Route
                 path='*'
