@@ -29,7 +29,7 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
     const [currentValue, setCurrentValue] = useState(value || "");
     const htmlInput = useRef();
     const [helpText, setHelpText] = useState(hint);
-    const [validationResult, setValidationResult] = useState(null);
+    const [validationState, setValidationResult] = useState(null);
     const [isBrowserDialogOpen, setIsBrowserDialogOpen] = useState(false);
     const initialHint = hint;
     var formContext = useContext(FormContext);
@@ -92,6 +92,19 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
         setCurrentValue(display(selectedEntity));
     }, [selectedEntity]);
 
+    const isValid = () => {
+        if (!required) {
+            return true;
+        }
+        if (!validationState) {
+            return false;
+        }
+        if (validationState.indexOf('invalid') > -1) {
+            return false;
+        }
+        return true;
+    }
+
     useEffect(() => {
         if (!selectedEntity) {
             app.setField(formContext, id, selectedEntity, false);
@@ -101,21 +114,21 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
                 let chosenValue = choose(selectedEntity);
                 if (typeof chosenValue == "undefined" || typeof chosenValue === "function")
                     throw new Error(`No return value specified for ${column} browser chooser function`)
-                app.setField(formContext, id, chosenValue, validationResult === 'valid' ? true : false);
+                app.setField(formContext, id, chosenValue, isValid());
             } catch (error) {
                 throw new Error(`No return value specified for ${column} browser chooser function`);
             }
         }
         else if (column.endsWith('Guid')) {
-            app.setField(formContext, id, selectedEntity.guid, validationResult === 'valid' ? true : false);
+            app.setField(formContext, id, selectedEntity.guid, isValid());
         }
         else if (column.endsWith('Id')) {
-            app.setField(formContext, id, selectedEntity.id, validationResult === 'valid' ? true : false);
+            app.setField(formContext, id, selectedEntity.id, isValid());
         }
         else {
             throw new Error(`No return value specified for ${column} browser chooser function`);
         }
-    }, [validationResult]);
+    }, [validationState]);
 
     const browserDialog = <Dialog
         open={isBrowserDialogOpen}
@@ -157,7 +170,7 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
         <TextField
             id={id}
             inputRef={htmlInput}
-            error={validationResult !== 'valid' ? true : false}
+            error={validationState !== 'valid' ? true : false}
             label={app.t(placeholder)}
             required={required ? true : false}
             helperText={helpText}
