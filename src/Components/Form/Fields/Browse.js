@@ -1,3 +1,4 @@
+import TextField from '@mui/material/TextField';
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import IconButton from '@mui/material/IconButton';
 import InputLabel from '@mui/material/InputLabel';
@@ -153,24 +154,23 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
     return <div className={fieldStyles}>
         {browserDialog}
 
-        <FormControl
-            variant="outlined"
+        <TextField
+            id={id}
+            inputRef={htmlInput}
             error={validationResult !== 'valid' ? true : false}
+            label={app.t(placeholder)}
+            required={required ? true : false}
+            helperText={helpText}
+            value={currentValue}
+            onChange={(e) => setCurrentValue(e.target.value)}
             fullWidth
-        >
-            <InputLabel htmlFor={id}>{app.t(placeholder)}</InputLabel>
-            <OutlinedInput
-                id={id}
-                inputRef={htmlInput}
-                required={required ? true : false}
-                value={currentValue}
-                onChange={(e) => setCurrentValue(e.target.value)}
-                // startAdornment={
+            InputProps={{
+                // startAdornment:{
                 //     <InputAdornment position="start">
                 //     </InputAdornment>
                 // }
-                endAdornment={
-                    <InputAdornment position="end">
+                endAdornment:
+                    <InputAdornment position="end" >
                         <Tooltip title={app.t("Find")}>
                             <IconButton
                                 aria-label={app.t("Find")}
@@ -181,11 +181,9 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
                             </IconButton>
                         </Tooltip>
                     </InputAdornment>
-                }
-                label="Password"
-            />
-        </FormControl>
-    </div>
+            }}
+        />
+    </div >
 };
 
 export { Browse };
