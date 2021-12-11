@@ -1,11 +1,8 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import IconButton from '@mui/material/IconButton';
-import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
-import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
-import Visibility from '@mui/icons-material/Visibility';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { fieldStyles } from './FieldStyle';
 import { FormContext } from '../Form';
@@ -18,6 +15,7 @@ import Slide from '@mui/material/Slide';
 import CloseIcon from '@mui/icons-material/Close';
 import Tooltip from '@mui/material/Tooltip';
 import app from '../../../Base/App';
+import OutlinedInput from '@mui/material/OutlinedInput';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -154,12 +152,14 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
 
     return <div className={fieldStyles}>
         {browserDialog}
+
         <FormControl
+            variant="outlined"
             error={validationResult !== 'valid' ? true : false}
             fullWidth
         >
             <InputLabel htmlFor={id}>{app.t(placeholder)}</InputLabel>
-            <Input
+            <OutlinedInput
                 id={id}
                 inputRef={htmlInput}
                 required={required ? true : false}
@@ -182,8 +182,8 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
                         </Tooltip>
                     </InputAdornment>
                 }
+                label="Password"
             />
-            <FormHelperText>{app.t(helpText)}</FormHelperText>
         </FormControl>
     </div>
 };
