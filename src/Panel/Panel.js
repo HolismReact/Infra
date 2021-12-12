@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from 'react'
+import { Transition } from '@headlessui/react'
 import MainRouting from '../Base/MainRouting';
 import Sidebar from './Sidebar';
 import Header from './Header';
@@ -11,6 +12,8 @@ import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Title from './Title';
 import Collapse from '@mui/material/Collapse';
 // https://dev.to/codeply/helpful-page-layouts-using-tailwind-css-1a3k
+// import TrapFocus from '@mui/material/Unstable_TrapFocus';
+// import Backdrop from '@mui/material/Backdrop';
 
 require('react-dom');
 window.React2 = require('react');
@@ -39,24 +42,24 @@ function Panel() {
     }
   }
 
-  useEffect(() => {
-    if (window.innerWidth < app.breakpoints.lg) {
-      setMainContentWidth('100vw');
-    }
-    else {
-      if (isSidebarOpen) {
-        if (window.innerWidth >= app.breakpoints.xxl) {
-          setMainContentWidth('83.33vw')
-        }
-        else {
-          setMainContentWidth('80vw');
-        }
-      }
-      else {
-        setMainContentWidth('100vw');
-      }
-    }
-  }, [isSidebarOpen]);
+  // useEffect(() => {
+  //   if (window.innerWidth < app.breakpoints.lg) {
+  //     setMainContentWidth('100vw');
+  //   }
+  //   else {
+  //     if (isSidebarOpen) {
+  //       if (window.innerWidth >= app.breakpoints.xxl) {
+  //         setMainContentWidth('83.33vw')
+  //       }
+  //       else {
+  //         setMainContentWidth('80vw');
+  //       }
+  //     }
+  //     else {
+  //       setMainContentWidth('100vw');
+  //     }
+  //   }
+  // }, [isSidebarOpen]);
 
   useEffect(() => {
     const hide = () => {
@@ -86,33 +89,34 @@ function Panel() {
       (app.isRtl() ? "flex-row-reverse " : "")
     }
   >
-    {
-      isSidebarOpen
-        /* 
-        https://www.youtube.com/playlist?list=PLWhU5BnP64QzW8R7KUHJYrYqZVIzHI2ms
-        */
-        ?
-        <ClickAwayListener onClickAway={closeMenu}>
-          <div
-            id='thisDivShouldNotBeRemovedToFixRefProblemOfSidebar'
-            className={
-              "w-72 absolute border-b z-10 bg-white top-0 bottom-0 "
-              + (app.isRtl() ? " border-l " : " border-r ")
-              +
-              /*large*/"lg:w-1/5 lg:static lg:border-b-0 "
-              + (app.isRtl() ? " lg:border-l-0 " : " lg:border-r-0 ")
-              +
-              /*xlarge*/ ""
-              +
-              /*2x large*/ "2xl:w-1/6"
-            }
-          >
-            <Sidebar onClick={closeMenu} />
-          </div>
-        </ClickAwayListener>
-        :
-        null
-    }
+    <Transition
+      show={isSidebarOpen}
+      enter="transition-all duration-300"
+      enterFrom="-ml-64"
+      enterTo="ml-0"
+      leave="transition-all duration-300"
+      leaveFrom="ml-0"
+      leaveTo="-ml-64"
+      className={
+        "w-72 absolute border-b z-10 bg-white top-0 bottom-0 "
+        + (app.isRtl() ? " border-l " : " border-r ")
+        +
+          /*large*/"lg:w-1/5 lg:static lg:border-b-0 "
+        + (app.isRtl() ? " lg:border-l-0 " : " lg:border-r-0 ")
+        +
+          /*xlarge*/ ""
+        +
+          /*2x large*/ "2xl:w-1/6"
+      }
+    >
+      <ClickAwayListener onClickAway={closeMenu}>
+        <div
+          id='thisDivShouldNotBeRemovedToFixRefProblemOfSidebar'
+        >
+          <Sidebar onClick={closeMenu} />
+        </div>
+      </ClickAwayListener>
+    </Transition>
     <div
       className=
       {
@@ -124,9 +128,6 @@ function Panel() {
       <div
         id='content'
         className="md:p-10 md:pt-4 pt-5 flex-1"
-        style={{
-          maxWidth: mainContentWidth
-        }}
       >
         <Title />
         <MainRouting />
