@@ -98,7 +98,7 @@ const Form = ({ inputs, actions, entity, title, small }) => {
                   :
                   <>
                     <Button
-                      tabIndex="-1"
+                      tabIndex={-1}
                       className="text-gray-900 border-gray-400 "
                       variant="outlined"
                       onClick={() => setIsCreationDialogOpen(false)}
@@ -134,6 +134,7 @@ export { DateOnly as Date } from './Fields/DateOnly';
 export { Time } from './Fields/Time';
 export { DateTime } from './Fields/DateTime';
 export { Lookup } from './Fields/Lookup';
+export { get, post } from '../../Base/Api';
 export { app } from '../../Base/App';
 export { useQueryStringState } from '../../Base/UseQueryStringState';
 export { useLocalStorageState } from '../../Base/UseLocalStorageState';
