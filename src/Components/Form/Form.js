@@ -11,7 +11,7 @@ import app from '../../Base/App';
 
 export const FormContext = React.createContext();
 
-const Form = ({ inputs, actions, entity, title, small }) => {
+const Form = ({ entity, title, explanations, inputs, actions, small }) => {
   // is edit, or is create? get id from somewhere
   // file upload
   // if is edit, load entity (only if they don't provide their own get method)
@@ -77,6 +77,16 @@ const Form = ({ inputs, actions, entity, title, small }) => {
     >
       <DialogTitle id="form-dialog-title">{app.t(title)}</DialogTitle>
       <DialogContent>
+        {
+          explanations
+        }
+        {
+          explanations
+            ?
+            <div className="mb-12"></div>
+            :
+            null
+        }
         <form
           noValidate
           onSubmit={handleSubmit}
