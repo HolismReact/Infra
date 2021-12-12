@@ -87,6 +87,9 @@ function Panel() {
   >
     {
       isSidebarOpen
+        /* 
+        https://www.youtube.com/playlist?list=PLWhU5BnP64QzW8R7KUHJYrYqZVIzHI2ms
+        */
         ?
         <ClickAwayListener onClickAway={closeMenu}>
           <div
