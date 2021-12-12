@@ -9,6 +9,7 @@ import Footer from './Footer';
 import Message from './Message';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Title from './Title';
+import Collapse from '@mui/material/Collapse';
 // https://dev.to/codeply/helpful-page-layouts-using-tailwind-css-1a3k
 
 require('react-dom');
