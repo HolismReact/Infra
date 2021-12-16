@@ -6,7 +6,14 @@ import { fieldStyles } from './FieldStyle';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Select } from './Select';
 
-const Enum = ({ column, entity, placeholder, hint, value, required }) => {
+const Enum = ({
+    column,
+    entity,
+    placeholder,
+    hint,
+    value,
+    required
+}) => {
 
     if (app.isNothing(entity)) {
         throw new Error(`entity is not provided for ${Enum.name}`);
@@ -39,7 +46,9 @@ const Enum = ({ column, entity, placeholder, hint, value, required }) => {
                     column={column}
                     placeholder={placeholder}
                     hint={hint}
+                    required={required}
                     options={enumItems}
+                    value={value}
                     display={item => item.key}
                     choose={item => item.id}
                 />

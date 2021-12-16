@@ -33,15 +33,17 @@ const Select = ({
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        setLoading(true);
-        get(`/${entity}/list`)
-            .then(data => {
-                setLoading(false);
-                setItems(data.data);
-            }, error => {
-                setLoading(false);
-                app.error(error);
-            })
+        if (entity) {
+            setLoading(true);
+            get(`/${entity}/list`)
+                .then(data => {
+                    setLoading(false);
+                    setItems(data.data);
+                }, error => {
+                    setLoading(false);
+                    app.error(error);
+                })
+        }
     }, [])
 
     useEffect(() => {
@@ -88,7 +90,7 @@ const Select = ({
 
     return <div className={fieldStyles}>
         <FormControl
-            error={isValid() ? true : false}
+            error={isValid() ? false : true}
             required={required ? true : false}
             fullWidth
         >
@@ -98,6 +100,7 @@ const Select = ({
                 labelId={labelId}
                 id={id}
                 value={currentValue}
+                required={required ? true : false}
                 label={app.t(placeholder) + (required ? ' *' : '')}
                 onChange={(e) => setCurrentValue(e.target.value)}
             >
