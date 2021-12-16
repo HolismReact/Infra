@@ -173,6 +173,7 @@ const List = ({
 
 export { List };
 export { Text } from './Filters/Text';
+// export { Select } from './Filters/Select';
 export { Enum } from './Filters/Enum';
 export { Ascending } from './Sorts/Ascending';
 export { ListAction } from './ListAction';

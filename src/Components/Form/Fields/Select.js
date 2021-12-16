@@ -1,14 +1,28 @@
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
 import app from '../../../Base/App';
 import { useState, useEffect, useRef, useContext } from 'react';
 import { FormContext } from '../Form';
 import { fieldStyles } from './FieldStyle';
 import { get } from '@List';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import MuiSelect from '@mui/material/Select';
 
-const Select = ({ column, required, placeholder, hint, value, entity, display, option }) => {
+const Select = ({
+    column,
+    required,
+    placeholder,
+    hint,
+    value,
+    entity,
+    hasEmpty,
+    options,
+    display,
+    choose }) => {
 
     const [id, setId] = useState();
+    const [labelId, setLabelId] = useState();
     const [currentValue, setCurrentValue] = useState(value);
     const htmlInput = useRef();
     const [helpText, setHelpText] = useState(hint);
@@ -35,7 +49,8 @@ const Select = ({ column, required, placeholder, hint, value, entity, display, o
     }, [currentValue]);
 
     useEffect(() => {
-        setId(`autocomplete_${column}`);
+        setId(`select_${column}`);
+        setLabelId(`select_${column}_label`)
     }, [column]);
 
     useEffect(() => {
@@ -72,34 +87,35 @@ const Select = ({ column, required, placeholder, hint, value, entity, display, o
     }, [validationState]);
 
     return <div className={fieldStyles}>
-        <Autocomplete
-            id={id}
-            inputRef={htmlInput}
-            error={isValid() ? false : true}
+        <FormControl
+            error={isValid() ? true : false}
             required={required ? true : false}
-            helperText={helpText}
-            value={currentValue}
-            onChange={(e) => setCurrentValue(e.target.value)}
             fullWidth
-            disablePortal
-            options={items}
-            autoHighlight
-            getOptionLabel={(option) => {
-                if (!display || typeof display !== 'function') {
-                    return option.title || option.name || option.key;
+        >
+            <InputLabel id={labelId}>{app.t(placeholder)}</InputLabel>
+            <MuiSelect
+                ref={htmlInput}
+                labelId={labelId}
+                id={id}
+                value={currentValue}
+                label={app.t(placeholder)}
+                onChange={(e) => setCurrentValue(e.target.value)}
+            >
+                {
+                    hasEmpty
+                        ?
+                        <MenuItem value="">
+                            <em>{app.t('Please choose')}</em>
+                        </MenuItem>
+                        :
+                        null
                 }
-                return display(option);
-            }}
-            // renderOption={(props, option) => option(props, option)}
-            renderInput={(params) => <TextField
-                {...params}
-                label={placeholder}
-                inputProps={{
-                    ...params.inputProps,
-                    autoComplete: 'new-password', // disable autocomplete and autofill
-                }}
-            />}
-        />
+                {
+                    options.map(option => <MenuItem key={option.id} value={choose(option)}>{display(option)}</MenuItem>)
+                }
+            </MuiSelect>
+            <FormHelperText>{helpText}</FormHelperText>
+        </FormControl>
     </div>
 };
 
