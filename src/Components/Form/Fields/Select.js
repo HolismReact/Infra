@@ -98,7 +98,7 @@ const Select = ({
                 labelId={labelId}
                 id={id}
                 value={currentValue}
-                label={app.t(placeholder)}
+                label={app.t(placeholder) + (required ? ' *' : '')}
                 onChange={(e) => setCurrentValue(e.target.value)}
             >
                 {
