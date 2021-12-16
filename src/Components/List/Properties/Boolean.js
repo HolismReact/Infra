@@ -11,42 +11,49 @@ const BooleanProperty = ({
     column,
     title,
     value,
-    action
+    actionUrl,
+    reloadOnSuccess
 }) => {
 
     const [progress, setProgress] = useState(false);
     const [currentValue, setCurrentValue] = useState(value || false);
 
-    const reload = () => {
-        app.emit(app.reloadRequested);
-    }
-
     const onChange = (e) => {
         console.log(e);
-        if (!action || app.isNothing(action)) {
+        if (!actionUrl || app.isNothing(actionUrl)) {
             return;
         }
         setProgress(true);
-        var url = action;
-        if (typeof action === 'function') {
-            url = action(e.target.checked);
+        // setTimeout(() => {
+        //     setProgress(false);
+        // }, 1000);
+        // return;
+        var api = actionUrl;
+        if (typeof actionUrl === 'function') {
+            api = actionUrl(e.target.checked);
         }
-        post(url).then(data => {
+        post(api).then(data => {
             setProgress(false);
             app.success('Applied');
-            setCurrentValue(data.isActive);
+            if (reloadOnSuccess) {
+                app.emit(app.reloadRequested);
+            }
+            else {
+                setCurrentValue(data.isActive);
+            }
         }, error => {
             app.error(error);
             setProgress(false);
         });
     }
 
-    const control = action
+    const control = actionUrl
         ?
         <Switch
             checked={currentValue || false}
             onChange={(e) => onChange(e)}
             inputProps={{ 'aria-label': title }}
+            size='small'
         />
         :
         <div className={"" + (value === true ? " text-green-600 " : " text-red-600 ")}>
@@ -58,12 +65,13 @@ const BooleanProperty = ({
                     <HolismIcon icon={ClearIcon} />
             }
         </div>
-    return <div className="property boolean ">
+    return <div className="property boolean flex items-center justify-center">
         {
             progress
                 ?
                 <CircularProgress
-                    size={33}
+                    size={16}
+                    className="my-1"
                 />
                 :
                 title
