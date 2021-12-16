@@ -65,7 +65,7 @@ const Form = ({ entity, title, explanations, inputs, actions, large }) => {
     return <FormContext.Provider value={{ fields, setFields }}>
         <Page
             title={title}
-            className="px-6 md:px-12 lg:px-24"
+            className="px-6 md:px-12 lg:w-2/3 mx-auto mt-24"
         >
             {
                 explanations
