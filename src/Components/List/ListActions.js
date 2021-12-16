@@ -3,8 +3,10 @@ import Button from '@mui/material/Button';
 import { app, ListContext } from './List';
 import AddIcon from '@mui/icons-material/Add';
 import HolismIcon from '../HolismIcon';
+import { useNavigate } from "react-router-dom";
 
 const ListActions = ({ actions, create, creationButton }) => {
+    let navigate = useNavigate();
 
     const { setIsCreationDialogOpen, selectedItems } = useContext(ListContext);
 
@@ -67,7 +69,14 @@ const ListActions = ({ actions, create, creationButton }) => {
                                 :
                                 <AddIcon />
                         }
-                        onClick={showCreationDialog}
+                        onClick={() => {
+                            if (typeof create === 'string') {
+                                navigate(create)
+                            }
+                            else {
+                                showCreationDialog()
+                            }
+                        }}
                     >
                         {
                             (creationButton && creationButton.text)

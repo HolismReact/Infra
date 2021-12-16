@@ -6,13 +6,11 @@ import Items from "./Items";
 import ListActions from "./ListActions";
 import app from '../../Base/App';
 import FilterListIcon from '@mui/icons-material/FilterList';
-import Filter from './Filters/Filter';
 import CachedIcon from '@mui/icons-material/Cached';
 import useLocalStorageState from '../../Base/UseLocalStorageState';
 import Collapse from '@mui/material/Collapse';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import Tooltip from '@mui/material/Tooltip';
-import HolismIcon from '../HolismIcon';
 
 const listActionIconStyle = "text-gray-700 hover:text-blue-500 cursor-pointer";
 
@@ -162,7 +160,7 @@ const List = ({
       classProvider={classProvider}
     />
     {
-      create
+      create && typeof create === 'function'
         ?
         create()
         :
