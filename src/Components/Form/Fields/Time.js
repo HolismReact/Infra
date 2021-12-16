@@ -1,9 +1,10 @@
 import 'date-fns';
-import DatePicker from '@mui/lab/DatePicker';
 import app from '../../../Base/App';
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { FormContext } from '../Form';
 import { fieldStyles } from './FieldStyle';
+import TextField from '@mui/material/TextField';
+import TimePicker from '@mui/lab/TimePicker';
 
 const Time = ({ column, required, placeholder, hint, value }) => {
 
@@ -58,16 +59,18 @@ const Time = ({ column, required, placeholder, hint, value }) => {
     }, [validationState]);
 
     return <div className={fieldStyles}>
-        <DatePicker
-            error={isValid() ? false : true}
-            id={id}
-            label={placeholder}
-            value={currentValue}
-            onChange={(time) => { setCurrentValue(time) }}
+        {/* <DatePicker
             KeyboardButtonProps={{
                 'aria-label': 'Change ' + placeholder,
             }}
-            fullWidth
+        /> */}
+        <TimePicker
+            id={id}
+            error={isValid() ? false : true}
+            label={placeholder}
+            value={currentValue}
+            onChange={(time) => { setCurrentValue(time) }}
+            renderInput={(params) => <TextField {...params} fullWidth />}
         />
     </div>
 }

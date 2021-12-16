@@ -1,5 +1,6 @@
 import 'date-fns';
 import DatePicker from '@mui/lab/DatePicker';
+import TextField from '@mui/material/TextField';
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { FormContext } from '../Form';
 import { fieldStyles } from './FieldStyle';
@@ -58,18 +59,21 @@ const DateOnly = ({ column, required, placeholder, hint, value }) => {
     }, [validationState]);
 
     return <div className={fieldStyles}>
+
         <DatePicker
-            error={isValid() ? false : true}
             id={id}
+            error={isValid() ? false : true}
             label={app.t(placeholder)}
-            format="MM/dd/yyyy"
             value={currentValue}
             onChange={(date) => { setCurrentValue(date) }}
+            renderInput={(params) => <TextField {...params} fullWidth />}
+        />
+        {/* <DatePicker
+            format="MM/dd/yyyy"
             KeyboardButtonProps={{
                 'aria-label': app.t('Change') + ' ' + app.t(placeholder),
             }}
-            fullWidth
-        />
+        /> */}
     </div>
 }
 
