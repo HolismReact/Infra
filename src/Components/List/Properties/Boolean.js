@@ -17,6 +17,10 @@ const BooleanProperty = ({
     const [progress, setProgress] = useState(false);
     const [currentValue, setCurrentValue] = useState(value || false);
 
+    const reload = () => {
+        app.emit(app.reloadRequested);
+    }
+
     const onChange = (e) => {
         console.log(e);
         if (!action || app.isNothing(action)) {

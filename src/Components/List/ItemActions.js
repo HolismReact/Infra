@@ -3,7 +3,7 @@ import { ItemAction } from './ItemAction';
 import DeleteAction from './DeleteAction';
 import EditAction from './EditAction';
 
-const ItemActions = ({ entity, item, itemActions, hasDelete, hasEdit, editionComponent, creationComponent, setItem }) => {
+const ItemActions = ({ entity, item, itemActions, hasDelete, hasEdit, editionComponent, creationComponent, setItem, reload }) => {
 
     const [something, setSomething] = useState();
 
@@ -21,7 +21,8 @@ const ItemActions = ({ entity, item, itemActions, hasDelete, hasEdit, editionCom
                     )
                     .map(itemAction => React.cloneElement(itemAction, {
                         item: item,
-                        setItem: setItem
+                        setItem: setItem,
+                        reload: reload
                     }))
                 :
                 null
