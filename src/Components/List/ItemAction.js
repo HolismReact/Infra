@@ -6,7 +6,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import React, { useState } from 'react';
 import { app } from './List';
 
-const ItemAction = ({ title, item, icon, click, goTo, dialog, setItem, color }) => {
+const ItemAction = ({ title, item, icon, click, goTo, dialog, setItem, reload, color, hoverOnly }) => {
 
     const navigate = useNavigate();
 
@@ -14,11 +14,11 @@ const ItemAction = ({ title, item, icon, click, goTo, dialog, setItem, color }) 
 
     const [dialogIsOpen, setDialogIsOpen] = useState(false)
 
-    return <span className="itemAction">
+    return <span className="itemAction flex items-center justify-center">
         {
             (progress || progress == true)
                 ?
-                <CircularProgress />
+                <CircularProgress size={24} className="m-2" />
                 :
                 <Tooltip title={app.t(title || "")}>
                     <IconButton onClick={() => {
@@ -33,7 +33,7 @@ const ItemAction = ({ title, item, icon, click, goTo, dialog, setItem, color }) 
                             }
                         }
                         else if (click && typeof click === 'function') {
-                            click({ item, setProgress, setItem })
+                            click({ item, setProgress, setItem, reload })
                         }
                         else if (dialog) {
                             const DialogProp = dialog;

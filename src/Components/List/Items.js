@@ -22,6 +22,7 @@ const Cards = ({
     metadata,
     card,
     setItem,
+    reload,
     hasItemSelection,
     classProvider,
     showTopPagiation
@@ -119,6 +120,7 @@ const Cards = ({
                                                 editionComponent={edit}
                                                 creationComponent={create}
                                                 setItem={setItem}
+                                                reload={reload}
                                             />
                                         </div>
                                         :
@@ -148,6 +150,7 @@ const Table = ({
     edit,
     create,
     setItem,
+    reload,
     hasItemSelection,
     classProvider,
     showTopPagiation
@@ -286,6 +289,7 @@ const Table = ({
                                                     editionComponent={edit}
                                                     creationComponent={create}
                                                     setItem={setItem}
+                                                    reload={reload}
                                                 />
                                             </td>
                                             :
@@ -352,6 +356,10 @@ const Items = ({
             }
             return [...data];
         });
+    }
+
+    const reload = (item) => {
+        load();
     }
 
     if (!classProvider) {
@@ -449,6 +457,7 @@ const Items = ({
                             edit,
                             create,
                             setItem,
+                            reload,
                             hasItemSelection,
                             classProvider,
                             showTopPagiation
@@ -471,6 +480,7 @@ const Items = ({
                             edit,
                             create,
                             setItem,
+                            reload,
                             hasItemSelection,
                             classProvider,
                             showTopPagiation

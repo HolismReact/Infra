@@ -12,6 +12,7 @@ import useLocalStorageState from '../../Base/UseLocalStorageState';
 import Collapse from '@mui/material/Collapse';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import Tooltip from '@mui/material/Tooltip';
+import HolismIcon from '../HolismIcon';
 
 const listActionIconStyle = "text-gray-700 hover:text-blue-500 cursor-pointer";
 
@@ -186,6 +187,7 @@ export { BooleanProperty } from './Properties/Boolean';
 export { Color } from './Properties/Color';
 export { Chip } from './Properties/Chip';
 export { Progress } from '../Progress';
+export { HolismIcon } from '../HolismIcon';
 
 /*
 List anatomy
