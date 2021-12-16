@@ -5,7 +5,8 @@ const Page = ({
     title,
     subtitle,
     breadcrumbItems,
-    children
+    children,
+    className
 }) => {
 
     useEffect(() => {
@@ -17,7 +18,7 @@ const Page = ({
     }, []);
 
     return <div
-        className='bg-white py-6 md:rounded-lg'
+        className={'bg-white py-6 md:rounded-lg ' + className}
     >
         {children}
     </div>

@@ -1,6 +1,7 @@
 const path = require(`path`);
 const aliases = {
   '@Form': 'src/Components/Form/Form',
+  '@FormTwo': 'src/Components/Form/FormTwo',
   '@List': 'src/Components/List/List',
   '@Browse': 'src/Components/Browse/Browse',
   '@Dashboard': 'src/Components/Dashboard/Dashboard',
