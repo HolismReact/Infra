@@ -4,7 +4,7 @@ import { useState, useEffect, useRef, useContext } from 'react';
 import { FormContext } from '../Form';
 import { fieldStyles } from './FieldStyle';
 
-const Text = ({ column, required, placeholder, hint, value }) => {
+const Text = ({ column, required, regex, regexError, placeholder, hint, value }) => {
 
     const [id, setId] = useState();
     const [currentValue, setCurrentValue] = useState(value);
@@ -38,6 +38,16 @@ const Text = ({ column, required, placeholder, hint, value }) => {
         else {
             setValidationState('valid ' + Date.now());
             setHelpText(initialHint);
+        }
+        if (regex && regex.test && app.isSomething(currentValue)) {
+            if (currentValue.match(regex)) {
+                setValidationState('valid ' + Date.now());
+                setHelpText(initialHint);
+            }
+            else {
+                setValidationState('invalid regex ' + Date.now());
+                setHelpText(regexError);
+            }
         }
     }
 

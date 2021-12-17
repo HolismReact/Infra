@@ -135,6 +135,7 @@ const Form = ({ entity, title, explanations, inputs, actions, large }) => {
 
 export { Form };
 export { Text } from './Fields/Text';
+export { Email } from './Fields/Email';
 export { Select } from './Fields/Select';
 export { Hidden } from './Fields/Hidden';
 export { Enum } from './Fields/Enum';
