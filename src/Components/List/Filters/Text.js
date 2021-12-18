@@ -1,6 +1,6 @@
 import app from "../../../Base/App";
 import Filter from "./Filter";
-import Input from '@mui/material/Input';
+import OutlinedInput from '@mui/material/OutlinedInput';
 
 const Text = ({ column, placeholder }) => {
 
@@ -8,8 +8,9 @@ const Text = ({ column, placeholder }) => {
         type='text'
         column={column}
         placeholder={app.t(placeholder)}
-        renderInput={(value, setValue) => {
-            return <Input
+        renderInput={(value, setValue, id) => {
+            return <OutlinedInput
+                id={id}
                 value={value}
                 onChange={(event) => setValue(event.target.value)}
             />

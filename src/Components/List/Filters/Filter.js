@@ -19,6 +19,7 @@ const Filter = ({
     app.ensure(column, placeholder);
 
     const [id, setId] = useState();
+    const [labelId, setLabelId] = useState();
     const [currentValue, setCurrentValue] = useState(value || "");
     var { listParameters } = useContext(ListContext);
 
@@ -33,8 +34,12 @@ const Filter = ({
     }, []);
 
     useEffect(() => {
-        setId(`${type}_${column}`);
+        setId(`${type}_${column}`)
     }, [column]);
+
+    useEffect(() => {
+        setLabelId(`${id}_label`)
+    }, [id]);
 
     useEffect(() => {
         listParameters.addFilter(column, operator || filterOperator.contains, currentValue);
@@ -46,7 +51,7 @@ const Filter = ({
         >
             <InputLabel htmlFor={id}>{app.t(placeholder)}</InputLabel>
             {
-                renderInput(currentValue, setCurrentValue)
+                renderInput(currentValue, setCurrentValue, id)
             }
             {
                 // children
