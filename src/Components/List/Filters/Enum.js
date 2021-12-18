@@ -44,7 +44,7 @@ const Enum = ({ column, entity, placeholder }) => {
                 onChange={(event) => { setValue(event.target.value) }}
             >
                 {
-                    loading
+                    true
                         ?
                         <CircularProgress />
                         :
