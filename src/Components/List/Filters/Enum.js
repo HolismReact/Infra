@@ -6,6 +6,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { get } from '../../../Base/Api';
 import Filter from './Filter';
 import filterOperator from '../../../Base/FilterOperator';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Enum = ({ column, entity, placeholder }) => {
 
@@ -34,27 +35,28 @@ const Enum = ({ column, entity, placeholder }) => {
         column={column}
         placeholder={placeholder}
         operator={filterOperator.equals}
-        renderInput={(value, setValue) => {
-            return loading
-                ?
-                <div>loading...</div>
-                :
-                <Select
-                    value={value}
-                    ref={htmlSelect}
-                    placeholder={app.t(placeholder)}
-                    fullWidth
-                    onChange={(event) => { setValue(event.target.value) }}
-                >
-                    {
-                        enumItems
-                            ?
-                            enumItems.map(item => <MenuItem key={item.id} value={item.id}>{item.titleizedKey}</MenuItem>)
-                            :
-                            null
-                    }
-                </Select>
-        }}
+        renderInput={(value, setValue) =>
+            <Select
+                value={value}
+                ref={htmlSelect}
+                placeholder={app.t(placeholder)}
+                fullWidth
+                onChange={(event) => { setValue(event.target.value) }}
+            >
+                {
+                    loading
+                        ?
+                        <CircularProgress />
+                        :
+                        (
+                            enumItems
+                                ?
+                                enumItems.map(item => <MenuItem key={item.id} value={item.id}>{item.titleizedKey}</MenuItem>)
+                                :
+                                null
+                        )
+                }
+            </Select>}
     />
 };
 
