@@ -13,14 +13,6 @@ const resolvedAliases = Object.fromEntries(
 );
 
 module.exports = {
-  style: {
-    postcss: {
-      plugins: [
-        require('tailwindcss'),
-        require('autoprefixer'),
-      ],
-    },
-  },
   webpack: {
     alias: resolvedAliases,
     // this config, causes HolismIcon to throw react error 321 for builds
