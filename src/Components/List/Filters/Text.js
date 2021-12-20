@@ -12,6 +12,7 @@ const Text = ({ column, placeholder }) => {
             return <OutlinedInput
                 id={id}
                 value={value}
+                label={app.t(placeholder)}
                 onChange={(event) => setValue(event.target.value)}
             />
         }}

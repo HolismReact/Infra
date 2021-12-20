@@ -12,7 +12,6 @@ const Enum = ({ column, entity, placeholder }) => {
 
     app.ensure([column, placeholder, entity]);
 
-    const htmlSelect = useRef();
     const [loading, setLoading] = useState();
     const [enumItems, setEnumItems] = useLocalStorageState([], entity + 'Enum');
 
@@ -35,16 +34,16 @@ const Enum = ({ column, entity, placeholder }) => {
         column={column}
         placeholder={placeholder}
         operator={filterOperator.equals}
-        renderInput={(value, setValue) =>
+        renderInput={(value, setValue, id) =>
             <Select
+                id={id}
                 value={value}
-                ref={htmlSelect}
-                placeholder={app.t(placeholder)}
+                label={app.t(placeholder)}
                 fullWidth
                 onChange={(event) => { setValue(event.target.value) }}
             >
                 {
-                    true
+                    loading
                         ?
                         <CircularProgress />
                         :
