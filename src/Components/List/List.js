@@ -11,12 +11,13 @@ import useLocalStorageState from '../../Base/UseLocalStorageState';
 import Collapse from '@mui/material/Collapse';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import Tooltip from '@mui/material/Tooltip';
+import { DialogForm } from '../Form/DialogForm';
 
 const listActionIconStyle = "text-gray-700 hover:text-blue-500 cursor-pointer";
 
 export const ListContext = React.createContext({
-  isCreationDialogOpen: false,
-  setIsCreationDialogOpen: () => { },
+  isDialogFormOpen: false,
+  setIsDialogFormOpen: () => { },
   listParameters: {},
   selectedItems: [],
   setSelectedItems: () => { }
@@ -39,14 +40,18 @@ const List = ({
   hasEdit,
   edit,
   creationButton,
-  classProvider
+  classProvider,
+  upsert
 }) => {
-  const [isCreationDialogOpen, setIsCreationDialogOpen] = useState(false);
+  const [isDialogFormOpen, setIsDialogFormOpen] = useState(false);
   const [listParameters, setListParameters] = useState(CreateListParameters(app.userGuid(), entity));
   const [isFilteringOpen, setIsFilteringOpen] = useLocalStorageState(false, `${app.userGuid()}_${entity}_isFilteringOpen`);
   const [selectedItems, setSelectedItems] = useState([]);
 
   const hasItemSelection = listActions ? true : false;
+  const CreationComponent = (create && typeof create === 'function') ? create() : null;
+  const EditionComponent = (edit && typeof edit === 'function') ? edit() : null;
+  const UpsertComponent = (upsert && typeof upsert === 'function') ? upsert() : null;
 
   useEffect(() => {
     console.log(selectedItems);
@@ -65,8 +70,8 @@ const List = ({
   }
 
   return <ListContext.Provider value={{
-    isCreationDialogOpen,
-    setIsCreationDialogOpen,
+    isDialogFormOpen,
+    setIsDialogFormOpen,
     listParameters: listParameters,
     selectedItems: selectedItems,
     setSelectedItems: setSelectedItems
@@ -81,6 +86,7 @@ const List = ({
       <ListActions
         actions={listActions}
         create={create}
+        upsert={upsert}
         creationButton={creationButton}
       />
       <div
@@ -160,9 +166,30 @@ const List = ({
       classProvider={classProvider}
     />
     {
-      create && typeof create === 'function'
+      CreationComponent
         ?
-        create()
+        <DialogForm
+          entity={CreationComponent.props?.entity}
+          title={CreationComponent.props?.title}
+          explanations={CreationComponent.props.explanations}
+          inputs={CreationComponent.props?.inputs}
+          actions={CreationComponent.props?.actions}
+          large={CreationComponent.props?.large}
+        />
+        :
+        null
+    }
+    {
+      UpsertComponent
+        ?
+        <DialogForm
+          entity={UpsertComponent.props?.entity}
+          title={UpsertComponent.props?.title}
+          explanations={UpsertComponent.props.explanations}
+          inputs={UpsertComponent.props?.inputs}
+          actions={UpsertComponent.props?.actions}
+          large={UpsertComponent.props?.large}
+        />
         :
         null
     }

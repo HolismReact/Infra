@@ -13,7 +13,7 @@ const Form = ({ entity, title, explanations, inputs, actions, large }) => {
     // file upload
     // if is edit, load entity (only if they don't provide their own get method)
     // save
-    const { isCreationDialogOpen, setIsCreationDialogOpen } = useContext(ListContext);
+    const { isDialogFormOpen, setIsDialogFormOpen } = useContext(ListContext);
     const [fields, setFields] = useState([]);
     const [progress, setInProgress] = useState();
     const [isValid, setIsValid] = useState(false);
@@ -53,7 +53,7 @@ const Form = ({ entity, title, explanations, inputs, actions, large }) => {
         setInProgress(true);
         let url = `${entity}/create`;
         post(url, data).then(data => {
-            setIsCreationDialogOpen(false);
+            setIsDialogFormOpen(false);
             app.emit(app.itemCreated);
             setInProgress(false);
         }, error => {
@@ -99,7 +99,7 @@ const Form = ({ entity, title, explanations, inputs, actions, large }) => {
                                         tabIndex={-1}
                                         className="text-gray-900 border-gray-400 "
                                         variant="outlined"
-                                        onClick={() => setIsCreationDialogOpen(false)}
+                                        onClick={() => setIsDialogFormOpen(false)}
                                     >
                                         {app.t('Cancel')}
                                     </Button>

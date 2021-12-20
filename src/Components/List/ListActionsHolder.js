@@ -5,14 +5,10 @@ import AddIcon from '@mui/icons-material/Add';
 import HolismIcon from '../HolismIcon';
 import { useNavigate } from "react-router-dom";
 
-const ListActions = ({ actions, create, creationButton }) => {
+const ListActions = ({ actions, create, creationButton, upsert }) => {
     let navigate = useNavigate();
 
-    const { setIsCreationDialogOpen, selectedItems } = useContext(ListContext);
-
-    const showCreationDialog = () => {
-        setIsCreationDialogOpen(true);
-    }
+    const { selectedItems } = useContext(ListContext);
 
     let clonedListActions = null;
     let actionItems = null;
@@ -57,7 +53,7 @@ const ListActions = ({ actions, create, creationButton }) => {
     >
         <div>
             {
-                create
+                create || upsert    
                     ?
                     <Button
                         className="bg-green-200 text-gray-900 border-gray-400 hover:bg-green-400 mt-2 lg:mt-0 mr-2"
@@ -74,7 +70,7 @@ const ListActions = ({ actions, create, creationButton }) => {
                                 navigate(create)
                             }
                             else {
-                                showCreationDialog()
+                                app.emit(app.dialogFormRequested)
                             }
                         }}
                     >
