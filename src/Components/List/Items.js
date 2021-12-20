@@ -4,7 +4,7 @@ import app from '../../Base/App';
 import { ListContext, useLocalStorageState } from './List';
 import CircularProgress from '@mui/material/CircularProgress';
 import Pagination from './Pagination';
-import ItemActions from './ItemActions';
+import ItemActions from './ItemActionsHolder';
 import Checkbox from '@mui/material/Checkbox';
 import Tooltip from '@mui/material/Tooltip';
 import Collapse from '@mui/material/Collapse';

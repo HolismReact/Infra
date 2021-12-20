@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
-import { ListContext } from './List';
+import { ListContext } from '../List';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
-import app from '../../Base/App';
-import HolismIcon from '../HolismIcon';
+import app from '../../../Base/App';
+import HolismIcon from '../../HolismIcon';
 
 const ListAction = ({ icon, title, click, minCardinality }) => {
 

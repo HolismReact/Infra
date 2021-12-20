@@ -1,10 +1,10 @@
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { useNavigate } from 'react-router-dom';
-import HolismIcon from '../HolismIcon';
+import HolismIcon from '../../HolismIcon';
 import CircularProgress from '@mui/material/CircularProgress';
 import React, { useState } from 'react';
-import { app } from './List';
+import { app } from '../List';
 
 const ItemAction = ({ title, item, icon, click, goTo, dialog, setItem, reload, color, hoverOnly }) => {
 

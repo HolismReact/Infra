@@ -1,4 +1,4 @@
-import { ItemAction } from './ItemAction';
+import { ItemAction } from '@List';
 import DeleteIcon from '@mui/icons-material/Delete';
 import React, { useState } from 'react';
 import Dialog from '@mui/material/Dialog';
@@ -6,8 +6,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
-import { post } from '../../Base/Api';
-import app from '../../Base/App';
+import { post } from '@List';
+import { app } from '@List';
 import CircularProgress from '@mui/material/CircularProgress';
 
 const DeleteAction = ({ entity, item }) => {

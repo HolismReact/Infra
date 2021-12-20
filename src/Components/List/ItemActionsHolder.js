@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { ItemAction } from './ItemAction';
-import DeleteAction from './DeleteAction';
-import EditAction from './EditAction';
+import { ItemAction } from './ItemActions/ItemAction';
+import DeleteAction from './ItemActions/DeleteAction';
+import EditAction from './ItemActions/EditAction';
 
 const ItemActions = ({ entity, item, itemActions, hasDelete, hasEdit, editionComponent, creationComponent, setItem, reload }) => {
 
