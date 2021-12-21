@@ -7,6 +7,7 @@ export { FormElement } from './FormElement'
 export { Form } from './Form'
 export { Actions } from './Actions'
 export { DialogForm } from './DialogForm'
+export { Field } from './Fields/Field'
 export { Text } from './Fields/Text';
 export { Email } from './Fields/Email';
 export { Select } from './Fields/Select';

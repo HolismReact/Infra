@@ -1,41 +1,72 @@
-import app from '../../../Base/App';
 import React, { useState, useEffect, useRef, useContext } from 'react';
-import { FormContext } from '../Form';
-import { fieldStyles } from './FieldStyle';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import InputLabel from '@mui/material/InputLabel';
+import { app, FormContext, fieldStyles } from '@Form';
 
-const Field = ({ column, placeholder, children, type, value, hint, validationStateProvider }) => {
+const Field = ({
+    column,
+    placeholder,
+    required,
+    value,
+    hint,
+    type,
+    validationStateProvider,
+    validate,
+    renderInput,
+}) => {
 
     const [id, setId] = useState();
-    const [helpTextId, setHelpTextId] = useState();
+    const [labelId, setLabelId] = useState();
+    const htmlInput = useRef();
     const [currentValue, setCurrentValue] = useState(value || "");
     const [helpText, setHelpText] = useState(hint);
     const initialHint = hint;
     var formContext = useContext(FormContext);
     const [validationState, setValidationState] = useState(null);
+    const label = placeholder || column;
 
     useEffect(() => {
         setId(`${type}_${column}`);
     }, [column]);
 
     useEffect(() => {
-        setHelpTextId(`${id}_help`);
+        setLabelId(`${id}_lable`);
     }, [id]);
 
     useEffect(() => {
-        var newState = validationStateProvider(currentValue) + Date.now();
-        setValidationState(newState);
+        validateAll();
     }, [currentValue]);
 
     useEffect(() => {
         app.addFieldToFormContext(formContext, id, undefined, false);
-        app.on(app.formSubmitted, validationStateProvider);
+        app.on(app.formSubmitted, isValid);
         return () => {
-            app.removeListener(app.formSubmitted, validationStateProvider);
+            app.removeListener(app.formSubmitted, isValid);
         }
     }, [id, formContext]);
+
+    const validateAll = () => {
+        if (required && app.isNothing(currentValue)) {
+            setValidationState('invalid required ' + Date.now());
+            setHelpText(required);
+        }
+        else {
+            setValidationState('valid ' + Date.now());
+            setHelpText(initialHint);
+        }
+        if (validate && typeof validate === 'function') {
+            var result = validate(currentValue, setValidationState, setHelpText);
+            if (result === true) {
+                setValidationState('valid ' + Date.now());
+                setHelpText(initialHint);
+            }
+            else {
+                setValidationState(`invalid ${result?.error} ${Date.now()}`)
+                setHelpText(result?.message);
+            }
+        }
+    }
 
     const isValid = () => {
         if (!validationState) {
@@ -55,20 +86,29 @@ const Field = ({ column, placeholder, children, type, value, hint, validationSta
         <FormControl
             error={isValid() ? false : true}
             fullWidth
+            required={required ? true : false}
         >
-            <InputLabel htmlFor={id}>{app.t(placeholder)}</InputLabel>
+            <InputLabel htmlFor={id}>{app.t(label)}</InputLabel>
             {
+                renderInput({
+                    currentValue,
+                    setCurrentValue,
+                    label,
+                    id
+                })
+            }
+            {/* {
                 React.cloneElement(children, {
                     // id: id,
                     value: currentValue,
                     // "aria-describedby": helpTextId,
                     handleChange: (e) => { console.log(e.target.value); setCurrentValue(e.target.value) }
                 })
-            }
+            } */}
             {/* {
                 children(currentValue, setCurrentValue)
             } */}
-            <FormHelperText id={helpTextId}>{app.t(helpText)}</FormHelperText>
+            <FormHelperText>{app.t(helpText)}</FormHelperText>
         </FormControl>
     </div>
 };
