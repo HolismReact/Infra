@@ -2,13 +2,9 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import { app, Field } from '@Form';
 
 const Text = ({
-    column,
-    placeholder,
-    required,
     regex,
     regexError,
-    hint,
-    value
+    ...rest
 }) => {
 
     const validate = (currentValue) => {
@@ -26,11 +22,8 @@ const Text = ({
     }
 
     return <Field
-        column={column}
-        placeholder={placeholder}
-        required={required}
-        hint={hint}
-        value={value}
+        type='text'
+        {...rest}
         validate={validate}
         renderInput={({ currentValue, setCurrentValue, label }) => {
             return <OutlinedInput

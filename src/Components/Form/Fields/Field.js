@@ -99,17 +99,6 @@ const Field = ({
                     id
                 })
             }
-            {/* {
-                React.cloneElement(children, {
-                    // id: id,
-                    value: currentValue,
-                    // "aria-describedby": helpTextId,
-                    handleChange: (e) => { console.log(e.target.value); setCurrentValue(e.target.value) }
-                })
-            } */}
-            {/* {
-                children(currentValue, setCurrentValue)
-            } */}
             <FormHelperText>{app.t(helpText)}</FormHelperText>
         </FormControl>
     </div>
