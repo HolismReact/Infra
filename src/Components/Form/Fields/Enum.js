@@ -1,23 +1,13 @@
-import useLocalStorageState from '../../../Base/UseLocalStorageState';
-import app from '../../../Base/App';
 import React, { useEffect, useState } from 'react';
-import { get } from '../../../Base/Api';
-import { fieldStyles } from './FieldStyle';
 import CircularProgress from '@mui/material/CircularProgress';
-import { Select } from './Select';
+import { Select, app, useLocalStorageState, get, fieldStyles } from '@Form';
 
 const Enum = ({
-    column,
     entity,
-    placeholder,
-    hint,
-    value,
-    required
+    ...rest
 }) => {
 
-    if (app.isNothing(entity)) {
-        throw new Error(`entity is not provided for ${Enum.name}`);
-    }
+    app.ensure([entity]);
 
     const [loading, setLoading] = useState();
     const [enumItems, setEnumItems] = useLocalStorageState([], entity + 'Enum');
@@ -43,12 +33,8 @@ const Enum = ({
                 <CircularProgress />
                 :
                 <Select
-                    column={column}
-                    placeholder={placeholder}
-                    hint={hint}
-                    required={required}
+                    {...rest}
                     options={enumItems}
-                    value={value}
                     display={item => item.key}
                     choose={item => item.id}
                 />
