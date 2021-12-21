@@ -34,9 +34,9 @@ const Lookup = ({ column, entity, placeholder, hint, value, required, display })
         var handler = () => {
             validate();
         };
-        app.on(app.formSubmissionEvent, handler);
+        app.on(app.formSubmitted, handler);
         return () => {
-            app.removeListener(app.formSubmissionEvent, handler);
+            app.removeListener(app.formSubmitted, handler);
         }
     }, [id, formContext])
 

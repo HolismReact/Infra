@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useContext } from 'react';
-import { app, FormContext } from '../FormBase';
+import { app, FormContext } from '@Form';
 
 const Hidden = ({ column, value }) => {
 
@@ -13,9 +13,9 @@ const Hidden = ({ column, value }) => {
 
     useEffect(() => {
         app.addFieldToFormContext(formContext, id, value, true);
-        app.on(app.formSubmissionEvent, () => { });
+        app.on(app.formSubmitted, () => { });
         return () => {
-            app.removeListener(app.formSubmissionEvent, () => { });
+            app.removeListener(app.formSubmitted, () => { });
         }
     }, [id, formContext]);
 

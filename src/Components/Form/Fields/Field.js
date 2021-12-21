@@ -31,9 +31,9 @@ const Field = ({ column, placeholder, children, type, value, hint, validationSta
 
     useEffect(() => {
         app.addFieldToFormContext(formContext, id, undefined, false);
-        app.on(app.formSubmissionEvent, validationStateProvider);
+        app.on(app.formSubmitted, validationStateProvider);
         return () => {
-            app.removeListener(app.formSubmissionEvent, validationStateProvider);
+            app.removeListener(app.formSubmitted, validationStateProvider);
         }
     }, [id, formContext]);
 

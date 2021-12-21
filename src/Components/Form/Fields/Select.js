@@ -54,9 +54,9 @@ const Select = ({
 
     useEffect(() => {
         app.addFieldToFormContext(formContext, id, undefined, false);
-        app.on(app.formSubmissionEvent, validate);
+        app.on(app.formSubmitted, validate);
         return () => {
-            app.removeListener(app.formSubmissionEvent, validate);
+            app.removeListener(app.formSubmitted, validate);
         }
     }, [id, formContext]);
 

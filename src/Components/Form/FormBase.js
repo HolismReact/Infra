@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { post } from '../../Base/Api';
-import { ListContext } from '../List/List';
-import app from '../../Base/App';
+import React, { useState, useEffect } from 'react';
+import { app, post } from '@Form';
 
 export const FormContext = React.createContext();
 
@@ -37,11 +35,18 @@ const FormBase = ({
   }
 
   useEffect(() => {
+      var firstField = document.querySelector('#dialogForm .field:first-child input');
+      if (firstField && firstField.focus) {
+          firstField.focus();
+      }
+  }, [])
+
+  useEffect(() => {
     isValid() ? setValid(true) : setValid(false);
   }, [fields]);
 
   const handleSubmit = (event) => {
-    app.emit(app.formSubmissionEvent);
+    app.emit(app.formSubmitted);
     if (!valid) {
       event.preventDefault();
       return;

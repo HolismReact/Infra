@@ -47,9 +47,9 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
         const handle = () => {
             validate();
         };
-        app.on(app.formSubmissionEvent, handle);
+        app.on(app.formSubmitted, handle);
         return () => {
-            app.removeListener(app.formSubmissionEvent, handle);
+            app.removeListener(app.formSubmitted, handle);
         }
     }, [id, formContext]);
 

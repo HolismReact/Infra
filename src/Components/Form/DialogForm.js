@@ -3,7 +3,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { Form, Actions, app } from '@Form';
+import { FormBase, Actions, app, Explanations } from '@Form';
 
 const DialogForm = ({
     entity,
@@ -18,7 +18,6 @@ const DialogForm = ({
 
     useEffect(() => {
         const onDialogFormRequested = (item) => {
-            console.log('opening dialog form');
             setIsDialogFormOpen(true);
         }
         app.on(app.dialogFormRequested, onDialogFormRequested)
@@ -27,14 +26,13 @@ const DialogForm = ({
 
     useEffect(() => {
         const onDialogFormCanceled = (item) => {
-            console.log('closing dialog form');
             setIsDialogFormOpen(false);
         }
         app.on(app.dialogFormCanceled, onDialogFormCanceled)
         return () => app.removeListener(app.dialogFormCanceled, onDialogFormCanceled)
     }, [])
 
-    return <Form
+    return <FormBase
         entity={entity}
     >
         <Dialog
@@ -55,16 +53,7 @@ const DialogForm = ({
         >
             <DialogTitle id="form-dialog-title">{app.t(title)}</DialogTitle>
             <DialogContent>
-                {
-                    explanations
-                }
-                {
-                    explanations
-                        ?
-                        <div className="mb-12"></div>
-                        :
-                        null
-                }
+                <Explanations explanations={explanations} />
                 <form
                     noValidate
                 //onSubmit={handleSubmit}
@@ -80,7 +69,7 @@ const DialogForm = ({
                 />
             </DialogActions>
         </Dialog>
-    </Form>
+    </FormBase>
 }
 
 export { DialogForm };

@@ -1,7 +1,11 @@
 export { fieldStyles } from './Fields/FieldStyle';
-export { Actions } from './Actions'
+export { Page } from '../Page/Page'
 export { FormContext } from './FormBase'
+export { FormBase } from './FormBase'
+export { Explanations } from './Explanations'
+export { FormElement } from './FormElement'
 export { Form } from './Form'
+export { Actions } from './Actions'
 export { DialogForm } from './DialogForm'
 export { Text } from './Fields/Text';
 export { Email } from './Fields/Email';

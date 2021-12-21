@@ -9,7 +9,7 @@ const EventManager = {
     removeListener: (event, fn) => eventEmitter.removeListener(event, fn),
     listeners: (event) => eventEmitter.listeners(event),
     eventEmitter: eventEmitter,
-    formSubmissionEvent: 'holism_form_submission_requested',
+    formSubmitted: 'form_submission_requested',
     dialogFormRequested: 'dialog_form_requested',
     dialogFormCanceled: 'dialog_form_canceled',
     componentLoaded: 'component_loaded',

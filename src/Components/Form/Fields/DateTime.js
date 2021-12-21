@@ -24,9 +24,9 @@ const DateTime = ({ column, required, placeholder, hint, value }) => {
 
     useEffect(() => {
         app.addFieldToFormContext(formContext, id, undefined, false);
-        app.on(app.formSubmissionEvent, validate);
+        app.on(app.formSubmitted, validate);
         return () => {
-            app.removeListener(app.formSubmissionEvent, validate);
+            app.removeListener(app.formSubmitted, validate);
         }
     }, [id, formContext]);
 

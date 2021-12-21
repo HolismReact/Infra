@@ -11,17 +11,11 @@ import useLocalStorageState from '../../Base/UseLocalStorageState';
 import Collapse from '@mui/material/Collapse';
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import Tooltip from '@mui/material/Tooltip';
-import { DialogForm } from '../Form/DialogForm';
+import { DialogForm } from '@Form';
 
 const listActionIconStyle = "text-gray-700 hover:text-blue-500 cursor-pointer";
 
-export const ListContext = React.createContext({
-  isDialogFormOpen: false,
-  setIsDialogFormOpen: () => { },
-  listParameters: {},
-  selectedItems: [],
-  setSelectedItems: () => { }
-});
+export const ListContext = React.createContext({});
 
 const List = ({
   title,
@@ -70,8 +64,6 @@ const List = ({
   }
 
   return <ListContext.Provider value={{
-    isDialogFormOpen,
-    setIsDialogFormOpen,
     listParameters: listParameters,
     selectedItems: selectedItems,
     setSelectedItems: setSelectedItems
