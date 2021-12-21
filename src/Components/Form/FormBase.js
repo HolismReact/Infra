@@ -29,6 +29,7 @@ const FormBase = ({
     for (let i = 0; i < fields.length; i++) {
       if (!fields[i].isValid) {
         setIsValid(false);
+        return;
       }
     }
     setIsValid(true);

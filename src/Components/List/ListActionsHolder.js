@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 import Button from '@mui/material/Button';
-import { app, ListContext } from './List';
 import AddIcon from '@mui/icons-material/Add';
-import HolismIcon from '../HolismIcon';
 import { useNavigate } from "react-router-dom";
+import { app, ListContext, HolismIcon } from '@List';
 
 const ListActions = ({ actions, create, creationButton, upsert }) => {
     let navigate = useNavigate();
