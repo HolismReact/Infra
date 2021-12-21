@@ -9,9 +9,9 @@ const Field = ({
     placeholder,
     required,
     value,
+    valueProvider,
     hint,
     type,
-    validationStateProvider,
     validate,
     renderInput,
 }) => {
