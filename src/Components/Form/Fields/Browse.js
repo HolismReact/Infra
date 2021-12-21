@@ -30,10 +30,9 @@ const Browse = ({
 
     const caller = `${browser.name}Caller`
     const [selectedEntity, setSelectedEntity] = useState(null);
-    const [entityIdentifier, setEntityIdentifier] = useState(null);
     const [isBrowserDialogOpen, setIsBrowserDialogOpen] = useState(false);
     let show;
-    let setChosenValue;
+    let setValue;
 
     useEffect(() => {
         const handleEntitySelection = ({ selectedEntity, callerId }) => {
@@ -52,33 +51,35 @@ const Browse = ({
     useEffect(() => {
         if (!selectedEntity) {
             show('');
-            setChosenValue(null);
+            setValue(null);
             return;
         }
         if (typeof display(selectedEntity) == "undefined") {
             throw new Error(`No dispaly value specified for Browse ${'id'} `)
         }
         else {
-            show(display(selectedEntity));
             if (typeof choose == "function") {
                 try {
                     let chosenValue = choose(selectedEntity);
                     if (typeof chosenValue == "undefined" || typeof chosenValue === "function")
                         throw new Error(`No return value specified for ${column} browser chooser function`)
-                    setChosenValue(chosenValue, true);
+                    setValue(chosenValue, true);
                 } catch (error) {
                     throw new Error(`No return value specified for ${column} browser chooser function`);
                 }
             }
             else if (column.endsWith('Guid')) {
-                setChosenValue(selectedEntity.guid, true);
+                setValue(selectedEntity.guid, true);
             }
             else if (column.endsWith('Id')) {
-                setChosenValue(selectedEntity.id, true);
+                setValue(selectedEntity.id, true);
             }
             else {
                 throw new Error(`No return value specified for ${column} browser chooser function`);
             }
+            // setTimeout(() => {
+            //     show(display(selectedEntity))
+            // }, 50)
         }
     }, [selectedEntity]);
 
@@ -130,9 +131,9 @@ const Browse = ({
         type='browse'
         column={column}
         {...rest}
-        renderInput={({ displayValue, label, setDisplayValue, progress, setField }) => {
+        renderInput={({ displayValue, label, setDisplayValue, setChosenValue, progress }) => {
             show = setDisplayValue;
-            setChosenValue = setField;
+            setValue = setChosenValue;
             return <>
                 {
                     browserDialog

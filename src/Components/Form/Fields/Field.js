@@ -55,7 +55,7 @@ const Field = ({
             setHelpText(initialHint);
 
             if (validate && typeof validate === 'function') {
-                var result = validate(displayValue, setValidationState, setHelpText);
+                var result = validate({ displayValue, chosenValue, chosenEntity });
                 if (!result || result === true) {
                     setValidationState('valid ' + Date.now());
                     setHelpText(initialHint);
@@ -94,6 +94,7 @@ const Field = ({
                 renderInput({
                     displayValue,
                     setDisplayValue,
+                    setChosenValue,
                     label,
                     id,
                     setField,

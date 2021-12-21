@@ -7,7 +7,7 @@ const Text = ({
     ...rest
 }) => {
 
-    const validate = (displayValue) => {
+    const validate = ({ displayValue }) => {
         if (regex && regex.test && app.isSomething(displayValue)) {
             if (displayValue.match(regex)) {
                 return true;
@@ -25,11 +25,14 @@ const Text = ({
         type='text'
         {...rest}
         validate={validate}
-        renderInput={({ displayValue, setDisplayValue, label }) => {
+        renderInput={({ displayValue, setDisplayValue, setChosenValue, label }) => {
             return <OutlinedInput
                 label={app.t(label)}
                 value={displayValue}
-                onChange={(e) => setDisplayValue(e.target.value)}
+                onChange={(e) => {
+                    setDisplayValue(e.target.value)
+                    setChosenValue(e.target.value)
+                }}
             />
         }}
     />
