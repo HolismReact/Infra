@@ -44,19 +44,19 @@ const Browse = ({
     //     }
     // }, [id, formContext]);
 
-    // useEffect(() => {
-    //     const handleEntitySelection = ({ item, callerId }) => {
-    //         if (callerId != id) {
-    //             return;
-    //         }
-    //         setSelectedEntity(item.item);
-    //         setIsBrowserDialogOpen(false);
-    //     }
-    //     app.on(app.entitySelected, handleEntitySelection);
-    //     return () => {
-    //         app.removeListener(app.entitySelected, handleEntitySelection);
-    //     }
-    // });
+    useEffect(() => {
+        const handleEntitySelection = ({ selectedEntity, callerId }) => {
+            if (callerId != id) {
+                return;
+            }
+            setSelectedEntity(selectedEntity);
+            setIsBrowserDialogOpen(false);
+        }
+        app.on(app.entitySelected, handleEntitySelection);
+        return () => {
+            app.removeListener(app.entitySelected, handleEntitySelection);
+        }
+    });
 
     // useEffect(() => {
     //     if (!selectedEntity) {
@@ -92,7 +92,7 @@ const Browse = ({
     //     }
     // }, [validationState]);
 
-    const browserDialog = <Dialog
+    const browserDialog = (fieldId) => <Dialog
         open={isBrowserDialogOpen}
         aria-labelledby="browserDialog"
         fullScreen
@@ -113,7 +113,7 @@ const Browse = ({
         <DialogContent>
             {
                 React.cloneElement(browser(), {
-                    callerId: id
+                    callerId: fieldId
                 })
             }
         </DialogContent>
@@ -133,10 +133,11 @@ const Browse = ({
     return <Field
         type='browse'
         {...rest}
-        renderInput={({ currentValue, setCurrentValue, label, progress }) => {
+        renderInput={({ currentValue, setCurrentValue, label, id, progress }) => {
+            setId(id)
             return <>
                 {
-                    browserDialog
+                    browserDialog(id)
                 }
                 <OutlinedInput
                     label={app.t(label)}

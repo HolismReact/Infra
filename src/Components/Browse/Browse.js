@@ -24,8 +24,8 @@ const Browse = ({ sorts, filters, row, card, entity, headers, callerId }) => {
         <ItemAction
             icon={<CheckIcon />}
             title={'Select ' + entity}
-            click={(item) => {
-                app.emit(app.entitySelected, { item, callerId });
+            click={({ item }) => {
+                app.emit(app.entitySelected, { selectedEntity: item, callerId });
             }}
         />
     </>
