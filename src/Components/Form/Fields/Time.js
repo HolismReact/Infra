@@ -1,76 +1,30 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
-import TextField from '@mui/material/TextField';
+import OutlinedInput from '@mui/material/OutlinedInput';
 import TimePicker from '@mui/lab/TimePicker';
-import 'date-fns';
-import { app, FormContext, fieldStyles } from '@Form'
+import { Field, app } from '@Form'
 
-const Time = ({ column, required, placeholder, hint, value }) => {
+const Time = (props) => {
 
-    app.ensure([column, placeholder]);
-    const [id, setId] = useState();
-    const [helpText, setHelpText] = useState(hint);
-    const [validationState, setValidationState] = useState(null);
-    const initialHint = hint;
-    var formContext = useContext(FormContext);
-
-    const [currentValue, setCurrentValue] = useState(value ? new Date(value) : new Date());
-
-    useEffect(() => {
-        setId(`time_${column}`);
-    }, [column]);
-
-    useEffect(() => {
-        validate();
-    }, [currentValue]);
-
-    useEffect(() => {
-        app.addFieldToFormContext(formContext, id, undefined, false);
-        app.on(app.formSubmitted, validate);
-        return () => {
-            app.removeListener(app.formSubmitted, validate);
-        }
-    }, [id, formContext]);
-
-    const validate = () => {
-        if (required && app.isNothing(currentValue)) {
-            setValidationState('invalid required ' + Date.now());
-            setHelpText(required);
-        }
-        else {
-            setValidationState('valid ' + Date.now());
-            setHelpText(initialHint);
-        }
-    }
-
-    const isValid = () => {
-        if (!validationState) {
-            return false;
-        }
-        if (validationState.indexOf('invalid') > -1) {
-            return false;
-        }
-        return true;
-    }
-
-    useEffect(() => {
-        app.setField(formContext, id, currentValue, isValid() ? true : false);
-    }, [validationState]);
-
-    return <div className={fieldStyles}>
-        {/* <DatePicker
-            KeyboardButtonProps={{
-                'aria-label': 'Change ' + placeholder,
-            }}
-        /> */}
-        <TimePicker
-            id={id}
-            error={isValid() ? false : true}
-            label={placeholder}
-            value={currentValue}
-            onChange={(time) => { setCurrentValue(time) }}
-            renderInput={(params) => <TextField {...params} fullWidth />}
-        />
-    </div>
+    return <Field
+        {...props}
+        renderInput={({ currentValue, setCurrentValue, label, progress }) => {
+            return <TimePicker
+                label={app.t(label)}
+                value={currentValue}
+                disabled={progress}
+                onChange={(time) => { setCurrentValue(time) }}
+                renderInput={({
+                    inputRef,
+                    inputProps,
+                    InputProps
+                }) => <OutlinedInput
+                        label={app.t(label)}
+                        endAdornment={InputProps?.endAdornment}
+                        ref={inputRef}
+                        inputProps={inputProps}
+                    />}
+            />
+        }}
+    />
 }
 
 export { Time };
