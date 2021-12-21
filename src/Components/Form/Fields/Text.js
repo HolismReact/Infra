@@ -7,9 +7,9 @@ const Text = ({
     ...rest
 }) => {
 
-    const validate = (currentValue) => {
-        if (regex && regex.test && app.isSomething(currentValue)) {
-            if (currentValue.match(regex)) {
+    const validate = (displayValue) => {
+        if (regex && regex.test && app.isSomething(displayValue)) {
+            if (displayValue.match(regex)) {
                 return true;
             }
             else {
@@ -25,11 +25,11 @@ const Text = ({
         type='text'
         {...rest}
         validate={validate}
-        renderInput={({ currentValue, setCurrentValue, label }) => {
+        renderInput={({ displayValue, setDisplayValue, label }) => {
             return <OutlinedInput
                 label={app.t(label)}
-                value={currentValue}
-                onChange={(e) => setCurrentValue(e.target.value)}
+                value={displayValue}
+                onChange={(e) => setDisplayValue(e.target.value)}
             />
         }}
     />

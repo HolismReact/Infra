@@ -5,12 +5,12 @@ import { Field, app } from '@Form';
 const DateTime = (props) => {
 
     return <Field
-        renderInput={({ currentValue, setCurrentValue, label, progress }) => {
+        renderInput={({ displayValue, setDisplayValue, label, progress }) => {
             return <DatePicker
                 format="MM/dd/yyyy HH:mm"
-                value={currentValue}
+                value={displayValue}
                 disabled={progress}
-                onChange={(date) => { setCurrentValue(date) }}
+                onChange={(date) => { setDisplayValue(date) }}
                 KeyboardButtonProps={{
                     'aria-label': app.t('Change') + ' ' + app.t(label),
                 }}

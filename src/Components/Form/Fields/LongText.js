@@ -6,11 +6,11 @@ const LongText = (props) => {
     return <Field
         type="longText"
         {...props}
-        renderInput={({ currentValue, setCurrentValue, label }) => {
+        renderInput={({ displayValue, setDisplayValue, label }) => {
             return <OutlinedInput
                 label={app.t(label)}
-                value={currentValue}
-                onChange={(e) => setCurrentValue(e.target.value)}
+                value={displayValue}
+                onChange={(e) => setDisplayValue(e.target.value)}
                 multiline
                 rows={4}
             />

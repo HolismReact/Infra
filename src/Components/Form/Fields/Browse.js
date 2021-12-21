@@ -12,12 +12,14 @@ import Slide from '@mui/material/Slide';
 import CloseIcon from '@mui/icons-material/Close';
 import Tooltip from '@mui/material/Tooltip';
 import { Field, app } from '@Form';
+import ClearIcon from '@mui/icons-material/Clear';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const Browse = ({
+    column,
     browser,
     display,
     choose,
@@ -30,6 +32,8 @@ const Browse = ({
     const [selectedEntity, setSelectedEntity] = useState(null);
     const [entityIdentifier, setEntityIdentifier] = useState(null);
     const [isBrowserDialogOpen, setIsBrowserDialogOpen] = useState(false);
+    let show;
+    let setChosenValue;
 
     useEffect(() => {
         const handleEntitySelection = ({ selectedEntity, callerId }) => {
@@ -47,10 +51,35 @@ const Browse = ({
 
     useEffect(() => {
         if (!selectedEntity) {
+            show('');
+            setChosenValue(null);
             return;
         }
-        if (typeof display(selectedEntity) == "undefined")
+        if (typeof display(selectedEntity) == "undefined") {
             throw new Error(`No dispaly value specified for Browse ${'id'} `)
+        }
+        else {
+            show(display(selectedEntity));
+            if (typeof choose == "function") {
+                try {
+                    let chosenValue = choose(selectedEntity);
+                    if (typeof chosenValue == "undefined" || typeof chosenValue === "function")
+                        throw new Error(`No return value specified for ${column} browser chooser function`)
+                    setChosenValue(chosenValue, true);
+                } catch (error) {
+                    throw new Error(`No return value specified for ${column} browser chooser function`);
+                }
+            }
+            else if (column.endsWith('Guid')) {
+                setChosenValue(selectedEntity.guid, true);
+            }
+            else if (column.endsWith('Id')) {
+                setChosenValue(selectedEntity.id, true);
+            }
+            else {
+                throw new Error(`No return value specified for ${column} browser chooser function`);
+            }
+        }
     }, [selectedEntity]);
 
     const browserDialog = <Dialog
@@ -99,40 +128,18 @@ const Browse = ({
 
     return <Field
         type='browse'
-        valueProvider={({ column }) => {
-            if (!selectedEntity) {
-                return false;
-            }
-            else if (typeof choose == "function") {
-                try {
-                    let chosenValue = choose(selectedEntity);
-                    if (typeof chosenValue == "undefined" || typeof chosenValue === "function")
-                        throw new Error(`No return value specified for ${column} browser chooser function`)
-                    return chosenValue;
-                } catch (error) {
-                    throw new Error(`No return value specified for ${column} browser chooser function`);
-                }
-            }
-            else if (column.endsWith('Guid')) {
-                return selectedEntity.guid;
-            }
-            else if (column.endsWith('Id')) {
-                return selectedEntity.id;
-            }
-            else {
-                throw new Error(`No return value specified for ${column} browser chooser function`);
-            }
-        }}
+        column={column}
         {...rest}
-        renderInput={({ currentValue, setCurrentValue, label, id, progress }) => {
+        renderInput={({ displayValue, label, setDisplayValue, progress, setField }) => {
+            show = setDisplayValue;
+            setChosenValue = setField;
             return <>
                 {
                     browserDialog
                 }
                 <OutlinedInput
                     label={app.t(label)}
-                    value={currentValue}
-                    onChange={(e) => setCurrentValue(e.target.value)}
+                    value={displayValue}
                     readOnly={true}
                     endAdornment={
                         <InputAdornment
@@ -140,6 +147,30 @@ const Browse = ({
                             disableTypography={progress}
                             position="end"
                         >
+                            {
+                                selectedEntity
+                                    ?
+                                    <Tooltip
+                                        title={app.t("Clear")}
+                                        disableFocusListener={progress}
+                                        disableFocusListener={progress}
+                                        disableInteractive={progress}
+                                        disableTouchListener={progress}
+                                    >
+                                        <IconButton
+                                            disabled={progress}
+                                            aria-label={app.t("Clear")}
+                                            onClick={() => {
+                                                setSelectedEntity(null)
+                                            }}
+                                            onMouseDown={() => { }}
+                                        >
+                                            <ClearIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                    :
+                                    null
+                            }
                             <Tooltip
                                 title={app.t("Find")}
                                 disableFocusListener={progress}

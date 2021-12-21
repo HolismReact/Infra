@@ -15,7 +15,7 @@ const BooleanProperty = ({
 }) => {
 
     const [progress, setProgress] = useState(false);
-    const [currentValue, setCurrentValue] = useState(value || false);
+    const [displayValue, setDisplayValue] = useState(value || false);
 
     const onChange = (e) => {
         console.log(e);
@@ -38,7 +38,7 @@ const BooleanProperty = ({
                 app.emit(app.reloadRequested);
             }
             else {
-                setCurrentValue(data.isActive);
+                setDisplayValue(data.isActive);
             }
         }, error => {
             app.error(error);
@@ -49,7 +49,7 @@ const BooleanProperty = ({
     const control = actionUrl
         ?
         <Switch
-            checked={currentValue || false}
+            checked={displayValue || false}
             onChange={(e) => onChange(e)}
             inputProps={{ 'aria-label': title }}
             size='small'

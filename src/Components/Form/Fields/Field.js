@@ -9,7 +9,6 @@ const Field = ({
     placeholder,
     required,
     value,
-    valueProvider,
     hint,
     type,
     validate,
@@ -19,7 +18,9 @@ const Field = ({
     const [id, setId] = useState();
     const [labelId, setLabelId] = useState();
     const htmlInput = useRef();
-    const [currentValue, setCurrentValue] = useState(value || "");
+    const [displayValue, setDisplayValue] = useState(value || "");
+    const [chosenValue, setChosenValue] = useState(value || "");
+    const [chosenEntity, setChosenEntity] = useState(null);
     const [helpText, setHelpText] = useState(hint);
     const initialHint = hint;
     var formContext = useContext(FormContext);
@@ -27,28 +28,25 @@ const Field = ({
     const [validationState, setValidationState] = useState(null);
     const label = placeholder || column;
 
+    const setField = (value, isValid) => {
+        app.setField(formContext, id, value, isValid);
+    }
+
     useEffect(() => {
         setId(`${type}_${column}`);
     }, [column]);
 
     useEffect(() => {
+        app.addFieldToFormContext(formContext, id, undefined, false);
         setLabelId(`${id}_lable`);
     }, [id]);
 
     useEffect(() => {
         validateAll();
-    }, [currentValue]);
-
-    useEffect(() => {
-        app.addFieldToFormContext(formContext, id, undefined, false);
-        app.on(app.formSubmitted, isValid);
-        return () => {
-            app.removeListener(app.formSubmitted, isValid);
-        }
-    }, [id, formContext]);
+    }, [displayValue]);
 
     const validateAll = () => {
-        if (required && app.isNothing(currentValue)) {
+        if (required && app.isNothing(displayValue)) {
             setValidationState('invalid required ' + Date.now());
             setHelpText(required);
         }
@@ -57,7 +55,7 @@ const Field = ({
             setHelpText(initialHint);
 
             if (validate && typeof validate === 'function') {
-                var result = validate(currentValue, setValidationState, setHelpText);
+                var result = validate(displayValue, setValidationState, setHelpText);
                 if (!result || result === true) {
                     setValidationState('valid ' + Date.now());
                     setHelpText(initialHint);
@@ -81,7 +79,7 @@ const Field = ({
     }
 
     useEffect(() => {
-        app.setField(formContext, id, currentValue, isValid() ? true : false);
+        setField(chosenValue, isValid() ? true : false);
     }, [validationState]);
 
     return <div className={fieldStyles}>
@@ -94,10 +92,11 @@ const Field = ({
             <InputLabel htmlFor={id}>{app.t(label)}</InputLabel>
             {
                 renderInput({
-                    currentValue,
-                    setCurrentValue,
+                    displayValue,
+                    setDisplayValue,
                     label,
                     id,
+                    setField,
                     progress
                 })
             }

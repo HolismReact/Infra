@@ -31,7 +31,7 @@ const Holism = {
             }, ...previousFields]
         });
     },
-    setFields: (fields) => {
+    setFieldsCache: (fields) => {
         fieldsCache = fields;
     },
     getFields: () => {

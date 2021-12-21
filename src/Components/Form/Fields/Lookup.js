@@ -14,7 +14,7 @@ const Lookup = ({ column, entity, placeholder, hint, value, required, display })
     }
 
     const [id, setId] = useState(null);
-    const [currentValue, setCurrentValue] = useState(value);
+    const [displayValue, setDisplayValue] = useState(value);
     const [labelId, setLabelId] = useState(null);
     const htmlSelect = useRef();
     const [helpText, setHelpText] = useState(hint);
@@ -56,11 +56,11 @@ const Lookup = ({ column, entity, placeholder, hint, value, required, display })
 
     useEffect(() => {
         validate();
-    }, [currentValue]);
+    }, [displayValue]);
 
     const validate = (event) => {
-        console.log(currentValue);
-        if (required && app.isNothing(currentValue)) {
+        console.log(displayValue);
+        if (required && app.isNothing(displayValue)) {
             setValidationResult('invalid required');
             setHelpText(required);
         }
@@ -71,7 +71,7 @@ const Lookup = ({ column, entity, placeholder, hint, value, required, display })
     }
 
     useEffect(() => {
-        app.setField(formContext, id, currentValue, validationResult ? false : true);
+        app.setField(formContext, id, displayValue, validationResult ? false : true);
     }, [validationResult]);
 
     return <div className={fieldStyles}>
@@ -92,7 +92,7 @@ const Lookup = ({ column, entity, placeholder, hint, value, required, display })
                         placeholder={placeholder}
                         defaultValue={value || ""}
                         fullWidth
-                        onChange={(event) => { setCurrentValue(event.target.value); }}
+                        onChange={(event) => { setDisplayValue(event.target.value); }}
                         value={value}
                     >
                         {lookupItems.map(item => <MenuItem

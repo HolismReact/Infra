@@ -7,11 +7,11 @@ const DateOnly = (props) => {
     return <Field
         type='date'
         {...props}
-        renderInput={({ currentValue, setCurrentValue, label, progress }) => {
+        renderInput={({ displayValue, setDisplayValue, label, progress }) => {
             return <DatePicker
-                value={currentValue}
+                value={displayValue}
                 disabled={progress}
-                onChange={(date) => { setCurrentValue(date) }}
+                onChange={(date) => { setDisplayValue(date) }}
                 renderInput={({
                     inputRef,
                     inputProps,
