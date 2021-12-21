@@ -1,10 +1,8 @@
-import 'date-fns';
-import app from '../../../Base/App';
 import React, { useState, useEffect, useRef, useContext } from 'react';
-import { FormContext } from '../Form';
-import { fieldStyles } from './FieldStyle';
 import TextField from '@mui/material/TextField';
 import TimePicker from '@mui/lab/TimePicker';
+import 'date-fns';
+import { app, FormContext, fieldStyles } from '@Form'
 
 const Time = ({ column, required, placeholder, hint, value }) => {
 

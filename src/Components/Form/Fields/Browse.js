@@ -1,12 +1,8 @@
-import TextField from '@mui/material/TextField';
 import React, { useState, useEffect, useContext, useRef } from 'react';
+import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
-import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import { fieldStyles } from './FieldStyle';
-import { FormContext } from '../Form';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -15,8 +11,7 @@ import Button from '@mui/material/Button';
 import Slide from '@mui/material/Slide';
 import CloseIcon from '@mui/icons-material/Close';
 import Tooltip from '@mui/material/Tooltip';
-import app from '../../../Base/App';
-import OutlinedInput from '@mui/material/OutlinedInput';
+import { app, FormContext, fieldStyles } from '@Form';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;

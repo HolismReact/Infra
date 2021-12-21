@@ -1,8 +1,6 @@
-import TextField from '@mui/material/TextField';
-import app from '../../../Base/App';
 import { useState, useEffect, useRef, useContext } from 'react';
-import { FormContext } from '../Form';
-import { fieldStyles } from './FieldStyle';
+import TextField from '@mui/material/TextField';
+import { fieldStyles, FormContext, app } from '@Form';
 
 const LongText = ({ column, required, placeholder, hint, value }) => {
 

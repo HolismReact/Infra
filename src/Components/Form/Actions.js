@@ -1,14 +1,17 @@
+import { useContext } from 'react'
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
-import { app } from './Form';
+import { FormContext, app } from '@Form';
 
 const Actions = ({
     actions,
     className,
     progress,
-    isValid,
     handleSubmit
 }) => {
+
+    const { isValid } = useContext(FormContext)
+
     return <div id='actions' className={'mt-4 ' + className}>
         {
             actions ||
@@ -29,9 +32,9 @@ const Actions = ({
                             </Button>
                             <Button
                                 variant="outlined"
-                                className={'ml-2' + (isValid ? " bg-green-200 text-gray-900 border-gray-400 " : "")}
+                                className={'ml-2' + (isValid() ? " bg-green-200 text-gray-900 border-gray-400 " : "")}
                                 onClick={handleSubmit}
-                                disabled={!isValid}
+                                disabled={!isValid()}
                             >
                                 {app.t('Save')}
                             </Button>

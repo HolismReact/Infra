@@ -3,9 +3,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import app from '../../Base/App';
-import { Actions } from './Actions';
-import { Form } from './Form';
+import { Form, Actions, app } from '@Form';
 
 const DialogForm = ({
     entity,

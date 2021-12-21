@@ -1,6 +1,5 @@
-import app from '../../../Base/App';
 import { useState, useEffect, useRef, useContext } from 'react';
-import { FormContext } from '../Form';
+import { app, FormContext } from '../FormBase';
 
 const Hidden = ({ column, value }) => {
 

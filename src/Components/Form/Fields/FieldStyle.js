@@ -1,1 +1,2 @@
-export const fieldStyles = 'field mt-4';
+const fieldStyles = 'field mt-4';
+export { fieldStyles }
