@@ -1,7 +1,7 @@
-const FormElement = ({ inputs }) => {
+const FormElement = ({ inputs, handleSubmit }) => {
     return <form
         noValidate
-    // onSubmit={handleSubmit}
+        onSubmit={handleSubmit}
     >
         <div id='fields'>
             {inputs}

@@ -10,7 +10,7 @@ const FormBase = ({
   inputs,
   actions,
   large,
-  children
+  renderForm
 }) => {
   // is edit, or is create? get id from somewhere
   // file upload
@@ -34,12 +34,12 @@ const FormBase = ({
     return true;
   }
 
-  useEffect(() => {
-      var firstField = document.querySelector('#dialogForm .field:first-child input');
-      if (firstField && firstField.focus) {
-          firstField.focus();
-      }
-  }, [])
+  const focusFirstInput = (formId) => {
+    var firstField = document.querySelector(`#${formId} .field:first-child input`);
+    if (firstField && firstField.focus) {
+      firstField.focus();
+    }
+  };
 
   useEffect(() => {
     isValid() ? setValid(true) : setValid(false);
@@ -73,7 +73,13 @@ const FormBase = ({
     setFields,
     isValid
   }}>
-    {children}
+    {
+      renderForm({
+        title,
+        focusFirstInput,
+        handleSubmit
+      })
+    }
   </FormContext.Provider >
 }
 

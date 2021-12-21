@@ -3,7 +3,13 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { FormBase, Actions, app, Explanations } from '@Form';
+import {
+    FormBase,
+    Explanations,
+    FormElement,
+    Actions,
+    app,
+} from '@Form';
 
 const DialogForm = ({
     entity,
@@ -32,44 +38,48 @@ const DialogForm = ({
         return () => app.removeListener(app.dialogFormCanceled, onDialogFormCanceled)
     }, [])
 
+    useEffect(() => {
+        const onItemCreated = (item) => {
+            setIsDialogFormOpen(false);
+        }
+        app.on(app.itemCreated, onItemCreated)
+        return () => app.removeListener(app.itemCreated, onItemCreated)
+    }, [])
+
     return <FormBase
         entity={entity}
-    >
-        <Dialog
-            /*dir={app.isRtl() ? "rtl" : "ltr"}*/
-            open={isDialogFormOpen}
-            id='dialogForm'
-            aria-labelledby="form-dialog-title"
-            fullWidth
-            maxWidth={large ? 'md' : 'sm'}
-            TransitionProps={{
-                onEntered: () => {
-                    var firstField = document.querySelector('#dialogForm .field:first-child input');
-                    if (firstField && firstField.focus) {
-                        firstField.focus();
+        renderForm={({
+            title,
+            focusFirstInput,
+            handleSubmit,
+        }) => {
+            return <Dialog
+                /*dir={app.isRtl() ? "rtl" : "ltr"}*/
+                open={isDialogFormOpen}
+                id='dialogForm'
+                aria-labelledby="form-dialog-title"
+                fullWidth
+                maxWidth={large ? 'md' : 'sm'}
+                TransitionProps={{
+                    onEntered: () => {
+                        focusFirstInput('dialogForm')
                     }
-                }
-            }}
-        >
-            <DialogTitle id="form-dialog-title">{app.t(title)}</DialogTitle>
-            <DialogContent>
-                <Explanations explanations={explanations} />
-                <form
-                    noValidate
-                //onSubmit={handleSubmit}
-                >
-                    <div id='fields'>
-                        {inputs}
-                    </div>
-                </form>
-            </DialogContent>
-            <DialogActions>
-                <Actions
-                    actions={actions}
-                />
-            </DialogActions>
-        </Dialog>
-    </FormBase>
+                }}
+            >
+                <DialogTitle id="form-dialog-title">{app.t(title)}</DialogTitle>
+                <DialogContent>
+                    <Explanations explanations={explanations} />
+                    <FormElement inputs={inputs} handleSubmit={handleSubmit} />
+                </DialogContent>
+                <DialogActions>
+                    <Actions
+                        actions={actions}
+                        handleSubmit={handleSubmit}
+                    />
+                </DialogActions>
+            </Dialog>
+        }}
+    />
 }
 
 export { DialogForm };

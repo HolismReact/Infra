@@ -33,7 +33,7 @@ const Actions = ({
                             <Button
                                 variant="outlined"
                                 className={'ml-2' + (isValid() ? " bg-green-200 text-gray-900 border-gray-400 " : "")}
-                                onClick={handleSubmit}
+                                onClick={(e) => handleSubmit(e)}
                                 disabled={!isValid()}
                             >
                                 {app.t('Save')}
