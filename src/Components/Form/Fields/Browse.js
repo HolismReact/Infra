@@ -77,9 +77,7 @@ const Browse = ({
             else {
                 throw new Error(`No return value specified for ${column} browser chooser function`);
             }
-            // setTimeout(() => {
-            //     show(display(selectedEntity))
-            // }, 50)
+            show(display(selectedEntity))
         }
     }, [selectedEntity]);
 

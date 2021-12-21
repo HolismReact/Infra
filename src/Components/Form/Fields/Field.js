@@ -46,7 +46,7 @@ const Field = ({
     }, [displayValue]);
 
     const validateAll = () => {
-        if (required && app.isNothing(displayValue)) {
+        if (required && app.isNothing(displayValue) && app.isNothing(chosenValue)) {
             setValidationState('invalid required ' + Date.now());
             setHelpText(required);
         }
