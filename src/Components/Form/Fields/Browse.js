@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
-import TextField from '@mui/material/TextField';
+import OutlinedInput from '@mui/material/OutlinedInput';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -11,129 +11,96 @@ import Button from '@mui/material/Button';
 import Slide from '@mui/material/Slide';
 import CloseIcon from '@mui/icons-material/Close';
 import Tooltip from '@mui/material/Tooltip';
-import { app, FormContext, fieldStyles } from '@Form';
+import { Field, app } from '@Form';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Browse = ({ column, required, placeholder, hint, value, browser, display, choose }) => {
+const Browse = ({
+    browser,
+    display,
+    choose,
+    ...rest
+}) => {
 
     const [id, setId] = useState();
     const [selectedEntity, setSelectedEntity] = useState(null);
-    const [currentValue, setCurrentValue] = useState(value || "");
-    const htmlInput = useRef();
-    const [helpText, setHelpText] = useState(hint);
-    const [validationState, setValidationResult] = useState(null);
     const [isBrowserDialogOpen, setIsBrowserDialogOpen] = useState(false);
-    const initialHint = hint;
-    var formContext = useContext(FormContext);
-    app.ensure([column, placeholder, display])
+    app.ensure([display, browser])
 
-    const clonedBrowser = React.cloneElement(browser(), {
-        callerId: id
-    });
+    // useEffect(() => {
+    //     validate();
+    // }, [selectedEntity]);
 
-    useEffect(() => {
-        validate();
-    }, [selectedEntity]);
+    // useEffect(() => {
+    //     app.addFieldToFormContext(formContext, id, undefined, false);
+    //     const handle = () => {
+    //         validate();
+    //     };
+    //     app.on(app.formSubmitted, handle);
+    //     return () => {
+    //         app.removeListener(app.formSubmitted, handle);
+    //     }
+    // }, [id, formContext]);
 
-    useEffect(() => {
-        setId(`browse_${column}`);
-    }, [column]);
+    // useEffect(() => {
+    //     const handleEntitySelection = ({ item, callerId }) => {
+    //         if (callerId != id) {
+    //             return;
+    //         }
+    //         setSelectedEntity(item.item);
+    //         setIsBrowserDialogOpen(false);
+    //     }
+    //     app.on(app.entitySelected, handleEntitySelection);
+    //     return () => {
+    //         app.removeListener(app.entitySelected, handleEntitySelection);
+    //     }
+    // });
 
-    useEffect(() => {
-        app.addFieldToFormContext(formContext, id, undefined, false);
-        const handle = () => {
-            validate();
-        };
-        app.on(app.formSubmitted, handle);
-        return () => {
-            app.removeListener(app.formSubmitted, handle);
-        }
-    }, [id, formContext]);
+    // useEffect(() => {
+    //     if (!selectedEntity) {
+    //         return;
+    //     }
+    //     if (typeof display(selectedEntity) == "undefined")
+    //         throw new Error(`No dispaly value specified for Browse ${column} `)
+    //     setCurrentValue(display(selectedEntity));
+    // }, [selectedEntity]);
 
-    const validate = () => {
-        if (required && app.isNothing(selectedEntity)) {
-            setValidationResult('invalid required');
-            setHelpText(required);
-        }
-        else {
-            setValidationResult('valid');
-            setHelpText(initialHint);
-        }
-    }
-
-    useEffect(() => {
-        const handleEntitySelection = ({ item, callerId }) => {
-            if (callerId != id) {
-                return;
-            }
-            setSelectedEntity(item.item);
-            setIsBrowserDialogOpen(false);
-        }
-        app.on(app.entitySelected, handleEntitySelection);
-        return () => {
-            app.removeListener(app.entitySelected, handleEntitySelection);
-        }
-    });
-
-    useEffect(() => {
-        if (!selectedEntity) {
-            return;
-        }
-        if (typeof display(selectedEntity) == "undefined")
-            throw new Error(`No dispaly value specified for Browse ${column} `)
-        setCurrentValue(display(selectedEntity));
-    }, [selectedEntity]);
-
-    const isValid = () => {
-        if (!required) {
-            return true;
-        }
-        if (!validationState) {
-            return false;
-        }
-        if (validationState.indexOf('invalid') > -1) {
-            return false;
-        }
-        return true;
-    }
-
-    useEffect(() => {
-        if (!selectedEntity) {
-            app.setField(formContext, id, selectedEntity, false);
-        }
-        else if (typeof choose == "function") {
-            try {
-                let chosenValue = choose(selectedEntity);
-                if (typeof chosenValue == "undefined" || typeof chosenValue === "function")
-                    throw new Error(`No return value specified for ${column} browser chooser function`)
-                app.setField(formContext, id, chosenValue, isValid());
-            } catch (error) {
-                throw new Error(`No return value specified for ${column} browser chooser function`);
-            }
-        }
-        else if (column.endsWith('Guid')) {
-            app.setField(formContext, id, selectedEntity.guid, isValid());
-        }
-        else if (column.endsWith('Id')) {
-            app.setField(formContext, id, selectedEntity.id, isValid());
-        }
-        else {
-            throw new Error(`No return value specified for ${column} browser chooser function`);
-        }
-    }, [validationState]);
+    // useEffect(() => {
+    //     if (!selectedEntity) {
+    //         app.setField(formContext, id, selectedEntity, false);
+    //     }
+    //     else if (typeof choose == "function") {
+    //         try {
+    //             let chosenValue = choose(selectedEntity);
+    //             if (typeof chosenValue == "undefined" || typeof chosenValue === "function")
+    //                 throw new Error(`No return value specified for ${column} browser chooser function`)
+    //             app.setField(formContext, id, chosenValue, isValid());
+    //         } catch (error) {
+    //             throw new Error(`No return value specified for ${column} browser chooser function`);
+    //         }
+    //     }
+    //     else if (column.endsWith('Guid')) {
+    //         app.setField(formContext, id, selectedEntity.guid, isValid());
+    //     }
+    //     else if (column.endsWith('Id')) {
+    //         app.setField(formContext, id, selectedEntity.id, isValid());
+    //     }
+    //     else {
+    //         throw new Error(`No return value specified for ${column} browser chooser function`);
+    //     }
+    // }, [validationState]);
 
     const browserDialog = <Dialog
         open={isBrowserDialogOpen}
-        aria-labelledby="form-dialog-title"
+        aria-labelledby="browserDialog"
         fullScreen
         TransitionComponent={Transition}
         onClose={() => setIsBrowserDialogOpen(false)}
     >
         <DialogTitle
-            id="form-dialog-title"
+            id="browserDialog"
             className="bg-gray-100"
         >
             <div className="flex items-center">
@@ -144,7 +111,11 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
             </div>
         </DialogTitle>
         <DialogContent>
-            {clonedBrowser}
+            {
+                React.cloneElement(browser(), {
+                    callerId: id
+                })
+            }
         </DialogContent>
         <DialogActions>
             <div id='actions' className='mt-4'>
@@ -159,39 +130,47 @@ const Browse = ({ column, required, placeholder, hint, value, browser, display, 
         </DialogActions>
     </Dialog>
 
-    return <div className={fieldStyles}>
-        {browserDialog}
-
-        <TextField
-            id={id}
-            inputRef={htmlInput}
-            error={validationState !== 'valid' ? true : false}
-            label={app.t(placeholder)}
-            required={required ? true : false}
-            helperText={helpText}
-            value={currentValue}
-            onChange={(e) => setCurrentValue(e.target.value)}
-            fullWidth
-            InputProps={{
-                // startAdornment:{
-                //     <InputAdornment position="start">
-                //     </InputAdornment>
-                // }
-                endAdornment:
-                    <InputAdornment position="end" >
-                        <Tooltip title={app.t("Find")}>
-                            <IconButton
-                                aria-label={app.t("Find")}
-                                onClick={() => setIsBrowserDialogOpen(true)}
-                                onMouseDown={() => { }}
+    return <Field
+        type='browse'
+        {...rest}
+        renderInput={({ currentValue, setCurrentValue, label, progress }) => {
+            return <>
+                {
+                    browserDialog
+                }
+                <OutlinedInput
+                    label={app.t(label)}
+                    value={currentValue}
+                    onChange={(e) => setCurrentValue(e.target.value)}
+                    readOnly={true}
+                    endAdornment={
+                        <InputAdornment
+                            disablePointerEvents={progress}
+                            disableTypography={progress}
+                            position="end"
+                        >
+                            <Tooltip
+                                title={app.t("Find")}
+                                disableFocusListener={progress}
+                                disableFocusListener={progress}
+                                disableInteractive={progress}
+                                disableTouchListener={progress}
                             >
-                                <MoreHorizIcon />
-                            </IconButton>
-                        </Tooltip>
-                    </InputAdornment>
-            }}
-        />
-    </div >
+                                <IconButton
+                                    disabled={progress}
+                                    aria-label={app.t("Find")}
+                                    onClick={() => setIsBrowserDialogOpen(true)}
+                                    onMouseDown={() => { }}
+                                >
+                                    <MoreHorizIcon />
+                                </IconButton>
+                            </Tooltip>
+                        </InputAdornment>
+                    }
+                />
+            </>
+        }}
+    />
 };
 
 export { Browse };

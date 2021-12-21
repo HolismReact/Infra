@@ -62,7 +62,7 @@ const FormBase = ({
     setProgress(true);
     setTimeout(() => {
       setProgress(false)
-    }, 2000)
+    }, 4000)
     // let url = `${entity}/create`;
     // post(url, data).then(data => {
     //   app.emit(app.itemCreated);
