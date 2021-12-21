@@ -17,21 +17,21 @@ const FormBase = ({
   // if is edit, load entity (only if they don't provide their own get method)
   // save
   const [fields, setFields] = useState([]);
-  const [progress, setInProgress] = useState();
-  const [valid, setValid] = useState(false);
+  const [progress, setProgress] = useState();
+  const [isValid, setIsValid] = useState(false);
   const [isEdition, setIsEdition] = useState(false);
 
   app.ensure([entity]);
 
   title = title || `${isEdition ? 'Edit' : 'Create'} ${entity}`
 
-  const isValid = () => {
+  const validate = () => {
     for (let i = 0; i < fields.length; i++) {
       if (!fields[i].isValid) {
-        return false;
+        setIsValid(false);
       }
     }
-    return true;
+    setIsValid(true);
   }
 
   const focusFirstInput = (formId) => {
@@ -42,12 +42,12 @@ const FormBase = ({
   };
 
   useEffect(() => {
-    isValid() ? setValid(true) : setValid(false);
+    validate()
   }, [fields]);
 
   const handleSubmit = (event) => {
     app.emit(app.formSubmitted);
-    if (!valid) {
+    if (!isValid) {
       event.preventDefault();
       return;
     }
@@ -57,21 +57,25 @@ const FormBase = ({
       data[fields[i].id.split('_')[1]] = fields[i].value;
     }
     console.log(data);
-    setInProgress(true);
-    let url = `${entity}/create`;
-    post(url, data).then(data => {
-      app.emit(app.itemCreated);
-      setInProgress(false);
-    }, error => {
-      app.error(error);
-      setInProgress(false);
-    })
+    setProgress(true);
+    setTimeout(() => {
+      setProgress(false)
+    }, 2000)
+    // let url = `${entity}/create`;
+    // post(url, data).then(data => {
+    //   app.emit(app.itemCreated);
+    //   setProgress(false);
+    // }, error => {
+    //   app.error(error);
+    //   setProgress(false);
+    // })
     event.preventDefault();
   }
   return <FormContext.Provider value={{
     fields,
     setFields,
-    isValid
+    isValid,
+    progress
   }}>
     {
       renderForm({

@@ -1,11 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { ListContext } from "../List";
-import app from '../../../Base/App';
 import FormControl from '@mui/material/FormControl';
-import FormHelperText from '@mui/material/FormHelperText';
-import Input from '@mui/material/Input';
-import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
+import app from '../../../Base/App';
+import { ListContext } from "../List";
 import filterOperator from '../../../Base/FilterOperator';
 
 const Filter = ({
@@ -18,12 +15,13 @@ const Filter = ({
     operator
 }) => {
 
-    app.ensure(column, placeholder);
+    app.ensure(column);
 
     const [id, setId] = useState();
     const [labelId, setLabelId] = useState();
     const [currentValue, setCurrentValue] = useState(value || "");
     var { listParameters } = useContext(ListContext);
+    const label = placeholder || column;
 
     useEffect(() => {
         const reset = () => {
@@ -51,23 +49,10 @@ const Filter = ({
         <FormControl
             fullWidth
         >
-            <InputLabel htmlFor={id}>{app.t(placeholder)}</InputLabel>
+            <InputLabel>{app.t(label)}</InputLabel>
             {
-                renderInput(currentValue, setCurrentValue, id)
+                renderInput(currentValue, setCurrentValue, label)
             }
-            {
-                // children
-                // React.cloneElement(children, {
-                //     // id: id,
-                //     //value: currentValue,
-                //     // "aria-describedby": helpTextId,
-                //     //handleChange: handleChange
-                // })
-            }
-            {/* {
-                children(currentValue, setCurrentValue)
-            } */}
-            {/* <FormHelperText id={helpTextId}>{helpText}</FormHelperText> */}
         </FormControl>
     </div>
 }

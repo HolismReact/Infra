@@ -6,11 +6,10 @@ import { FormContext, app } from '@Form';
 const Actions = ({
     actions,
     className,
-    progress,
     handleSubmit
 }) => {
 
-    const { isValid } = useContext(FormContext)
+    const { isValid, progress } = useContext(FormContext)
 
     return <div id='actions' className={'mt-4 ' + className}>
         {
@@ -32,9 +31,9 @@ const Actions = ({
                             </Button>
                             <Button
                                 variant="outlined"
-                                className={'ml-2' + (isValid() ? " bg-green-200 text-gray-900 border-gray-400 " : "")}
+                                className={'ml-2' + (isValid ? " bg-green-200 text-gray-900 border-gray-400 " : "")}
                                 onClick={(e) => handleSubmit(e)}
-                                disabled={!isValid()}
+                                disabled={!isValid}
                             >
                                 {app.t('Save')}
                             </Button>

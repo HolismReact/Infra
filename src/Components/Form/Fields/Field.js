@@ -54,16 +54,17 @@ const Field = ({
         else {
             setValidationState('valid ' + Date.now());
             setHelpText(initialHint);
-        }
-        if (validate && typeof validate === 'function') {
-            var result = validate(currentValue, setValidationState, setHelpText);
-            if (result === true) {
-                setValidationState('valid ' + Date.now());
-                setHelpText(initialHint);
-            }
-            else {
-                setValidationState(`invalid ${result?.error} ${Date.now()}`)
-                setHelpText(result?.message);
+
+            if (validate && typeof validate === 'function') {
+                var result = validate(currentValue, setValidationState, setHelpText);
+                if (!result || result === true) {
+                    setValidationState('valid ' + Date.now());
+                    setHelpText(initialHint);
+                }
+                else {
+                    setValidationState(`invalid ${result?.error} ${Date.now()}`)
+                    setHelpText(result?.message);
+                }
             }
         }
     }
@@ -87,6 +88,7 @@ const Field = ({
             error={isValid() ? false : true}
             fullWidth
             required={required ? true : false}
+            disabled={formContext.progress}
         >
             <InputLabel htmlFor={id}>{app.t(label)}</InputLabel>
             {

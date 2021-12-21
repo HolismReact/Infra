@@ -34,11 +34,10 @@ const Enum = ({ column, entity, placeholder }) => {
         column={column}
         placeholder={placeholder}
         operator={filterOperator.equals}
-        renderInput={(value, setValue, id) =>
+        renderInput={(value, setValue, label) =>
             <Select
-                id={id}
                 value={value}
-                label={app.t(placeholder)}
+                label={app.t(label)}
                 fullWidth
                 onChange={(event) => { setValue(event.target.value) }}
             >
