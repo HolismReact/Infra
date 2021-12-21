@@ -1,10 +1,9 @@
-import { useState, useEffect, useRef, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { app, FormContext } from '@Form';
 
 const Hidden = ({ column, value }) => {
 
     const [id, setId] = useState();
-    const htmlInput = useRef();
     var formContext = useContext(FormContext);
 
     useEffect(() => {
@@ -22,7 +21,6 @@ const Hidden = ({ column, value }) => {
     return <input
         id={id}
         type="hidden"
-        inputRef={htmlInput}
         value={value}
     />
 };

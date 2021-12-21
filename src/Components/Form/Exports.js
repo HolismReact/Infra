@@ -2,10 +2,10 @@ export { fieldStyles } from './Fields/FieldStyle';
 export { Page } from '../Page/Page'
 export { FormContext } from './FormBase'
 export { FormBase } from './FormBase'
+export { Actions } from './Actions'
 export { Explanations } from './Explanations'
 export { FormElement } from './FormElement'
 export { Form } from './Form'
-export { Actions } from './Actions'
 export { DialogForm } from './DialogForm'
 export { Field } from './Fields/Field'
 export { Text } from './Fields/Text';

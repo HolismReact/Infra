@@ -44,6 +44,7 @@ const FormBase = ({
 
   useEffect(() => {
     validate()
+    app.setFields(fields);
   }, [fields]);
 
   const handleSubmit = (event) => {

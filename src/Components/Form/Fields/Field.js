@@ -23,6 +23,7 @@ const Field = ({
     const [helpText, setHelpText] = useState(hint);
     const initialHint = hint;
     var formContext = useContext(FormContext);
+    const { progress } = formContext;
     const [validationState, setValidationState] = useState(null);
     const label = placeholder || column;
 
@@ -88,7 +89,7 @@ const Field = ({
             error={isValid() ? false : true}
             fullWidth
             required={required ? true : false}
-            disabled={formContext.progress}
+            disabled={progress}
         >
             <InputLabel htmlFor={id}>{app.t(label)}</InputLabel>
             {
@@ -96,7 +97,8 @@ const Field = ({
                     currentValue,
                     setCurrentValue,
                     label,
-                    id
+                    id,
+                    progress
                 })
             }
             <FormHelperText>{app.t(helpText)}</FormHelperText>

@@ -1,3 +1,5 @@
+let fieldsCache;
+
 const Holism = {
     isSomething: value => {
         return !Holism.isNothing(value);
@@ -28,6 +30,12 @@ const Holism = {
                 isValid: isValid
             }, ...previousFields]
         });
+    },
+    setFields: (fields) => {
+        fieldsCache = fields;
+    },
+    getFields: () => {
+        return fieldsCache;
     },
     setField: (formContext, id, value, isValid) => {
         if (!formContext) {

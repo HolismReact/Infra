@@ -19,18 +19,27 @@ const Form = ({
 }) => {
     return <FormBase
         entity={entity}
-    >
-        <Page
-            title={title}
-            className="px-6 md:px-12 lg:w-2/3 mx-auto mt-24"
-        >
-            <Explanations explanations={explanations} />
-            <FormElement inputs={inputs} />
-            <Actions
-                actions={actions}
-            />
-        </Page>
-    </FormBase>
+        renderForm={({
+            title,
+            focusFirstInput,
+            handleSubmit,
+        }) => {
+            return <Page
+                title={title}
+                className="px-6 md:px-12 lg:w-2/3 mx-auto mt-24"
+            >
+                <Explanations explanations={explanations} />
+                <FormElement
+                    inputs={inputs}
+                    handleSubmit={handleSubmit}
+                />
+                <Actions
+                    actions={actions}
+                    handleSubmit={handleSubmit}
+                />
+            </Page>
+        }}
+    />
 }
 
 export { Form }
