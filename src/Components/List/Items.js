@@ -1,331 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
-import Pagination from './Pagination';
-import ItemActions from './ItemActionsHolder';
-import Checkbox from '@mui/material/Checkbox';
-import Tooltip from '@mui/material/Tooltip';
-import Collapse from '@mui/material/Collapse';
 import { ListContext, useLocalStorageState, app, get } from '@List';
+import Cards from './ItemsCards'
+import Table from './ItemsTable'
 
 const noItemIsFoundStyle = 'py-10 text-2xl font-bold text-gray-600';
 
-const Cards = ({
-    data,
-    itemActions,
-    hasDelete,
-    hasEdit,
-    edit,
-    entityType,
-    create,
-    metadata,
-    card,
-    setItem,
-    reload,
-    hasItemSelection,
-    classProvider,
-    showTopPagiation
-}) => {
+const Items = (props) => {
 
-    const listContext = useContext(ListContext);
-    const { selectedItems } = listContext;
-
-    return <>
-        {
-            data.length === 0
-                ?
-                <div className={noItemIsFoundStyle}>{app.t("No item is found")}</div>
-                :
-                <>
-                    <Collapse in={showTopPagiation} className="w-full">
-                        <div className="px-6 w-full">
-                            <Pagination metadata={metadata} />
-                        </div>
-                        <br />
-                    </Collapse>
-                    {
-
-                        hasItemSelection ?
-                            <div className="w-full flex justify-start px-6">
-                                <Tooltip
-                                    title="Select all"
-                                    placement="top"
-                                >
-                                    <Checkbox
-                                        color="primary"
-                                        onChange={(event) => {
-                                            event.target.checked
-                                                ?
-                                                app.addItemsToSelectedItems(listContext, data)
-                                                :
-                                                app.removeItemsFromSelectedItems(listContext, data)
-                                        }}
-                                        inputProps={{ 'aria-label': 'Select all' }}
-                                    />
-                                </Tooltip>
-                            </div>
-                            :
-                            null
-                    }
-                    <br />
-                    {
-                        data.map((item, index) =>
-                            <div
-                                className=
-                                {
-                                    'item w-full py-4 px-6 overflow-hidden ' +
-                                    (index === 0 ? '' : 'border-t ') +
-                                    classProvider(item)
-                                }
-                                key={item.id}
-                                dir={app.isRtl() ? "rtl" : "ltr"}
-                            >
-                                {
-                                    hasItemSelection
-                                        ?
-                                        <div className="flex flex-row">
-                                            <div className="flex items-center justify-center w-10 mr-4">
-                                                <Checkbox
-                                                    checked={selectedItems.indexOf(item.id) > -1}
-                                                    color="primary"
-                                                    onChange={(event) => {
-                                                        event.target.checked
-                                                            ?
-                                                            app.addItemToSelectedItems(listContext, item.id)
-                                                            :
-                                                            app.removeItemFromSelectedItems(listContext, item.id)
-                                                    }}
-                                                />
-                                            </div>
-                                            <div>
-                                                {
-                                                    card(item)
-                                                }
-                                            </div>
-                                        </div>
-                                        :
-                                        card(item)
-                                }
-                                {
-                                    (itemActions || hasDelete || hasEdit || edit)
-                                        ?
-                                        <div className="flex flex-wrap items-center justify-end">
-                                            <ItemActions
-                                                entityType={entityType}
-                                                item={item}
-                                                itemActions={itemActions}
-                                                hasDelete={hasDelete}
-                                                hasEdit={hasEdit}
-                                                editionComponent={edit}
-                                                creationComponent={create}
-                                                setItem={setItem}
-                                                reload={reload}
-                                            />
-                                        </div>
-                                        :
-                                        null
-                                }
-                            </div>
-                        )
-                    }
-                    < br />
-                    <div className="px-6 w-full">
-                        <Pagination metadata={metadata} />
-                    </div>
-                </>
-        }
-    </>
-}
-
-const Table = ({
-    entityType,
-    data,
-    metadata,
-    headers,
-    row,
-    itemActions,
-    hasDelete,
-    hasEdit,
-    edit,
-    create,
-    setItem,
-    reload,
-    hasItemSelection,
-    classProvider,
-    showTopPagiation
-}) => {
-
-    const listContext = useContext(ListContext);
-    const { selectedItems } = listContext;
-
-    let headerElements = [];
-
-    if (headers) {
-
-        headerElements = React.Children
-            .toArray(headers.props.children)
-            .map(header => React.cloneElement(header, {
-                className: "text-gray-900 py-3 font-light text-xs",
-                children: React.Children.toArray(header.props.children).map(child => {
-                    return typeof child === "string" ? app.t(child) : child;
-                })
-            }));
-    }
-
-    return <>
-        {
-            data.length === 0
-                ?
-                null
-                :
-                <Collapse in={showTopPagiation} className="w-full">
-                    <div className="w-full px-6">
-                        <Pagination metadata={metadata} />
-                    </div>
-                </Collapse>
-        }
-        <div className="w-full overflow-x-auto px-6">
-            <table
-                className="w-full text-center "
-                style={{ minWidth: '600px' }}
-                dir={app.isRtl() ? "rtl" : "ltr"}
-            >
-                <thead>
-                    <tr className='text-xs uppercase text-gray-900 font-light tracking-wider border-b'>
-                        {
-
-                            hasItemSelection ?
-                                <>
-                                    <th>
-                                        <Tooltip
-                                            title="Select all"
-                                            placement="top"
-                                        >
-                                            <Checkbox
-                                                color="primary"
-                                                onChange={(event) => {
-                                                    event.target.checked
-                                                        ?
-                                                        app.addItemsToSelectedItems(listContext, data)
-                                                        :
-                                                        app.removeItemsFromSelectedItems(listContext, data)
-                                                }}
-                                                inputProps={{ 'aria-label': 'Select all' }}
-                                            />
-                                        </Tooltip>
-                                    </th>
-                                </>
-                                :
-                                null
-                        }
-                        {
-                            headerElements
-                        }
-                        {
-                            (itemActions || hasDelete)
-                                ?
-                                <td></td>
-                                :
-                                null
-                        }
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        row && typeof row === 'function'
-                            ?
-                            data.length === 0
-                                ?
-                                <tr>
-                                    <td colSpan='100' className={noItemIsFoundStyle}>{app.t("No item is found")}</td>
-                                </tr>
-                                :
-                                data.map((item, index) => <tr
-                                    key={item.id}
-                                    className=
-                                    {
-                                        'py-3 ' +
-                                        ((index === data.length - 1) ? '' : 'border-b ') +
-                                        classProvider(item)
-                                    }
-                                >
-                                    {
-                                        hasItemSelection
-                                            ?
-                                            <td>
-                                                <Checkbox
-                                                    checked={selectedItems.indexOf(item.id) > -1}
-                                                    color="primary"
-                                                    onChange={(event) => {
-                                                        event.target.checked
-                                                            ?
-                                                            app.addItemToSelectedItems(listContext, item.id)
-                                                            :
-                                                            app.removeItemFromSelectedItems(listContext, item.id)
-                                                    }}
-                                                />
-                                            </td>
-                                            :
-                                            null
-                                    }
-                                    {
-                                        React.Children
-                                            .toArray(row(item).props.children)
-                                            .map(itemElemen => React.cloneElement(itemElemen, {
-                                                className: 'text-gray-900 py-3 text-sm font-light tracking-wide'
-                                            }))
-                                    }
-                                    {
-                                        (itemActions || hasDelete || hasEdit || edit)
-                                            ?
-                                            <td className="flex flex-wrap items-center justify-end">
-                                                <ItemActions
-                                                    entityType={entityType}
-                                                    item={item}
-                                                    itemActions={itemActions}
-                                                    hasDelete={hasDelete}
-                                                    hasEdit={hasEdit}
-                                                    editionComponent={edit}
-                                                    creationComponent={create}
-                                                    setItem={setItem}
-                                                    reload={reload}
-                                                />
-                                            </td>
-                                            :
-                                            null
-                                    }
-                                </tr>)
-                            :
-                            null
-                    }
-                </tbody>
-            </table>
-        </div>
-        {
-            data.length === 0
-                ?
-                null
-                :
-                <div className="pt-8 w-full px-6">
-                    <Pagination metadata={metadata} />
-                </div>
-        }
-    </>
-};
-
-const Items = ({
-    entityType,
-    card,
-    headers,
-    row,
-    hasDelete,
-    hasEdit,
-    edit,
-    create,
-    itemActions,
-    hasItemSelection,
-    classProvider
-}) => {
-
+    const { entityType, card, headers, row, classProvider } = props;
     app.ensure([entityType]);
 
     const [loading, setLoading] = useState();
@@ -360,10 +43,7 @@ const Items = ({
         load();
     }
 
-    if (!classProvider) {
-        classProvider = () => '';
-    }
-    if (typeof classProvider !== 'function') {
+    if (classProvider && typeof classProvider !== 'function') {
         console.warn('classProvider should be a function');
     }
 
@@ -443,46 +123,26 @@ const Items = ({
                 (
                     card
                         ?
-                        Cards({
-                            entityType,
-                            loading,
-                            data,
-                            metadata,
-                            card,
-                            itemActions,
-                            hasDelete,
-                            hasEdit,
-                            edit,
-                            create,
-                            setItem,
-                            reload,
-                            hasItemSelection,
-                            classProvider,
-                            showTopPagiation
-                        })
+                        <Cards {...props}
+                            noItemIsFoundStyle={noItemIsFoundStyle}
+                            loading={loading}
+                            data={data}
+                            metadata={metadata}
+                            setItem={setItem}
+                            reload={reload}
+                            showTopPagiation={showTopPagiation}
+
+                        />
                         :
-                        // window.innerWidth < app.breakpoints.md
-                        //     ?
-                        //     <div>Only Cards are shown for small screens!</div>
-                        //     :
-                        Table({
-                            entityType,
-                            loading,
-                            data,
-                            metadata,
-                            headers,
-                            row,
-                            itemActions,
-                            hasDelete,
-                            hasEdit,
-                            edit,
-                            create,
-                            setItem,
-                            reload,
-                            hasItemSelection,
-                            classProvider,
-                            showTopPagiation
-                        })
+                        <Table {...props}
+                            noItemIsFoundStyle={noItemIsFoundStyle}
+                            loading={loading}
+                            data={data}
+                            metadata={metadata}
+                            setItem={setItem}
+                            reload={reload}
+                            showTopPagiation={showTopPagiation}
+                        />
                 )
         }
     </div>

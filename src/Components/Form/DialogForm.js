@@ -21,8 +21,6 @@ const DialogForm = ({
 }) => {
 
     const [isDialogFormOpen, setIsDialogFormOpen] = useState(false);
-    const [item, setItem] = useState(null);
-    const [mode, setMode] = useState(app.formModel.creation)
 
     useEffect(() => {
         const onDialogFormRequested = (item) => {

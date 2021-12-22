@@ -20,6 +20,8 @@ const FormBase = ({
   const [progress, setProgress] = useState();
   const [isValid, setIsValid] = useState(false);
   const [isEdition, setIsEdition] = useState(false);
+  const [entity, setEntity] = useState(null);
+  const [mode, setMode] = useState(app.formMode.creation)
 
   app.ensure([entityType]);
 

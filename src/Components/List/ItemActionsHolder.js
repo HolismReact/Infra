@@ -47,6 +47,12 @@ const ItemActions = ({
                 null
         }
         {
+            /*
+                upsert={UpsertEntity}
+                hasEdit={true}
+                edit={(entity) => `/entity/edit/${entity.id}`}
+                edit={EditEntity}
+            */
             hasEdit || editionComponent || upsertComponent
                 ?
                 <EditAction
