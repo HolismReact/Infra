@@ -45,6 +45,18 @@ const FormBase = ({
   };
 
   useEffect(() => {
+    const onEditRequested = (params) => {
+      if (entityType == params.entityType) {
+        setEntity(params.entity);
+      }
+    }
+    app.on(app.editRequested, onEditRequested);
+    return () => {
+      app.removeListener(app.editRequested, onEditRequested);
+    }
+  }, [])
+
+  useEffect(() => {
     validate()
     app.setFieldsCache(fields);
   }, [fields]);
@@ -79,7 +91,9 @@ const FormBase = ({
     fields,
     setFields,
     isValid,
-    progress
+    progress,
+    entity,
+    mode
   }}>
     {
       renderForm({

@@ -23,6 +23,18 @@ const DialogForm = ({
     const [isDialogFormOpen, setIsDialogFormOpen] = useState(false);
 
     useEffect(() => {
+        const onEditRequested = (params) => {
+            if (params.entityType === entityType) {
+                setIsDialogFormOpen(true)
+            }
+        }
+        app.on(app.editRequested, onEditRequested)
+        return () => {
+            app.removeListener(app.editRequested, onEditRequested)
+        }
+    }, [])
+
+    useEffect(() => {
         const onDialogFormRequested = (item) => {
             setIsDialogFormOpen(true);
         }
