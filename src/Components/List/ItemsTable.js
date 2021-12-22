@@ -142,8 +142,8 @@ const Table = ({
                                     {
                                         React.Children
                                             .toArray(row(item).props.children)
-                                            .map(itemElemen => React.cloneElement(itemElemen, {
-                                                className: 'text-gray-900 py-3 text-sm font-light tracking-wide'
+                                            .map(td => React.cloneElement(td, {
+                                                className: 'text-gray-900 py-3 text-sm font-light tracking-wide ' + td.props.className
                                             }))
                                     }
                                     {

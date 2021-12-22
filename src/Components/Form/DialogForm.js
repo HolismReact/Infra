@@ -35,11 +35,19 @@ const DialogForm = ({
     }, [])
 
     useEffect(() => {
-        const onDialogFormRequested = (item) => {
+        const onCreationRequested = (item) => {
             setIsDialogFormOpen(true);
         }
-        app.on(app.creationRequested, onDialogFormRequested)
-        return () => app.removeListener(app.creationRequested, onDialogFormRequested)
+        app.on(app.creationRequested, onCreationRequested)
+        return () => app.removeListener(app.creationRequested, onCreationRequested)
+    }, [])
+
+    useEffect(() => {
+        const onItemActionDialogRequested = (item) => {
+            setIsDialogFormOpen(true);
+        }
+        app.on(app.itemActionDialogRequested, onItemActionDialogRequested)
+        return () => app.removeListener(app.itemActionDialogRequested, onItemActionDialogRequested)
     }, [])
 
     useEffect(() => {

@@ -58,7 +58,7 @@ const DeleteAction = ({ entityType, item }) => {
         {
             progress
                 ?
-                <CircularProgress />
+                <CircularProgress size={24} className="m-2" />
                 :
                 <ItemAction
                     icon={<DeleteIcon style={{ color: '#EF4444' }} />}

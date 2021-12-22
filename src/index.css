@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+    .link {
+        @apply underline text-blue-600 cursor-pointer
+    }
+    .link:hover {
+       @apply text-blue-800
+    }
+    .link:visited {
+       @apply text-purple-600
+    }
+}

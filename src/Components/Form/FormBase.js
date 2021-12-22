@@ -52,13 +52,18 @@ const FormBase = ({
     }
   }, [entity])
 
+  const resetForm = () => {
+    setFields([])
+    setEntity(null)
+  }
+
   useEffect(() => {
-      const onCreationRequested = (item) => {
-          setFields([])
-          setEntity(null)
-      }
-      app.on(app.creationRequested, onCreationRequested)
-      return () => app.removeListener(app.creationRequested, onCreationRequested)
+    app.on(app.creationRequested, resetForm)
+    app.on(app.itemActionDialogRequested, resetForm)
+    return () => {
+      app.removeListener(app.creationRequested, resetForm)
+      app.removeListener(app.itemActionDialogRequested, resetForm)
+    }
   }, [])
 
   useEffect(() => {

@@ -4,6 +4,7 @@ import Tooltip from '@mui/material/Tooltip';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate } from 'react-router-dom';
 import { HolismIcon, app } from '@List';
+import { DialogForm } from '@Form';
 
 const ItemAction = ({
     title,
@@ -22,7 +23,22 @@ const ItemAction = ({
 
     const [progress, setProgress] = useState(false);
 
-    const [dialogIsOpen, setDialogIsOpen] = useState(false)
+    let Dialog = dialog;
+    if (dialog) {
+        const result = dialog(item)
+        const name = result.type.name
+        if (name === 'Form') {
+            Dialog = <DialogForm
+                entityType={result.props?.entityType}
+                title={result.props?.title}
+                explanations={result.props.explanations}
+                inputs={result.props?.inputs}
+                actions={result.props?.actions}
+                large={result.props?.large}
+                saveClicked={result.props?.saveClicked}
+            />
+        }
+    }
 
     return <span className="itemAction flex items-center justify-center">
         {
@@ -46,8 +62,7 @@ const ItemAction = ({
                             click({ item, setProgress, setItem, reload })
                         }
                         else if (dialog) {
-                            const DialogProp = dialog;
-                            <DialogProp open={dialogIsOpen} />
+                            app.emit(app.itemActionDialogRequested, { entity: item })
                         }
                         else {
                             console.warn(`No action is assigned to item action. Title is '${title}'`)
@@ -66,6 +81,13 @@ const ItemAction = ({
                         }
                     </IconButton>
                 </Tooltip>
+        }
+        {
+            dialog
+                ?
+                Dialog
+                :
+                null
         }
     </span>
 };
