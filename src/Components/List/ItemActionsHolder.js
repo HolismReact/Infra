@@ -22,7 +22,7 @@ const ItemActions = ({
         let itemActionsArray = null;
         if (typeof itemActions === 'function') {
             itemActionsArray = itemActions(item).props.children
-            if (itemActionsArray.props && itemActionsArray.props.children) {
+            if (itemActionsArray && itemActionsArray.props && itemActionsArray.props.children) {
                 itemActionsArray = itemActionsArray.props.children
             }
         }
@@ -32,11 +32,13 @@ const ItemActions = ({
         React
             .Children
             .toArray(itemActionsArray)
-        clonedItemActions = itemActionsArray.map(itemAction => React.cloneElement(itemAction, {
-            item: item,
-            setItem: setItem,
-            reload: reload
-        }))
+        if (itemActionsArray) {
+            clonedItemActions = itemActionsArray.map(itemAction => React.cloneElement(itemAction, {
+                item: item,
+                setItem: setItem,
+                reload: reload
+            }))
+        }
     }
 
 
