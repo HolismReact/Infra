@@ -38,8 +38,8 @@ const DialogForm = ({
         const onDialogFormRequested = (item) => {
             setIsDialogFormOpen(true);
         }
-        app.on(app.dialogFormRequested, onDialogFormRequested)
-        return () => app.removeListener(app.dialogFormRequested, onDialogFormRequested)
+        app.on(app.creationRequested, onDialogFormRequested)
+        return () => app.removeListener(app.creationRequested, onDialogFormRequested)
     }, [])
 
     useEffect(() => {

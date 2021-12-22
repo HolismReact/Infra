@@ -69,8 +69,10 @@ const Field = ({
     }
 
     useEffect(() => {
-        setDisplayValue(entity[app.camelize(column)])
-        setChosenValue(entity[app.camelize(column)])
+        if (entity) {
+            setDisplayValue(entity[app.camelize(column)])
+            setChosenValue(entity[app.camelize(column)])
+        }
     }, [entity])
 
     const isValid = () => {

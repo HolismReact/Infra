@@ -53,6 +53,15 @@ const FormBase = ({
   }, [entity])
 
   useEffect(() => {
+      const onCreationRequested = (item) => {
+          setFields([])
+          setEntity(null)
+      }
+      app.on(app.creationRequested, onCreationRequested)
+      return () => app.removeListener(app.creationRequested, onCreationRequested)
+  }, [])
+
+  useEffect(() => {
     const onEditRequested = (params) => {
       if (entityType == params.entityType) {
         setEntity(params.entity);

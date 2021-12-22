@@ -69,7 +69,7 @@ const ListActions = ({ actions, create, creationButton, upsert }) => {
                                 navigate(create)
                             }
                             else {
-                                app.emit(app.dialogFormRequested)
+                                app.emit(app.creationRequested)
                             }
                         }}
                     >
