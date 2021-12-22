@@ -42,7 +42,7 @@ const Items = (props) => {
     useEffect(() => {
         const onEntityReloadRequested = ({ entity }) => {
             setEntityProgress(entity, true);
-            get(`${entity}/get/${entity.id}`)
+            get(`${entityType}/get/${entity.id}`)
                 .then(result => {
                     setEntityProgress(entity, false)
                     setItem(result)
