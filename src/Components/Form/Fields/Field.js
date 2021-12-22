@@ -69,8 +69,8 @@ const Field = ({
     }
 
     useEffect(() => {
-        console.log(entity, column);
-        window.entity = entity;
+        setDisplayValue(entity[app.camelize(column)])
+        setChosenValue(entity[app.camelize(column)])
     }, [entity])
 
     const isValid = () => {

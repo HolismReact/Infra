@@ -1,5 +1,3 @@
-let fieldsCache;
-
 const Holism = {
     isSomething: value => {
         return !Holism.isNothing(value);
@@ -9,48 +7,6 @@ const Holism = {
     },
     randomId: () => {
         return Math.random().toString(36).replace(/[^a-z]+/g, '');
-    },
-    addFieldToFormContext: (formContext, id, value, isValid) => {
-        if (!formContext) {
-            return;
-        }
-        if (!id) {
-            return;
-        }
-        const { fields, setFields } = formContext;
-        for (var i = 0; i < fields.length; i++) {
-            if (fields[i].id === id) {
-                return;
-            }
-        }
-        setFields((previousFields) => {
-            return [{
-                id: id,
-                value: value,
-                isValid: isValid
-            }, ...previousFields]
-        });
-    },
-    setFieldsCache: (fields) => {
-        fieldsCache = fields;
-    },
-    getFields: () => {
-        return fieldsCache;
-    },
-    setField: (formContext, id, value, isValid) => {
-        if (!formContext) {
-            return;
-        }
-        const { setFields } = formContext;
-        setFields((previousFields) => {
-            for (var i = 0; i < previousFields.length; i++) {
-                if (previousFields[i].id === id) {
-                    previousFields[i].value = value;
-                    previousFields[i].isValid = isValid;
-                }
-            }
-            return [...previousFields];
-        });
     },
     ensure: (items) => {
         for (let i = 0; i < items.length; i++) {
@@ -70,9 +26,10 @@ const Holism = {
     goTo: (url) => {
         //navigate(url);
     },
-    formMode: {
-        creation: 1,
-        edition: 2
+    camelize: (text) => {
+        return text.replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
+            return index === 0 ? word.toLowerCase() : word.toUpperCase();
+        }).replace(/\s+/g, '');
     }
 };
 

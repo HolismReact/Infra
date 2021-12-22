@@ -5,6 +5,7 @@ import Account from './Account';
 import Holism from "./Holism";
 import Messaging from "./Messaging";
 import List from "./List";
+import Form from "./Form";
 import Globalization from './Globalization';
 import Url from './Url';
 
@@ -15,6 +16,7 @@ const app = {
     ...Account,
     ...Messaging,
     ...List,
+    ...Form,
     ...Holism,
     ...Globalization,
     ...Url

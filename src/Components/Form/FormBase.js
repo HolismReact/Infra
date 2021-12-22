@@ -19,13 +19,12 @@ const FormBase = ({
   const [fields, setFields] = useState([]);
   const [progress, setProgress] = useState();
   const [isValid, setIsValid] = useState(false);
-  const [isEdition, setIsEdition] = useState(false);
   const [entity, setEntity] = useState(null);
   const [mode, setMode] = useState(app.formMode.creation)
 
   app.ensure([entityType]);
 
-  title = title || `${isEdition ? 'Edit' : 'Create'} ${entityType}`
+  title = title || `${mode == app.formMode.edition ? 'Edit' : 'Create'} ${entityType}`
 
   const validate = () => {
     for (let i = 0; i < fields.length; i++) {
@@ -45,7 +44,12 @@ const FormBase = ({
   };
 
   useEffect(() => {
-    
+    if (entity && entity.id) {
+      setMode(app.formMode.edition)
+    }
+    else {
+      setMode(app.formMode.creation)
+    }
   }, [entity])
 
   useEffect(() => {
@@ -81,7 +85,10 @@ const FormBase = ({
     // setTimeout(() => {
     //   setProgress(false)
     // }, 4000)
-    let url = `${entityType}/create`;
+    let url = `${entityType}/${mode === app.formMode.creation ? 'create' : 'update'}`;
+    if (mode === app.formMode.edition) {
+      data['id'] = entity.id;
+    }
     post(url, data).then(data => {
       app.emit(app.itemCreated);
       setProgress(false);
