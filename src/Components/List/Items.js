@@ -28,13 +28,28 @@ const Items = (props) => {
         }
     });
 
+    const setEntityProgress = (entity, progress) => {
+        setData((data) => {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].id === entity.id) {
+                    data[i].progress = progress;
+                }
+            }
+            return [...data];
+        });
+    }
+
     useEffect(() => {
         const onEntityReloadRequested = ({ entity }) => {
-            console.log('reloading entity ' + entity.id)
-            entity.progress = true;
-            setTimeout(() => {
-                entity.progress = false;
-            }, 3000)
+            setEntityProgress(entity, true);
+            get(`${entity}/get/${entity.id}`)
+                .then(result => {
+                    setEntityProgress(entity, false)
+                    setItem(result)
+                }, error => {
+                    setEntityProgress(entity, false)
+                    app.error(error)
+                })
         }
         app.on(app.entityReloadRequested, onEntityReloadRequested)
         return () => {

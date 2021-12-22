@@ -39,6 +39,9 @@ const FormBase = ({
 
   const focusFirstInput = (formId) => {
     var firstField = document.querySelector(`#${formId} .field:first-child input`);
+    if (!firstField) {
+      firstField = document.querySelector(`#${formId} .field:first-child textarea`);
+    }
     if (firstField && firstField.focus) {
       firstField.focus();
     }
@@ -97,7 +100,7 @@ const FormBase = ({
     }
     console.log(data);
     if (okAction && typeof okAction === 'function') {
-      okAction(setProgress, data);
+      okAction({ setProgress, data, entity });
     }
     else {
       setProgress(true);

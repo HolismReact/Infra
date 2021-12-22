@@ -35,7 +35,7 @@ const ItemAction = ({
                 inputs={result.props?.inputs}
                 actions={result.props?.actions}
                 large={result.props?.large}
-                saveClicked={result.props?.saveClicked}
+                okAction={result.props?.okAction}
             />
         }
     }

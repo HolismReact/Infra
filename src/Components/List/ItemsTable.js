@@ -6,6 +6,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Collapse from '@mui/material/Collapse';
 import CircularProgress from '@mui/material/CircularProgress';
 import { ListContext, app } from '@List';
+import Fade from '@mui/material/Fade';
 
 const Table = ({
     entityType,
@@ -132,24 +133,30 @@ const Table = ({
                         {
                             item.progress
                                 ?
-                                <CircularProgress size={24} className="mt-2" />
+                                <td className="flex flex-wrap items-center justify-end px-2">
+                                    <Fade in={item.progress}>
+                                        <CircularProgress size={24} className="mt-2" />
+                                    </Fade>
+                                </td>
                                 :
                                 (itemActions || hasDelete || hasEdit || edit)
                                     ?
-                                    <td className="flex flex-wrap items-center justify-end">
-                                        <ItemActions
-                                            entityType={entityType}
-                                            item={item}
-                                            itemActions={itemActions}
-                                            hasDelete={hasDelete}
-                                            hasEdit={hasEdit}
-                                            edit={edit}
-                                            create={create}
-                                            upsert={upsert}
-                                            setItem={setItem}
-                                            reload={reload}
-                                        />
-                                    </td>
+                                    <Fade in={!item.progress}>
+                                        <td className="flex flex-wrap items-center justify-end">
+                                            <ItemActions
+                                                entityType={entityType}
+                                                item={item}
+                                                itemActions={itemActions}
+                                                hasDelete={hasDelete}
+                                                hasEdit={hasEdit}
+                                                edit={edit}
+                                                create={create}
+                                                upsert={upsert}
+                                                setItem={setItem}
+                                                reload={reload}
+                                            />
+                                        </td>
+                                    </Fade>
                                     :
                                     null
                         }
