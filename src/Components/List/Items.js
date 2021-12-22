@@ -118,7 +118,9 @@ const Items = (props) => {
         {
             loading
                 ?
-                <CircularProgress />
+                <CircularProgress
+                    className="my-12"
+                />
                 :
                 (
                     card
