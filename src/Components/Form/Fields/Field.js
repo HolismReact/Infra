@@ -24,7 +24,7 @@ const Field = ({
     const [helpText, setHelpText] = useState(hint);
     const initialHint = hint;
     var formContext = useContext(FormContext);
-    const { progress } = formContext;
+    const { progress, entity } = formContext;
     const [validationState, setValidationState] = useState(null);
     const label = placeholder || column;
 
@@ -67,6 +67,11 @@ const Field = ({
             }
         }
     }
+
+    useEffect(() => {
+        console.log(entity, column);
+        window.entity = entity;
+    }, [entity])
 
     const isValid = () => {
         if (!validationState) {

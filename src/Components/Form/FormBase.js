@@ -45,6 +45,10 @@ const FormBase = ({
   };
 
   useEffect(() => {
+    
+  }, [entity])
+
+  useEffect(() => {
     const onEditRequested = (params) => {
       if (entityType == params.entityType) {
         setEntity(params.entity);
