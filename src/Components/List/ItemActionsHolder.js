@@ -16,25 +16,34 @@ const ItemActions = ({
     reload
 }) => {
 
+    let clonedItemActions = [];
+
+    if (itemActions) {
+        let itemActionsArray = null;
+        if (typeof itemActions === 'function') {
+            itemActionsArray = itemActions(item).props.children
+            if (itemActionsArray.props && itemActionsArray.props.children) {
+                itemActionsArray = itemActionsArray.props.children
+            }
+        }
+        else {
+            itemActionsArray = itemActions.props.children
+        }
+        React
+            .Children
+            .toArray(itemActionsArray)
+        clonedItemActions = itemActionsArray.map(itemAction => React.cloneElement(itemAction, {
+            item: item,
+            setItem: setItem,
+            reload: reload
+        }))
+    }
+
+
+
     return <>
         {
-            itemActions ?
-                React
-                    .Children
-                    .toArray(
-                        (typeof itemActions === 'function')
-                            ?
-                            itemActions(item).props.children
-                            :
-                            itemActions.props.children
-                    )
-                    .map(itemAction => React.cloneElement(itemAction, {
-                        item: item,
-                        setItem: setItem,
-                        reload: reload
-                    }))
-                :
-                null
+            clonedItemActions.map((itemAction, index) => <span key={index}>{itemAction}</span>)
         }
         {
             hasDelete

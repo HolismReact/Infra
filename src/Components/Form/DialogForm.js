@@ -18,7 +18,8 @@ const DialogForm = ({
     inputs,
     actions,
     large,
-    okAction
+    okAction,
+    entityId
 }) => {
 
     const [isDialogFormOpen, setIsDialogFormOpen] = useState(false);
@@ -44,8 +45,10 @@ const DialogForm = ({
     }, [])
 
     useEffect(() => {
-        const onItemActionDialogRequested = (item) => {
-            setIsDialogFormOpen(true);
+        const onItemActionDialogRequested = ({ entity }) => {
+            if (entity.id === entityId) {
+                setIsDialogFormOpen(true);
+            }
         }
         app.on(app.itemActionDialogRequested, onItemActionDialogRequested)
         return () => app.removeListener(app.itemActionDialogRequested, onItemActionDialogRequested)

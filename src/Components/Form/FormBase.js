@@ -11,7 +11,7 @@ const FormBase = ({
   actions,
   large,
   renderForm,
-  okAction
+  okAction,
 }) => {
   // is edit, or is create? get id from somewhere
   // file upload

@@ -36,6 +36,7 @@ const ItemAction = ({
                 actions={result.props?.actions}
                 large={result.props?.large}
                 okAction={result.props?.okAction}
+                entityId={item.id}
             />
         }
     }
