@@ -11,10 +11,18 @@ import { app, ItemAction, ListContext, useLocalStorageState } from '@List';
 
 const listActionIconStyle = "text-gray-700 hover:text-blue-500 cursor-pointer";
 
-const Browse = ({ sorts, filters, row, card, entity, headers, callerId }) => {
+const Browse = ({
+    sorts,
+    filters,
+    row,
+    card,
+    entityType,
+    headers,
+    callerId
+}) => {
 
-    const [listParameters] = useState(CreateListParameters(app.userGuid(), entity));
-    const [isFilteringOpen, setIsFilteringOpen] = useLocalStorageState(false, `${app.userGuid()}_${entity}_isFilteringOpen`);
+    const [listParameters] = useState(CreateListParameters(app.userGuid(), entityType));
+    const [isFilteringOpen, setIsFilteringOpen] = useLocalStorageState(false, `${app.userGuid()}_${entityType}_isFilteringOpen`);
 
     const toggleFiltering = () => {
         setIsFilteringOpen(!isFilteringOpen);
@@ -23,7 +31,7 @@ const Browse = ({ sorts, filters, row, card, entity, headers, callerId }) => {
     const itemActions = <>
         <ItemAction
             icon={<CheckIcon />}
-            title={'Select ' + entity}
+            title={'Select ' + entityType}
             click={({ item }) => {
                 app.emit(app.entitySelected, { selectedEntity: item, callerId });
             }}
@@ -71,7 +79,7 @@ const Browse = ({ sorts, filters, row, card, entity, headers, callerId }) => {
         </Collapse>
 
         <Items
-            entity={entity}
+            entityType={entityType}
             headers={headers}
             row={row}
             card={card}

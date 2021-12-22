@@ -4,7 +4,7 @@ import { app, post } from '@Form';
 export const FormContext = React.createContext();
 
 const FormBase = ({
-  entity,
+  entityType,
   title,
   explanations,
   inputs,
@@ -21,9 +21,9 @@ const FormBase = ({
   const [isValid, setIsValid] = useState(false);
   const [isEdition, setIsEdition] = useState(false);
 
-  app.ensure([entity]);
+  app.ensure([entityType]);
 
-  title = title || `${isEdition ? 'Edit' : 'Create'} ${entity}`
+  title = title || `${isEdition ? 'Edit' : 'Create'} ${entityType}`
 
   const validate = () => {
     for (let i = 0; i < fields.length; i++) {
@@ -60,17 +60,17 @@ const FormBase = ({
     }
     console.log(data);
     setProgress(true);
-    setTimeout(() => {
-      setProgress(false)
-    }, 4000)
-    // let url = `${entity}/create`;
-    // post(url, data).then(data => {
-    //   app.emit(app.itemCreated);
-    //   setProgress(false);
-    // }, error => {
-    //   app.error(error);
-    //   setProgress(false);
-    // })
+    // setTimeout(() => {
+    //   setProgress(false)
+    // }, 4000)
+    let url = `${entityType}/create`;
+    post(url, data).then(data => {
+      app.emit(app.itemCreated);
+      setProgress(false);
+    }, error => {
+      app.error(error);
+      setProgress(false);
+    })
     event.preventDefault();
   }
   return <FormContext.Provider value={{

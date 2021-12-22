@@ -10,7 +10,7 @@ import { post } from '@List';
 import { app } from '@List';
 import CircularProgress from '@mui/material/CircularProgress';
 
-const DeleteAction = ({ entity, item }) => {
+const DeleteAction = ({ entityType, item }) => {
 
     const [confirmationDialogIsOpen, setConfirmationDialogVisibility] = useState(false);
     const [progress, setProgress] = useState(false);
@@ -18,7 +18,7 @@ const DeleteAction = ({ entity, item }) => {
     const deleteItem = () => {
         setConfirmationDialogVisibility(false);
         setProgress(true);
-        post(`${entity}/delete/${item.id}`).then(data => {
+        post(`${entityType}/delete/${item.id}`).then(data => {
             app.success("Item is deleted successfully");
             setProgress(false);
             app.emit(app.reloadRequested);

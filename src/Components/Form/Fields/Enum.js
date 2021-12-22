@@ -3,21 +3,21 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { Select, app, useLocalStorageState, get, fieldStyles } from '@Form';
 
 const Enum = ({
-    entity,
+    entityType,
     ...rest
 }) => {
 
-    app.ensure([entity]);
+    app.ensure([entityType]);
 
     const [loading, setLoading] = useState();
-    const [enumItems, setEnumItems] = useLocalStorageState([], entity + 'Enum');
+    const [enumItems, setEnumItems] = useLocalStorageState([], entityType + 'Enum');
 
     useEffect(() => {
         if (enumItems.length !== 0) {
             return;
         }
         setLoading(true);
-        get(`/${entity}/all`).then(data => {
+        get(`/${entityType}/all`).then(data => {
             setEnumItems(data);
             setLoading(false);
         }, error => {

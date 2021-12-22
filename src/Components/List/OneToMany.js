@@ -7,7 +7,7 @@ const OneToMany = ({
     filters,
     listActions,
     sorts,
-    entity,
+    entityType,
     headers,
     row,
     card,
@@ -45,7 +45,7 @@ const OneToMany = ({
             subtitle={subtitle}
             breadcrumbItems={breadcrumbItems}
             listActions={listActions}
-            entity={entity}
+            entityType={entityType}
             filters={filters}
             sorts={sorts}
             headers={headers}

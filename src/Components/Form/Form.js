@@ -10,7 +10,7 @@ import {
 export const FormContext = React.createContext();
 
 const Form = ({
-    entity,
+    entityType,
     title,
     explanations,
     inputs,
@@ -18,7 +18,7 @@ const Form = ({
     large
 }) => {
     return <FormBase
-        entity={entity}
+        entityType={entityType}
         renderForm={({
             title,
             focusFirstInput,

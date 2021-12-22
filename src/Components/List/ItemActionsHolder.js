@@ -3,9 +3,18 @@ import DeleteAction from './ItemActions/DeleteAction';
 import EditAction from './ItemActions/EditAction';
 import { ItemAction } from '@List';
 
-const ItemActions = ({ entity, item, itemActions, hasDelete, hasEdit, editionComponent, creationComponent, setItem, reload }) => {
-
-    const [something, setSomething] = useState();
+const ItemActions = ({
+    entityType,
+    item,
+    itemActions,
+    hasDelete,
+    hasEdit,
+    editionComponent,
+    creationComponent,
+    upsertComponent,
+    setItem,
+    reload
+}) => {
 
     return <>
         {
@@ -14,10 +23,10 @@ const ItemActions = ({ entity, item, itemActions, hasDelete, hasEdit, editionCom
                     .Children
                     .toArray(
                         (typeof itemActions === 'function')
-                        ?
-                        itemActions(item).props.children
-                        :
-                        itemActions.props.children
+                            ?
+                            itemActions(item).props.children
+                            :
+                            itemActions.props.children
                     )
                     .map(itemAction => React.cloneElement(itemAction, {
                         item: item,
@@ -30,14 +39,22 @@ const ItemActions = ({ entity, item, itemActions, hasDelete, hasEdit, editionCom
         {
             hasDelete
                 ?
-                <DeleteAction entity={entity} item={item} />
+                <DeleteAction
+                    entityType={entityType}
+                    item={item}
+                />
                 :
                 null
         }
         {
-            hasEdit || editionComponent
+            hasEdit || editionComponent || upsertComponent
                 ?
-                <EditAction entity={entity} item={item} editionComponent={editionComponent} creationComponent={creationComponent} />
+                <EditAction
+                    entityType={entityType}
+                    item={item}
+                    editionComponent={editionComponent}
+                    creationComponent={creationComponent}
+                />
                 :
                 null
         }

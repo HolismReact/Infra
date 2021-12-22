@@ -1,12 +1,12 @@
 import app from './App';
 
-const CreateListParameters = (userGuid, entity) => {
+const CreateListParameters = (userGuid, entityType) => {
     var key = '';
     if (userGuid) {
         key += userGuid;
     }
-    if (entity) {
-        key += `_${entity}`;
+    if (entityType) {
+        key += `_${entityType}`;
     }
     key += '_listParameters';
     var value = window.localStorage.getItem(key);

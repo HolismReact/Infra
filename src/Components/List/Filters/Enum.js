@@ -8,19 +8,19 @@ import Filter from './Filter';
 import filterOperator from '../../../Base/FilterOperator';
 import CircularProgress from '@mui/material/CircularProgress';
 
-const Enum = ({ column, entity, placeholder }) => {
+const Enum = ({ column, entityType, placeholder }) => {
 
-    app.ensure([column, placeholder, entity]);
+    app.ensure([column, placeholder, entityType]);
 
     const [loading, setLoading] = useState();
-    const [enumItems, setEnumItems] = useLocalStorageState([], entity + 'Enum');
+    const [enumItems, setEnumItems] = useLocalStorageState([], entityType + 'Enum');
 
     useEffect(() => {
         if (enumItems.length !== 0) {
             return;
         }
         setLoading(true);
-        get(`/${entity}/all`).then(data => {
+        get(`/${entityType}/all`).then(data => {
             setEnumItems(data);
             setLoading(false);
         }, error => {

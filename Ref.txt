@@ -8,4 +8,19 @@ react imports
 material imports
 other library imports
 my imports
-**************8
+**************
+
+material ui => use these components
+
+button
+split button (button group)
+checkboxes (also with special icons for like and bookmark)
+radio button
+rating
+slider
+switch
+transfer list
+toggle button
+alert
+skeleton
+stepper

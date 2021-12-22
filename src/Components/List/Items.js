@@ -15,7 +15,7 @@ const Cards = ({
     hasDelete,
     hasEdit,
     edit,
-    entity,
+    entityType,
     create,
     metadata,
     card,
@@ -110,7 +110,7 @@ const Cards = ({
                                         ?
                                         <div className="flex flex-wrap items-center justify-end">
                                             <ItemActions
-                                                entity={entity}
+                                                entityType={entityType}
                                                 item={item}
                                                 itemActions={itemActions}
                                                 hasDelete={hasDelete}
@@ -137,7 +137,7 @@ const Cards = ({
 }
 
 const Table = ({
-    entity,
+    entityType,
     data,
     metadata,
     headers,
@@ -279,7 +279,7 @@ const Table = ({
                                             ?
                                             <td className="flex flex-wrap items-center justify-end">
                                                 <ItemActions
-                                                    entity={entity}
+                                                    entityType={entityType}
                                                     item={item}
                                                     itemActions={itemActions}
                                                     hasDelete={hasDelete}
@@ -313,7 +313,7 @@ const Table = ({
 };
 
 const Items = ({
-    entity,
+    entityType,
     card,
     headers,
     row,
@@ -326,14 +326,14 @@ const Items = ({
     classProvider
 }) => {
 
-    app.ensure([entity]);
+    app.ensure([entityType]);
 
     const [loading, setLoading] = useState();
     const [reloadedTimes, setReloadedTimes] = useState(0);
     const [data, setData] = useState([]);
     const [metadata, setMetadata] = useState({});
     const { listParameters } = useContext(ListContext);
-    const [showTopPagiation, setTopPaginationVisibility] = useLocalStorageState(false, `${app.userGuid()}_${entity}_isTopPaginationShown`);
+    const [showTopPagiation, setTopPaginationVisibility] = useLocalStorageState(false, `${app.userGuid()}_${entityType}_isTopPaginationShown`);
 
     useEffect(() => {
         const setVisibility = () => {
@@ -378,7 +378,7 @@ const Items = ({
     const load = () => {
         listParameters.storeInLocalStorage();
         setLoading(true);
-        let url = `${entity}/list?pageNumber=${listParameters.pageNumber}&pageSize=${listParameters.pageSize}`;
+        let url = `${entityType}/list?pageNumber=${listParameters.pageNumber}&pageSize=${listParameters.pageSize}`;
         const filters = listParameters.filtersQueryString();
         if (filters) {
             url += `&filters=${filters}`;
@@ -444,7 +444,7 @@ const Items = ({
                     card
                         ?
                         Cards({
-                            entity,
+                            entityType,
                             loading,
                             data,
                             metadata,
@@ -466,7 +466,7 @@ const Items = ({
                         //     <div>Only Cards are shown for small screens!</div>
                         //     :
                         Table({
-                            entity,
+                            entityType,
                             loading,
                             data,
                             metadata,

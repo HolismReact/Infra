@@ -69,6 +69,10 @@ const Holism = {
     },
     goTo: (url) => {
         //navigate(url);
+    },
+    formMode: {
+        creation: 1,
+        edition: 2
     }
 };
 

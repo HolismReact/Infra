@@ -24,7 +24,7 @@ const List = ({
   filters,
   listActions,
   sorts,
-  entity,
+  entityType,
   headers,
   row,
   card,
@@ -37,9 +37,8 @@ const List = ({
   classProvider,
   upsert
 }) => {
-  const [isDialogFormOpen, setIsDialogFormOpen] = useState(false);
-  const [listParameters, setListParameters] = useState(CreateListParameters(app.userGuid(), entity));
-  const [isFilteringOpen, setIsFilteringOpen] = useLocalStorageState(false, `${app.userGuid()}_${entity}_isFilteringOpen`);
+  const [listParameters, setListParameters] = useState(CreateListParameters(app.userGuid(), entityType));
+  const [isFilteringOpen, setIsFilteringOpen] = useLocalStorageState(false, `${app.userGuid()}_${entityType}_isFilteringOpen`);
   const [selectedItems, setSelectedItems] = useState([]);
 
   const hasItemSelection = listActions ? true : false;
@@ -145,7 +144,7 @@ const List = ({
     </Collapse>
 
     <Items
-      entity={entity}
+      entityType={entityType}
       create={create}
       headers={headers}
       row={row}
@@ -161,7 +160,7 @@ const List = ({
       CreationComponent
         ?
         <DialogForm
-          entity={CreationComponent.props?.entity}
+          entityType={CreationComponent.props?.entityType}
           title={CreationComponent.props?.title}
           explanations={CreationComponent.props.explanations}
           inputs={CreationComponent.props?.inputs}
@@ -175,7 +174,7 @@ const List = ({
       UpsertComponent
         ?
         <DialogForm
-          entity={UpsertComponent.props?.entity}
+          entityType={UpsertComponent.props?.entityType}
           title={UpsertComponent.props?.title}
           explanations={UpsertComponent.props.explanations}
           inputs={UpsertComponent.props?.inputs}

@@ -12,7 +12,7 @@ import {
 } from '@Form';
 
 const DialogForm = ({
-    entity,
+    entityType,
     title,
     explanations,
     inputs,
@@ -21,6 +21,8 @@ const DialogForm = ({
 }) => {
 
     const [isDialogFormOpen, setIsDialogFormOpen] = useState(false);
+    const [item, setItem] = useState(null);
+    const [mode, setMode] = useState(app.formModel.creation)
 
     useEffect(() => {
         const onDialogFormRequested = (item) => {
@@ -46,8 +48,14 @@ const DialogForm = ({
         return () => app.removeListener(app.itemCreated, onItemCreated)
     }, [])
 
+    useEffect(() => {
+        const onEditRequested = ({ entityType, item }) => {
+
+        }
+    }, [])
+
     return <FormBase
-        entity={entity}
+        entityType={entityType}
         renderForm={({
             title,
             focusFirstInput,

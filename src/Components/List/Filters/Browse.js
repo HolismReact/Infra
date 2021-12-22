@@ -18,7 +18,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Browse = ({ column, placeholder, entity, browser, display, choose }) => {
+const Browse = ({ column, placeholder, entityType, browser, display, choose }) => {
 
     const [selectedEntity, setSelectedEntity] = useState(null);
     const [isBrowserDialogOpen, setIsBrowserDialogOpen] = useState(false);
@@ -90,7 +90,7 @@ const Browse = ({ column, placeholder, entity, browser, display, choose }) => {
                 >
                     <CloseIcon />
                 </IconButton>
-                <span className="ml-4">{"Find " + entity || ""}</span>
+                <span className="ml-4">{"Find " + entityType || ""}</span>
             </div>
         </DialogTitle>
         <DialogContent>
@@ -127,9 +127,9 @@ const Browse = ({ column, placeholder, entity, browser, display, choose }) => {
                 // }
                 endAdornment={
                     <InputAdornment position="end">
-                        <Tooltip title={"Find " + (entity || "")}>
+                        <Tooltip title={"Find " + (entityType || "")}>
                             <IconButton
-                                aria-label={"Find " + entity}
+                                aria-label={"Find " + entityType}
                                 onClick={() => setIsBrowserDialogOpen(true)}
                                 onMouseDown={() => { }}
                             >

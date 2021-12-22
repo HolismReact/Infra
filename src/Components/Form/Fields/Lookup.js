@@ -7,10 +7,10 @@ import InputLabel from '@mui/material/InputLabel';
 import CircularProgress from '@mui/material/CircularProgress';
 import { FormContext, fieldStyles, get, app } from '@Form';
 
-const Lookup = ({ column, entity, placeholder, hint, value, required, display }) => {
+const Lookup = ({ column, entityType, placeholder, hint, value, required, display }) => {
 
-    if (app.isNothing(entity)) {
-        throw new Error(`entity is not provided for ${Lookup.name}`);
+    if (app.isNothing(entityType)) {
+        throw new Error(`entityType is not provided for ${Lookup.name}`);
     }
 
     const [id, setId] = useState(null);
@@ -45,7 +45,7 @@ const Lookup = ({ column, entity, placeholder, hint, value, required, display })
             return;
         }
         setLoading(true);
-        get(`/${entity}/all`).then(data => {
+        get(`/${entityType}/all`).then(data => {
             setLookupItems(data);
             setLoading(false);
         }, error => {
