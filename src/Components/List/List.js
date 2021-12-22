@@ -155,6 +155,7 @@ const List = ({
       edit={edit}
       hasItemSelection={hasItemSelection}
       classProvider={classProvider}
+      upsert={upsert}
     />
     {
       CreationComponent

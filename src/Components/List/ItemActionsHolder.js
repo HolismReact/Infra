@@ -9,9 +9,9 @@ const ItemActions = ({
     itemActions,
     hasDelete,
     hasEdit,
-    editionComponent,
-    creationComponent,
-    upsertComponent,
+    edit,
+    create,
+    upsert,
     setItem,
     reload
 }) => {
@@ -52,14 +52,18 @@ const ItemActions = ({
                 hasEdit={true}
                 edit={(entity) => `/entity/edit/${entity.id}`}
                 edit={EditEntity}
+
+                either upsert, or edit URL, or edit component, or create + hasEdit
             */
-            hasEdit || editionComponent || upsertComponent
+            (hasEdit && create) || edit || upsert
                 ?
                 <EditAction
                     entityType={entityType}
                     item={item}
-                    editionComponent={editionComponent}
-                    creationComponent={creationComponent}
+                    create={create}
+                    hasEdit={hasEdit}
+                    edit={edit}
+                    upsert={upsert}
                 />
                 :
                 null

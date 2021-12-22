@@ -3,14 +3,15 @@ import EditIcon from '@mui/icons-material/Edit';
 import { ItemAction } from '@List';
 import { app } from '@List';
 import { useNavigate } from 'react-router-dom';
+import Items from '../Items';
 
 const EditAction = ({
     entityType,
     item,
     hasEdit,
-    creationComponent,
-    editionComponent,
-    upsertComponent
+    create,
+    edit,
+    upsert
 }) => {
 
     const navigate = useNavigate();
@@ -18,24 +19,24 @@ const EditAction = ({
     const manageEdition = (component) => {
         if (typeof component === 'function') {
             var result = component(item);
-            if (result === 'object') {
+            if (typeof result === 'object') {
                 app.emit(app.editRequested, {
                     entityType: entityType,
-                    entityType: item,
+                    entity: item,
                 });
             }
             else if (typeof result === 'string') {
                 navigate(result);
             }
             else {
-                app.error('what is this component?');
+                app.error('For edition, either provide a component, or a URL');
             }
         }
         else if (typeof component === 'string') {
             navigate(component);
         }
         else {
-            app.error('what is this component?');
+            app.error('For edition, either provide a component, or a URL');
         }
     }
 
@@ -43,18 +44,18 @@ const EditAction = ({
         <ItemAction
             icon={<EditIcon style={{ color: '#10B981' }} />}
             click={() => {
-                if (editionComponent) {
-                    manageEdition(editionComponent);
+                if (edit) {
+                    manageEdition(edit);
                 }
-                else if (upsertComponent) {
-                    manageEdition(upsertComponent);
+                else if (upsert) {
+                    manageEdition(upsert);
                 }
                 else if (hasEdit) {
-                    if (!creationComponent) {
-                        app.error('what is this component?');
+                    if (create) {
+                        manageEdition(create);
                     }
                     else {
-                        app.emit(app.editRequested, { type: 'dialog', item: item });
+                        app.error('You specified hasEdit={true} but has not provided a creation component.');
                     }
                 }
             }}

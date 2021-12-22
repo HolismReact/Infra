@@ -5,7 +5,18 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate } from 'react-router-dom';
 import { HolismIcon, app } from '@List';
 
-const ItemAction = ({ title, item, icon, click, goTo, dialog, setItem, reload, color, hoverOnly }) => {
+const ItemAction = ({
+    title,
+    item,
+    icon,
+    click,
+    goTo,
+    dialog,
+    setItem,
+    reload,
+    color,
+    hoverOnly
+}) => {
 
     const navigate = useNavigate();
 

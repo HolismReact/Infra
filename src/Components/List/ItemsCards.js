@@ -114,8 +114,9 @@ const Cards = ({
                                                 itemActions={itemActions}
                                                 hasDelete={hasDelete}
                                                 hasEdit={hasEdit}
-                                                editionComponent={edit}
-                                                creationComponent={create}
+                                                edit={edit}
+                                                create={create}
+                                                upsert={upsert}
                                                 setItem={setItem}
                                                 reload={reload}
                                             />
