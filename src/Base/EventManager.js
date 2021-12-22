@@ -24,5 +24,6 @@ const EventManager = {
     entitySelected: 'entity_slected',
     toggleTopPagination: 'toggle_top_pagination',
     itemActionDialogRequested: 'item_action_dialog_requested',
+    entityReloadRequested: 'entity_reload_requested',
 };
 export default EventManager;

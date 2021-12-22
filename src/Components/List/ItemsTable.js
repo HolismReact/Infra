@@ -4,6 +4,7 @@ import ItemActions from './ItemActionsHolder';
 import Checkbox from '@mui/material/Checkbox';
 import Tooltip from '@mui/material/Tooltip';
 import Collapse from '@mui/material/Collapse';
+import CircularProgress from '@mui/material/CircularProgress';
 import { ListContext, app } from '@List';
 
 const Table = ({
@@ -43,6 +44,121 @@ const Table = ({
             }));
     }
 
+    const head = <thead>
+        <tr className='text-xs uppercase text-gray-900 font-light tracking-wider border-b'>
+            {
+                hasItemSelection ?
+                    <>
+                        <th>
+                            <Tooltip
+                                title="Select all"
+                                placement="top"
+                            >
+                                <Checkbox
+                                    color="primary"
+                                    onChange={(event) => {
+                                        event.target.checked
+                                            ?
+                                            app.addItemsToSelectedItems(listContext, data)
+                                            :
+                                            app.removeItemsFromSelectedItems(listContext, data)
+                                    }}
+                                    inputProps={{ 'aria-label': 'Select all' }}
+                                />
+                            </Tooltip>
+                        </th>
+                    </>
+                    :
+                    null
+            }
+            {
+                headerElements
+            }
+            {
+                (itemActions || hasDelete)
+                    ?
+                    <td></td>
+                    :
+                    null
+            }
+        </tr>
+    </thead>
+
+    const body = <tbody>
+        {
+            row && typeof row === 'function'
+                ?
+                data.length === 0
+                    ?
+                    <tr>
+                        <td colSpan='100' className={noItemIsFoundStyle}>{app.t("No item is found")}</td>
+                    </tr>
+                    :
+                    data.map((item, index) => <tr
+                        key={item.id}
+                        className=
+                        {
+                            'py-3 ' +
+                            ((index === data.length - 1) ? '' : 'border-b ') +
+                            (classProvider ? classProvider(item) : '')
+                        }
+                    >
+                        {
+                            hasItemSelection
+                                ?
+                                <td>
+                                    <Checkbox
+                                        checked={selectedItems.indexOf(item.id) > -1}
+                                        color="primary"
+                                        onChange={(event) => {
+                                            event.target.checked
+                                                ?
+                                                app.addItemToSelectedItems(listContext, item.id)
+                                                :
+                                                app.removeItemFromSelectedItems(listContext, item.id)
+                                        }}
+                                    />
+                                </td>
+                                :
+                                null
+                        }
+                        {
+                            React.Children
+                                .toArray(row(item).props.children)
+                                .map(td => React.cloneElement(td, {
+                                    className: 'text-gray-900 py-3 text-sm font-light tracking-wide ' + td.props.className
+                                }))
+                        }
+                        {
+                            item.progress
+                                ?
+                                <CircularProgress size={24} className="mt-2" />
+                                :
+                                (itemActions || hasDelete || hasEdit || edit)
+                                    ?
+                                    <td className="flex flex-wrap items-center justify-end">
+                                        <ItemActions
+                                            entityType={entityType}
+                                            item={item}
+                                            itemActions={itemActions}
+                                            hasDelete={hasDelete}
+                                            hasEdit={hasEdit}
+                                            edit={edit}
+                                            create={create}
+                                            upsert={upsert}
+                                            setItem={setItem}
+                                            reload={reload}
+                                        />
+                                    </td>
+                                    :
+                                    null
+                        }
+                    </tr>)
+                :
+                null
+        }
+    </tbody>
+
     return <>
         {
             data.length === 0
@@ -61,116 +177,8 @@ const Table = ({
                 style={{ minWidth: '600px' }}
                 dir={app.isRtl() ? "rtl" : "ltr"}
             >
-                <thead>
-                    <tr className='text-xs uppercase text-gray-900 font-light tracking-wider border-b'>
-                        {
-
-                            hasItemSelection ?
-                                <>
-                                    <th>
-                                        <Tooltip
-                                            title="Select all"
-                                            placement="top"
-                                        >
-                                            <Checkbox
-                                                color="primary"
-                                                onChange={(event) => {
-                                                    event.target.checked
-                                                        ?
-                                                        app.addItemsToSelectedItems(listContext, data)
-                                                        :
-                                                        app.removeItemsFromSelectedItems(listContext, data)
-                                                }}
-                                                inputProps={{ 'aria-label': 'Select all' }}
-                                            />
-                                        </Tooltip>
-                                    </th>
-                                </>
-                                :
-                                null
-                        }
-                        {
-                            headerElements
-                        }
-                        {
-                            (itemActions || hasDelete)
-                                ?
-                                <td></td>
-                                :
-                                null
-                        }
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        row && typeof row === 'function'
-                            ?
-                            data.length === 0
-                                ?
-                                <tr>
-                                    <td colSpan='100' className={noItemIsFoundStyle}>{app.t("No item is found")}</td>
-                                </tr>
-                                :
-                                data.map((item, index) => <tr
-                                    key={item.id}
-                                    className=
-                                    {
-                                        'py-3 ' +
-                                        ((index === data.length - 1) ? '' : 'border-b ') +
-                                        (classProvider ? classProvider(item) : '')
-                                    }
-                                >
-                                    {
-                                        hasItemSelection
-                                            ?
-                                            <td>
-                                                <Checkbox
-                                                    checked={selectedItems.indexOf(item.id) > -1}
-                                                    color="primary"
-                                                    onChange={(event) => {
-                                                        event.target.checked
-                                                            ?
-                                                            app.addItemToSelectedItems(listContext, item.id)
-                                                            :
-                                                            app.removeItemFromSelectedItems(listContext, item.id)
-                                                    }}
-                                                />
-                                            </td>
-                                            :
-                                            null
-                                    }
-                                    {
-                                        React.Children
-                                            .toArray(row(item).props.children)
-                                            .map(td => React.cloneElement(td, {
-                                                className: 'text-gray-900 py-3 text-sm font-light tracking-wide ' + td.props.className
-                                            }))
-                                    }
-                                    {
-                                        (itemActions || hasDelete || hasEdit || edit)
-                                            ?
-                                            <td className="flex flex-wrap items-center justify-end">
-                                                <ItemActions
-                                                    entityType={entityType}
-                                                    item={item}
-                                                    itemActions={itemActions}
-                                                    hasDelete={hasDelete}
-                                                    hasEdit={hasEdit}
-                                                    edit={edit}
-                                                    create={create}
-                                                    upsert={upsert}
-                                                    setItem={setItem}
-                                                    reload={reload}
-                                                />
-                                            </td>
-                                            :
-                                            null
-                                    }
-                                </tr>)
-                            :
-                            null
-                    }
-                </tbody>
+                {head}
+                {body}
             </table>
         </div>
         {

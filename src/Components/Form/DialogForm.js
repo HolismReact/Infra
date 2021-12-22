@@ -17,7 +17,8 @@ const DialogForm = ({
     explanations,
     inputs,
     actions,
-    large
+    large,
+    okAction
 }) => {
 
     const [isDialogFormOpen, setIsDialogFormOpen] = useState(false);
@@ -74,6 +75,11 @@ const DialogForm = ({
 
     return <FormBase
         entityType={entityType}
+        title={title}
+        explanations={explanations}
+        inputs={inputs}
+        actions={actions}
+        okAction={okAction}
         renderForm={({
             title,
             focusFirstInput,

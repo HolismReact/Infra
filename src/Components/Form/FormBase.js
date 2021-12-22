@@ -10,7 +10,8 @@ const FormBase = ({
   inputs,
   actions,
   large,
-  renderForm
+  renderForm,
+  okAction
 }) => {
   // is edit, or is create? get id from somewhere
   // file upload
@@ -95,21 +96,26 @@ const FormBase = ({
       data[fields[i].id.split('_')[1]] = fields[i].value;
     }
     console.log(data);
-    setProgress(true);
-    // setTimeout(() => {
-    //   setProgress(false)
-    // }, 4000)
-    let url = `${entityType}/${mode === app.formMode.creation ? 'create' : 'update'}`;
-    if (mode === app.formMode.edition) {
-      data['id'] = entity.id;
+    if (okAction && typeof okAction === 'function') {
+      okAction(setProgress, data);
     }
-    post(url, data).then(data => {
-      app.emit(app.itemCreated);
-      setProgress(false);
-    }, error => {
-      app.error(error);
-      setProgress(false);
-    })
+    else {
+      setProgress(true);
+      // setTimeout(() => {
+      //   setProgress(false)
+      // }, 4000)
+      let url = `${entityType}/${mode === app.formMode.creation ? 'create' : 'update'}`;
+      if (mode === app.formMode.edition) {
+        data['id'] = entity.id;
+      }
+      post(url, data).then(data => {
+        app.emit(app.itemCreated);
+        setProgress(false);
+      }, error => {
+        app.error(error);
+        setProgress(false);
+      })
+    }
     event.preventDefault();
   }
   return <FormContext.Provider value={{

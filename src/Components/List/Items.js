@@ -28,6 +28,20 @@ const Items = (props) => {
         }
     });
 
+    useEffect(() => {
+        const onEntityReloadRequested = ({ entity }) => {
+            console.log('reloading entity ' + entity.id)
+            entity.progress = true;
+            setTimeout(() => {
+                entity.progress = false;
+            }, 3000)
+        }
+        app.on(app.entityReloadRequested, onEntityReloadRequested)
+        return () => {
+            app.removeListener(app.entityReloadRequested, onEntityReloadRequested)
+        }
+    }, [])
+
     const setItem = (item) => {
         setData((data) => {
             for (var i = 0; i < data.length; i++) {
