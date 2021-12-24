@@ -1,16 +1,20 @@
-import app from "../Base/App";
 import { useState, useEffect } from 'react';
 import PersonIcon from '@mui/icons-material/Person';
 import SettingsIcon from '@mui/icons-material/Settings';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { useNavigate } from 'react-router-dom';
+import app from "../Base/App";
+import HolismIcon from '../Components/HolismIcon'
 
 const iconStyle = { style: { fill: "#1F2937", fontSize: 16 } }
 
 const Item = ({ url, icon, background, title, handler }) =>
-    <li className={background + " mr-1 ml-1 rounded-md cursor-pointer"} onClick={handler}>
-        <a href={url} className="h-9 w-12 flex items-center justify-center" title={app.t(title)} data-toggle="tooltip">
-            {icon}
+    <li className={background + " dark:bg-gray-400 dark:hover:bg-gray-600 mr-1 ml-1 rounded-md cursor-pointer"} onClick={handler}>
+        <a href={url} className="h-9 w-12 flex items-center justify-center  dark:hover:text-gray-100" title={app.t(title)} data-toggle="tooltip">
+            <HolismIcon
+                icon={icon}
+                className="w-4 h-4 text-gray-900 dark:text-inherit"
+            />
         </a>
     </li>
 
@@ -35,30 +39,30 @@ export default function User({ onClick }) {
                 {ProfileIcon}
             </span> */}
             <div className="flex flex-col justify-center mt-4">
-                <div className="text-center font-medium antialiased tracking-wide	text-gray-800 mb-2">{user}</div>
+                <div className="text-center font-medium antialiased tracking-wide	text-gray-800 dark:text-gray-300 mb-2">{user}</div>
                 <p className="text-center text-gray-400 text-sm mb-4">{app.t(role)}</p>
                 <ul className="flex items-center justify-center">
                     <Item
-                        icon={<PersonIcon {...iconStyle} />}
+                        icon={PersonIcon}
                         url={app.createAccountUrl()}
                         title="Profile"
-                        background="bg-green-200"
+                        background="bg-green-200 hover:bg-green-400"
                         handler={onClick}
                     />
                     <Item
-                        icon={<SettingsIcon {...iconStyle} />}
+                        icon={SettingsIcon}
                         title="Settings"
-                        background="bg-blue-200"
+                        background="bg-blue-200 hover:bg-blue-400"
                         handler={() => {
                             onClick();
                             navigate('/settings');
                         }}
                     />
                     <Item
-                        icon={<ExitToAppIcon {...iconStyle} />}
+                        icon={ExitToAppIcon}
                         handler={() => app.logout()}
                         title="Logout"
-                        background="bg-red-200"
+                        background="bg-red-200 hover:bg-red-400"
                     />
                 </ul>
             </div>

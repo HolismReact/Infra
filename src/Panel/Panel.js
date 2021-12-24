@@ -25,6 +25,7 @@ function Panel() {
 
   const [isSidebarOpen, setIsSidebarOpen] = useLocalStorageState(true, 'isSidebarOpen');
   const [mainContentWidth, setMainContentWidth] = useLocalStorageState(true, 'mainContentWidth');
+  const [isDark, setIsDark] = useLocalStorageState(false, `isDark_${app.userGuid()}`);
 
   const toggleMenu = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -35,6 +36,16 @@ function Panel() {
   if (window.React1 !== window.React2) {
     console.warn('two reacts inside component');
   }
+
+  useEffect(() => {
+    const onDarkModeChanged = (isDark) => {
+      setIsDark(isDark)
+    }
+    app.on(app.darkModeChanged, onDarkModeChanged)
+    return () => {
+      app.removeListener(app.onDarkModeChanged, onDarkModeChanged)
+    }
+  }, []);
 
   const closeMenu = () => {
     if (window.innerWidth < app.breakpoints.lg) {
@@ -87,6 +98,7 @@ function Panel() {
     className={
       "flex " +
       (app.isRtl() ? "flex-row-reverse " : "")
+      + (isDark ? ' dark ' : '')
     }
   >
     <Transition

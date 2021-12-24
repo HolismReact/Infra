@@ -122,7 +122,7 @@ const MenuItemWithSubmenu = ({ item, onClick }) => {
 const Menu = ({ onClick }) => {
     let location = useLocation();
 
-    return <div id="menu" className="mt-5">
+    return <div id="menu" className="mt-5 dark:bg-slate-900">
         {
             menuItems.map((item, index) => {
                 if (item.children && item.children.length > 0) {
