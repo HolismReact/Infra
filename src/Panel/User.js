@@ -6,10 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import app from "../Base/App";
 import HolismIcon from '../Components/HolismIcon'
 
-const iconStyle = { style: { fill: "#1F2937", fontSize: 16 } }
-
 const Item = ({ url, icon, background, title, handler }) =>
-    <li className={background + " dark:bg-gray-400 dark:hover:bg-gray-600 mr-1 ml-1 rounded-md cursor-pointer"} onClick={handler}>
+    <li className={background + " transition-colors dark:bg-gray-400 dark:hover:bg-gray-600 mr-1 ml-1 rounded-md cursor-pointer"} onClick={handler}>
         <a href={url} className="h-9 w-12 flex items-center justify-center  dark:hover:text-gray-100" title={app.t(title)} data-toggle="tooltip">
             <HolismIcon
                 icon={icon}
@@ -39,7 +37,7 @@ export default function User({ onClick }) {
                 {ProfileIcon}
             </span> */}
             <div className="flex flex-col justify-center mt-4">
-                <div className="text-center font-medium antialiased tracking-wide	text-gray-800 dark:text-gray-300 mb-2">{user}</div>
+                <div className="text-center font-medium antialiased tracking-wide	text-gray-800 dark:text-gray-300 transition-colors mb-2">{user}</div>
                 <p className="text-center text-gray-400 text-sm mb-4">{app.t(role)}</p>
                 <ul className="flex items-center justify-center">
                     <Item

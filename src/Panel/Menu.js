@@ -7,7 +7,7 @@ import HolismIcon from '../Components/HolismIcon.js';
 import app from '../Base/App';
 import Collapse from '@mui/material/Collapse';
 
-const liStyle = "py-2 hover:bg-gray-50 cursor-pointer text-sm tracking-wide text-gray-600 hover:text-gray-800 font-normal relative select-none"
+const liStyle = "py-2 hover:bg-gray-50 dark:hover:bg-gray-400 cursor-pointer text-sm tracking-wide text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-white font-normal relative select-none"
 const iconStyle = "text-gray-600 hover:text-gray-900"
 
 const leftBlueLine = (url) => {
@@ -142,7 +142,7 @@ const Menu = ({ onClick }) => {
                             className={
                                 liStyle
                                 + " flex items-center relative"
-                                + (item.url === location.pathname ? " bg-gray-200 text-blue-800 hover:text-blue-800" : '')
+                                + (item.url === location.pathname ? " bg-gray-200 hover:bg-gray-400 text-blue-800 hover:text-blue-800" : '')
                                 + (app.isRtl() ? " flex-row-reverse " : "")
                             }
                         >

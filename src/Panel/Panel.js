@@ -134,6 +134,7 @@ function Panel() {
       {
         /*small*/"flex-1 flex flex-col min-h-screen"
         /*medium*/
+        + " dark:bg-zinc-900 transition-colors"
       }
     >
       <Header onMenuIconClicked={toggleMenu} />

@@ -7,6 +7,7 @@ import { FullScreen } from './HeaderActions/FullScreen';
 import { Maximize } from './HeaderActions/Maximize';
 import Collapse from '@mui/material/Collapse';
 import DarkMode from './HeaderActions/DarkMode';
+import { HolismIcon } from '../Components/HolismIcon';
 
 const Header = ({ onMenuIconClicked }) => {
 
@@ -42,8 +43,8 @@ const Header = ({ onMenuIconClicked }) => {
                 }
             >
                 <div>
-                    <div className='bg-white rounded-md p-1.5 px-2.5 text-gray-600 cursor-pointer' onClick={onMenuIconClicked}>
-                        <MenuIcon />
+                    <div className='bg-white hover:bg-gray-200 transition-colors rounded-md p-1.5 px-2.5 text-gray-600 cursor-pointer dark:bg-slate-500 dark:hover:bg-slate-400 dark:text-gray-300' onClick={onMenuIconClicked}>
+                        <HolismIcon icon={MenuIcon} />
                     </div>
                 </div>
                 <div

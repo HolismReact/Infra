@@ -39,7 +39,7 @@ const HeaderAction = ({ icon, title, url, action, component, ...rest }) => {
                     handleClick();
                 }}
                 className={
-                    'text-gray-600 cursor-pointer hover:text-blue-500'
+                    'text-gray-600 cursor-pointer hover:text-blue-500 transition-colors dark:text-slate-500 dark:hover:text-slate-300'
                     + (app.isRtl() ? " mr-4 " : " ml-4 ")
                 }
             >
