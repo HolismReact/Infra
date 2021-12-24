@@ -6,6 +6,7 @@ import HeaderActions from '../HeaderActions.js'
 import { FullScreen } from './HeaderActions/FullScreen';
 import { Maximize } from './HeaderActions/Maximize';
 import Collapse from '@mui/material/Collapse';
+import DarkMode from './HeaderActions/DarkMode';
 
 const Header = ({ onMenuIconClicked }) => {
 
@@ -58,6 +59,7 @@ const Header = ({ onMenuIconClicked }) => {
                         <>
                             <Maximize />
                             <FullScreen />
+                            <DarkMode />
                             <HeaderActions />
                         </>
                     }
