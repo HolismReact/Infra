@@ -10,6 +10,7 @@ const Text = ({ column, placeholder }) => {
         placeholder={placeholder}
         renderInput={(value, setValue, label) => {
             return <OutlinedInput
+                size='small'
                 value={value}
                 label={app.t(label)}
                 onChange={(event) => setValue(event.target.value)}

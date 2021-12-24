@@ -36,6 +36,7 @@ const Enum = ({ column, entityType, placeholder }) => {
         operator={filterOperator.equals}
         renderInput={(value, setValue, label) =>
             <Select
+                size='small'
                 value={value}
                 label={app.t(label)}
                 fullWidth

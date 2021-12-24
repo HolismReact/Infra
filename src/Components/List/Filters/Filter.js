@@ -49,7 +49,7 @@ const Filter = ({
         <FormControl
             fullWidth
         >
-            <InputLabel>{app.t(label)}</InputLabel>
+            <InputLabel size='small'>{app.t(label)}</InputLabel>
             {
                 renderInput(displayValue, setDisplayValue, label)
             }

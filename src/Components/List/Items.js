@@ -143,7 +143,11 @@ const Items = (props) => {
                 :
                 ""
         )
-    }>
+    }
+        style={{
+            maxWidth: '100vw'
+        }}
+    >
         {
             loading
                 ?
