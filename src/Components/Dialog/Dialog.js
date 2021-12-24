@@ -1,32 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
+import MuiDialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { app } from '../List/List';
+import { app } from '../../Base/App'
 
 const Dialog = ({
     title,
     content,
+    isOpen,
     actions,
-    small
+    large,
+    onEntered,
+    entityId,
+    dialogPurpose
 }) => {
-    return <Dialog
-        open={open}
-        onClose={handleClose}
+
+    const [open, setOpen] = useState(isOpen)
+
+    useEffect(() => {
+        const onItemActionDialogRequested = ({ entity, purpose }) => {
+            if (entityId === entity.id && dialogPurpose === purpose && typeof isOpen !== 'boolean') {
+                setOpen(true)
+            }
+        }
+        app.on(app.itemActionDialogRequested, onItemActionDialogRequested)
+        return () => app.removeListener(app.itemActionDialogRequested, onItemActionDialogRequested)
+    }, [])
+
+    return <MuiDialog
+        open={typeof isOpen === 'boolean' ? isOpen : open}
+        onClose={() => typeof isOpen === 'boolean' ? null : setOpen(false)}
         aria-labelledby="dialogTitle"
         id="dialog"
+        /*dir={app.isRtl() ? "rtl" : "ltr"}*/
         fullWidth
-        maxWidth={small}
+        maxWidth={large ? 'md' : 'sm'}
         TransitionProps={{
-            onEntered: () => {
-                var firstField = document.querySelector('#dialogForm .field:first-child input');
-                if (firstField && firstField.focus) {
-                    firstField.focus();
-                }
-            }
+            onEntered: onEntered
         }}
     >
         <DialogTitle id="dialogTitle">{app.t(title)}</DialogTitle>
@@ -38,7 +51,7 @@ const Dialog = ({
                         {content}
                     </DialogContentText>
                     :
-                    conten
+                    content
             }
         </DialogContent>
         <DialogActions>
@@ -48,16 +61,18 @@ const Dialog = ({
                     actions
                     :
                     <>
-                        <Button onClick={handleClose} color="primary">
-                            Disagree
-                        </Button>
-                        <Button onClick={handleClose} color="primary" autoFocus>
-                            Agree
+                        <Button
+                            variant="outlined"
+                            className={"ml-2 bg-green-200 text-gray-900 border-gray-400 "}
+                            onClick={() => typeof isOpen === 'boolean' ? null : setOpen(false)}
+                        >
+                            {app.t('Ok')}
                         </Button>
                     </>
             }
         </DialogActions>
-    </Dialog>
+    </MuiDialog>
 }
 
 export default Dialog;
+export { Dialog }

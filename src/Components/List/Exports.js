@@ -16,3 +16,4 @@ export { Color } from './Properties/Color';
 export { Chip } from './Properties/Chip';
 export { Progress } from '../Progress';
 export { HolismIcon } from '../HolismIcon';
+export { Dialog } from '../../Components/Dialog/Dialog'

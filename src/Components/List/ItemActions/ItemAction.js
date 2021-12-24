@@ -5,6 +5,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate } from 'react-router-dom';
 import { HolismIcon, app } from '@List';
 import { DialogForm } from '@Form';
+import { Dialog as HolismDialog } from '@Panel'
 
 const ItemAction = ({
     title,
@@ -27,6 +28,7 @@ const ItemAction = ({
     if (dialog) {
         const result = dialog(item)
         const name = result.type.name
+        // console.log('dialog element name ', name);
         if (name === 'Form') {
             Dialog = <DialogForm
                 entityType={result.props?.entityType}
@@ -37,9 +39,23 @@ const ItemAction = ({
                 large={result.props?.large}
                 okAction={result.props?.okAction}
                 entityId={item.id}
+                dialogPurpose={title}
+            />
+        }
+        else if (name === 'Dialog') {
+            Dialog = <HolismDialog
+                title={result.props?.title}
+                content={result.props?.content}
+                actions={result.props?.actions}
+                large={result.props?.large}
+                entityId={item.id}
+                dialogPurpose={title}
             />
         }
     }
+
+    // console.log(title)
+    // app.analyzeComponent(Dialog)
 
     return <span className="itemAction flex items-center justify-center">
         {
@@ -63,7 +79,10 @@ const ItemAction = ({
                             click({ item, setProgress, setItem, reload })
                         }
                         else if (dialog) {
-                            app.emit(app.itemActionDialogRequested, { entity: item })
+                            app.emit(app.itemActionDialogRequested, {
+                                entity: item,
+                                purpose: title
+                            })
                         }
                         else {
                             console.warn(`No action is assigned to item action. Title is '${title}'`)

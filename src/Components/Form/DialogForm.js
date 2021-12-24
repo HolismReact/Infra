@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Dialog from '@mui/material/Dialog';
+import Dialog from '../Dialog/Dialog'
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -19,7 +19,8 @@ const DialogForm = ({
     actions,
     large,
     okAction,
-    entityId
+    entityId,
+    dialogPurpose
 }) => {
 
     const [isDialogFormOpen, setIsDialogFormOpen] = useState(false);
@@ -45,8 +46,8 @@ const DialogForm = ({
     }, [])
 
     useEffect(() => {
-        const onItemActionDialogRequested = ({ entity }) => {
-            if (entity.id === entityId) {
+        const onItemActionDialogRequested = ({ entity, purpose }) => {
+            if (entity.id === entityId && dialogPurpose === purpose) {
                 setIsDialogFormOpen(true);
             }
         }
@@ -89,30 +90,23 @@ const DialogForm = ({
             handleSubmit,
         }) => {
             return <Dialog
-                /*dir={app.isRtl() ? "rtl" : "ltr"}*/
-                open={isDialogFormOpen}
-                id='dialogForm'
-                aria-labelledby="form-dialog-title"
-                fullWidth
-                maxWidth={large ? 'md' : 'sm'}
+                title={title}
+                content={<>
+                    <Explanations explanations={explanations} />
+                    <FormElement inputs={inputs} handleSubmit={handleSubmit} />
+                </>}
+                actions={<Actions
+                    actions={actions}
+                    handleSubmit={handleSubmit}
+                />}
+                isOpen={isDialogFormOpen}
                 TransitionProps={{
                     onEntered: () => {
                         focusFirstInput('dialogForm')
                     }
                 }}
-            >
-                <DialogTitle id="form-dialog-title">{app.t(title)}</DialogTitle>
-                <DialogContent>
-                    <Explanations explanations={explanations} />
-                    <FormElement inputs={inputs} handleSubmit={handleSubmit} />
-                </DialogContent>
-                <DialogActions>
-                    <Actions
-                        actions={actions}
-                        handleSubmit={handleSubmit}
-                    />
-                </DialogActions>
-            </Dialog>
+                large={large}
+            />
         }}
     />
 }

@@ -38,7 +38,7 @@ const Table = ({
         headerElements = React.Children
             .toArray(headers.props.children)
             .map(header => React.cloneElement(header, {
-                className: "text-gray-900 py-3 font-light text-xs",
+                className: "text-gray-900 dark:text-gray-300 py-3 font-light text-xs",
                 children: React.Children.toArray(header.props.children).map(child => {
                     return typeof child === "string" ? app.t(child) : child;
                 })
@@ -46,7 +46,7 @@ const Table = ({
     }
 
     const head = <thead>
-        <tr className='text-xs uppercase text-gray-900 font-light tracking-wider border-b'>
+        <tr className='text-xs uppercase font-light tracking-wider border-b'>
             {
                 hasItemSelection ?
                     <>
@@ -127,7 +127,7 @@ const Table = ({
                             React.Children
                                 .toArray(row(item).props.children)
                                 .map(td => React.cloneElement(td, {
-                                    className: 'text-gray-900 py-3 text-sm font-light tracking-wide ' + td.props.className
+                                    className: 'text-gray-900 dark:text-gray-300 py-3 text-sm font-light tracking-wide ' + td.props.className
                                 }))
                         }
                         {

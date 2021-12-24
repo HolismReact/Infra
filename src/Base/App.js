@@ -8,6 +8,8 @@ import List from "./List";
 import Form from "./Form";
 import Globalization from './Globalization';
 import Url from './Url';
+import StringExtensions from "./StringExtensions";
+import ReactUtils from "./ReactUtils";
 
 const app = {
     ...EventManager,
@@ -19,7 +21,9 @@ const app = {
     ...Form,
     ...Holism,
     ...Globalization,
-    ...Url
+    ...Url,
+    ...ReactUtils,
+    ...StringExtensions
 };
 
 export default app;
