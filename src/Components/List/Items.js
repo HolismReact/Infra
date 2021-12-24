@@ -134,7 +134,7 @@ const Items = (props) => {
     }, []);
 
     return <div id='items' className={
-        'bg-white py-6 md:rounded-lg flex flex-col items-center justify-center '
+        'bg-white dark:bg-zinc-700 transition-colors py-6 md:rounded-lg flex flex-col items-center justify-center '
         +
         (
             card
