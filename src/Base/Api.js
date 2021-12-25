@@ -1,4 +1,5 @@
 import axios from "axios"
+import Account from "./Account";
 import app from "./App";
 
 const axiosApi = axios.create({
@@ -12,8 +13,13 @@ axiosApi.interceptors.request.use(config => {
   if (localStorage.getItem('locale')) {
     config.headers['Locale'] = localStorage.getItem('locale');
   }
-  config.headers.Authorization = `Bearer ${app.token()}`;
-  return config;
+  return Account.updateToken(() => {
+    config.headers.Authorization = `Bearer ${app.token()}`;
+    return Promise.resolve(config);
+  })
+
+  // config.headers.Authorization = `Bearer ${app.token()}`;
+  // return config;
 });
 
 axiosApi.interceptors.response.use(

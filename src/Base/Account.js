@@ -27,8 +27,21 @@ const Account = {
         }
         return 'NA';
     },
-    updateToken: () => {
-        return Account.keycloak().updateToken();
+    updateToken: (callback) => {
+        return Account
+            .keycloak()
+            .updateToken(4)
+            .then(refreshed => {
+                if (refreshed) {
+                    console.info('Token is refreshed');
+                } else {
+                    console.info('Token is still valid')
+                }
+                return callback()
+            }).catch(() => {
+                console.error('Failed to refresh the token, or the session has expired');
+                Account.checkLogin();
+            });
     },
     createAccountUrl: () => {
         if (typeof Account.keycloak().createAccountUrl === 'function') {
