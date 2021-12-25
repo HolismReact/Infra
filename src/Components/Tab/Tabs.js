@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import MuiTabs from '@mui/material/Tabs';
 import MuiTab from '@mui/material/Tab';
 import Panel from './Panel';
+import app from '../../Base/App';
 
 
-const Tabs = ({ tabs }) => {
+const Tabs = ({ title, subtitle, breadcrumbItems, tabs }) => {
 
 	const [tabNumber, setTabNumber] = useState(0);
 	var tabsArray = React.Children.toArray(tabs)[0].props.children;
+
+	useEffect(() => {
+		app.emit(app.componentLoaded, {
+			pageTitle: title,
+			pageSubtitle: subtitle,
+			breadcrumbItems: breadcrumbItems
+		});
+	}, []);
 
 	return <div>
 		<div
@@ -36,7 +45,7 @@ const Tabs = ({ tabs }) => {
 			</MuiTabs>
 		</div>
 		<div
-			className="bg-white p-6 rounded-lg"
+			className="bg-white p-6 md:rounded-lg"
 		>
 			{
 				tabsArray.map((tab, index) => {
