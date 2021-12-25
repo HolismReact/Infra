@@ -12,9 +12,10 @@ const Tabs = ({ tabs }) => {
 	return <div>
 		<div
 			style={{ maxWidth: '100vw' }}
-			className="overflow-x-auto flex justify-center"
+			className="overflow-x-auto flex justify-center "
 		>
 			<MuiTabs
+				className="border-b bg-white"
 				value={tabNumber}
 				onChange={(event, number) => setTabNumber(number)}
 				variant="scrollable"
@@ -28,12 +29,15 @@ const Tabs = ({ tabs }) => {
 							key={tab.props.title}
 							label={tab.props.title}
 							icon={tab.props.icon ? <Icon /> : null}
+							iconPosition="top"
 						/>
 					})
 				}
 			</MuiTabs>
 		</div>
-		<div>
+		<div
+			className="bg-white p-6 rounded-lg"
+		>
 			{
 				tabsArray.map((tab, index) => {
 					return <Panel
