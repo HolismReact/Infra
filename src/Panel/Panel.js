@@ -110,7 +110,7 @@ function Panel() {
       leaveFrom="ml-0"
       leaveTo="-ml-64"
       className={
-        "w-72 absolute border-b z-10 bg-white top-0 bottom-0 "
+        "w-72 absolute border-b z-10 bg-white dark:bg-slate-900 top-0 bottom-0 "
         + (app.isRtl() ? " border-l " : " border-r ")
         +
           /*large*/"lg:w-1/5 lg:static lg:border-b-0 "
