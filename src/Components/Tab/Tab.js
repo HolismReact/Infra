@@ -2,9 +2,10 @@ import MuiTab from '@mui/material/Tab';
 
 const Tab = ({ title, icon, panel }) => {
     const Icon = icon;
+    console.log(title, icon)
     return <MuiTab
         label={title}
-        icon={<Icon />}
+        icon={icon ? <Icon /> : null}
     />
 }
 

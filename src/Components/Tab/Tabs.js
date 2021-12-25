@@ -1,36 +1,47 @@
 import React, { useState } from 'react';
 import MuiTabs from '@mui/material/Tabs';
-import Tab from './Tab';
+import MuiTab from '@mui/material/Tab';
 import Panel from './Panel';
+
 
 const Tabs = ({ tabs }) => {
 
 	const [tabNumber, setTabNumber] = useState(0);
+	var tabsArray = React.Children.toArray(tabs)[0].props.children;
 
 	return <div>
-		<div style={{ maxWidth: '100vw' }} className="overflow-x-auto flex justify-center">
+		<div
+			style={{ maxWidth: '100vw' }}
+			className="overflow-x-auto flex justify-center"
+		>
 			<MuiTabs
 				value={tabNumber}
 				onChange={(event, number) => setTabNumber(number)}
 				variant="scrollable"
-				scrollButtons="on"
-				indicatorColor="primary"
-				textColor="primary">
+				scrollButtons="auto"
+			>
 
-				{tabs.map((item, index) => {
-					return <Tab
-						key={index}
-						title={item.title}
-						icon={item.icon}
-					/>
-				})}
+				{
+					tabsArray.map(tab => {
+						const Icon = tab.props.icon
+						return <MuiTab
+							key={tab.props.title}
+							label={tab.props.title}
+							icon={tab.props.icon ? <Icon /> : null}
+						/>
+					})
+				}
 			</MuiTabs>
 		</div>
 		<div>
 			{
-				tabs.map((item, index) => {
-					return <Panel key={index} value={tabNumber} index={index}>
-						{item.panel}
+				tabsArray.map((tab, index) => {
+					return <Panel
+						key={index}
+						value={tabNumber}
+						index={index}
+					>
+						{tab.props.panel}
 					</Panel>
 				})
 			}
