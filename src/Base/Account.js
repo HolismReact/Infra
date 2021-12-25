@@ -4,22 +4,23 @@
 import app from './App';
 
 let keycloak = null;
-let token = '';
-let user = '';
-let userGuid = '';
 
 const Account = {
     keycloak: () => {
         return keycloak || {};
     },
     token: () => {
-        return token;
+        return Account.keycloak().token;
     },
     user: () => {
-        return user;
+        if (Account.keycloak().tokenParsed['family_name'] || Account.keycloak().tokenParsed['given_name']) {
+            return Account.keycloak().tokenParsed['given_name'] + ' ' + Account.keycloak().tokenParsed['family_name']
+        } else {
+            return Account.keycloak().tokenParsed.preferred_username;
+        }
     },
     userGuid: () => {
-        return userGuid;
+        return Account.keycloak().subject;
     },
     createLoginUrl: () => {
         if (typeof Account.keycloak().createLoginUrl === 'function') {
@@ -87,15 +88,6 @@ const Account = {
                 checkLoginIframe: false
             }).then(function (auth) {
                 if (auth) {
-                    var name;
-                    if (keycloak.tokenParsed['family_name'] || keycloak.tokenParsed['given_name']) {
-                        name = keycloak.tokenParsed['given_name'] + ' ' + keycloak.tokenParsed['family_name']
-                    } else {
-                        name = keycloak.tokenParsed.preferred_username;
-                    }
-                    token = keycloak.token;
-                    user = name;
-                    userGuid = keycloak.subject;
                     app.emit(app.accountUpdated);
                     if (callback && typeof callback === "function") {
                         callback();
