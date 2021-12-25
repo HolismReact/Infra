@@ -1,52 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MuiTabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import TabPanel from './TabPanel';
+import Tab from './Tab';
+import Panel from './Panel';
 
-function a11yProps(index) {
-	return {
-		id: `simple-tab-${index}`,
-		'aria-controls': `simple-tabpanel-${index}`,
-	};
-}
+const Tabs = ({ tabs }) => {
 
-const createComponents = ((component, params) => {
-	if (typeof component !== "undefined") {
-		return React.createElement(component, {
-			params: params,
-		});
-	}
-});
+	const [tabNumber, setTabNumber] = useState(0);
 
-const Tabs = ({ params, itemTabs }) => {
-	const [tabNumber, setTabNumber] = React.useState(0);
-	const handleChange = (event, newValue) => {
-		setTabNumber(newValue);
-	};
-	return (
-		<div>
+	return <div>
+		<div style={{ maxWidth: '100vw' }} className="overflow-x-auto flex justify-center">
 			<MuiTabs
 				value={tabNumber}
-				onChange={handleChange}
+				onChange={(event, number) => setTabNumber(number)}
 				variant="scrollable"
 				scrollButtons="on"
 				indicatorColor="primary"
-				textColor="primary"
-				aria-label="scrollable force tabs example">
+				textColor="primary">
 
-				{itemTabs.map((item, index) => {
-					return <Tab key={index} label={item.title} {...a11yProps(index)} />
+				{tabs.map((item, index) => {
+					return <Tab
+						key={index}
+						title={item.title}
+						icon={item.icon}
+					/>
 				})}
 			</MuiTabs>
+		</div>
+		<div>
 			{
-				itemTabs.map((item, index) => {
-					return <TabPanel key={index} value={tabNumber} index={index}>
-						{createComponents(item.component, params)}
-					</TabPanel>
+				tabs.map((item, index) => {
+					return <Panel key={index} value={tabNumber} index={index}>
+						{item.panel}
+					</Panel>
 				})
 			}
 		</div>
-	);
+	</div>
 }
 
 export { Tabs }
