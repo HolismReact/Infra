@@ -38,7 +38,9 @@ const Account = {
                 } else {
                     console.info('Token is still valid')
                 }
-                return callback()
+                if (callback && typeof callback === 'function') {
+                    return callback();
+                }
             }).catch(() => {
                 console.error('Failed to refresh the token, or the session has expired');
                 Account.checkLogin();

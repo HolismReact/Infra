@@ -25,6 +25,10 @@ const FormBase = ({
 
   app.ensure([entityType]);
 
+  useEffect(() => {
+    // app.updateToken();
+  }, [])
+
   title = title || `${mode == app.formMode.edition ? 'Edit' : 'Create'} ${entityType}`
 
   const validate = () => {
