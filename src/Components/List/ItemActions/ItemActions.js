@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import DeleteAction from './ItemActions/DeleteAction';
-import EditAction from './ItemActions/EditAction';
+import DeleteAction from './DeleteAction';
+import EditAction from './EditAction';
 import { ItemAction } from '@List';
 
 const ItemActions = ({

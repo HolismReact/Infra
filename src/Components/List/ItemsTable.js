@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Pagination from './Pagination';
-import ItemActions from './ItemActionsHolder';
+import ItemActions from './ItemActions/ItemActions';
 import Checkbox from '@mui/material/Checkbox';
 import Tooltip from '@mui/material/Tooltip';
 import Collapse from '@mui/material/Collapse';

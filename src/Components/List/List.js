@@ -3,7 +3,7 @@ import Filtering from "./Filtering";
 import CreateListParameters from "../../Base/CreateListParameters";
 import Sorting from "./Sorting";
 import Items from "./Items";
-import ListActions from "./ListActionsHolder";
+import ListActions from "./ListActions/ListActions";
 import app from '../../Base/App';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import CachedIcon from '@mui/icons-material/Cached';
