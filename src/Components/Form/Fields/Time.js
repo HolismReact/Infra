@@ -6,12 +6,15 @@ const Time = (props) => {
 
     return <Field
         {...props}
-        renderInput={({ displayValue, setDisplayValue, label, progress }) => {
+        renderInput={({ displayValue, setDisplayValue, setChosenValue, label, progress }) => {
             return <TimePicker
                 label={app.t(label)}
                 value={displayValue}
                 disabled={progress}
-                onChange={(time) => { setDisplayValue(time) }}
+                onChange={(date) => {
+                    setDisplayValue(date)
+                    setChosenValue(date)
+                }}
                 renderInput={({
                     inputRef,
                     inputProps,

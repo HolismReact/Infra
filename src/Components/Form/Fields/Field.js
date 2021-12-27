@@ -96,7 +96,13 @@ const Field = ({
             required={required ? true : false}
             disabled={progress}
         >
-            <InputLabel htmlFor={id}>{app.t(label)}</InputLabel>
+            <InputLabel
+                htmlFor={id}
+                disableAnimation={progress}
+                disabled={progress}
+            >
+                {app.t(label)}
+            </InputLabel>
             {
                 renderInput({
                     displayValue,
@@ -108,7 +114,11 @@ const Field = ({
                     progress
                 })
             }
-            <FormHelperText>{app.t(helpText)}</FormHelperText>
+            <FormHelperText
+                disabled={progress}
+            >
+                {app.t(helpText)}
+            </FormHelperText>
         </FormControl>
     </div>
 };
