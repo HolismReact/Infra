@@ -9,6 +9,7 @@ import CloseIcon from '@mui/icons-material/Close';
 // function Alert(props) {
 //     return <MuiAlert elevation={6} variant="filled" {...props} />;
 // }
+// https://mui.com/components/snackbars/#customization
 
 const Message = () => {
     const [isShown, setIsShown] = useState();
