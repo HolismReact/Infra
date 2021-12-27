@@ -29,15 +29,15 @@ const ItemActions = ({
         else {
             itemActionsArray = itemActions.props.children
         }
-        React
-            .Children
-            .toArray(itemActionsArray)
+
         if (itemActionsArray) {
-            clonedItemActions = itemActionsArray.map(itemAction => React.cloneElement(itemAction, {
-                item: item,
-                setItem: setItem,
-                reload: reload
-            }))
+            clonedItemActions = React
+                .Children
+                .toArray(itemActionsArray).map(itemAction => React.cloneElement(itemAction, {
+                    item: item,
+                    setItem: setItem,
+                    reload: reload
+                }))
         }
     }
 
