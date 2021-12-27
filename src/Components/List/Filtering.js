@@ -41,11 +41,13 @@ const Filtering = ({ filters }) => {
         </div>
         <div className={"flex justify-end mt-6" + (app.isRtl() ? ' flex-row-reverse ' : '')}>
             <Button
+                size="small"
                 variant="outlined"
                 onClick={resetFilters}>
                 {app.t('Reset')}
             </Button>
             <Button
+                size="small"
                 className={"bg-green-200 hover:bg-green-400 " + (app.isRtl() ? 'mr-2' : ' ml-2')}
                 variant="outlined"
                 onClick={applyFilters}>
