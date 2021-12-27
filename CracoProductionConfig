@@ -1,18 +1,19 @@
 const path = require(`path`);
 const aliases = {
-    '@Form': 'src/Components/Form/Exports',
-    '@List': 'src/Components/List/Exports',
-    '@Browse': 'src/Components/Browse/Browse',
-    '@Dashboard': 'src/Components/Dashboard/Dashboard',
-    '@Panel': 'src/Panel/Panel',
+  '@Form': 'src/Components/Form/Exports',
+  '@List': 'src/Components/List/Exports',
+  '@Browse': 'src/Components/Browse/Browse',
+  '@Tab': 'src/Components/Tab/Exports',
+  '@Dashboard': 'src/Components/Dashboard/Dashboard',
+  '@Panel': 'src/Panel/Panel',
 };
 
 const resolvedAliases = Object.fromEntries(
-    Object.entries(aliases).map(([key, value]) => [key, path.resolve(__dirname, value)]),
+  Object.entries(aliases).map(([key, value]) => [key, path.resolve(__dirname, value)]),
 );
 
 module.exports = {
-    webpack: {
+  webpack: {
         alias: resolvedAliases
-    }
+  }
 }
