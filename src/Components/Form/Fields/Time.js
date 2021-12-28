@@ -5,6 +5,7 @@ import { Field, app } from '@Form'
 const Time = (props) => {
 
     return <Field
+        type="time"
         {...props}
         renderInput={({ displayValue, setDisplayValue, setChosenValue, label, progress }) => {
             return <TimePicker
