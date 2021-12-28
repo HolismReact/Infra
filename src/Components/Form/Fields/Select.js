@@ -13,11 +13,14 @@ const Select = ({
     return <Field
         type='select'
         {...rest}
-        renderInput={({ displayValue, setDisplayValue, label }) => {
+        renderInput={({ displayValue, setDisplayValue, setChosenValue, label }) => {
             return <MuiSelect
                 value={displayValue}
                 label={app.t(label)}
-                onChange={(e) => setDisplayValue(e.target.value)}
+                onChange={(e) => {
+                    setDisplayValue(e.target.value)
+                    setChosenValue(e.target.value)
+                }}
             >
                 {
                     hasEmpty
