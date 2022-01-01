@@ -17,3 +17,5 @@ export { Chip } from './Properties/Chip';
 export { Progress } from '../Progress';
 export { HolismIcon } from '../HolismIcon';
 export { Dialog } from '../../Components/Dialog/Dialog'
+export { DatePart } from '../Show/DatePart'
+export { TimePart } from '../Show/TimePart'
