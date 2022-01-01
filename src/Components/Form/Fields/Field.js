@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import InputLabel from '@mui/material/InputLabel';
@@ -70,7 +70,7 @@ const Field = ({
             setDisplayValue(entity[app.camelize(column)])
             setChosenValue(entity[app.camelize(column)])
         }
-    }, [entity])
+    }, [column, entity])
 
     const isValid = () => {
         if (!validationState) {
