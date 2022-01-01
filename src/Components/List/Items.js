@@ -12,7 +12,6 @@ const Items = (props) => {
     app.ensure([entityType]);
 
     const [loading, setLoading] = useState();
-    const [reloadedTimes, setReloadedTimes] = useState(0);
     const [data, setData] = useState([]);
     const [metadata, setMetadata] = useState({});
     const { listParameters } = useContext(ListContext);
@@ -55,7 +54,7 @@ const Items = (props) => {
         return () => {
             app.removeListener(app.entityReloadRequested, onEntityReloadRequested)
         }
-    }, [])
+    }, [entityType])
 
     const setItem = (item) => {
         setData((data) => {

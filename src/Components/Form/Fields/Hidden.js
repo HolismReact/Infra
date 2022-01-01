@@ -16,7 +16,7 @@ const Hidden = ({ column, value }) => {
         return () => {
             app.removeListener(app.formSubmitted, () => { });
         }
-    }, [id, formContext]);
+    }, [value, id, formContext]);
 
     return <input
         id={id}

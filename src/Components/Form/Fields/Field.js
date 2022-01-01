@@ -16,8 +16,6 @@ const Field = ({
 }) => {
 
     const [id, setId] = useState();
-    const [labelId, setLabelId] = useState();
-    const htmlInput = useRef();
     const [displayValue, setDisplayValue] = useState(value || "");
     const [chosenValue, setChosenValue] = useState(value || "");
     const [chosenEntity, setChosenEntity] = useState(null);
@@ -34,16 +32,11 @@ const Field = ({
 
     useEffect(() => {
         setId(`${type}_${column}`);
-    }, [column]);
+    }, [type, column]);
 
     useEffect(() => {
         app.addFieldToFormContext(formContext, id, undefined, false);
-        setLabelId(`${id}_lable`);
-    }, [id]);
-
-    useEffect(() => {
-        validateAll();
-    }, [displayValue]);
+    }, [formContext, id]);
 
     const validateAll = () => {
         if (required && app.isNothing(displayValue) && app.isNothing(chosenValue)) {
@@ -67,6 +60,10 @@ const Field = ({
             }
         }
     }
+
+    useEffect(() => {
+        validateAll();
+    }, [displayValue]);
 
     useEffect(() => {
         if (entity) {
@@ -108,6 +105,7 @@ const Field = ({
                     displayValue,
                     setDisplayValue,
                     setChosenValue,
+                    setChosenEntity,
                     label,
                     id,
                     setField,

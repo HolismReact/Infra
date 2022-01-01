@@ -59,7 +59,7 @@ const ItemAction = ({
 
     return <span className="itemAction flex items-center justify-center">
         {
-            (progress || progress == true)
+            (progress || progress === true)
                 ?
                 <CircularProgress size={24} className="m-2" />
                 :

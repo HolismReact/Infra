@@ -1,12 +1,12 @@
+import React, { useEffect, useState } from 'react';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import useLocalStorageState from '../../../Base/UseLocalStorageState';
+import CircularProgress from '@mui/material/CircularProgress';
 import app from '../../../Base/App';
-import React, { useEffect, useState, useRef } from 'react';
 import { get } from '../../../Base/Api';
 import Filter from './Filter';
+import useLocalStorageState from '../../../Base/UseLocalStorageState';
 import filterOperator from '../../../Base/FilterOperator';
-import CircularProgress from '@mui/material/CircularProgress';
 
 const Enum = ({ column, entityType, placeholder }) => {
 
@@ -27,7 +27,7 @@ const Enum = ({ column, entityType, placeholder }) => {
             console.log(error);
             setLoading(false);
         })
-    }, []);
+    }, [enumItems.length, setEnumItems, entityType]);
 
     return <Filter
         type='select'

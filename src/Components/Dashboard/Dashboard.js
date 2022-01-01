@@ -14,7 +14,7 @@ const Dashboard = ({
             pageSubtitle: subtitle,
             breadcrumbItems: breadcrumbItems
         });
-    }, []);
+    }, [title, subtitle, breadcrumbItems]);
 
     return <div
         className="dashboard py-6 grid gap-6 "

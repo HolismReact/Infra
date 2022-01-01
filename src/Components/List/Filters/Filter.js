@@ -18,7 +18,6 @@ const Filter = ({
     app.ensure(column);
 
     const [id, setId] = useState();
-    const [labelId, setLabelId] = useState();
     const [displayValue, setDisplayValue] = useState(value || "");
     var { listParameters } = useContext(ListContext);
     const label = placeholder || column;
@@ -31,25 +30,26 @@ const Filter = ({
         return () => {
             app.removeListener(app.resetFilters, reset);
         }
-    }, []);
+    }, [value]);
 
     useEffect(() => {
         setId(`${type}_${column}`)
-    }, [column]);
-
-    useEffect(() => {
-        setLabelId(`${id}_label`)
-    }, [id]);
+    }, [type, column]);
 
     useEffect(() => {
         listParameters.addFilter(column, operator || filterOperator.contains, displayValue);
-    }, [displayValue]);
+    }, [column, listParameters, operator, displayValue]);
 
     return <div className="filter mt-4 mr-4 w-64">
         <FormControl
             fullWidth
         >
-            <InputLabel size='small'>{app.t(label)}</InputLabel>
+            <InputLabel
+                size='small'
+                htmlFor={id}
+            >
+                {app.t(label)}
+            </InputLabel>
             {
                 renderInput(displayValue, setDisplayValue, label)
             }

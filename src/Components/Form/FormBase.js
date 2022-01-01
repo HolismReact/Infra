@@ -84,13 +84,13 @@ const FormBase = ({
     return () => {
       app.removeListener(app.editRequested, onEditRequested);
     }
-  }, [])
+  }, [entityType])
 
   useEffect(() => {
     validate()
     app.setFieldsCache(fields);
     app.updateToken()
-  }, [fields]);
+  }, [validate, fields]);
 
   const handleSubmit = (event) => {
     app.emit(app.formSubmitted);

@@ -54,14 +54,14 @@ const Browse = ({
             setValue(null);
             return;
         }
-        if (typeof display(selectedEntity) == "undefined") {
+        if (typeof display(selectedEntity) === "undefined") {
             throw new Error(`No dispaly value specified for Browse ${'id'} `)
         }
         else {
-            if (typeof choose == "function") {
+            if (typeof choose === "function") {
                 try {
                     let chosenValue = choose(selectedEntity);
-                    if (typeof chosenValue == "undefined" || typeof chosenValue === "function")
+                    if (typeof chosenValue === "undefined" || typeof chosenValue === "function")
                         throw new Error(`No return value specified for ${column} browser chooser function`)
                     setValue(chosenValue, true);
                 } catch (error) {

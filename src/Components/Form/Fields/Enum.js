@@ -24,7 +24,7 @@ const Enum = ({
             console.log(error);
             setLoading(false);
         })
-    }, []);
+    }, [entityType]);
 
     return <div className={fieldStyles}>
         {

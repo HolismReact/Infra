@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import app from '../../Base/App';
 
 const Page = ({
@@ -15,7 +15,7 @@ const Page = ({
             pageSubtitle: subtitle,
             breadcrumbItems: breadcrumbItems
         });
-    }, []);
+    }, [title, subtitle, breadcrumbItems]);
 
     return <div
         className={'bg-white py-6 md:rounded-lg ' + className}

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import SortIcon from '@mui/icons-material/Sort';
 import ImportExportIcon from '@mui/icons-material/ImportExport';
 import CloseIcon from '@mui/icons-material/Close';
 import { ListContext } from './List';
@@ -10,8 +9,8 @@ import Holism from '../../Base/Holism';
 
 const Sorting = ({ sorts }) => {
 
-    sorts.map(sort => {
-        const { caption, column, direction, key } = sort;
+    for (let i = 0; i < sorts.length; i++) {
+        const { caption, column, direction, key } = sorts[i];
         Holism.ensure(caption);
         if (key) {
             Holism.ensure(key);
@@ -19,7 +18,7 @@ const Sorting = ({ sorts }) => {
         else {
             Holism.ensure([column, direction]);
         }
-    })
+    }
 
     const [anchorEl, setAnchorEl] = useState(null);
     const [currentSort, setCurrentSort] = useState({});

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Integer from "./Integer";
 
 const PositiveInteger = (props) => {

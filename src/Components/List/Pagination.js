@@ -21,7 +21,7 @@ const textStyle = "text-blue-900 p-2 font-light text-xs items-center cursor-poin
 
 const Pagination = ({ metadata }) => {
 
-    const { from, to, pageNumber, pageSize, pagesCount, hasMore, hasData, totalCount } = metadata;
+    const { from, to, pageNumber, pageSize, pagesCount, totalCount } = metadata;
     const [pageNumberDialogIsOpen, setPageNumberDialogVisibility] = useState(false);
     const [pageSizeDialogIsOpen, setPageSizeDialogVisibility] = useState(false);
 

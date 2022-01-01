@@ -41,7 +41,6 @@ const Section = ({
 
     useEffect(() => {
         setSectionWidth(ref.current.offsetWidth);
-        console.log('section width = ' + sectionWidth);
     }, [ref]);
 
     return <div

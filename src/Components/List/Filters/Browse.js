@@ -57,7 +57,7 @@ const Browse = ({ column, placeholder, entityType, browser, display, choose }) =
                 setChosenValue(selectedEntity.id);
             }
         }
-    }, [selectedEntity]);
+    }, [choose, column, display, selectedEntity]);
 
     useEffect(() => {
         const handleEntitySelection = ({ item, callerId }) => {

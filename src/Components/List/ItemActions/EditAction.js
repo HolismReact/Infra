@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import { ItemAction } from '@List';
 import { app } from '@List';
 import { useNavigate } from 'react-router-dom';
-import Items from '../Items';
 
 const EditAction = ({
     entityType,
