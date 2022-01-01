@@ -3,13 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
-import AdapterJalali from '@date-io/date-fns-jalali';
+// import AdapterJalali from '@date-io/date-fns-jalali';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { BrowserRouter } from 'react-router-dom';
 import Panel from './Panel/Panel';
 import app from './Base/App';
 import { get } from './Base/Api';
-import Push from './Base/Push';
 
 const renderReact = () => {
   ReactDOM.render(

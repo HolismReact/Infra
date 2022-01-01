@@ -4,13 +4,11 @@ import MainRouting from '../Base/MainRouting';
 import Sidebar from './Sidebar';
 import Header from './Header';
 import app from '../Base/App';
-import { get } from '../Base/Api';
 import useLocalStorageState from '../Base/UseLocalStorageState';
 import Footer from './Footer';
 import Message from './Message';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Title from './Title';
-import Collapse from '@mui/material/Collapse';
 // https://dev.to/codeply/helpful-page-layouts-using-tailwind-css-1a3k
 // import TrapFocus from '@mui/material/Unstable_TrapFocus';
 // import Backdrop from '@mui/material/Backdrop';
@@ -24,7 +22,6 @@ if (window.React1 !== window.React2) {
 function Panel() {
 
   const [isSidebarOpen, setIsSidebarOpen] = useLocalStorageState(true, 'isSidebarOpen');
-  const [mainContentWidth, setMainContentWidth] = useLocalStorageState(true, 'mainContentWidth');
   const [isDark, setIsDark] = useLocalStorageState(false, `isDark_${app.userGuid()}`);
 
   const toggleMenu = () => {
@@ -52,25 +49,6 @@ function Panel() {
       setIsSidebarOpen(false);
     }
   }
-
-  // useEffect(() => {
-  //   if (window.innerWidth < app.breakpoints.lg) {
-  //     setMainContentWidth('100vw');
-  //   }
-  //   else {
-  //     if (isSidebarOpen) {
-  //       if (window.innerWidth >= app.breakpoints.xxl) {
-  //         setMainContentWidth('83.33vw')
-  //       }
-  //       else {
-  //         setMainContentWidth('80vw');
-  //       }
-  //     }
-  //     else {
-  //       setMainContentWidth('100vw');
-  //     }
-  //   }
-  // }, [isSidebarOpen]);
 
   useEffect(() => {
     const hide = () => {

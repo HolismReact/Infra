@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import app from '../Base/App';
 
-const Title = ({ }) => {
+const Title = () => {
 
     const [pageTitle, setPageTitle] = useState('');
     const [pageSubtitle, setPageSubtitle] = useState('');
