@@ -61,7 +61,7 @@ const Browse = ({ column, placeholder, entityType, browser, display, choose }) =
 
     useEffect(() => {
         const handleEntitySelection = ({ item, callerId }) => {
-            if (callerId != `${column}_browser`) {
+            if (callerId !== `${column}_browser`) {
                 return;
             }
             setSelectedEntity(item.item);

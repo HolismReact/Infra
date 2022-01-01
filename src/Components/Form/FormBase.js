@@ -29,7 +29,7 @@ const FormBase = ({
     // app.updateToken();
   }, [])
 
-  title = title || `${mode == app.formMode.edition ? 'Edit' : 'Create'} ${entityType}`
+  title = title || `${mode === app.formMode.edition ? 'Edit' : 'Create'} ${entityType}`
 
   const validate = () => {
     for (let i = 0; i < fields.length; i++) {
@@ -76,7 +76,7 @@ const FormBase = ({
 
   useEffect(() => {
     const onEditRequested = (params) => {
-      if (entityType == params.entityType) {
+      if (entityType === params.entityType) {
         setEntity(params.entity);
       }
     }

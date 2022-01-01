@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Dialog from '../Dialog/Dialog'
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
 import {
     FormBase,
     Explanations,
@@ -35,7 +32,7 @@ const DialogForm = ({
         return () => {
             app.removeListener(app.editRequested, onEditRequested)
         }
-    }, [])
+    }, [entityType])
 
     useEffect(() => {
         const onCreationRequested = (item) => {
@@ -53,7 +50,7 @@ const DialogForm = ({
         }
         app.on(app.itemActionDialogRequested, onItemActionDialogRequested)
         return () => app.removeListener(app.itemActionDialogRequested, onItemActionDialogRequested)
-    }, [])
+    }, [entityId, dialogPurpose])
 
     useEffect(() => {
         const onDialogFormCanceled = (item) => {
@@ -69,12 +66,6 @@ const DialogForm = ({
         }
         app.on(app.itemCreated, onItemCreated)
         return () => app.removeListener(app.itemCreated, onItemCreated)
-    }, [])
-
-    useEffect(() => {
-        const onEditRequested = ({ entityType, item }) => {
-
-        }
     }, [])
 
     return <FormBase

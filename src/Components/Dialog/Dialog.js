@@ -28,7 +28,7 @@ const Dialog = ({
         }
         app.on(app.itemActionDialogRequested, onItemActionDialogRequested)
         return () => app.removeListener(app.itemActionDialogRequested, onItemActionDialogRequested)
-    }, [])
+    }, [entityId, dialogPurpose])
 
     return <MuiDialog
         open={typeof isOpen === 'boolean' ? isOpen : open}

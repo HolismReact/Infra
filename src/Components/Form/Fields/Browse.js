@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -36,7 +36,7 @@ const Browse = ({
 
     useEffect(() => {
         const handleEntitySelection = ({ selectedEntity, callerId }) => {
-            if (callerId != caller) {
+            if (callerId !== caller) {
                 return;
             }
             setSelectedEntity(selectedEntity);
@@ -79,7 +79,7 @@ const Browse = ({
             }
             show(display(selectedEntity))
         }
-    }, [selectedEntity]);
+    }, [selectedEntity, choose, column, display, setValue, show]);
 
     const browserDialog = <Dialog
         open={isBrowserDialogOpen}
@@ -152,7 +152,6 @@ const Browse = ({
                                     <Tooltip
                                         title={app.t("Clear")}
                                         disableFocusListener={progress}
-                                        disableFocusListener={progress}
                                         disableInteractive={progress}
                                         disableTouchListener={progress}
                                     >
@@ -172,7 +171,6 @@ const Browse = ({
                             }
                             <Tooltip
                                 title={app.t("Find")}
-                                disableFocusListener={progress}
                                 disableFocusListener={progress}
                                 disableInteractive={progress}
                                 disableTouchListener={progress}

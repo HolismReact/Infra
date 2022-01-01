@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from "react-router-dom";
 
 function useQuery() {
@@ -14,9 +14,11 @@ const useQueryStringState = (key, defaultValue) => {
             ? queryStringValue
             : defaultValue;
     });
-    React.useEffect(() => {
+
+    useEffect(() => {
         query.set(key, value);
-    }, [key, value]);
+    }, [query, key, value]);
+
     return [value, setValue];
 }
 
