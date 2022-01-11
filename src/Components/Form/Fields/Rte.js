@@ -20,6 +20,7 @@ import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import { Button, Toolbar } from './RteComponents'
 import HolismIcon from '../../HolismIcon'
+import { fieldStyles } from '@Form'
 
 const HOTKEYS = {
     'mod+b': 'bold',
@@ -37,35 +38,37 @@ const Rte = () => {
     const editor = useMemo(() => withHistory(withReact(createEditor())), [])
 
     return (
-        <Slate editor={editor} value={value} onChange={value => setValue(value)}>
-            <Toolbar>
-                <MarkButton format="bold" icon={FormatBoldIcon} />
-                <MarkButton format="italic" icon={FormatItalicIcon} />
-                <MarkButton format="underline" icon={FormatUnderlinedIcon} />
-                <MarkButton format="code" icon={CodeIcon} />
-                <BlockButton format="heading-one" icon={LooksOneIcon} />
-                <BlockButton format="heading-two" icon={LooksTwoIcon} />
-                <BlockButton format="block-quote" icon={FormatQuoteIcon} />
-                <BlockButton format="numbered-list" icon={FormatListNumberedIcon} />
-                <BlockButton format="bulleted-list" icon={FormatListBulletedIcon} />
-            </Toolbar>
-            <Editable
-                renderElement={renderElement}
-                renderLeaf={renderLeaf}
-                placeholder="Enter some rich text…"
-                spellCheck
-                autoFocus
-                onKeyDown={event => {
-                    for (const hotkey in HOTKEYS) {
-                        if (isHotkey(hotkey, event)) {
-                            event.preventDefault()
-                            const mark = HOTKEYS[hotkey]
-                            toggleMark(editor, mark)
+        <div>
+            <Slate editor={editor} value={value} onChange={value => setValue(value)}>
+                <Toolbar>
+                    <MarkButton format="bold" icon={FormatBoldIcon} />
+                    <MarkButton format="italic" icon={FormatItalicIcon} />
+                    <MarkButton format="underline" icon={FormatUnderlinedIcon} />
+                    <MarkButton format="code" icon={CodeIcon} />
+                    <BlockButton format="heading-one" icon={LooksOneIcon} />
+                    <BlockButton format="heading-two" icon={LooksTwoIcon} />
+                    <BlockButton format="block-quote" icon={FormatQuoteIcon} />
+                    <BlockButton format="numbered-list" icon={FormatListNumberedIcon} />
+                    <BlockButton format="bulleted-list" icon={FormatListBulletedIcon} />
+                </Toolbar>
+                <Editable
+                    renderElement={renderElement}
+                    renderLeaf={renderLeaf}
+                    placeholder="Enter some rich text…"
+                    spellCheck
+                    autoFocus
+                    onKeyDown={event => {
+                        for (const hotkey in HOTKEYS) {
+                            if (isHotkey(hotkey, event)) {
+                                event.preventDefault()
+                                const mark = HOTKEYS[hotkey]
+                                toggleMark(editor, mark)
+                            }
                         }
-                    }
-                }}
-            />
-        </Slate>
+                    }}
+                />
+            </Slate>
+        </div>
     )
 }
 

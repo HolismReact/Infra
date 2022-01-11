@@ -14,7 +14,7 @@ export const Button = React.forwardRef(
         <span
             {...props}
             ref={ref}
-            className={"cursor-pointer " + (reversed ? (active ? "text-white" : "text-gray-400") : (active ? "text-zinc-900" : "text-gray-300"))}
+            className={"cursor-pointer mr-5 " + (reversed ? (active ? "text-white" : "text-gray-400") : (active ? "text-zinc-900" : "text-gray-300"))}
         />
     )
 )
@@ -103,6 +103,7 @@ export const Menu = React.forwardRef(
         <div
             {...props}
             ref={ref}
+            className={className}
         //   className={cx(
         //     className,
         //     css`
@@ -133,6 +134,7 @@ export const Toolbar = React.forwardRef(
         <Menu
             {...props}
             ref={ref}
+            className="relative pt-px pb-[17px] py-[18px] my-0 -mx-[20px] border-b-2 mb-[20px]"
         //   className={cx(
         //     className,
         //     css`

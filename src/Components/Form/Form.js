@@ -26,7 +26,7 @@ const Form = ({
         }) => {
             return <Page
                 title={title}
-                className="px-6 md:px-12 lg:w-2/3 mx-auto mt-24"
+                className={"px-6 md:px-12 mx-auto mt-24 " + (large ? "lg:w-full" : "lg:w-2/3")}
             >
                 <Explanations explanations={explanations} />
                 <FormElement
