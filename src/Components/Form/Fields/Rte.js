@@ -38,7 +38,7 @@ const Rte = () => {
     const editor = useMemo(() => withHistory(withReact(createEditor())), [])
 
     return (
-        <div>
+        <div className="mb-12 pb-12 border-b-2">
             <Slate editor={editor} value={value} onChange={value => setValue(value)}>
                 <Toolbar>
                     <MarkButton format="bold" icon={FormatBoldIcon} />
@@ -56,6 +56,7 @@ const Rte = () => {
                     renderLeaf={renderLeaf}
                     placeholder="Enter some rich text…"
                     spellCheck
+                    className="prose"
                     autoFocus
                     onKeyDown={event => {
                         for (const hotkey in HOTKEYS) {
