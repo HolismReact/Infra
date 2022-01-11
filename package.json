@@ -25,6 +25,8 @@
     "react-router-dom": "^6.0.2",
     "react-scripts": "5.0.0",
     "recharts": "^2.1.6",
+    "slate": "^0.72.3",
+    "slate-react": "^0.72.1",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
