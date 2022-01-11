@@ -1,6 +1,15 @@
-import React, { useState } from 'react'
-import { createEditor } from 'slate'
-import { Slate, Editable, withReact } from 'slate-react'
+import React, { useCallback, useMemo, useState } from 'react'
+import isHotkey from 'is-hotkey'
+import { Editable, withReact, useSlate, Slate } from 'slate-react'
+import {
+  Editor,
+  Transforms,
+  createEditor,
+  Descendant,
+  Element as SlateElement,
+} from 'slate'
+import { withHistory } from 'slate-history'
+
 
 const Rte = () => {
     const [editor] = useState(() => withReact(createEditor()))

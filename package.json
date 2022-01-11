@@ -26,6 +26,7 @@
     "react-scripts": "5.0.0",
     "recharts": "^2.1.6",
     "slate": "^0.72.3",
+    "slate-history": "^0.66.0",
     "slate-react": "^0.72.1",
     "web-vitals": "^1.1.2"
   },
