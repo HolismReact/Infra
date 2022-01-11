@@ -9,6 +9,7 @@ export { Form } from './Form'
 export { DialogForm } from './DialogForm'
 export { Field } from './Fields/Field'
 export { Text } from './Fields/Text';
+export { Rte } from './Fields/Rte';
 export { Email } from './Fields/Email';
 export { Select } from './Fields/Select';
 export { Hidden } from './Fields/Hidden';
