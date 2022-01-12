@@ -38,6 +38,7 @@ const DeleteAction = ({ entityType, item }) => {
             <p>
                 Are you sure you want to delete this item?
             </p>
+            {/* todo: Show some information form the selected item, to enhance UX */}
         </DialogContent>
         <DialogActions>
             <div id='actions' className='mt-4'>
