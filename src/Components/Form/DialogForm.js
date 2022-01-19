@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Dialog from '../Dialog/Dialog'
+import { useSearchParams } from 'react-router-dom'
 import {
     FormBase,
     Explanations,
@@ -20,7 +21,8 @@ const DialogForm = ({
     dialogPurpose
 }) => {
 
-    const [isDialogFormOpen, setIsDialogFormOpen] = useState(false);
+    let [searchParams] = useSearchParams();
+    const [isDialogFormOpen, setIsDialogFormOpen] = useState(searchParams.get("showUpsert") || false);
 
     useEffect(() => {
         const onEditRequested = (params) => {
