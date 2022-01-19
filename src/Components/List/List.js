@@ -42,9 +42,9 @@ const List = ({
   const [selectedItems, setSelectedItems] = useState([]);
 
   const hasItemSelection = listActions ? true : false;
-  const CreationComponent = (create && typeof create === 'function') ? create() : null;
-  const EditionComponent = (edit && typeof edit === 'function') ? edit() : null;
-  const UpsertComponent = (upsert && typeof upsert === 'function') ? upsert() : null;
+  const CreationComponent = (create ? (typeof create === 'function' ? create() : create) : null);
+  const EditionComponent = (edit ? (typeof edit === 'function' ? edit() : create) : null);
+  const UpsertComponent = (upsert ? (typeof upsert === 'function' ? upsert() : create) : null);
 
   useEffect(() => {
     console.log(selectedItems);
