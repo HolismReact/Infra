@@ -12,20 +12,7 @@ const MainRouting = () => {
                         key={route.path}
                         path={route.path}
                         element={<Component />}
-                    >
-                        {
-                            route.children && route.children.map && route.children.length > 0
-                            && route.children.map(childRoute => {
-                                console.log(childRoute);
-                                const ChildComponent = route.component;
-                                <Route
-                                    key={route.path}
-                                    path={route.path}
-                                    element={<Component />}
-                                />
-                            })
-                        }
-                    </Route>
+                    />
                 })
             }
             <Route
