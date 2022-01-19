@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Outlet } from "react-router-dom";
 import SwapHorizIcon from '@mui/icons-material/SwapHoriz';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import CachedIcon from '@mui/icons-material/Cached';
@@ -142,6 +143,7 @@ const List = ({
         <Filtering filters={filters} />
       </div>
     </Collapse>
+    <Outlet />
 
     <Items
       entityType={entityType}
