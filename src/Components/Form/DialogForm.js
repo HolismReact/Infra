@@ -22,7 +22,7 @@ const DialogForm = ({
 }) => {
 
     let [searchParams] = useSearchParams();
-    const [isDialogFormOpen, setIsDialogFormOpen] = useState(searchParams.get("showUpsert") || false);
+    const [isDialogFormOpen, setIsDialogFormOpen] = useState(searchParams.get("showDialog") || false);
 
     useEffect(() => {
         const onEditRequested = (params) => {
@@ -86,17 +86,19 @@ const DialogForm = ({
                 title={title}
                 content={<>
                     <Explanations explanations={explanations} />
-                    <FormElement inputs={inputs} handleSubmit={handleSubmit} />
+                    <FormElement
+                        id='dialogForm'
+                        inputs={inputs}
+                        handleSubmit={handleSubmit}
+                    />
                 </>}
                 actions={<Actions
                     actions={actions}
                     handleSubmit={handleSubmit}
                 />}
                 isOpen={isDialogFormOpen}
-                TransitionProps={{
-                    onEntered: () => {
-                        focusFirstInput('dialogForm')
-                    }
+                onEntered={() => {
+                    focusFirstInput('dialogForm')
                 }}
                 large={large}
             />

@@ -1,5 +1,10 @@
-const FormElement = ({ inputs, handleSubmit }) => {
+const FormElement = ({
+    id,
+    inputs,
+    handleSubmit
+}) => {
     return <form
+        id={id || 'form'}
         noValidate
         onSubmit={handleSubmit}
     >

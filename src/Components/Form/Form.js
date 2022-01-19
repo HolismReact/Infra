@@ -30,6 +30,7 @@ const Form = ({
             >
                 <Explanations explanations={explanations} />
                 <FormElement
+                    id='form'
                     inputs={inputs}
                     handleSubmit={handleSubmit}
                 />
