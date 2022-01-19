@@ -12,10 +12,16 @@ const Tabs = ({ title, subtitle, breadcrumbItems, tabs }) => {
 
 	useEffect(() => {
 		app.emit(app.componentLoaded, {
+			freeze: true,
 			pageTitle: title,
 			pageSubtitle: subtitle,
 			breadcrumbItems: breadcrumbItems
 		});
+		return () => {
+			app.emit(app.componentLoaded, {
+				freeze: false
+			});
+		}
 	}, []);
 
 	return <div>

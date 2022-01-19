@@ -3,11 +3,13 @@ import app from '../Base/App';
 
 const Title = () => {
 
+    const [params, setParams] = useState('');
     const [pageTitle, setPageTitle] = useState('');
     const [pageSubtitle, setPageSubtitle] = useState('');
     const [breadcrumbItems, setBreadcrumbItems] = useState([]);
     const [hasSubtitleOrBreadcrumb, setHasSubtitleOrBreadcrum] = useState();
     const [isShown, setIsShown] = useState(true);
+    const [isFreezed, setIsFreezed] = useState(false);
 
     useEffect(() => {
         const hide = () => {
@@ -29,14 +31,25 @@ const Title = () => {
         };
     });
 
-    useEffect(() => {
-        const setTitleAndSubtitle = ({ pageTitle, pageSubtitle, breadcrumbItems }) => {
+    const setTitleAndSubtitle = ({ freeze, pageTitle, pageSubtitle, breadcrumbItems }) => {
+        setParams({ freeze, pageTitle, pageSubtitle, breadcrumbItems })
+        if (!isFreezed) {
             setPageTitle(pageTitle);
             setPageSubtitle(pageSubtitle);
             if (breadcrumbItems && breadcrumbItems.length) {
                 setBreadcrumbItems(breadcrumbItems);
             }
-        };
+        }
+        if (typeof freeze === 'boolean') {
+            setIsFreezed(freeze);
+        }
+    }
+
+    useEffect(() => {
+        setTitleAndSubtitle(params);
+    }, [isFreezed])
+
+    useEffect(() => {
         app.on(app.componentLoaded, setTitleAndSubtitle);
         return () => {
             app.removeListener(app.componentLoaded, setTitleAndSubtitle);
