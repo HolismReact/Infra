@@ -13,6 +13,10 @@ const Globalization = {
         if (Globalization.translations.hasOwnProperty(text)) {
             return Globalization.translations[text];
         }
+        var lowerCaseText = text.toLowerCase();
+        if (Globalization.translations.hasOwnProperty(lowerCaseText)) {
+            return Globalization.translations[lowerCaseText];
+        }
         return text;
     },
     locale: {},
