@@ -42,6 +42,9 @@ const Holism = {
             --end;
 
         return (start > 0 || end < text.length) ? text.substring(start, end) : text;
+    },
+    env: (key) => {
+        return Holism.trim(process.env[`REACT_APP_${key}`] || '', '/')
     }
 };
 
