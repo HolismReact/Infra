@@ -2,7 +2,7 @@ import { Text } from './Text';
 import LinkIcon from '@mui/icons-material/Link';
 
 const Slug = (props) => {
-    const slugFormat = /^[a-zA-Z0-9-]*$/;
+    const slugFormat = /^[a-z0-9-]*$/;
 
     return <Text
         column="Slug"
@@ -11,7 +11,7 @@ const Slug = (props) => {
         startIcon={LinkIcon}
         regex={slugFormat}
         hint="this-is-a-valid-slug"
-        regexError='Slug is not valid. Only dash and alphanumeral characters are accepted.'
+        regexError='Slug is not valid. Only dash and lowercase English characters, and numbers are accepted.'
         {...props}
     />
 }
