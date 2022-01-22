@@ -5,6 +5,7 @@ export const FormContext = React.createContext();
 
 const FormBase = ({
   entityType,
+  humanReadableEntityType,
   title,
   explanations,
   inputs,
@@ -22,14 +23,13 @@ const FormBase = ({
   const [isValid, setIsValid] = useState(false);
   const [entity, setEntity] = useState(null);
   const [mode, setMode] = useState(app.formMode.creation)
+  const [calculatedTitle, setCalculatedTitle] = useState('')
 
   app.ensure([entityType]);
 
   useEffect(() => {
     // app.updateToken();
   }, [])
-
-  title = title || `${mode === app.formMode.edition ? 'Edit' : 'Create'} ${entityType}`
 
   const validate = () => {
     for (let i = 0; i < fields.length; i++) {
@@ -59,6 +59,18 @@ const FormBase = ({
       setMode(app.formMode.creation)
     }
   }, [entity])
+
+  useEffect(() => {
+    if (typeof title === 'string') {
+      setCalculatedTitle(title)
+    }
+    else if (typeof title === 'function') {
+      setCalculatedTitle(title(mode))
+    }
+    else {
+      setCalculatedTitle(`${mode === app.formMode.edition ? 'Edit' : 'Create'} ${humanReadableEntityType || entityType}`)
+    }
+  }, [mode])
 
   const resetForm = () => {
     setFields([])
@@ -136,7 +148,7 @@ const FormBase = ({
   }}>
     {
       renderForm({
-        title,
+        calculatedTitle,
         focusFirstInput,
         handleSubmit
       })

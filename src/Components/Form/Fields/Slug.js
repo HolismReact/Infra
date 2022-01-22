@@ -10,7 +10,7 @@ const Slug = (props) => {
         required="Slug is not provided"
         startIcon={LinkIcon}
         regex={slugFormat}
-        hint="this-is-a-valid-slug"
+        hint="valid-slug-sample"
         regexError='Slug is not valid. Only dash and lowercase English characters, and numbers are accepted.'
         {...props}
     />

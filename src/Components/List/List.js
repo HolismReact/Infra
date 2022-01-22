@@ -162,6 +162,7 @@ const List = ({
         ?
         <DialogForm
           entityType={CreationComponent.props?.entityType}
+          humanReadableEntityType={CreationComponent.props?.humanReadableEntityType}
           title={CreationComponent.props?.title}
           explanations={CreationComponent.props.explanations}
           inputs={CreationComponent.props?.inputs}
@@ -176,6 +177,7 @@ const List = ({
         ?
         <DialogForm
           entityType={UpsertComponent.props?.entityType}
+          humanReadableEntityType={UpsertComponent.props?.humanReadableEntityType}
           title={UpsertComponent.props?.title}
           explanations={UpsertComponent.props.explanations}
           inputs={UpsertComponent.props?.inputs}

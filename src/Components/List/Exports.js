@@ -19,3 +19,4 @@ export { HolismIcon } from '../HolismIcon';
 export { Dialog } from '../../Components/Dialog/Dialog'
 export { DatePart } from '../Show/DatePart'
 export { TimePart } from '../Show/TimePart'
+export { DateTimeTitleAgo } from '../Show/DateTimeTitleAgo'

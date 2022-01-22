@@ -30,6 +30,18 @@ const Holism = {
         return text.replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
             return index === 0 ? word.toLowerCase() : word.toUpperCase();
         }).replace(/\s+/g, '');
+    },
+    trim: (text, character) => {
+        var start = 0,
+            end = text.length;
+
+        while (start < end && text[start] === character)
+            ++start;
+
+        while (end > start && text[end - 1] === character)
+            --end;
+
+        return (start > 0 || end < text.length) ? text.substring(start, end) : text;
     }
 };
 
