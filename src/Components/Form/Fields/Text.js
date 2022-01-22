@@ -1,9 +1,12 @@
-import OutlinedInput from '@mui/material/OutlinedInput';
-import { app, Field } from '@Form';
+import OutlinedInput from '@mui/material/OutlinedInput'
+import InputAdornment from '@mui/material/InputAdornment'
+import { app, Field } from '@Form'
+import HolismIcon from '../../HolismIcon'
 
 const Text = ({
     regex,
     regexError,
+    startIcon,
     ...rest
 }) => {
 
@@ -29,6 +32,9 @@ const Text = ({
             return <OutlinedInput
                 label={app.t(label)}
                 value={displayValue}
+                startAdornment={startIcon && <InputAdornment position="start">
+                    <HolismIcon icon={startIcon} />
+                </InputAdornment>}
                 onChange={(e) => {
                     setDisplayValue(e.target.value)
                     setChosenValue(e.target.value)
