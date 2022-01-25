@@ -1,5 +1,8 @@
 const Push = {
     configPusher: () => {
+        if (!process.env.REACT_APP_PUSHER_KEY) {
+            return;
+        }
         try {
             if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
                 window.Pusher.logToConsole = true;
