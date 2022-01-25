@@ -6,6 +6,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 // import AdapterJalali from '@date-io/date-fns-jalali';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import { BrowserRouter } from 'react-router-dom';
+import { DndProvider } from 'react-dnd'
 import Panel from './Panel/Panel';
 import app from './Base/App';
 import { get } from './Base/Api';
