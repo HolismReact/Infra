@@ -11,7 +11,7 @@ const EventManager = {
     eventEmitter: eventEmitter,
     formSubmitted: 'form_submission_requested',
     creationRequested: 'dialog_form_requested',
-    dialogFormCanceled: 'dialog_form_canceled',
+    formCanceled: 'form_canceled',
     componentLoaded: 'component_loaded',
     accountUpdated: 'account_updated',
     itemCreated: 'item_created',

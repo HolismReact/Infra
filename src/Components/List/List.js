@@ -158,13 +158,13 @@ const List = ({
       upsert={upsert}
     />
     {
-      CreationComponent
+      CreationComponent && typeof CreationComponent !== 'string'
         ?
         <DialogForm
           entityType={CreationComponent.props?.entityType}
           humanReadableEntityType={CreationComponent.props?.humanReadableEntityType}
           title={CreationComponent.props?.title}
-          explanations={CreationComponent.props.explanations}
+          explanations={CreationComponent.props?.explanations}
           inputs={CreationComponent.props?.inputs}
           actions={CreationComponent.props?.actions}
           large={CreationComponent.props?.large}
@@ -173,13 +173,13 @@ const List = ({
         null
     }
     {
-      UpsertComponent
+      UpsertComponent && typeof UpsertComponent !== 'string'
         ?
         <DialogForm
           entityType={UpsertComponent.props?.entityType}
           humanReadableEntityType={UpsertComponent.props?.humanReadableEntityType}
           title={UpsertComponent.props?.title}
-          explanations={UpsertComponent.props.explanations}
+          explanations={UpsertComponent.props?.explanations}
           inputs={UpsertComponent.props?.inputs}
           actions={UpsertComponent.props?.actions}
           large={UpsertComponent.props?.large}

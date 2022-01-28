@@ -1,7 +1,10 @@
 import { useState, useEffect, useContext } from 'react';
 import { app, FormContext } from '@Form';
 
-const Hidden = ({ column, value }) => {
+const Hidden = ({
+    column,
+    value
+}) => {
 
     const [id, setId] = useState();
     var formContext = useContext(FormContext);

@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'
 import {
     FormBase,
     Page,
     Explanations,
     FormElement,
     Actions,
+    app
 } from '@Form';
 
 export const FormContext = React.createContext();
@@ -17,6 +19,17 @@ const Form = ({
     actions,
     large
 }) => {
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const onFormCanceled = (item) => {
+            navigate(-1)
+        }
+        app.on(app.formCanceled, onFormCanceled)
+        return () => app.removeListener(app.formCanceled, onFormCanceled)
+    }, [])
+
     return <FormBase
         entityType={entityType}
         renderForm={({

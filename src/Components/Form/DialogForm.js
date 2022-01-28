@@ -55,11 +55,11 @@ const DialogForm = ({
     }, [entityId, dialogPurpose])
 
     useEffect(() => {
-        const onDialogFormCanceled = (item) => {
+        const onFormCanceled = (item) => {
             setIsDialogFormOpen(false);
         }
-        app.on(app.dialogFormCanceled, onDialogFormCanceled)
-        return () => app.removeListener(app.dialogFormCanceled, onDialogFormCanceled)
+        app.on(app.formCanceled, onFormCanceled)
+        return () => app.removeListener(app.formCanceled, onFormCanceled)
     }, [])
 
     useEffect(() => {
