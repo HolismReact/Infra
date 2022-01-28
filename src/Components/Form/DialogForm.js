@@ -78,12 +78,12 @@ const DialogForm = ({
         actions={actions}
         okAction={okAction}
         renderForm={({
-            title,
+            calculatedTitle,
             focusFirstInput,
             handleSubmit,
         }) => {
             return <Dialog
-                title={title}
+                title={calculatedTitle}
                 content={<>
                     <Explanations explanations={explanations} />
                     <FormElement

@@ -65,69 +65,69 @@ const Cards = ({
                             :
                             null
                     }
-                    <br />
-                    {
-                        data.map((item, index) =>
-                            <div
-                                className=
-                                {
-                                    'item w-full py-4 px-6 overflow-hidden ' +
-                                    (index === 0 ? '' : 'border-t ') +
-                                    (classProvider ? classProvider(item) : '')
-                                }
-                                key={item.id}
-                                dir={app.isRtl() ? "rtl" : "ltr"}
-                            >
-                                {
-                                    hasItemSelection
-                                        ?
-                                        <div className="flex flex-row">
-                                            <div className="flex items-center justify-center w-10 mr-4">
-                                                <Checkbox
-                                                    checked={selectedItems.indexOf(item.id) > -1}
-                                                    color="primary"
-                                                    onChange={(event) => {
-                                                        event.target.checked
-                                                            ?
-                                                            app.addItemToSelectedItems(listContext, item.id)
-                                                            :
-                                                            app.removeItemFromSelectedItems(listContext, item.id)
-                                                    }}
+                    <div className="w-full">
+                        {
+                            data.map((item, index) =>
+                                <div
+                                    className=
+                                    {
+                                        'item w-full py-4 px-6 overflow-hidden ' +
+                                        (index === 0 ? '' : 'border-t ') +
+                                        (classProvider ? classProvider(item) : '')
+                                    }
+                                    key={item.id}
+                                    dir={app.isRtl() ? "rtl" : "ltr"}
+                                >
+                                    {
+                                        hasItemSelection
+                                            ?
+                                            <div className="flex flex-row">
+                                                <div className="flex items-center justify-center w-10 mr-4">
+                                                    <Checkbox
+                                                        checked={selectedItems.indexOf(item.id) > -1}
+                                                        color="primary"
+                                                        onChange={(event) => {
+                                                            event.target.checked
+                                                                ?
+                                                                app.addItemToSelectedItems(listContext, item.id)
+                                                                :
+                                                                app.removeItemFromSelectedItems(listContext, item.id)
+                                                        }}
+                                                    />
+                                                </div>
+                                                <div>
+                                                    {
+                                                        card(item)
+                                                    }
+                                                </div>
+                                            </div>
+                                            :
+                                            card(item)
+                                    }
+                                    {
+                                        (itemActions || hasDelete || hasEdit || edit)
+                                            ?
+                                            <div className="flex flex-wrap items-center justify-end">
+                                                <ItemActions
+                                                    entityType={entityType}
+                                                    item={item}
+                                                    itemActions={itemActions}
+                                                    hasDelete={hasDelete}
+                                                    hasEdit={hasEdit}
+                                                    edit={edit}
+                                                    create={create}
+                                                    upsert={upsert}
+                                                    setItem={setItem}
+                                                    reload={reload}
                                                 />
                                             </div>
-                                            <div>
-                                                {
-                                                    card(item)
-                                                }
-                                            </div>
-                                        </div>
-                                        :
-                                        card(item)
-                                }
-                                {
-                                    (itemActions || hasDelete || hasEdit || edit)
-                                        ?
-                                        <div className="flex flex-wrap items-center justify-end">
-                                            <ItemActions
-                                                entityType={entityType}
-                                                item={item}
-                                                itemActions={itemActions}
-                                                hasDelete={hasDelete}
-                                                hasEdit={hasEdit}
-                                                edit={edit}
-                                                create={create}
-                                                upsert={upsert}
-                                                setItem={setItem}
-                                                reload={reload}
-                                            />
-                                        </div>
-                                        :
-                                        null
-                                }
-                            </div>
-                        )
-                    }
-                    < br />
+                                            :
+                                            null
+                                    }
+                                </div>
+                            )
+                        }
+                    </div>
                     <div className="px-6 w-full">
                         <Pagination metadata={metadata} />
                     </div>
