@@ -72,6 +72,14 @@ const FormBase = ({
     }
   }, [mode])
 
+  useEffect(() => {
+    const onFormCanceled = (item) => {
+      resetForm()
+    }
+    app.on(app.formCanceled, onFormCanceled)
+    return () => app.removeListener(app.formCanceled, onFormCanceled)
+  }, [])
+
   const resetForm = () => {
     setFields([])
     setEntity(null)
