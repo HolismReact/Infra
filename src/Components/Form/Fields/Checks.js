@@ -8,7 +8,7 @@ const Checks = ({
     choose
 }) => {
     return <div className={fieldStyles}>
-
+        checks
     </div>
 }
 

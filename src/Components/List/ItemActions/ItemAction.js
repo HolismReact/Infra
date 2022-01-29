@@ -22,40 +22,14 @@ const ItemAction = ({
 
     const navigate = useNavigate();
 
-    const [progress, setProgress] = useState(false);
+    const Dialog = dialog ? React.cloneElement(dialog, {
+        entityId: item.id,
+        dialogPurpose: title
+    }) : null;
 
-    let Dialog = dialog;
-    if (dialog) {
-        const result = dialog(item)
-        const name = result.type.name
-        // console.log('dialog element name ', name);
-        if (name === 'Form') {
-            Dialog = <DialogForm
-                entityType={result.props?.entityType}
-                title={result.props?.title}
-                explanations={result.props.explanations}
-                inputs={result.props?.inputs}
-                actions={result.props?.actions}
-                large={result.props?.large}
-                okAction={result.props?.okAction}
-                entityId={item.id}
-                dialogPurpose={title}
-            />
-        }
-        else if (name === 'Dialog') {
-            Dialog = <HolismDialog
-                title={result.props?.title}
-                content={result.props?.content}
-                actions={result.props?.actions}
-                large={result.props?.large}
-                entityId={item.id}
-                dialogPurpose={title}
-            />
-        }
-    }
-
-    // console.log(title)
     // app.analyzeComponent(Dialog)
+
+    const [progress, setProgress] = useState(false);
 
     return <span className="itemAction flex items-center justify-center">
         {
