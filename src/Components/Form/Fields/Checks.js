@@ -15,6 +15,7 @@ const Checks = ({
     const [items, setItems] = useState(null)
     const [checkedItems, setCheckedItems] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [chosenValues, setChosenValues] = useState([])
 
     useEffect(() => {
         const onRunMethod = (entityGuid) => {
@@ -79,8 +80,39 @@ const Checks = ({
     useEffect(() => {
         if (items && items.map && checkedItems && checkedItems.map) {
             setLoading(false)
+            for (var i = 0; i < checkedItems.length; i++) {
+                for (var j = 0; j < items.length; j++) {
+                    if (choose(checkedItems[i]) === choose(items[j])) {
+                        checkedItems[i].isChecked = true
+                        chosenValues.push(choose(checkedItems[i]))
+                        break;
+                    }
+                }
+            }
         }
     }, [items, checkedItems])
+
+    const handleChange = (item, isChecked) => {
+        var chosenValue = choose(item);
+        if (isChecked) {
+            if (chosenValues.indexOf(chosenValue) > -1) {
+
+            }
+            else {
+                chosenValues.push(chosenValue);
+            }
+        }
+        else {
+            if (chosenValues.indexOf(chosenValue) > -1) {
+                chosenValues.splice(chosenValues.indexOf(chosenValue), 1);
+            }
+        }
+        setChosenValues([...chosenValues])
+    }
+
+    useEffect(() => {
+        console.log(chosenValues);
+    }, [chosenValues])
 
     return <div className={fieldStyles}>
         {
@@ -93,15 +125,17 @@ const Checks = ({
                         items && items.length > 0
                             ?
                             <FormGroup className="grid sm:grid-cols-2 lg:grid-cols-3">
-                            {
-                                items.map(item => <FormControlLabel 
-                                    key={item.id}
-                                    control={<Checkbox
-                                        
-                                    />}
-                                    label={show(item)}
-                                />)
-                            }
+                                {
+                                    items.map(item => <FormControlLabel
+                                        key={item.id}
+                                        control={<Checkbox
+
+                                        />}
+                                        label={show(item)}
+                                        checked={item.checked}
+                                        onChange={(e) => handleChange(item, e.target.checked)}
+                                    />)
+                                }
                             </FormGroup>
                             :
                             <div>{app.t('No item is found')}</div>
