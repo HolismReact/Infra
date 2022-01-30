@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react'
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 import { Progress, app, get, FormContext, fieldStyles } from '@Form';
 
 const Checks = ({
@@ -89,7 +92,16 @@ const Checks = ({
                     {
                         items && items.length > 0
                             ?
-                            items.map(item => <div>{show(item)}</div>)
+                            <FormGroup>
+                            {
+                                items.map(item => <FormControlLabel 
+                                    control={<Checkbox
+                                        
+                                    />}
+                                    label={show(item)}
+                                />)
+                            }
+                            </FormGroup>
                             :
                             <div>{app.t('No item is found')}</div>
                     }
