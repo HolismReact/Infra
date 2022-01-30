@@ -84,7 +84,6 @@ const Checks = ({
             for (var i = 0; i < checkedItems.length; i++) {
                 for (var j = 0; j < items.length; j++) {
                     if (choose(checkedItems[i]) === choose(items[j])) {
-                        checkedItems[i].isChecked = true
                         chosenValues.push(choose(checkedItems[i]))
                         break;
                     }
@@ -133,7 +132,7 @@ const Checks = ({
 
                                         />}
                                         label={show(item)}
-                                        checked={item.checked}
+                                        checked={chosenValues.indexOf(choose(item)) > -1 || false}
                                         onChange={(e) => handleChange(item, e.target.checked)}
                                     />)
                                 }
