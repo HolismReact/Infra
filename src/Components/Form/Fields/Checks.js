@@ -1,26 +1,25 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, forwardRef, useImperativeHandle } from 'react'
 import { Progress, app, get, FormContext, fieldStyles } from '@Form';
 
-const Checks = ({
+const Checks = forwardRef(({
     column,
     itemsUrl,
     checkedItemsUrl,
     show,
-    choose,
-    setLoader
-}) => {
+    choose
+}, ref) => {
     const [items, setItems] = useState(null)
     const [checkedItems, setCheckedItems] = useState(null)
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
 
-    useEffect(() => {
-        setLoader(load)
-    }, [])
+    useImperativeHandle(ref, () => ({
 
-    const load = () => {
-        loadItems()
-        loadCheckedItems()
-    }
+        loadData() {
+            loadItems()
+            loadCheckedItems()
+        }
+
+    }));
 
     const loadItems = () => {
         setLoading(true)
@@ -83,6 +82,6 @@ const Checks = ({
                 </div>
         }
     </div>
-}
+})
 
 export { Checks }
