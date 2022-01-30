@@ -120,6 +120,7 @@ const List = ({
               <Tooltip title={app.t('Filters')}>
                 <FilterListIcon />
               </Tooltip>
+              {/* <span>Filters</span> */}
             </span>
             :
             null
