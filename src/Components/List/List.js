@@ -35,7 +35,8 @@ const List = ({
   edit,
   creationButton,
   classProvider,
-  upsert
+  upsert,
+  dialogs
 }) => {
   const [listParameters] = useState(CreateListParameters(app.userGuid(), entityType));
   const [isFilteringOpen, setIsFilteringOpen] = useLocalStorageState(false, `${app.userGuid()}_${entityType}_isFilteringOpen`);

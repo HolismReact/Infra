@@ -139,6 +139,9 @@ export { app } from '../Base/App';
 export { get, post } from '../Base/Api';
 export { PagePadding } from './Styles';
 export { Dialog } from '../Components/Dialog/Dialog'
+export { PrimaryAction } from '../Components/Dialog/PrimaryAction'
+export { CancelAction } from '../Components/Dialog/CancelAction'
+export { OkCancel } from '../Components/Dialog/OkCancel'
 export { Progress } from '../Components/Progress'
 export { Success } from '../Components/Message/Success'
 export { Info } from '../Components/Message/Info'
