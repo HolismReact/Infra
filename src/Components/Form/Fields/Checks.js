@@ -10,7 +10,8 @@ const Checks = ({
     checkedItemsUrl,
     show,
     choose,
-    itemKey
+    itemKey,
+    set
 }) => {
     const [items, setItems] = useState(null)
     const [checkedItems, setCheckedItems] = useState(null)
@@ -111,7 +112,7 @@ const Checks = ({
     }
 
     useEffect(() => {
-        console.log(chosenValues);
+        set(chosenValues)
     }, [chosenValues])
 
     return <div className={fieldStyles}>

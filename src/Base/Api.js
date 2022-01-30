@@ -90,6 +90,6 @@ export async function get(url) {
 
 export async function post(url, data) {
   return await axiosApi
-    .post(url, { ...data })
+    .post(url, Array.isArray(data) ? [...data] : { ...data })
     .then(response => response?.data);
 }
