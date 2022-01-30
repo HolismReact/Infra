@@ -25,6 +25,7 @@ const EventManager = {
     toggleTopPagination: 'toggle_top_pagination',
     itemActionDialogRequested: 'item_action_dialog_requested',
     entityReloadRequested: 'entity_reload_requested',
-    darkModeChanged: 'dark_mode_changed'
+    darkModeChanged: 'dark_mode_changed',
+    runMethod: 'run_method'
 };
 export default EventManager;

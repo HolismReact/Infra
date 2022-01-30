@@ -22,7 +22,7 @@ const Dialog = ({
 
     useEffect(() => {
         const onItemActionDialogRequested = ({ entity, purpose }) => {
-            if (entityId === entity.id && dialogPurpose === purpose && typeof isOpen !== 'boolean') {
+            if (entityId === entity?.id && dialogPurpose === purpose && typeof isOpen !== 'boolean') {
                 setOpen(true)
             }
         }

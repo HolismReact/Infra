@@ -16,8 +16,8 @@ const OkCancel = ({
                     <CircularProgress size={30} />
                     :
                     <>
-                        <CancelAction click={okClick} />
-                        <PrimaryAction click={cancelClick} />
+                        <CancelAction click={cancelClick} />
+                        <PrimaryAction click={okClick} />
                     </>
             }
         </div>

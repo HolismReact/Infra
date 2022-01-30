@@ -1,25 +1,35 @@
-import { useState, useEffect, forwardRef, useImperativeHandle } from 'react'
+import { useState, useEffect } from 'react'
 import { Progress, app, get, FormContext, fieldStyles } from '@Form';
 
-const Checks = forwardRef(({
+const Checks = ({
     column,
     itemsUrl,
     checkedItemsUrl,
     show,
-    choose
-}, ref) => {
+    choose,
+    itemKey
+}) => {
     const [items, setItems] = useState(null)
     const [checkedItems, setCheckedItems] = useState(null)
     const [loading, setLoading] = useState(true)
 
-    useImperativeHandle(ref, () => ({
-
-        loadData() {
-            loadItems()
-            loadCheckedItems()
+    useEffect(() => {
+        const onRunMethod = (entityGuid) => {
+            if (entityGuid === itemKey) {
+                loadItems()
+                loadCheckedItems()
+            }
         }
+        app.on(app.runMethod, onRunMethod)
+        return () => {
+            app.removeListener(app.runMethod, onRunMethod)
+        }
+    }, [])
 
-    }));
+    useEffect(() => {
+        loadItems()
+        loadCheckedItems()
+    }, [])
 
     const loadItems = () => {
         setLoading(true)
@@ -32,7 +42,9 @@ const Checks = forwardRef(({
                     if (data.data) {
                         setItems(data.data)
                     }
-                    throw new Error('Return value of the API is not well formatted')
+                    else {
+                        throw new Error('Return value of the API is not well formatted')
+                    }
                 }
             }, error => {
                 setLoading(false)
@@ -49,9 +61,11 @@ const Checks = forwardRef(({
                 }
                 else {
                     if (data.data) {
-                        setCheckedItems(data)
+                        setCheckedItems(data.data)
                     }
-                    throw new Error('Return value of the API is not well formatted')
+                    else {
+                        throw new Error('Return value of the API is not well formatted')
+                    }
                 }
             }, error => {
                 setLoading(false)
@@ -60,7 +74,7 @@ const Checks = forwardRef(({
     }
 
     useEffect(() => {
-        if (items && items.length && checkedItems && checkedItems.length) {
+        if (items && items.map && checkedItems && checkedItems.map) {
             setLoading(false)
         }
     }, [items, checkedItems])
@@ -82,6 +96,6 @@ const Checks = forwardRef(({
                 </div>
         }
     </div>
-})
+}
 
 export { Checks }

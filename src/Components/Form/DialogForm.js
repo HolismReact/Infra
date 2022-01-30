@@ -46,7 +46,7 @@ const DialogForm = ({
 
     useEffect(() => {
         const onItemActionDialogRequested = ({ entity, purpose }) => {
-            if (entity.id === entityId && dialogPurpose === purpose) {
+            if (entity?.id === entityId && dialogPurpose === purpose) {
                 setIsDialogFormOpen(true);
             }
         }
