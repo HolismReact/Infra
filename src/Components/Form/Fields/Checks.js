@@ -92,9 +92,10 @@ const Checks = ({
                     {
                         items && items.length > 0
                             ?
-                            <FormGroup>
+                            <FormGroup className="grid sm:grid-cols-2 lg:grid-cols-3">
                             {
                                 items.map(item => <FormControlLabel 
+                                    key={item.id}
                                     control={<Checkbox
                                         
                                     />}
