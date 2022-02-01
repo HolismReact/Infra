@@ -91,5 +91,15 @@ export async function get(url) {
 export async function post(url, data) {
   return await axiosApi
     .post(url, Array.isArray(data) ? [...data] : { ...data })
-    .then(response => response?.data);
+    .then(response => response?.data)
+}
+
+export async function upload(url, data) {
+  return await axiosApi
+    .post(url, data, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+    .then(response => response?.data)
 }

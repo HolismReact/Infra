@@ -136,7 +136,7 @@ export { Maximize } from './HeaderActions/Maximize';
 export { Page } from '../Components/Page/Page';
 export { HolismIcon } from '../Components/HolismIcon';
 export { app } from '../Base/App';
-export { get, post } from '../Base/Api';
+export { get, post, upload } from '../Base/Api';
 export { PagePadding } from './Styles';
 export { Dialog } from '../Components/Dialog/Dialog'
 export { PrimaryAction } from '../Components/Dialog/PrimaryAction'

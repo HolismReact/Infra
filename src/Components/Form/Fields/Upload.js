@@ -19,7 +19,7 @@ const Upload = ({
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
     useEffect(() => {
-        console.log(files)
+        app.selectedFiles = files
         setPreviews(files.map(file => {
             return {
                 name: file.name,
@@ -45,7 +45,7 @@ const Upload = ({
         <Fade in={hasImages}>
             <div className="relative flex items-center justify-around">
                 {
-                    previews.map(preview => <div className="relative">
+                    previews.map(preview => <div className="relative" key={preview.url}>
                         <img
                             className="rounded-lg shadow-md shadow-black w-36 h-36 object-cover "
                             src={preview.url}

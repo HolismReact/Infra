@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import UploadIcon from '@mui/icons-material/Upload';
 import { Dialog, HolismIcon } from '../Exports';
-import { FormElement, Upload, app, post } from '@Form'
+import { FormElement, Upload, app, upload } from '@Form'
 import { OkCancel } from '@Panel';
 
 const Image = ({
@@ -13,9 +13,13 @@ const Image = ({
     const [isOpen, setIsOpen] = useState(false)
     const [progress, setProgress] = useState(false)
 
-    const upload = () => {
+    const uploadImage = () => {
+        var form = new FormData();
+        app.selectedFiles.forEach(file => {
+            form.append(file.name, file);
+        });
         setProgress(true)
-        post(uploadUrl, { image: 'image' })
+        upload(uploadUrl, form)
             .then(data => {
                 setProgress(false)
                 app.success('Image uploaded successfully')
@@ -46,7 +50,7 @@ const Image = ({
                 actions={
                     <OkCancel
                         progress={progress}
-                        okClick={() => upload()}
+                        okClick={() => uploadImage()}
                         cancelClick={() => setIsOpen(false)}
                     />
                 }

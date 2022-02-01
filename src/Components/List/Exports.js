@@ -7,7 +7,7 @@ export { ListAction } from './ListActions/ListAction';
 export { ItemAction } from './ItemActions/ItemAction';
 export { Browse } from './Filters/Browse';
 export { ValueWithTitle } from '../Show/ValueWithTitle';
-export { get, post } from '../../Base/Api';
+export { get, post, upload } from '../../Base/Api';
 export { app } from '../../Base/App';
 export { useQueryStringState } from '../../Base/UseQueryStringState';
 export { useLocalStorageState } from '../../Base/UseLocalStorageState';
