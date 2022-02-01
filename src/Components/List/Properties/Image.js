@@ -16,7 +16,7 @@ const Image = ({
     const uploadImage = () => {
         var form = new FormData();
         app.selectedFiles.forEach(file => {
-            form.append(file.name, file);
+            form.append('file', file);
         });
         setProgress(true)
         upload(uploadUrl, form)
