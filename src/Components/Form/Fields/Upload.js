@@ -66,7 +66,9 @@ const Upload = ({
                 {
                     isDragActive && <div className="absolute inset-0 bg-green-500 animate-pulse"></div>
                 }
-                <input {...getInputProps()} />
+                <input {...getInputProps({
+                    multiple: multiple
+                })} />
                 <p className="relative text-sm tracking-wide font-bold text-slate-600 group-hover:drop-shadow group-hover:drop-shadow">
                     {
                         isDragActive ?
