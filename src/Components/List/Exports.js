@@ -14,6 +14,8 @@ export { useLocalStorageState } from '../../Base/UseLocalStorageState';
 export { BooleanProperty } from './Properties/Boolean';
 export { Color } from './Properties/Color';
 export { Chip } from './Properties/Chip';
+export { Image } from './Properties/Image';
+export { ImageGroup } from './Properties/ImageGroup';
 export { Progress } from '../Progress';
 export { HolismIcon } from '../HolismIcon';
 export { Dialog } from '../../Components/Dialog/Dialog'
