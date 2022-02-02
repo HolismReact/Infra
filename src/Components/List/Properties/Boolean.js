@@ -10,12 +10,10 @@ const BooleanProperty = ({
     column,
     title,
     value,
-    actionUrl,
-    reloadOnSuccess
+    actionUrl
 }) => {
 
     const [progress, setProgress] = useState(false);
-    const [displayValue, setDisplayValue] = useState(value || false);
 
     const onChange = (e) => {
         console.log(e);
@@ -23,10 +21,6 @@ const BooleanProperty = ({
             return;
         }
         setProgress(true);
-        // setTimeout(() => {
-        //     setProgress(false);
-        // }, 1000);
-        // return;
         var api = actionUrl;
         if (typeof actionUrl === 'function') {
             api = actionUrl(e.target.checked);
@@ -34,12 +28,7 @@ const BooleanProperty = ({
         post(api).then(data => {
             setProgress(false);
             app.success('Applied');
-            if (reloadOnSuccess) {
-                app.emit(app.reloadRequested);
-            }
-            else {
-                setDisplayValue(data.isActive);
-            }
+            app.emit(app.entityRerenderRequested, data);
         }, error => {
             app.error(error);
             setProgress(false);
@@ -49,7 +38,7 @@ const BooleanProperty = ({
     const control = actionUrl
         ?
         <Switch
-            checked={displayValue || false}
+            checked={value || false}
             onChange={(e) => onChange(e)}
             inputProps={{ 'aria-label': title }}
             size='small'

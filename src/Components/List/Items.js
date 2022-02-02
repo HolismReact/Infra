@@ -56,6 +56,14 @@ const Items = (props) => {
         }
     }, [entityType])
 
+    useEffect(() => {
+        const onEntityRerenderRequested = (entity) => {
+            setItem(entity)
+        }
+        app.on(app.entityRerenderRequested, onEntityRerenderRequested)
+        return () => app.removeListener(app.entityRerenderRequested, onEntityRerenderRequested)
+    }, [entityType])
+
     const setItem = (item) => {
         setData((data) => {
             for (var i = 0; i < data.length; i++) {
@@ -63,6 +71,7 @@ const Items = (props) => {
                     data[i] = item;
                 }
             }
+            console.log([...data])
             return [...data];
         });
     }
