@@ -142,7 +142,7 @@ const Table = ({
                                 (itemActions || hasDelete || hasEdit || edit)
                                     ?
                                     <Fade in={!item.progress}>
-                                        <td className="flex flex-wrap items-center justify-end">
+                                        <td className="flex flex-wrap items-center justify-end py-3">
                                             <ItemActions
                                                 entityType={entityType}
                                                 item={item}
