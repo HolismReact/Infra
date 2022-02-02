@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import NotFound from '../Panel/NotFound';
 
 const MainRouting = () => {
+    console.log(routes)
     return (
         <Routes>
             {
