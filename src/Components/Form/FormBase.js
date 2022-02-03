@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { app, post } from '@Form';
+import { app, get, post } from '@Form';
 
 export const FormContext = React.createContext();
 
@@ -97,7 +97,20 @@ const FormBase = ({
   useEffect(() => {
     const onEditRequested = (params) => {
       if (entityType === params.entityType) {
-        setEntity(params.entity);
+        if (params.entity) {
+          setEntity(params.entity);
+        }
+        if (params.entityId) {
+          setProgress(true)
+          get(`/${entityType}/get/${params.entityId}`)
+            .then(data => {
+              setProgress(false)
+              setEntity(data)
+            }, error => {
+              setProgress(false)
+              app.error(error)
+            })
+        }
       }
     }
     app.on(app.editRequested, onEditRequested);

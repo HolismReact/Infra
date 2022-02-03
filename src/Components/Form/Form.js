@@ -21,6 +21,13 @@ const Form = ({
 }) => {
 
     const navigate = useNavigate();
+    const { entityId } = app.parseQuery()
+
+    useEffect(() => {
+        if (entityId) {
+            app.emit(app.editRequested, { entityId })
+        }
+    }, [])
 
     useEffect(() => {
         const onFormCanceled = (item) => {
