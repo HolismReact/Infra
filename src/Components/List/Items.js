@@ -124,9 +124,9 @@ const Items = (props) => {
     };
 
     useEffect(() => {
-        app.on(app.itemCreated, load);
+        app.on(app.itemUpserted, load);
         return () => {
-            app.removeListener(app.itemCreated, load);
+            app.removeListener(app.itemUpserted, load);
         }
     }, []);
 

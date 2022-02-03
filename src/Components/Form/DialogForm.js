@@ -63,11 +63,11 @@ const DialogForm = ({
     }, [])
 
     useEffect(() => {
-        const onItemCreated = (item) => {
+        const onItemUpserted = (item) => {
             setIsDialogFormOpen(false);
         }
-        app.on(app.itemCreated, onItemCreated)
-        return () => app.removeListener(app.itemCreated, onItemCreated)
+        app.on(app.itemUpserted, onItemUpserted)
+        return () => app.removeListener(app.itemUpserted, onItemUpserted)
     }, [])
 
     return <FormBase

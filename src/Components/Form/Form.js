@@ -31,11 +31,15 @@ const Form = ({
     }, [])
 
     useEffect(() => {
-        const onFormCanceled = (item) => {
+        const onCancelOrOk = (item) => {
             navigate(-1)
         }
-        app.on(app.formCanceled, onFormCanceled)
-        return () => app.removeListener(app.formCanceled, onFormCanceled)
+        app.on(app.formCanceled, onCancelOrOk)
+        app.on(app.itemUpserted, onCancelOrOk)
+        return () => {
+            app.removeListener(app.formCanceled, onCancelOrOk)
+            app.removeListener(app.itemUpserted, onCancelOrOk)
+        }
     }, [])
 
     return <FormBase

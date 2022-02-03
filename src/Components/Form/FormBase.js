@@ -152,7 +152,8 @@ const FormBase = ({
         data['id'] = currentEntity.id;
       }
       post(url, data).then(data => {
-        app.emit(app.itemCreated);
+        app.emit(app.itemUpserted);
+        app.success(`Item ${(app.formMode.creation ? 'created' : 'updated')} successfully.`)
         setProgress(false);
       }, error => {
         app.error(error);

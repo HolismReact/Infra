@@ -14,7 +14,7 @@ const EventManager = {
     formCanceled: 'form_canceled',
     componentLoaded: 'component_loaded',
     accountUpdated: 'account_updated',
-    itemCreated: 'item_created',
+    itemUpserted: 'item_upserted',
     showMessage: 'show_message',
     reloadRequested: 'reload_requested',
     resetFilters: 'reset_filters',
