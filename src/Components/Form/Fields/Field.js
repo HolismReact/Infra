@@ -22,7 +22,7 @@ const Field = ({
     const [helpText, setHelpText] = useState(hint);
     const initialHint = hint;
     var formContext = useContext(FormContext);
-    const { progress, entity } = formContext;
+    const { progress, currentEntity } = formContext;
     const [validationState, setValidationState] = useState(null);
     const label = placeholder || column;
 
@@ -66,11 +66,11 @@ const Field = ({
     }, [displayValue]);
 
     useEffect(() => {
-        if (entity) {
-            setDisplayValue(entity[app.camelize(column)])
-            setChosenValue(entity[app.camelize(column)])
+        if (currentEntity) {
+            setDisplayValue(currentEntity[app.camelize(column)])
+            setChosenValue(currentEntity[app.camelize(column)])
         }
-    }, [column, entity])
+    }, [column, currentEntity])
 
     const isValid = () => {
         if (!validationState) {

@@ -5,6 +5,7 @@ export const FormContext = React.createContext();
 
 const FormBase = ({
   entityType,
+  entity,
   humanReadableEntityType,
   title,
   explanations,
@@ -21,7 +22,7 @@ const FormBase = ({
   const [fields, setFields] = useState([]);
   const [progress, setProgress] = useState();
   const [isValid, setIsValid] = useState(false);
-  const [entity, setEntity] = useState(null);
+  const [currentEntity, setCurrentEntity] = useState(entity);
   const [mode, setMode] = useState(app.formMode.creation)
   const [calculatedTitle, setCalculatedTitle] = useState('')
 
@@ -52,13 +53,14 @@ const FormBase = ({
   };
 
   useEffect(() => {
-    if (entity && entity.id) {
+    if (currentEntity && currentEntity.id) {
       setMode(app.formMode.edition)
+      // setFields(currentEntity)
     }
     else {
       setMode(app.formMode.creation)
     }
-  }, [entity])
+  }, [currentEntity])
 
   useEffect(() => {
     if (typeof title === 'string') {
@@ -82,7 +84,7 @@ const FormBase = ({
 
   const resetForm = () => {
     setFields([])
-    setEntity(null)
+    setCurrentEntity(null)
   }
 
   useEffect(() => {
@@ -98,14 +100,14 @@ const FormBase = ({
     const onEditRequested = (params) => {
       if (entityType === params.entityType) {
         if (params.entity) {
-          setEntity(params.entity);
+          setCurrentEntity(params.entity);
         }
         if (params.entityId) {
           setProgress(true)
           get(`/${entityType}/get/${params.entityId}`)
             .then(data => {
               setProgress(false)
-              setEntity(data)
+              setCurrentEntity(data)
             }, error => {
               setProgress(false)
               app.error(error)
@@ -138,7 +140,7 @@ const FormBase = ({
     }
     console.log(data);
     if (okAction && typeof okAction === 'function') {
-      okAction({ setProgress, data, entity });
+      okAction({ setProgress, data, currentEntity });
     }
     else {
       setProgress(true);
@@ -147,7 +149,7 @@ const FormBase = ({
       // }, 4000)
       let url = `${entityType}/${mode === app.formMode.creation ? 'create' : 'update'}`;
       if (mode === app.formMode.edition) {
-        data['id'] = entity.id;
+        data['id'] = currentEntity.id;
       }
       post(url, data).then(data => {
         app.emit(app.itemCreated);
@@ -164,7 +166,7 @@ const FormBase = ({
     setFields,
     isValid,
     progress,
-    entity,
+    currentEntity,
     mode
   }}>
     {
