@@ -1,13 +1,26 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import CachedIcon from '@mui/icons-material/Cached';
+import Collapse from '@mui/material/Collapse';
+import Tooltip from '@mui/material/Tooltip';
+import useLocalStorageState from '../../Base/UseLocalStorageState';
 import { Page, app, get } from '@Panel'
+
+const listActionIconStyle = "text-gray-700 hover:text-blue-500 cursor-pointer";
 
 const Tree = ({
     title,
-    entityType
+    entityType,
+    filters
 }) => {
 
+    const [isFilteringOpen, setIsFilteringOpen] = useLocalStorageState(false, `${app.userGuid()}_${entityType}_isFilteringOpen`);
     const [progress, setProgress] = useState(false)
     const [entities, setEntities] = useState([])
+
+    const toggleFiltering = () => {
+      setIsFilteringOpen(!isFilteringOpen);
+    }
 
     useEffect(() => {
         setProgress(true)
@@ -21,12 +34,52 @@ const Tree = ({
             })
     }, [])
 
-    return <Page
-        title={title}
-        className="px-6"
-    >
-        tree
-    </Page>
+    return <div>
+        <div
+            className={
+                "sortAndFilteringAndReload flex items-center justify-end my-4 lg:my-0"
+                + (app.isRtl() ? " flex-row-reverse " : "")
+            }
+        >
+            {
+                filters && (filters.props?.children?.length > 0 || filters.props?.children?.props)
+                    ?
+                    <span
+                        id='showHideFiltering'
+                        className={
+                            listActionIconStyle
+                            + (app.isRtl() ? " ml-2 " : " mr-2 ")
+                        }
+                        onClick={toggleFiltering}
+                    >
+                        <Tooltip title={app.t('Filters')}>
+                            <FilterListIcon />
+                        </Tooltip>
+                        {/* <span>Filters</span> */}
+                    </span>
+                    :
+                    null
+            }
+            {
+                <span
+                    id='reload'
+                    onClick={() => app.emit(app.reloadRequested)}
+                    className={listActionIconStyle}
+                >
+                    <Tooltip title={app.t('Reload')}>
+                        <CachedIcon />
+                    </Tooltip>
+                </span>
+            }
+        </div>
+
+        <Page
+            title={title}
+            className="px-6"
+        >
+            tree
+        </Page>
+    </div>
 }
 
 export { Tree }
