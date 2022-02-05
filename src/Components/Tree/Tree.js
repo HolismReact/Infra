@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import CachedIcon from '@mui/icons-material/Cached';
-import Collapse from '@mui/material/Collapse';
 import Tooltip from '@mui/material/Tooltip';
 import useLocalStorageState from '../../Base/UseLocalStorageState';
 import { Page, app, get } from '@Panel'
+import Node from './Node'
 
 const listActionIconStyle = "text-gray-700 hover:text-blue-500 cursor-pointer";
 
 const Tree = ({
     title,
     entityType,
-    filters
+    filters,
+    expanded,
+    show
 }) => {
 
     const [isFilteringOpen, setIsFilteringOpen] = useLocalStorageState(false, `${app.userGuid()}_${entityType}_isFilteringOpen`);
@@ -86,7 +88,16 @@ const Tree = ({
             title={title}
             className="px-6"
         >
-            tree
+            <ul>
+                {
+                    entities && entities.map(entity => <Node
+                        key={entity.id}
+                        entity={entity}
+                        expanded={expanded || true}
+                        show={show}
+                    />)
+                }
+            </ul>
         </Page>
     </div>
 }
