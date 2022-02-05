@@ -19,10 +19,10 @@ const Tree = ({
     const [entities, setEntities] = useState([])
 
     const toggleFiltering = () => {
-      setIsFilteringOpen(!isFilteringOpen);
+        setIsFilteringOpen(!isFilteringOpen);
     }
 
-    useEffect(() => {
+    const reload = () => {
         setProgress(true)
         get(`/${entityType}/tree`)
             .then(data => {
@@ -32,6 +32,15 @@ const Tree = ({
                 setProgress(false)
                 app.error(error)
             })
+    }
+
+    useEffect(() => {
+        reload()
+    }, [])
+
+    useEffect(() => {
+        app.on(app.reloadRequested, reload)
+        return () => app.removeListener(app.reloadRequested, reload)
     }, [])
 
     return <div>
