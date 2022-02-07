@@ -28,7 +28,7 @@ const Tree = ({
 
     if (window.location.search) {
         const query = window.location.search.slice(1);
-        url += `&${query}`;
+        url += `?${query}`;
     }
 
     const reload = () => {
