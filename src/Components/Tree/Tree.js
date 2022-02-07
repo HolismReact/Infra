@@ -24,9 +24,16 @@ const Tree = ({
         setIsFilteringOpen(!isFilteringOpen);
     }
 
+    let url = `/${entityType}/tree`
+
+    if (window.location.search) {
+        const query = window.location.search.slice(1);
+        url += `&${query}`;
+    }
+
     const reload = () => {
         setProgress(true)
-        get(`/${entityType}/tree`)
+        get(url)
             .then(data => {
                 setProgress(false)
                 setEntities(data)
