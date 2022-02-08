@@ -3,12 +3,13 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { ListContext, useLocalStorageState, app, get } from '@List';
 import Cards from './ItemsCards'
 import Table from './ItemsTable'
+import Tree from './ItemsTree';
 
 const noItemIsFoundStyle = 'py-10 text-2xl font-bold text-gray-600';
 
 const Items = (props) => {
 
-    const { entityType, card, headers, row, classProvider } = props;
+    const { entityType, card, headers, row, classProvider, isTree } = props;
     app.ensure([entityType]);
 
     const [loading, setLoading] = useState();
@@ -84,8 +85,8 @@ const Items = (props) => {
         console.warn('classProvider should be a function');
     }
 
-    if (!row && !card) {
-        throw new Error('You should either provide a row or a card component');
+    if (!row && !card && !isTree) {
+        throw new Error('You should either provide a row or a card component, or you should be a tree');
     }
 
     if (row && !headers) {
@@ -95,7 +96,13 @@ const Items = (props) => {
     const load = () => {
         listParameters.storeInLocalStorage();
         setLoading(true);
-        let url = `${entityType}/list?pageNumber=${listParameters.pageNumber}&pageSize=${listParameters.pageSize}`;
+        let url = `${entityType}/`;
+        if (isTree) {
+            url += 'tree'
+        }
+        else {
+            url += `list?pageNumber=${listParameters.pageNumber}&pageSize=${listParameters.pageSize}`
+        }
         const filters = listParameters.filtersQueryString();
         if (filters) {
             url += `&filters=${filters}`;
@@ -106,7 +113,13 @@ const Items = (props) => {
         }
         if (window.location.search) {
             const query = window.location.search.slice(1);
-            url += `&${query}`;
+            if (url.indexOf('?') > -1) {
+                url += '&';
+            }
+            else {
+                url += '?'
+            }
+            url += query
         }
         get(url).then((result) => {
             if (!result) {
@@ -164,28 +177,40 @@ const Items = (props) => {
                 />
                 :
                 (
-                    card
+                    isTree
                         ?
-                        <Cards {...props}
+                        <Tree
+                            {...props}
                             noItemIsFoundStyle={noItemIsFoundStyle}
                             loading={loading}
                             data={data}
                             metadata={metadata}
                             setItem={setItem}
                             reload={reload}
-                            showTopPagiation={showTopPagiation}
-
                         />
                         :
-                        <Table {...props}
-                            noItemIsFoundStyle={noItemIsFoundStyle}
-                            loading={loading}
-                            data={data}
-                            metadata={metadata}
-                            setItem={setItem}
-                            reload={reload}
-                            showTopPagiation={showTopPagiation}
-                        />
+                        card
+                            ?
+                            <Cards {...props}
+                                noItemIsFoundStyle={noItemIsFoundStyle}
+                                loading={loading}
+                                data={data}
+                                metadata={metadata}
+                                setItem={setItem}
+                                reload={reload}
+                                showTopPagiation={showTopPagiation}
+
+                            />
+                            :
+                            <Table {...props}
+                                noItemIsFoundStyle={noItemIsFoundStyle}
+                                loading={loading}
+                                data={data}
+                                metadata={metadata}
+                                setItem={setItem}
+                                reload={reload}
+                                showTopPagiation={showTopPagiation}
+                            />
                 )
         }
     </div>

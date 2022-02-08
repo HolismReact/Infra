@@ -36,7 +36,10 @@ const List = ({
   creationButton,
   classProvider,
   upsert,
-  dialogs
+  dialogs,
+  isTree,
+  expanded,
+  show
 }) => {
   const [listParameters] = useState(CreateListParameters(app.userGuid(), entityType));
   const [isFilteringOpen, setIsFilteringOpen] = useLocalStorageState(false, `${app.userGuid()}_${entityType}_isFilteringOpen`);
@@ -88,7 +91,7 @@ const List = ({
         }
       >
         {
-          <span
+          !isTree && <span
             id='showHideTopPagination'
             className={
               listActionIconStyle
@@ -158,6 +161,9 @@ const List = ({
       hasItemSelection={hasItemSelection}
       classProvider={classProvider}
       upsert={upsert}
+      isTree={isTree}
+      expanded={expanded}
+      show={show}
     />
     {
       CreationComponent && typeof CreationComponent !== 'string'
