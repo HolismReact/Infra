@@ -125,9 +125,14 @@ const Items = (props) => {
             if (!result) {
                 return;
             }
-            const { data, ...metadata } = result;
-            setData(data);
-            setMetadata(metadata);
+            if (isTree) {
+                setData(result)
+            }
+            else {
+                const { data, ...metadata } = result;
+                setData(data);
+                setMetadata(metadata);
+            }
             setLoading(false);
             console.log(listParameters);
         }, (error) => {
