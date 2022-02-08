@@ -13,7 +13,8 @@ const Tree = ({
     entityType,
     filters,
     expanded,
-    show
+    show,
+    upsert
 }) => {
 
     const [isFilteringOpen, setIsFilteringOpen] = useLocalStorageState(false, `${app.userGuid()}_${entityType}_isFilteringOpen`);
@@ -52,6 +53,10 @@ const Tree = ({
         return () => app.removeListener(app.reloadRequested, reload)
     }, [])
 
+    const showUpsert = () => {
+
+    }
+
     return <div>
         <div
             className={
@@ -59,6 +64,7 @@ const Tree = ({
                 + (app.isRtl() ? " flex-row-reverse " : "")
             }
         >
+            <div onClick={() => showUpsert()}>Create</div>
             {
                 filters && (filters.props?.children?.length > 0 || filters.props?.children?.props)
                     ?
