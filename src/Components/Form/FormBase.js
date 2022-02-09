@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { app, get, post } from '@Form';
+import { app, get, post, upload } from '@Form';
 
 export const FormContext = React.createContext();
 
@@ -25,8 +25,13 @@ const FormBase = ({
   const [currentEntity, setCurrentEntity] = useState(entity);
   const [mode, setMode] = useState(app.formMode.creation)
   const [calculatedTitle, setCalculatedTitle] = useState('')
+  const [hasFile, setHasFile] = useState(false)
 
   app.ensure([entityType]);
+
+  useEffect(() => {
+    console.log('has file? ', hasFile)
+  }, [hasFile])
 
   useEffect(() => {
     // app.updateToken();
@@ -151,7 +156,8 @@ const FormBase = ({
       if (mode === app.formMode.edition) {
         data['id'] = currentEntity.id;
       }
-      post(url, data).then(data => {
+      const method = hasFile ? upload : post
+      method(url, data).then(data => {
         app.emit(app.itemUpserted);
         app.success(`Item ${(app.formMode.creation ? 'created' : 'updated')} successfully.`)
         setProgress(false);
@@ -168,7 +174,8 @@ const FormBase = ({
     isValid,
     progress,
     currentEntity,
-    mode
+    mode,
+    setHasFile
   }}>
     {
       renderForm({

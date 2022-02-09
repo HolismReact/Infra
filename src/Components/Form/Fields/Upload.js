@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useContext } from 'react'
 import IconButton from '@mui/material/IconButton';
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useDropzone } from 'react-dropzone'
 import Fade from '@mui/material/Fade';
-import { app, Field } from '@Form';
+import { app, Field, FormContext } from '@Form';
 import { fieldStyles } from './FieldStyle'
 
 const Upload = ({
@@ -12,6 +12,11 @@ const Upload = ({
     const [files, setFiles] = useState([])
     const [previews, setPreviews] = useState([])
     const [hasImages, setHasImages] = useState(false)
+    var { setHasFile } = useContext(FormContext);
+
+    useEffect(() => {
+        setHasFile(true)
+    }, [])
 
     const onDrop = useCallback(acceptedFiles => {
         setFiles(acceptedFiles)
