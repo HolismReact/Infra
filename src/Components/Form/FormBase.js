@@ -138,10 +138,17 @@ const FormBase = ({
       event.preventDefault();
       return;
     }
-    var data = {};
+    var data = hasFile ? new FormData() : {};
     new URLSearchParams(window.location.search).forEach((value, key) => data[key] = value);
     for (let i = 0; i < fields.length; i++) {
-      data[fields[i].id.split('_')[1]] = fields[i].value;
+      const key = fields[i].id.split('_')[1];
+      const value = fields[i].value;
+      if (hasFile) {
+        data.append(key, value);
+      }
+      else {
+        data[key] = fields[i].value;
+      }
     }
     console.log(data);
     if (okAction && typeof okAction === 'function') {
