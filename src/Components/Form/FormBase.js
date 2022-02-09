@@ -139,6 +139,11 @@ const FormBase = ({
       return;
     }
     var data = hasFile ? new FormData() : {};
+    if (hasFile) {
+      app.selectedFiles.forEach(file => {
+        data.append('file', file);
+      });
+    }
     new URLSearchParams(window.location.search).forEach((value, key) => data[key] = value);
     for (let i = 0; i < fields.length; i++) {
       const key = fields[i].id.split('_')[1];
