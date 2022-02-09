@@ -12,7 +12,7 @@ const Upload = ({
     const [files, setFiles] = useState([])
     const [previews, setPreviews] = useState([])
     const [hasImages, setHasImages] = useState(false)
-    var { setHasFile } = useContext(FormContext);
+    var { setHasFile } = useContext(FormContext) || { setHasFile: () => { } };
 
     useEffect(() => {
         setHasFile(true)

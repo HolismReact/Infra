@@ -159,7 +159,22 @@ const FormBase = ({
       // setTimeout(() => {
       //   setProgress(false)
       // }, 4000)
-      let url = `${entityType}/${mode === app.formMode.creation ? 'create' : 'update'}`;
+      let url = `${entityType}/`;
+      if (hasFile) {
+        url += 'upload'
+      } else {
+        url += `${mode === app.formMode.creation ? 'create' : 'update'}`
+      }
+      if (window.location.search) {
+        const query = window.location.search.slice(1);
+        if (url.indexOf('?') > -1) {
+          url += '&';
+        }
+        else {
+          url += '?'
+        }
+        url += query
+      }
       if (mode === app.formMode.edition) {
         data['id'] = currentEntity.id;
       }
