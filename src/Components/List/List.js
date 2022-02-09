@@ -28,6 +28,7 @@ const List = ({
   headers,
   row,
   card,
+  multicolumn,
   create,
   itemActions,
   hasDelete,
@@ -154,6 +155,7 @@ const List = ({
       headers={headers}
       row={row}
       card={card}
+      multicolumn={multicolumn}
       itemActions={itemActions}
       hasDelete={hasDelete}
       hasEdit={hasEdit}

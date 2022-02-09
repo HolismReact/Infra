@@ -17,6 +17,7 @@ const Cards = ({
     upsert,
     metadata,
     card,
+    multicolumn,
     setItem,
     reload,
     hasItemSelection,
@@ -65,14 +66,19 @@ const Cards = ({
                             :
                             null
                     }
-                    <div className="w-full">
+                    <div
+                        className={"w-full "
+                            + (multicolumn ? "grid gap-2 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 px-6" : "")
+                        }
+                    >
                         {
                             data.map((item, index) =>
                                 <div
                                     className=
                                     {
-                                        'item w-full py-4 px-6 overflow-hidden ' +
-                                        (index === 0 ? '' : 'border-t ') +
+                                        'item w-full overflow-hidden group relative ' +
+                                        (multicolumn ? '' : "py-4 px-6 ") +
+                                        (!multicolumn && index !== 0 ? 'border-t ' : '') +
                                         (classProvider ? classProvider(item) : '')
                                     }
                                     key={item.id}
@@ -107,7 +113,11 @@ const Cards = ({
                                     {
                                         (itemActions || hasDelete || hasEdit || edit)
                                             ?
-                                            <div className="flex flex-wrap items-center justify-end">
+                                            <div
+                                                className={"flex flex-wrap items-center justify-end " +
+                                                (multicolumn ? " bg-white border absolute bottom-0 right-0 z-50 hidden group-hover:flex" : "")
+                                                }
+                                            >
                                                 <ItemActions
                                                     entityType={entityType}
                                                     item={item}
