@@ -44,6 +44,7 @@ const Rte = ({
     const renderElement = useCallback(props => <Element {...props} />, [])
     const renderLeaf = useCallback(props => <Leaf {...props} />, [])
     const editor = useMemo(() => withHistory(withReact(createEditor())), [])
+    editor.children = currentValue
 
     const { progress, currentEntity } = useContext(FormContext);
 
@@ -53,6 +54,12 @@ const Rte = ({
             setCurrentValue(JSON.parse(value))
         }
     }, [column, currentEntity])
+
+    useEffect(() => {
+        const json = JSON.stringify(currentValue)
+        console.log(json)
+        app.rteJson = json;
+    }, [currentValue])
 
     return (
         <div className="mb-12 pb-12 border-b-2">
