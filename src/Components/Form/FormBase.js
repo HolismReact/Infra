@@ -30,10 +30,6 @@ const FormBase = ({
   app.ensure([entityType]);
 
   useEffect(() => {
-    console.log('has file? ', hasFile)
-  }, [hasFile])
-
-  useEffect(() => {
     // app.updateToken();
   }, [])
 
@@ -206,7 +202,7 @@ const FormBase = ({
   }}>
     {
       renderForm({
-        calculatedTitle,
+        calculatedTitle: calculatedTitle || title,
         focusFirstInput,
         handleSubmit
       })

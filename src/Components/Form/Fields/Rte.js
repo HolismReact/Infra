@@ -32,16 +32,16 @@ const HOTKEYS = {
 const LIST_TYPES = ['numbered-list', 'bulleted-list']
 
 const Rte = ({
-    
+    value
 }) => {
-    const [value, setValue] = useState(initialValue)
+    const [currentValue, setCurrentValue] = useState(value || [])
     const renderElement = useCallback(props => <Element {...props} />, [])
     const renderLeaf = useCallback(props => <Leaf {...props} />, [])
     const editor = useMemo(() => withHistory(withReact(createEditor())), [])
 
     return (
         <div className="mb-12 pb-12 border-b-2">
-            <Slate editor={editor} value={value} onChange={value => setValue(value)}>
+            <Slate editor={editor} value={currentValue} onChange={val => setCurrentValue(val)}>
                 <Toolbar>
                     <MarkButton format="bold" icon={FormatBoldIcon} />
                     <MarkButton format="italic" icon={FormatItalicIcon} />
@@ -195,42 +195,5 @@ const MarkButton = ({ format, icon }) => {
         </Button>
     )
 }
-
-const initialValue = [
-    {
-        type: 'paragraph',
-        children: [
-            { text: 'This is editable ' },
-            { text: 'rich', bold: true },
-            { text: ' text, ' },
-            { text: 'much', italic: true },
-            { text: ' better than a ' },
-            { text: '<textarea>', code: true },
-            { text: '!' },
-        ],
-    },
-    {
-        type: 'paragraph',
-        children: [
-            {
-                text:
-                    "Since it's rich text, you can do things like turn a selection of text ",
-            },
-            { text: 'bold', bold: true },
-            {
-                text:
-                    ', or add a semantically rendered block quote in the middle of the page, like this:',
-            },
-        ],
-    },
-    {
-        type: 'block-quote',
-        children: [{ text: 'A wise quote.' }],
-    },
-    {
-        type: 'paragraph',
-        children: [{ text: 'Try it out for yourself!' }],
-    },
-]
 
 export { Rte }

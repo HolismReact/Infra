@@ -22,11 +22,14 @@ const Form = ({
 }) => {
 
     const navigate = useNavigate();
-    const { entityId } = app.parseQuery()
+    const { id, entityId } = app.parseQuery()
 
     useEffect(() => {
         if (entityId) {
-            app.emit(app.editRequested, { entityId })
+            app.emit(app.editRequested, { entityType, entityId })
+        }
+        if (id) {
+            app.emit(app.editRequested, { entityType, entityId: id })
         }
     }, [])
 
@@ -43,6 +46,7 @@ const Form = ({
     }, [])
 
     return <FormBase
+        title={title}
         entityType={entityType}
         entity={entity}
         renderForm={({
