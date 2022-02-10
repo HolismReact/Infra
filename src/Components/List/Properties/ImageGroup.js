@@ -4,7 +4,7 @@ const ImageGroup = ({
     const firstFiveUrls = urls?.slice(0, 5)
     return <div className="imageGroup flex items-center justify-center">
         {
-            firstFiveUrls && firstFiveUrls.map(url => <span className="w-8 h-8 inline-block rounded-full -ml-3 bg-white" key={url}>
+            firstFiveUrls?.map(url => <span className="w-8 h-8 inline-block rounded-full -ml-3 bg-white" key={url}>
                 <img className="w-full h-full object-cover rounded-full border" src={url} />
             </span>)
         }
