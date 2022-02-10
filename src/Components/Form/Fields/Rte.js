@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState, useContext, useEffect } from 'react'
 import isHotkey from 'is-hotkey'
 import { Editable, withReact, useSlate, Slate } from 'slate-react'
 import {
@@ -20,7 +20,7 @@ import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import { Button, Toolbar } from './RteComponents'
 import HolismIcon from '../../HolismIcon'
-import { fieldStyles } from '@Form'
+import { app, fieldStyles, FormContext } from '@Form'
 
 const HOTKEYS = {
     'mod+b': 'bold',
@@ -32,12 +32,27 @@ const HOTKEYS = {
 const LIST_TYPES = ['numbered-list', 'bulleted-list']
 
 const Rte = ({
-    value
+    column,
+    placeholder
 }) => {
-    const [currentValue, setCurrentValue] = useState(value || [])
+    const [currentValue, setCurrentValue] = useState([
+        {
+            type: 'paragraph',
+            children: [{ text: 'Write your content here ...' }],
+        },
+    ])
     const renderElement = useCallback(props => <Element {...props} />, [])
     const renderLeaf = useCallback(props => <Leaf {...props} />, [])
     const editor = useMemo(() => withHistory(withReact(createEditor())), [])
+
+    const { progress, currentEntity } = useContext(FormContext);
+
+    useEffect(() => {
+        if (currentEntity) {
+            const value = currentEntity[app.camelize(column)]
+            setCurrentValue(JSON.parse(value))
+        }
+    }, [column, currentEntity])
 
     return (
         <div className="mb-12 pb-12 border-b-2">
