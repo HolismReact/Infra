@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import Collapse from '@mui/material/Collapse';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
+import AddIcon from '@mui/icons-material/Add';
 import IndeterminateCheckBoxOutlinedIcon from '@mui/icons-material/IndeterminateCheckBoxOutlined';
 import DisabledByDefaultOutlinedIcon from '@mui/icons-material/DisabledByDefaultOutlined';
 import BlockIcon from '@mui/icons-material/Block';
 import { HolismIcon } from '@Panel'
 import EditAction from './ItemActions/EditAction';
+import ItemActions from './ItemActions/ItemActions';
 
 const Node = ({
     entityType,
@@ -13,9 +15,13 @@ const Node = ({
     show,
     expanded,
     hasEdit,
+    hasDelete,
     create,
     edit,
-    upsert
+    upsert,
+    itemActions,
+    setItem,
+    reload
 }) => {
     const [isExpanded, setIsExpanded] = useState(expanded)
     const [hasChildren, setHasChildren] = useState(entity.relatedItems.children.length > 0)
@@ -48,15 +54,19 @@ const Node = ({
             <span className="flex justify-between w-full items-center">
                 <span className="ml-1 text-sm font-normal text-slate-900">{show(entity)}</span>
                 {
-                    (hasEdit && create) || edit || upsert
+                    (itemActions || hasDelete || hasEdit || edit)
                         ?
-                        <EditAction
+                        <ItemActions
                             entityType={entityType}
                             item={entity}
-                            create={create}
+                            itemActions={itemActions}
+                            hasDelete={hasDelete}
                             hasEdit={hasEdit}
                             edit={edit}
+                            create={create}
                             upsert={upsert}
+                            setItem={setItem}
+                            reload={reload}
                         />
                         :
                         null

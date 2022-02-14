@@ -114,9 +114,7 @@ const Cards = ({
                                         (itemActions || hasDelete || hasEdit || edit)
                                             ?
                                             <div
-                                                className={"flex flex-wrap items-center justify-end " +
-                                                (multicolumn ? " bg-white border absolute bottom-0 right-0 z-50 hidden group-hover:flex" : "")
-                                                }
+                                                className={(multicolumn ? " bg-white border absolute bottom-0 right-0 z-50 hidden group-hover:flex" : "")}
                                             >
                                                 <ItemActions
                                                     entityType={entityType}
