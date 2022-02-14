@@ -6,11 +6,12 @@ import HolismIcon from '../../HolismIcon'
 const Text = ({
     regex,
     regexError,
+    validate,
     startIcon,
     ...rest
 }) => {
 
-    const validate = ({ displayValue }) => {
+    const textValidate = ({ displayValue }) => {
         if (regex && regex.test && app.isSomething(displayValue)) {
             if (displayValue.match(regex)) {
                 return true;
@@ -22,12 +23,15 @@ const Text = ({
                 }
             }
         }
+        if (validate && typeof validate === 'function') {
+            return validate(displayValue)
+        }
     }
 
     return <Field
         type='text'
         {...rest}
-        validate={validate}
+        validate={textValidate}
         renderInput={({ displayValue, setDisplayValue, setChosenValue, label }) => {
             return <OutlinedInput
                 label={app.t(label)}
