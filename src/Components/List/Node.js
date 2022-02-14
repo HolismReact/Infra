@@ -29,7 +29,7 @@ const Node = ({
 
     return <li className={entity.parentId && "ml-8 border-l border-dashed border-slate-400"}>
         <span
-            className="hover:bg-slate-100 px-5 py-1.5 inline-block cursor-pointer flex items-center"
+            className="group relative hover:bg-slate-100 px-5 py-2 inline-block cursor-pointer flex items-center"
             onClick={(e) => {
                 setIsExpanded(!isExpanded)
             }}
@@ -60,6 +60,7 @@ const Node = ({
                     (itemActions || hasDelete || hasEdit || edit)
                         ?
                         <ItemActions
+                            className="hidden absolute right-0 top-0 bottom-p m-auto group-hover:flex"
                             entityType={entityType}
                             item={entity}
                             itemActions={(create || upsert) ? <>
