@@ -30,7 +30,9 @@ const Node = ({
     return <li className={entity.parentId && "ml-8 border-l border-dashed border-slate-400"}>
         <span
             className="hover:bg-slate-100 px-5 py-1.5 inline-block cursor-pointer flex items-center"
-            onClick={() => setIsExpanded(!isExpanded)}
+            onClick={(e) => {
+                setIsExpanded(!isExpanded)
+            }}
         >
             {
                 hasChildren
@@ -65,7 +67,7 @@ const Node = ({
                                 <ItemAction
                                     icon={<AddIcon />}
                                     click={() => {
-                                        app.emit(app.creationRequested, { parentId: entity.id })
+                                        app.emit(app.creationRequested, { parentId: entity.hierarchyId || entity.id })
                                     }}
                                 />
                             </> : itemActions}
@@ -91,6 +93,16 @@ const Node = ({
                         show={show}
                         expanded={isExpanded}
                         entity={childEntity}
+                        entityType={entityType}
+                        show={show}
+                        hasEdit={hasEdit}
+                        hasDelete={hasDelete}
+                        create={create}
+                        edit={edit}
+                        upsert={upsert}
+                        itemActions={itemActions}
+                        setItem={setItem}
+                        reload={reload}
                     />
                 </ul>)
             }

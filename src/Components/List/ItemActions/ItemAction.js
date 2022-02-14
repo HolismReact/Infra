@@ -38,7 +38,7 @@ const ItemAction = ({
                 <CircularProgress size={24} className="m-2" />
                 :
                 <Tooltip title={app.t(title || "")}>
-                    <IconButton onClick={() => {
+                    <IconButton onClick={(e) => {
                         app.selectedItem = item;
                         if (goTo) {
                             app.selectedItem = item;
@@ -61,6 +61,10 @@ const ItemAction = ({
                         else {
                             console.warn(`No action is assigned to item action. Title is '${title}'`)
                         }
+                        e.stopPropagation()
+                        e.preventDefault()
+                        e.nativeEvent.stopPropagation()
+                        e.nativeEvent.preventDefault()
                     }}>
                         {
                             <HolismIcon
