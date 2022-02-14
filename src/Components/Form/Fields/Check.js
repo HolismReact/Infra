@@ -7,6 +7,8 @@ const Check = ({
     ...rest
 }) => {
 
+    const { change } = rest
+
     return <Field
         type='check'
         {...rest}
@@ -26,6 +28,9 @@ const Check = ({
                     onChange={(e) => {
                         setDisplayValue(e.target.checked)
                         setChosenValue(e.target.checked)
+                        if (change && typeof change === 'function') {
+                            change(e.target.checked)
+                        }
                     }}
                 />
             </FormGroup>
