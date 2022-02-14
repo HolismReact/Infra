@@ -4,7 +4,11 @@ import ItemActions from './ItemActions/ItemActions';
 import Checkbox from '@mui/material/Checkbox';
 import Tooltip from '@mui/material/Tooltip';
 import Collapse from '@mui/material/Collapse';
-import { ListContext, app } from '@List';
+import ToggleOnIcon from '@mui/icons-material/ToggleOn';
+import ToggleOffIcon from '@mui/icons-material/ToggleOff';
+import { Transition } from '@headlessui/react'
+import { ListContext, HolismIcon, app } from '@List';
+import UseLocalStorageState, { useLocalStorageState } from '../../Base/UseLocalStorageState'
 
 const Table = ({
     entityType,
@@ -28,6 +32,7 @@ const Table = ({
 
     const listContext = useContext(ListContext);
     const { selectedItems } = listContext;
+    const [hiddenItemActions, setHiddenItemActions] = useLocalStorageState(false, `${app.userGuid()}_${entityType}_isItemActionsHidden`)
 
     let headerElements = [];
 
@@ -76,7 +81,7 @@ const Table = ({
             {
                 (itemActions || hasDelete)
                     ?
-                    <td></td>
+                    !hiddenItemActions && <td></td>
                     :
                     null
             }
@@ -131,7 +136,7 @@ const Table = ({
                         {
                             (itemActions || hasDelete || hasEdit || edit)
                                 ?
-                                <td>
+                                !hiddenItemActions && <td>
                                     <ItemActions
                                         entityType={entityType}
                                         item={item}
@@ -166,7 +171,17 @@ const Table = ({
                     </div>
                 </Collapse>
         }
-        <div className="w-full overflow-x-auto px-6">
+        <div className="relative w-full overflow-x-auto px-6">
+            <span
+                className={"absolute top-0 right-6 cursor-pointer "}
+                onClick={() => setHiddenItemActions(!hiddenItemActions)}
+                title="Toggle actions"
+            >
+                <HolismIcon
+                    className={hiddenItemActions ? "text-slate-300" : "text-green-600"}
+                    icon={hiddenItemActions ? ToggleOnIcon : ToggleOffIcon}
+                />
+            </span>
             <table
                 className="w-full text-center "
                 style={{ minWidth: '600px' }}
