@@ -12,7 +12,7 @@ const Field = ({
     hint,
     type,
     validate,
-    renderInput,
+    renderInput
 }) => {
 
     const [id, setId] = useState();
@@ -93,13 +93,15 @@ const Field = ({
             required={required ? true : false}
             disabled={progress}
         >
-            <InputLabel
-                htmlFor={id}
-                disableAnimation={progress}
-                disabled={progress}
-            >
-                {app.t(label)}
-            </InputLabel>
+            {
+                type !== 'check' && <InputLabel
+                    htmlFor={id}
+                    disableAnimation={progress}
+                    disabled={progress}
+                >
+                    {app.t(label)}
+                </InputLabel>
+            }
             {
                 renderInput({
                     displayValue,
