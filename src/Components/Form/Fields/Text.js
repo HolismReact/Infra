@@ -32,11 +32,20 @@ const Text = ({
         type='text'
         {...rest}
         validate={textValidate}
-        renderInput={({ displayValue, setDisplayValue, setChosenValue, label }) => {
+        renderInput={({
+            displayValue,
+            setDisplayValue,
+            setChosenValue,
+            label,
+            progress
+        }) => {
             return <OutlinedInput
                 label={app.t(label)}
                 value={displayValue}
-                startAdornment={startIcon && <InputAdornment position="start">
+                startAdornment={startIcon && <InputAdornment
+                    disablePointerEvents={progress}
+                    disableTypography={progress}
+                    position="start">
                     <HolismIcon icon={startIcon} />
                 </InputAdornment>}
                 onChange={(e) => {

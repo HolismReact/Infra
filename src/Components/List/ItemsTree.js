@@ -2,23 +2,11 @@ import { ListContext, app } from '@List';
 import Node from './Node'
 
 const Tree = ({
-    entityType,
     data,
-    itemActions,
-    hasDelete,
-    hasEdit,
-    edit,
-    create,
-    upsert,
-    setItem,
-    reload,
-    hasItemSelection,
-    classProvider,
-    showTopPagiation,
     noItemIsFoundStyle,
     expanded,
-    show
-
+    show,
+    ...rest
 }) => {
     return data.length === 0
         ?
@@ -31,6 +19,7 @@ const Tree = ({
                     entity={entity}
                     expanded={expanded || true}
                     show={show}
+                    {...rest}
                 />)
             }
         </ul>
