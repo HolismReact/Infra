@@ -56,7 +56,7 @@ const Form = ({
         }) => {
             return <Page
                 title={calculatedTitle}
-                className={"px-6 md:px-12 mx-auto mt-24 " + (large ? "lg:w-full" : "lg:w-2/3")}
+                className={"px-6 md:px-12 mx-auto " + (large ? "lg:w-full" : "lg:w-2/3")}
             >
                 <Explanations explanations={explanations} />
                 <FormElement
