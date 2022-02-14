@@ -23,7 +23,10 @@ const Check = ({
                     />}
                     label={label}
                     checked={displayValue || false}
-                    onChange={(e) => setChosenValue(e.target.checked)}
+                    onChange={(e) => {
+                        setDisplayValue(e.target.checked)
+                        setChosenValue(e.target.checked)
+                    }}
                 />
             </FormGroup>
         }}

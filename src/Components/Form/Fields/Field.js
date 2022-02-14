@@ -16,8 +16,8 @@ const Field = ({
 }) => {
 
     const [id, setId] = useState();
-    const [displayValue, setDisplayValue] = useState(value || "");
-    const [chosenValue, setChosenValue] = useState(value || "");
+    const [displayValue, setDisplayValue] = useState(value || (type === 'check' ? false : ""));
+    const [chosenValue, setChosenValue] = useState(value || (type === 'check' ? false : ""));
     const [chosenEntity, setChosenEntity] = useState(null);
     const [helpText, setHelpText] = useState(hint);
     const initialHint = hint;
@@ -44,9 +44,6 @@ const Field = ({
             setHelpText(required);
         }
         else {
-            setValidationState('valid ' + Date.now());
-            setHelpText(initialHint);
-
             if (validate && typeof validate === 'function') {
                 var result = validate({ displayValue, chosenValue, chosenEntity });
                 if (!result || result === true) {
@@ -57,6 +54,10 @@ const Field = ({
                     setValidationState(`invalid ${result?.error} ${Date.now()}`)
                     setHelpText(result?.message);
                 }
+            }
+            else {
+                setValidationState('valid ' + Date.now());
+                setHelpText(initialHint);
             }
         }
     }
