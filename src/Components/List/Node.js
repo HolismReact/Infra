@@ -5,9 +5,10 @@ import AddIcon from '@mui/icons-material/Add';
 import IndeterminateCheckBoxOutlinedIcon from '@mui/icons-material/IndeterminateCheckBoxOutlined';
 import DisabledByDefaultOutlinedIcon from '@mui/icons-material/DisabledByDefaultOutlined';
 import BlockIcon from '@mui/icons-material/Block';
-import { HolismIcon } from '@Panel'
+import { HolismIcon, app } from '@Panel'
 import EditAction from './ItemActions/EditAction';
 import ItemActions from './ItemActions/ItemActions';
+import { ItemAction } from './ItemActions/ItemAction';
 
 const Node = ({
     entityType,
@@ -59,7 +60,15 @@ const Node = ({
                         <ItemActions
                             entityType={entityType}
                             item={entity}
-                            itemActions={itemActions}
+                            itemActions={(create || upsert) ? <>
+                                {itemActions}
+                                <ItemAction
+                                    icon={<AddIcon />}
+                                    click={() => {
+                                        app.emit(app.creationRequested, { parentId: entity.id })
+                                    }}
+                                />
+                            </> : itemActions}
                             hasDelete={hasDelete}
                             hasEdit={hasEdit}
                             edit={edit}

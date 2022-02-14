@@ -26,6 +26,7 @@ const FormBase = ({
   const [mode, setMode] = useState(app.formMode.creation)
   const [calculatedTitle, setCalculatedTitle] = useState('')
   const [hasFile, setHasFile] = useState(false)
+  const [extraParams, setExtraParams] = useState()
 
   app.ensure([entityType]);
 
@@ -83,9 +84,10 @@ const FormBase = ({
     return () => app.removeListener(app.formCanceled, onFormCanceled)
   }, [])
 
-  const resetForm = () => {
+  const resetForm = (params) => {
     setFields([])
     setCurrentEntity(null)
+    setExtraParams(params)
   }
 
   useEffect(() => {
@@ -150,6 +152,9 @@ const FormBase = ({
       else {
         data[key] = fields[i].value;
       }
+    }
+    if (extraParams && typeof extraParams === 'object') {
+      data = { ...data, ...extraParams };
     }
     console.log(data);
     if (okAction && typeof okAction === 'function') {
