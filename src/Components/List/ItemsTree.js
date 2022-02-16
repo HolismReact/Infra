@@ -1,16 +1,15 @@
-import { ListContext, app } from '@List';
 import Node from './Node'
+import NoItemsFound from '../NoItemsFound';
 
 const Tree = ({
     data,
-    noItemIsFoundStyle,
     expanded,
     show,
     ...rest
 }) => {
     return data.length === 0
         ?
-        <div className={noItemIsFoundStyle}>{app.t("No item is found")}</div>
+        <NoItemsFound />
         :
         <ul className="w-full px-6">
             {

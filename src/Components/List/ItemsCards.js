@@ -5,6 +5,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Tooltip from '@mui/material/Tooltip';
 import Collapse from '@mui/material/Collapse';
 import { ListContext, app } from '@List';
+import NoItemsFound from '../NoItemsFound';
 
 const Cards = ({
     data,
@@ -33,7 +34,7 @@ const Cards = ({
         {
             data.length === 0
                 ?
-                <div className={noItemIsFoundStyle}>{app.t("No item is found")}</div>
+                <NoItemsFound />
                 :
                 <>
                     <Collapse in={showTopPagiation} className="w-full">

@@ -15,7 +15,7 @@ const Items = (props) => {
     const [loading, setLoading] = useState();
     const [data, setData] = useState([]);
     const [metadata, setMetadata] = useState({});
-    const { listParameters } = useContext(ListContext);
+    const { listParameters, setHasData } = useContext(ListContext);
     const [showTopPagiation, setTopPaginationVisibility] = useLocalStorageState(false, `${app.userGuid()}_${entityType}_isTopPaginationShown`);
 
     useEffect(() => {
@@ -158,6 +158,15 @@ const Items = (props) => {
     useEffect(() => {
         load();
     }, []);
+
+    useEffect(() => {
+        if (data && Array.isArray(data) && data.length !== 0) {
+            setHasData(true)
+        }
+        else {
+            setHasData(false)
+        }
+    }, [data])
 
     return <div id='items' className={
         'bg-white dark:bg-zinc-700 transition-colors py-6 md:rounded-lg flex flex-col items-center justify-center '

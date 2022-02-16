@@ -138,7 +138,7 @@ const Checks = ({
                                 }
                             </FormGroup>
                             :
-                            <div>{app.t('No item is found')}</div>
+                            <div>{app.t('No items found')}</div>
                     }
                 </div>
         }

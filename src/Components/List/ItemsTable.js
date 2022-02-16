@@ -9,6 +9,7 @@ import ToggleOffIcon from '@mui/icons-material/ToggleOff';
 import { Transition } from '@headlessui/react'
 import { ListContext, HolismIcon, app } from '@List';
 import UseLocalStorageState, { useLocalStorageState } from '../../Base/UseLocalStorageState'
+import NoItemsFound from '../NoItemsFound';
 
 const Table = ({
     entityType,
@@ -95,7 +96,7 @@ const Table = ({
                 data.length === 0
                     ?
                     <tr>
-                        <td colSpan='100' className={noItemIsFoundStyle}>{app.t("No item is found")}</td>
+                        <td colSpan='100'><NoItemsFound /></td>
                     </tr>
                     :
                     data.map((item, index) => <tr
@@ -172,16 +173,19 @@ const Table = ({
                 </Collapse>
         }
         <div className="relative w-full overflow-x-auto px-6">
-            <span
-                className={"absolute top-0 right-6 cursor-pointer "}
-                onClick={() => setHiddenItemActions(!hiddenItemActions)}
-                title="Toggle actions"
-            >
-                <HolismIcon
-                    className={hiddenItemActions ? "text-slate-300" : "text-green-600"}
-                    icon={hiddenItemActions ? ToggleOnIcon : ToggleOffIcon}
-                />
-            </span>
+            {
+                (itemActions || hasDelete || hasEdit || edit) &&
+                <span
+                    className={"absolute top-0 right-6 cursor-pointer "}
+                    onClick={() => setHiddenItemActions(!hiddenItemActions)}
+                    title="Toggle actions"
+                >
+                    <HolismIcon
+                        className={hiddenItemActions ? "text-slate-300" : "text-green-600"}
+                        icon={hiddenItemActions ? ToggleOnIcon : ToggleOffIcon}
+                    />
+                </span>
+            }
             <table
                 className="w-full text-center "
                 style={{ minWidth: '600px' }}

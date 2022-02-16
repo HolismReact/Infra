@@ -43,6 +43,7 @@ const List = ({
   show
 }) => {
   const [listParameters] = useState(CreateListParameters(app.userGuid(), entityType));
+  const [hasData, setHasData] = useState(false)
   const [isFilteringOpen, setIsFilteringOpen] = useLocalStorageState(false, `${app.userGuid()}_${entityType}_isFilteringOpen`);
   const [selectedItems, setSelectedItems] = useState([]);
 
@@ -70,7 +71,9 @@ const List = ({
   return <ListContext.Provider value={{
     listParameters: listParameters,
     selectedItems: selectedItems,
-    setSelectedItems: setSelectedItems
+    setSelectedItems: setSelectedItems,
+    hasData: hasData,
+    setHasData: setHasData
   }} id='list'>
 
     <div
@@ -92,7 +95,7 @@ const List = ({
         }
       >
         {
-          !isTree && <span
+          !isTree && hasData && <span
             id='showHideTopPagination'
             className={
               listActionIconStyle
