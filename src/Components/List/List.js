@@ -200,6 +200,21 @@ const List = ({
         :
         null
     }
+    {
+      EditionComponent && typeof EditionComponent !== 'string'
+        ?
+        <DialogForm
+          entityType={EditionComponent.props?.entityType}
+          humanReadableEntityType={EditionComponent.props?.humanReadableEntityType}
+          title={EditionComponent.props?.title}
+          explanations={EditionComponent.props?.explanations}
+          inputs={EditionComponent.props?.inputs}
+          actions={EditionComponent.props?.actions}
+          large={EditionComponent.props?.large}
+        />
+        :
+        null
+    }
   </ListContext.Provider>
 };
 
