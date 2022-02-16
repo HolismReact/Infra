@@ -5,8 +5,6 @@ import Cards from './ItemsCards'
 import Table from './ItemsTable'
 import Tree from './ItemsTree';
 
-const noItemIsFoundStyle = 'py-10 text-2xl font-bold text-gray-600';
-
 const Items = (props) => {
 
     const { entityType, card, headers, row, classProvider, isTree } = props;
@@ -195,7 +193,6 @@ const Items = (props) => {
                         ?
                         <Tree
                             {...props}
-                            noItemIsFoundStyle={noItemIsFoundStyle}
                             loading={loading}
                             data={data}
                             metadata={metadata}
@@ -206,7 +203,6 @@ const Items = (props) => {
                         card
                             ?
                             <Cards {...props}
-                                noItemIsFoundStyle={noItemIsFoundStyle}
                                 loading={loading}
                                 data={data}
                                 metadata={metadata}
@@ -217,7 +213,6 @@ const Items = (props) => {
                             />
                             :
                             <Table {...props}
-                                noItemIsFoundStyle={noItemIsFoundStyle}
                                 loading={loading}
                                 data={data}
                                 metadata={metadata}
