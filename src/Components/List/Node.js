@@ -5,6 +5,7 @@ import AddIcon from '@mui/icons-material/Add';
 import IndeterminateCheckBoxOutlinedIcon from '@mui/icons-material/IndeterminateCheckBoxOutlined';
 import DisabledByDefaultOutlinedIcon from '@mui/icons-material/DisabledByDefaultOutlined';
 import BlockIcon from '@mui/icons-material/Block';
+import RemoveIcon from '@mui/icons-material/Remove';
 import { HolismIcon, app } from '@Panel'
 import EditAction from './ItemActions/EditAction';
 import ItemActions from './ItemActions/ItemActions';
@@ -51,7 +52,7 @@ const Node = ({
                     :
                     <HolismIcon
                         className="text-slate-300"
-                        icon={BlockIcon}
+                        icon={RemoveIcon}
                     />
             }
             <span className="flex justify-between w-full items-center">
