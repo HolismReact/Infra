@@ -32,7 +32,7 @@ const Table = ({
 }) => {
 
     const listContext = useContext(ListContext);
-    const { selectedItems } = listContext;
+    const { selectedItems, hasData } = listContext;
     const [hiddenItemActions, setHiddenItemActions] = useLocalStorageState(false, `${app.userGuid()}_${entityType}_isItemActionsHidden`)
 
     let headerElements = [];
@@ -174,7 +174,7 @@ const Table = ({
         }
         <div className="relative w-full overflow-x-auto px-6">
             {
-                (itemActions || hasDelete || hasEdit || edit) &&
+                hasData && (itemActions || hasDelete || hasEdit || edit) &&
                 <span
                     className={"absolute top-0 right-6 cursor-pointer "}
                     onClick={() => setHiddenItemActions(!hiddenItemActions)}
