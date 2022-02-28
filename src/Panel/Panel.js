@@ -13,6 +13,8 @@ import Title from './Title';
 // import TrapFocus from '@mui/material/Unstable_TrapFocus';
 // import Backdrop from '@mui/material/Backdrop';
 
+const ApplicationContext = React.createContext()
+
 require('react-dom');
 window.React2 = require('react');
 if (window.React1 !== window.React2) {
@@ -72,61 +74,66 @@ function Panel() {
     };
   });
 
-  return <div
-    className={
-      "flex " +
-      (app.isRtl() ? "flex-row-reverse " : "")
-      + (isDark ? ' dark ' : '')
-    }
-  >
-    <Transition
-      show={isSidebarOpen}
-      enter="transition-all duration-300"
-      enterFrom="-ml-64"
-      enterTo="ml-0"
-      leave="transition-all duration-300"
-      leaveFrom="ml-0"
-      leaveTo="-ml-64"
-      className={
-        "w-72 absolute border-b z-10 bg-white dark:bg-slate-900 top-0 bottom-0 "
-        + (app.isRtl() ? " border-l " : " border-r ")
-        +
-          /*large*/"lg:w-1/5 lg:static lg:border-b-0 "
-        + (app.isRtl() ? " lg:border-l-0 " : " lg:border-r-0 ")
-        +
-          /*xlarge*/ ""
-        +
-          /*2x large*/ "2xl:w-1/6"
-      }
-    >
-      <ClickAwayListener onClickAway={closeMenu}>
-        <div
-          id='thisDivShouldNotBeRemovedToFixRefProblemOfSidebar'
-        >
-          <Sidebar onClick={closeMenu} />
-        </div>
-      </ClickAwayListener>
-    </Transition>
+  return <ApplicationContext.Provider
+    values={{
+      isSidebarOpen
+    }}>
     <div
-      className=
-      {
-        /*small*/"flex-1 flex flex-col min-h-screen"
-        /*medium*/
-        + " dark:bg-zinc-900 transition-colors"
+      className={
+        "flex " +
+        (app.isRtl() ? "flex-row-reverse " : "")
+        + (isDark ? ' dark ' : '')
       }
     >
-      <Header onMenuIconClicked={toggleMenu} />
-      <div
-        id='content'
-        className="md:p-10 md:pt-4 pt-5 flex-1"
+      <Transition
+        show={isSidebarOpen}
+        enter="transition-all duration-300"
+        enterFrom="-ml-64"
+        enterTo="ml-0"
+        leave="transition-all duration-300"
+        leaveFrom="ml-0"
+        leaveTo="-ml-64"
+        className={
+          "w-72 absolute border-b z-10 bg-white dark:bg-slate-900 top-0 bottom-0 "
+          + (app.isRtl() ? " border-l " : " border-r ")
+          +
+          /*large*/"lg:w-1/5 lg:static lg:border-b-0 "
+          + (app.isRtl() ? " lg:border-l-0 " : " lg:border-r-0 ")
+          +
+          /*xlarge*/ ""
+          +
+          /*2x large*/ "2xl:w-1/6"
+        }
       >
-        <Title />
-        <MainRouting />
+        <ClickAwayListener onClickAway={closeMenu}>
+          <div
+            id='thisDivShouldNotBeRemovedToFixRefProblemOfSidebar'
+          >
+            <Sidebar onClick={closeMenu} />
+          </div>
+        </ClickAwayListener>
+      </Transition>
+      <div
+        className=
+        {
+        /*small*/"flex-1 flex flex-col min-h-screen"
+          /*medium*/
+          + " dark:bg-zinc-900 transition-colors"
+        }
+      >
+        <Header onMenuIconClicked={toggleMenu} />
+        <div
+          id='content'
+          className="md:p-10 md:pt-4 pt-5 flex-1"
+        >
+          <Title />
+          <MainRouting />
+        </div>
+        <Footer />
+        <Message />
       </div>
-      <Footer />
-      <Message />
     </div>
-  </div>
+  </ApplicationContext.Provider>
 }
 
 export default Panel;
@@ -147,3 +154,4 @@ export { Success } from '../Components/Message/Success'
 export { Info } from '../Components/Message/Info'
 export { Warning } from '../Components/Message/Warning'
 export { Error } from '../Components/Message/Error'
+export { ApplicationContext }

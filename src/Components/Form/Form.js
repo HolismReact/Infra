@@ -9,8 +9,6 @@ import {
     app
 } from '@Form';
 
-export const FormContext = React.createContext();
-
 const Form = ({
     entityType,
     entity,
