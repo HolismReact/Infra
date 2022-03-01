@@ -75,7 +75,7 @@ function Panel() {
   });
 
   return <ApplicationContext.Provider
-    values={{
+    value={{
       isSidebarOpen
     }}>
     <div
