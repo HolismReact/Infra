@@ -22,20 +22,16 @@ const Field = ({
     const [helpText, setHelpText] = useState(hint);
     const initialHint = hint;
     var formContext = useContext(FormContext);
-    const { progress, currentEntity } = formContext;
+    const { progress, currentEntity, addFieldToFormContext, setField } = formContext;
     const [validationState, setValidationState] = useState(null);
     const label = placeholder || column;
-
-    const setField = (value, isValid) => {
-        app.setField(formContext, id, value, isValid);
-    }
 
     useEffect(() => {
         setId(`${type}_${column}`);
     }, [type, column]);
 
     useEffect(() => {
-        app.addFieldToFormContext(formContext, id, undefined, false);
+        addFieldToFormContext(formContext, id, undefined, false);
     }, [formContext, id]);
 
     const validateAll = () => {
@@ -84,7 +80,7 @@ const Field = ({
     }
 
     useEffect(() => {
-        setField(chosenValue, isValid() ? true : false);
+        setField(formContext, id, chosenValue, isValid() ? true : false);
     }, [validationState]);
 
     return <div className={fieldStyles}>

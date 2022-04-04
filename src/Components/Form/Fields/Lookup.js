@@ -23,6 +23,7 @@ const Lookup = ({ column, entityType, placeholder, hint, value, required, displa
     const initialHint = hint;
     const [validationResult, setValidationResult] = useState(null);
     var formContext = useContext(FormContext);
+    const { addFieldToFormContext, setField } = formContext;
 
     useEffect(() => {
         setId(`lookup_${column}`);
@@ -30,7 +31,7 @@ const Lookup = ({ column, entityType, placeholder, hint, value, required, displa
 
     useEffect(() => {
         setLabelId(`${id}_label`);
-        app.addFieldToFormContext(formContext, id, undefined, false);
+        addFieldToFormContext(formContext, id, undefined, false);
         var handler = () => {
             validate();
         };
@@ -71,7 +72,7 @@ const Lookup = ({ column, entityType, placeholder, hint, value, required, displa
     }
 
     useEffect(() => {
-        app.setField(formContext, id, displayValue, validationResult ? false : true);
+        setField(formContext, id, displayValue, validationResult ? false : true);
     }, [validationResult]);
 
     return <div className={fieldStyles}>

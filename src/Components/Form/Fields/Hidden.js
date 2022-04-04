@@ -7,14 +7,15 @@ const Hidden = ({
 }) => {
 
     const [id, setId] = useState();
-    var formContext = useContext(FormContext);
+    const formContext = useContext(FormContext);
+    const { addFieldToFormContext } = formContext;
 
     useEffect(() => {
         setId(`hidden_${column}`);
     }, [column]);
 
     useEffect(() => {
-        app.addFieldToFormContext(formContext, id, value, true);
+        addFieldToFormContext(formContext, id, value, true);
         app.on(app.formSubmitted, () => { });
         return () => {
             app.removeListener(app.formSubmitted, () => { });

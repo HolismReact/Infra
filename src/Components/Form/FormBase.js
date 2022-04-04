@@ -19,16 +19,57 @@ const FormBase = ({
   // file upload
   // if is edit, load entity (only if they don't provide their own get method)
   // save
+  const formMode = {
+    creation: 1,
+    edition: 2
+  }
   const [fields, setFields] = useState([]);
   const [progress, setProgress] = useState();
   const [isValid, setIsValid] = useState(false);
   const [currentEntity, setCurrentEntity] = useState(entity);
-  const [mode, setMode] = useState(app.formMode.creation)
+  const [mode, setMode] = useState(formMode.creation)
   const [calculatedTitle, setCalculatedTitle] = useState('')
   const [hasFile, setHasFile] = useState(false)
   const [extraParams, setExtraParams] = useState()
 
   app.ensure([entityType]);
+
+  const addFieldToFormContext = (formContext, id, value, isValid) => {
+    if (!formContext) {
+      return
+    }
+    if (!id) {
+      return
+    }
+    for (var i = 0; i < fields.length; i++) {
+      if (fields[i].id === id) {
+        return
+      }
+    }
+    setFields((previousFields) => {
+      return [{
+        id: id,
+        value: value,
+        isValid: isValid
+      }, ...previousFields]
+    })
+  }
+
+  const setField = (formContext, id, value, isValid) => {
+    if (!formContext) {
+      return;
+    }
+    const { setFields } = formContext
+    setFields((previousFields) => {
+      for (var i = 0; i < previousFields.length; i++) {
+        if (previousFields[i].id === id) {
+          previousFields[i].value = value;
+          previousFields[i].isValid = isValid;
+        }
+      }
+      return [...previousFields]
+    })
+  };
 
   useEffect(() => {
     // app.updateToken();
@@ -56,11 +97,11 @@ const FormBase = ({
 
   useEffect(() => {
     if (currentEntity && currentEntity.id) {
-      setMode(app.formMode.edition)
+      setMode(formMode.edition)
       // setFields(currentEntity)
     }
     else {
-      setMode(app.formMode.creation)
+      setMode(formMode.creation)
     }
   }, [currentEntity])
 
@@ -72,7 +113,7 @@ const FormBase = ({
       setCalculatedTitle(title(mode))
     }
     else {
-      setCalculatedTitle(`${mode === app.formMode.edition ? 'Edit' : 'Create'} ${humanReadableEntityType || entityType}`)
+      setCalculatedTitle(`${mode === formMode.edition ? 'Edit' : 'Create'} ${humanReadableEntityType || entityType}`)
     }
   }, [mode])
 
@@ -126,7 +167,7 @@ const FormBase = ({
 
   useEffect(() => {
     validate()
-    app.setFieldsCache(fields);
+    window.fields = fields;
     app.updateToken()
   }, [validate, fields]);
 
@@ -169,7 +210,7 @@ const FormBase = ({
       if (hasFile) {
         url += 'upload'
       } else {
-        url += `${mode === app.formMode.creation ? 'create' : 'update'}`
+        url += `${mode === formMode.creation ? 'create' : 'update'}`
       }
       if (window.location.search) {
         const query = window.location.search.slice(1);
@@ -181,13 +222,13 @@ const FormBase = ({
         }
         url += query
       }
-      if (mode === app.formMode.edition) {
+      if (mode === formMode.edition) {
         data['id'] = currentEntity.id;
       }
       const method = hasFile ? upload : post
       method(url, data).then(data => {
         app.emit(app.itemUpserted);
-        app.success(`Item ${(app.formMode.creation ? 'created' : 'updated')} successfully.`)
+        app.success(`Item ${(formMode.creation ? 'created' : 'updated')} successfully.`)
         setProgress(false);
       }, error => {
         app.error(error);
@@ -199,6 +240,8 @@ const FormBase = ({
   return <FormContext.Provider value={{
     fields,
     setFields,
+    addFieldToFormContext,
+    setField,
     isValid,
     progress,
     currentEntity,
