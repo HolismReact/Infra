@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState, useContext, useEffect } from 'react'
+import React, { useCallback, useMemo, useState, useContext, useEffect, useRef } from 'react'
 import isHotkey from 'is-hotkey'
 import { Editable, withReact, useSlate, Slate } from 'slate-react'
 import {
@@ -43,7 +43,11 @@ const Rte = ({
     ])
     const renderElement = useCallback(props => <Element {...props} />, [])
     const renderLeaf = useCallback(props => <Leaf {...props} />, [])
-    const editor = useMemo(() => withHistory(withReact(createEditor())), [])
+    const editorRef = useRef();
+    if (!editorRef.current) {
+        editorRef.current = withHistory(withReact(createEditor()))
+    }
+    const editor = editorRef.current;
     editor.children = currentValue
 
     const { progress, currentEntity } = useContext(FormContext);
