@@ -41,6 +41,7 @@ const Rte = ({
             children: [{ text: 'Write your content here ...' }],
         },
     ])
+    const [id, setId] = useState();
     const renderElement = useCallback(props => <Element {...props} />, [])
     const renderLeaf = useCallback(props => <Leaf {...props} />, [])
     const editorRef = useRef();
@@ -49,8 +50,16 @@ const Rte = ({
     }
     const editor = editorRef.current;
     editor.children = currentValue
+    var formContext = useContext(FormContext);
+    const { progress, currentEntity, addFieldToFormContext, setField } = formContext;
 
-    const { progress, currentEntity } = useContext(FormContext);
+    useEffect(() => {
+        setId(`rte_${column}`);
+    }, [column]);
+
+    useEffect(() => {
+        addFieldToFormContext(formContext, id, currentValue, false);
+    }, [formContext, id]);
 
     useEffect(() => {
         if (currentEntity) {
@@ -61,8 +70,8 @@ const Rte = ({
 
     useEffect(() => {
         const json = JSON.stringify(currentValue)
-        console.log(json)
         app.rteJson = json;
+        setField(formContext, id, currentValue, true);
     }, [currentValue])
 
     return (
