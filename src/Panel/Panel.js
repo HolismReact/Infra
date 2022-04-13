@@ -78,6 +78,7 @@ function Panel() {
     value={{
       isSidebarOpen
     }}>
+    <input type='hidden' id='reactVersion' value={React.version} />
     <div
       className={
         "flex " +
