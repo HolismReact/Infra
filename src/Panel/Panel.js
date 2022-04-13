@@ -86,34 +86,35 @@ function Panel() {
         + (isDark ? ' dark ' : '')
       }
     >
-      <Transition
-        show={isSidebarOpen}
-        enter="transition-all duration-300"
-        enterFrom="-ml-64"
-        enterTo="ml-0"
-        leave="transition-all duration-300"
-        leaveFrom="ml-0"
-        leaveTo="-ml-64"
-        className={
-          "w-72 absolute border-b z-10 bg-white dark:bg-slate-900 top-0 bottom-0 "
-          + (app.isRtl() ? " border-l " : " border-r ")
-          +
+      {
+        isSidebarOpen && <div
+          enter="transition-all duration-300"
+          enterFrom="-ml-64"
+          enterTo="ml-0"
+          leave="transition-all duration-300"
+          leaveFrom="ml-0"
+          leaveTo="-ml-64"
+          className={
+            "w-72 absolute border-b z-10 bg-white dark:bg-slate-900 top-0 bottom-0 "
+            + (app.isRtl() ? " border-l " : " border-r ")
+            +
           /*large*/"lg:w-1/5 lg:static lg:border-b-0 "
-          + (app.isRtl() ? " lg:border-l-0 " : " lg:border-r-0 ")
-          +
+            + (app.isRtl() ? " lg:border-l-0 " : " lg:border-r-0 ")
+            +
           /*xlarge*/ ""
-          +
+            +
           /*2x large*/ "2xl:w-1/6"
-        }
-      >
-        <ClickAwayListener onClickAway={closeMenu}>
-          <div
-            id='thisDivShouldNotBeRemovedToFixRefProblemOfSidebar'
-          >
-            <Sidebar onClick={closeMenu} />
-          </div>
-        </ClickAwayListener>
-      </Transition>
+          }
+        >
+          <ClickAwayListener onClickAway={closeMenu}>
+            <div
+              id='thisDivShouldNotBeRemovedToFixRefProblemOfSidebar'
+            >
+              <Sidebar onClick={closeMenu} />
+            </div>
+          </ClickAwayListener>
+        </div>
+      }
       <div
         className=
         {
