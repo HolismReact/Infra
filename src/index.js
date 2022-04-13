@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import './index.css';
 
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -12,15 +12,16 @@ import app from './Base/App';
 import { get } from './Base/Api';
 
 const renderReact = () => {
-  ReactDOM.render(
+  const container = document.getElementById('root');
+  const root = createRoot(container);
+  root.render(
     <React.StrictMode>
       <BrowserRouter>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Panel />
         </LocalizationProvider>
       </BrowserRouter>
-    </React.StrictMode>,
-    document.getElementById('root')
+    </React.StrictMode>
   );
 }
 
