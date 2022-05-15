@@ -8,13 +8,13 @@ const Panel = () => {
 
     return <div className="flex bg-gray-100">
         <Transition
-            show={isSidebarOpen}
-            enter="transition-all duration-300"
-            enterFrom="-ml-64"
-            enterTo="ml-0"
-            leave="transition-all duration-300"
-            leaveFrom="ml-0"
-            leaveTo="-ml-64"
+            // show={isSidebarOpen}
+            // enter="transition-all duration-300"
+            // enterFrom="-ml-64"
+            // enterTo="ml-0"
+            // leave="transition-all duration-300"
+            // leaveFrom="ml-0"
+            // leaveTo="-ml-64"
         >
             <sidebar className="bg-white w-64 min-h-screen flex flex-col">
                 <span>Application</span>

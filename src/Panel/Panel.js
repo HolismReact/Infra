@@ -88,12 +88,12 @@ function Panel() {
     >
       {
         isSidebarOpen && <div
-          enter="transition-all duration-300"
-          enterFrom="-ml-64"
-          enterTo="ml-0"
-          leave="transition-all duration-300"
-          leaveFrom="ml-0"
-          leaveTo="-ml-64"
+          // enter="transition-all duration-300"
+          // enterFrom="-ml-64"
+          // enterTo="ml-0"
+          // leave="transition-all duration-300"
+          // leaveFrom="ml-0"
+          // leaveTo="-ml-64"
           className={
             "w-72 absolute border-b z-10 bg-white dark:bg-slate-900 top-0 bottom-0 "
             + (app.isRtl() ? " border-l " : " border-r ")
