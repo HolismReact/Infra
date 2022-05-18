@@ -71,7 +71,7 @@ const Rte = ({
     useEffect(() => {
         const json = JSON.stringify(currentValue)
         app.rteJson = json;
-        setField(formContext, id, currentValue, true);
+        setField(formContext, id, app.rteJson, true);
     }, [currentValue])
 
     return (
