@@ -38,7 +38,7 @@ const Rte = ({
     const [currentValue, setCurrentValue] = useState([
         {
             type: 'paragraph',
-            children: [{ text: 'Write your content here ...' }],
+            children: [{ text: '' }],
         },
     ])
     const [id, setId] = useState();
@@ -94,7 +94,7 @@ const Rte = ({
                 <Editable
                     renderElement={renderElement}
                     renderLeaf={renderLeaf}
-                    placeholder="Enter some rich text…"
+                    placeholder="Write your content here ..."
                     spellCheck
                     className="prose"
                     autoFocus
