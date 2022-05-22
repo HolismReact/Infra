@@ -87,28 +87,22 @@ const Pagination = ({ metadata }) => {
     >
         <DialogTitle id="dialog-title">{app.t('Select page size')}</DialogTitle>
         <DialogContent>
-            <form
-                noValidate
-                onSubmit={() => { }}
-            >
-                <div id='fields'>
-                    <FormControl fullWidth>
-                        <InputLabel id="pageSizeSelectLabelId">{app.t('Page size')}</InputLabel>
-                        <Select
-                            labelId="pageSizeSelectLabelId"
-                            id="pageSizeSelect"
-                            value={internalPageSize}
-                            onChange={(e) => { setInternalPageSize(e.target.value) }}
-                        >
-                            <MenuItem value={5}>5</MenuItem>
-                            <MenuItem value={10}>10</MenuItem>
-                            <MenuItem value={20}>20</MenuItem>
-                            <MenuItem value={50}>50</MenuItem>
-                            <MenuItem value={100}>100</MenuItem>
-                        </Select>
-                    </FormControl>
-                </div>
-            </form>
+            <FormControl fullWidth className="mt-4">
+                <InputLabel>
+                    {app.t('Page size')}
+                </InputLabel>
+                <Select
+                    label={app.t('Page size')}
+                    value={internalPageSize}
+                    onChange={(e) => { setInternalPageSize(e.target.value) }}
+                >
+                    <MenuItem value={5}>5</MenuItem>
+                    <MenuItem value={10}>10</MenuItem>
+                    <MenuItem value={20}>20</MenuItem>
+                    <MenuItem value={50}>50</MenuItem>
+                    <MenuItem value={100}>100</MenuItem>
+                </Select>
+            </FormControl>
         </DialogContent>
         <DialogActions>
             <div id='actions' className='mt-4'>
