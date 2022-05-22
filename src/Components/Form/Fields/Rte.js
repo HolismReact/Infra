@@ -64,7 +64,10 @@ const Rte = ({
     useEffect(() => {
         if (currentEntity) {
             const value = currentEntity[app.camelize(column)]
-            setCurrentValue(JSON.parse(value))
+            const json = JSON.parse(value);
+            if (Array.isArray(json) && json.length > 0) {
+                setCurrentValue(JSON.parse(value))
+            }
         }
     }, [column, currentEntity])
 
