@@ -1,12 +1,20 @@
-import routes from '../Routes.js';
 import { Routes, Route } from "react-router-dom";
+import app from './App.js';
 import NotFound from '../Panel/NotFound';
+import routes from '../Routes.js';
 
 const MainRouting = () => {
     return (
         <Routes>
             {
-                routes.map(route => {
+                routes.filter(item => {
+                    if (item.superAdmin === true) {
+                        return app.isSuperAdmin()
+                    }
+                    else {
+                        return true;
+                    }
+                }).map(route => {
                     const Component = route.component;
                     return <Route
                         key={route.path}

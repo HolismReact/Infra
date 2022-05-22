@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom';
 import { Fragment, useState } from 'react';
-import menuItems from '../Menu.js'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useLocation } from "react-router-dom";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Collapse from '@mui/material/Collapse';
+import menuItems from '../Menu.js'
 import HolismIcon from '../Components/HolismIcon.js';
 import app from '../Base/App';
-import Collapse from '@mui/material/Collapse';
 
 const liStyle = "py-2 hover:bg-gray-50 dark:hover:bg-blue-900 cursor-pointer text-sm tracking-wide text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-white font-normal relative select-none"
 const iconStyle = "text-gray-600 hover:text-gray-900"
@@ -89,7 +89,14 @@ const MenuItemWithSubmenu = ({ item, onClick }) => {
                 <Collapse in={isSubmenuOpen}>
                     <div className=" pt-2">
                         {
-                            item.children.map((child, index) => {
+                            item.children.filter(item => {
+                                if (item.superAdmin === true) {
+                                    return app.isSuperAdmin()
+                                }
+                                else {
+                                    return true;
+                                }
+                            }).map((child, index) => {
                                 return <Link
                                     onClick={(e) => {
                                         e.stopPropagation();
@@ -124,7 +131,14 @@ const Menu = ({ onClick }) => {
 
     return <div id="menu" className="mt-5 dark:bg-slate-900">
         {
-            menuItems.map((item, index) => {
+            menuItems.filter(item => {
+                if (item.superAdmin === true) {
+                    return app.isSuperAdmin()
+                }
+                else {
+                    return true;
+                }
+            }).map((item, index) => {
                 if (item.children && item.children.length > 0) {
                     return <MenuItemWithSubmenu key={index} item={item} onClick={onClick} />
                 }

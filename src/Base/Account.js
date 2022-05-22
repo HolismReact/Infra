@@ -68,6 +68,12 @@ const Account = {
         }
         return 'User';
     },
+    isSuperAdmin: () => {
+        if (!Account.keycloak().tokenParsed) {
+            return false;
+        }
+        return app.keycloak().tokenParsed.roles.includes('SuperAdmin');
+    },
     checkLogin: (callback) => {
         var conf = {
             url: process.env.REACT_APP_ACCOUNTS_URL + '/auth',
