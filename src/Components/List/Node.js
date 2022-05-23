@@ -56,7 +56,14 @@ const Node = ({
                     />
             }
             <span className="flex justify-between w-full items-center">
-                <span className="ml-1 text-sm font-normal text-slate-900">{show(entity)}</span>
+                <span className="ml-1 text-sm font-normal text-slate-900">
+                    {
+                        (show && typeof show === 'fucntion')
+                            ? show(entity)
+                            :
+                            'Either show function is not provided, or it is not a function'
+                    }
+                </span>
                 {
                     (itemActions || hasDelete || hasEdit || edit)
                         ?
@@ -96,7 +103,6 @@ const Node = ({
                         expanded={isExpanded}
                         entity={childEntity}
                         entityType={entityType}
-                        show={show}
                         hasEdit={hasEdit}
                         hasDelete={hasDelete}
                         create={create}
