@@ -45,7 +45,9 @@ const ListAction = ({ icon, text, title, click, minCardinality }) => {
             title
                 ?
                 <Tooltip title={app.t(title || "")}>
-                    {button}
+                    <span>
+                        {button}
+                    </span>
                 </Tooltip>
                 :
                 button

@@ -40,7 +40,7 @@ const Filter = ({
         listParameters.addFilter(column, operator || filterOperator.contains, displayValue);
     }, [column, listParameters, operator, displayValue]);
 
-    return <div className="filter mt-4 mr-4 w-64">
+    return <div className="filter mt-1 mr-4 w-64">
         <FormControl
             fullWidth
         >

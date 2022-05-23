@@ -6,9 +6,8 @@ import Tooltip from '@mui/material/Tooltip';
 import Collapse from '@mui/material/Collapse';
 import ToggleOnIcon from '@mui/icons-material/ToggleOn';
 import ToggleOffIcon from '@mui/icons-material/ToggleOff';
-import { Transition } from '@headlessui/react'
 import { ListContext, HolismIcon, app } from '@List';
-import UseLocalStorageState, { useLocalStorageState } from '../../Base/UseLocalStorageState'
+import { useLocalStorageState } from '../../Base/UseLocalStorageState'
 import NoItemsFound from '../NoItemsFound';
 
 const Table = ({
@@ -27,8 +26,7 @@ const Table = ({
     reload,
     hasItemSelection,
     classProvider,
-    showTopPagiation,
-    noItemIsFoundStyle
+    showTopPagiation
 }) => {
 
     const listContext = useContext(ListContext);
@@ -42,7 +40,7 @@ const Table = ({
         headerElements = React.Children
             .toArray(headers.props.children)
             .map(header => React.cloneElement(header, {
-                className: "text-gray-900 dark:text-gray-300 py-3 font-light text-xs",
+                className: "text-gray-900 dark:text-gray-300 py-3 font-light text-xs " + (header?.props?.className || ""),
                 children: React.Children.toArray(header.props.children).map(child => {
                     return typeof child === "string" ? app.t(child) : child;
                 })
