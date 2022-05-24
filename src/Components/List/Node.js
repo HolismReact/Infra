@@ -58,7 +58,7 @@ const Node = ({
             <span className="flex justify-between w-full items-center">
                 <span className="ml-1 text-sm font-normal text-slate-900">
                     {
-                        (show && typeof show === 'fucntion')
+                        (show && typeof show === 'function')
                             ? show(entity)
                             :
                             'Either show function is not provided, or it is not a function'
