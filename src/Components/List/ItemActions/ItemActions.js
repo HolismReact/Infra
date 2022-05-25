@@ -3,6 +3,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Fade from '@mui/material/Fade';
 import DeleteAction from './DeleteAction';
 import EditAction from './EditAction';
+import { app } from '../../../Base/App';
 
 const ItemActions = ({
     entityType,
@@ -35,7 +36,17 @@ const ItemActions = ({
         if (itemActionsArray) {
             clonedItemActions = React
                 .Children
-                .toArray(itemActionsArray).map(itemAction => React.cloneElement(itemAction, {
+                .toArray(itemActionsArray)
+                .filter(itemAction => {
+                    console.log(itemAction);
+                    if (itemAction.props?.superAdmin === true) {
+                        return app.isSuperAdmin()
+                    }
+                    else {
+                        return true;
+                    }
+                })
+                .map(itemAction => React.cloneElement(itemAction, {
                     item: item,
                     setItem: setItem,
                     reload: reload
