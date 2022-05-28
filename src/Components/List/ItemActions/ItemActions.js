@@ -4,6 +4,7 @@ import Fade from '@mui/material/Fade';
 import DeleteAction from './DeleteAction';
 import EditAction from './EditAction';
 import { app } from '../../../Base/App';
+import ViewRecordAction from './ViewRecordAction';
 
 const ItemActions = ({
     entityType,
@@ -38,21 +39,24 @@ const ItemActions = ({
                 .Children
                 .toArray(itemActionsArray)
                 .filter(itemAction => {
-                    console.log(itemAction);
-                    app.itemAction = itemAction;
-                    if (itemAction.props?.superAdmin === true) {
-                        return app.isSuperAdmin()
-                    }
-                    else if (
-                        itemAction.type &&
-                        typeof itemAction.type === 'function' &&
-                        itemAction.props &&
-                        itemAction.type(itemAction.props).props?.superAdmin === true) {
-                        return app.isSuperAdmin()
-                    }
-                    else {
-                        return true;
-                    }
+                    // try {
+                    //     if (itemAction.props?.superAdmin === true) {
+                    //         return app.isSuperAdmin()
+                    //     }
+                    //     else if (
+                    //         itemAction.type &&
+                    //         typeof itemAction.type === 'function' &&
+                    //         itemAction.props &&
+                    //         itemAction.type(itemAction.props).props?.superAdmin === true) {
+                    //         return app.isSuperAdmin()
+                    //     }
+                    //     else {
+                    //         return true;
+                    //     }
+                    // } catch (error) {
+                    //     console.error(error, itemAction)
+                    // }
+                    return true;
                 })
                 .map(itemAction => React.cloneElement(itemAction, {
                     item: item,
@@ -76,7 +80,7 @@ const ItemActions = ({
                     {/* <Fade in={!item.progress}> */}
                     <>
                         {
-                            clonedItemActions.map((itemAction, index) => <span key={index}>{itemAction}</span>)
+                            clonedItemActions.map((itemAction, index) => itemAction)
                         }
                         {
                             hasDelete
@@ -109,6 +113,17 @@ const ItemActions = ({
                                 />
                                 :
                                 null
+                        }
+                        {
+                            app.isSuperAdmin() &&
+                            <ViewRecordAction
+                                entityType={entityType}
+                                item={item}
+                                create={create}
+                                hasEdit={hasEdit}
+                                edit={edit}
+                                upsert={upsert}
+                            />
                         }
                     </>
                     {/* </Fade> */}

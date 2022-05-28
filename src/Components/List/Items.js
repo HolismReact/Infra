@@ -70,7 +70,6 @@ const Items = (props) => {
                     data[i] = item;
                 }
             }
-            console.log([...data])
             return [...data];
         });
     }
@@ -132,7 +131,6 @@ const Items = (props) => {
                 setMetadata(metadata);
             }
             setLoading(false);
-            console.log(listParameters);
         }, (error) => {
             app.error(error);
             setLoading(false);

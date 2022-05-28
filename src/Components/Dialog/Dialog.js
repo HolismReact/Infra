@@ -31,7 +31,7 @@ const Dialog = ({
     }, [entityId, dialogPurpose])
 
     return <MuiDialog
-        open={typeof isOpen === 'boolean' ? isOpen : open}
+        open={typeof isOpen === 'boolean' ? isOpen || false : open || false}
         onClose={() => typeof isOpen === 'boolean' ? null : setOpen(false)}
         aria-labelledby="dialogTitle"
         id="dialog"

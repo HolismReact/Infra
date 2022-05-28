@@ -18,7 +18,7 @@ const ApplicationContext = React.createContext()
 require('react-dom');
 window.React2 = require('react');
 if (window.React1 !== window.React2) {
-  console.warn('two reacts outside component');
+  // console.warn('two reacts outside component');
 }
 
 function Panel() {
@@ -33,7 +33,7 @@ function Panel() {
   require('react-dom');
   window.React2 = require('react');
   if (window.React1 !== window.React2) {
-    console.warn('two reacts inside component');
+    // console.warn('two reacts inside component');
   }
 
   useEffect(() => {

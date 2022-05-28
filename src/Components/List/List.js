@@ -53,7 +53,7 @@ const List = ({
   const UpsertComponent = (upsert ? (typeof upsert === 'function' ? upsert() : create) : null);
 
   useEffect(() => {
-    console.log(selectedItems);
+    // console.log(selectedItems);
   }, [selectedItems]);
 
   useEffect(() => {

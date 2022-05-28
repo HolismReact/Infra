@@ -34,9 +34,9 @@ const Account = {
             .updateToken(4)
             .then(refreshed => {
                 if (refreshed) {
-                    console.info('Token is refreshed');
+                    // console.info('Token is refreshed');
                 } else {
-                    console.info('Token is still valid')
+                    // console.info('Token is still valid')
                 }
                 if (callback && typeof callback === 'function') {
                     return callback();
