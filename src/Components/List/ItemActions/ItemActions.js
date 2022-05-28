@@ -39,7 +39,15 @@ const ItemActions = ({
                 .toArray(itemActionsArray)
                 .filter(itemAction => {
                     console.log(itemAction);
+                    app.itemAction = itemAction;
                     if (itemAction.props?.superAdmin === true) {
+                        return app.isSuperAdmin()
+                    }
+                    else if (
+                        itemAction.type &&
+                        typeof itemAction.type === 'function' &&
+                        itemAction.props &&
+                        itemAction.type(itemAction.props).props?.superAdmin === true) {
                         return app.isSuperAdmin()
                     }
                     else {
