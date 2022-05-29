@@ -3,8 +3,6 @@ import app from "../Base/App"
 
 const Unify = ({ component }) => {
 
-    console.log(component)
-
     if (!component) {
         return <span className="hidden">Component passed to the wrapper is null or undefined</span>
     }
@@ -30,7 +28,14 @@ const Unify = ({ component }) => {
             }
         }
     }
+    if (typeof component === 'function') {
+        const Component = component;
+        return <Component />
+    }
+    
+    console.log(component)
     return <div>wrapper</div>
 }
 
 export default Unify
+export { Unify }

@@ -3,7 +3,7 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate } from 'react-router-dom';
-import { HolismIcon, app } from '@List';
+import { HolismIcon, app, Unify } from '@List';
 import { DialogForm } from '@Form';
 import { Dialog as HolismDialog } from '@Panel'
 
@@ -22,10 +22,9 @@ const ItemAction = ({
 
     const navigate = useNavigate();
 
-    const Dialog = dialog ? React.cloneElement(dialog, {
-        entityId: item.id,
-        dialogPurpose: title
-    }) : null;
+    if (dialog) {
+        console.log(dialog)
+    }
 
     // app.analyzeComponent(Dialog)
 
@@ -81,11 +80,13 @@ const ItemAction = ({
                 </Tooltip>
         }
         {
-            dialog
-                ?
-                Dialog
-                :
-                null
+            /*
+            
+            */
+            dialog && <Unify component={React.cloneElement(<Unify component={dialog} />, {
+                entityId: item.id,
+                dialogPurpose: title
+            })} />
         }
     </span>
 };
