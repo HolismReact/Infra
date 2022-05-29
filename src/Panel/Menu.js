@@ -2,15 +2,18 @@ import { Link } from 'react-router-dom'
 import { Fragment, useState } from 'react'
 import { useLocation } from "react-router-dom"
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import BiotechIcon from '@mui/icons-material/Biotech'
 import Collapse from '@mui/material/Collapse'
 import menuItems from '../Menu.js'
 import HolismIcon from '../Components/HolismIcon.js'
 import app from '../Base/App'
 
+let items = menuItems;
 if (app.isDev()) {
-    menuItems = [...menuItems, {
+    items = [...menuItems, {
         title: 'Test',
-        path: '/test'
+        icon: BiotechIcon,
+        url: '/test'
     }]
 }
 
@@ -121,7 +124,7 @@ const MenuItemWithSubmenu = ({ item, onClick }) => {
                                     {
                                         leftBlueLine(child.url)
                                     }
-                                    <span className={app.isRtl() ? "mr-20" : "ml-20"}>{app.t(child.title)}</span>
+                                    <span className={app.isRtl() ? "mr-20" : "ml-20"}>{app.t(child.title + '2')}</span>
                                 </Link>
                             })
                         }
@@ -138,7 +141,7 @@ const Menu = ({ onClick }) => {
 
     return <div id="menu" className="mt-5 dark:bg-slate-900">
         {
-            menuItems.filter(item => {
+            items.filter(item => {
                 if (item.superAdmin === true) {
                     return app.isSuperAdmin()
                 }
