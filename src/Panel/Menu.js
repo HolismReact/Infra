@@ -1,11 +1,18 @@
-import { Link } from 'react-router-dom';
-import { Fragment, useState } from 'react';
-import { useLocation } from "react-router-dom";
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Collapse from '@mui/material/Collapse';
+import { Link } from 'react-router-dom'
+import { Fragment, useState } from 'react'
+import { useLocation } from "react-router-dom"
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import Collapse from '@mui/material/Collapse'
 import menuItems from '../Menu.js'
-import HolismIcon from '../Components/HolismIcon.js';
-import app from '../Base/App';
+import HolismIcon from '../Components/HolismIcon.js'
+import app from '../Base/App'
+
+if (app.isDev()) {
+    menuItems = [...menuItems, {
+        title: 'Test',
+        path: '/test'
+    }]
+}
 
 const liStyle = "py-2 hover:bg-gray-50 dark:hover:bg-blue-900 cursor-pointer text-sm tracking-wide text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-white font-normal relative select-none"
 const iconStyle = "text-gray-600 hover:text-gray-900"
@@ -28,15 +35,15 @@ const leftBlueLine = (url) => {
 }
 
 const MenuItemWithSubmenu = ({ item, onClick }) => {
-    let location = useLocation();
+    let location = useLocation()
 
     const [isSubmenuOpen, setIsSubmenuOpen] = useState(() => {
-        var isOpen = item.children.filter(i => i.url === location.pathname).length > 0;
-        return isOpen;
-    });
+        var isOpen = item.children.filter(i => i.url === location.pathname).length > 0
+        return isOpen
+    })
     const openSubmenu = () => {
-        setIsSubmenuOpen(!isSubmenuOpen);
-    };
+        setIsSubmenuOpen(!isSubmenuOpen)
+    }
     return (
         <Fragment key={app.t(item.title)}>
             {/* <li className="navigation-divider">{item.title}</li> */}
@@ -94,13 +101,13 @@ const MenuItemWithSubmenu = ({ item, onClick }) => {
                                     return app.isSuperAdmin()
                                 }
                                 else {
-                                    return true;
+                                    return true
                                 }
                             }).map((child, index) => {
                                 return <Link
                                     onClick={(e) => {
-                                        e.stopPropagation();
-                                        onClick();
+                                        e.stopPropagation()
+                                        onClick()
                                     }}
                                     to={child.url}
                                     key={index}
@@ -123,11 +130,11 @@ const MenuItemWithSubmenu = ({ item, onClick }) => {
             </div>
 
         </Fragment>
-    );
-};
+    )
+}
 
 const Menu = ({ onClick }) => {
-    let location = useLocation();
+    let location = useLocation()
 
     return <div id="menu" className="mt-5 dark:bg-slate-900">
         {
@@ -136,7 +143,7 @@ const Menu = ({ onClick }) => {
                     return app.isSuperAdmin()
                 }
                 else {
-                    return true;
+                    return true
                 }
             }).map((item, index) => {
                 if (item.children && item.children.length > 0) {
@@ -144,7 +151,7 @@ const Menu = ({ onClick }) => {
                 }
                 else {
                     if (!item.children && !item.url) {
-                        throw new Error(`Holism way of defining submenu items is via 'children' property. Please either provide a 'url' property for top-level menu items, or specify their 'children' in ${JSON.stringify(item)}.`);
+                        throw new Error(`Holism way of defining submenu items is via 'children' property. Please either provide a 'url' property for top-level menu items, or specify their 'children' in ${JSON.stringify(item)}.`)
                     }
                     if (item.children && item.children.length === 0) {
                         throw new Error('Please remove menu items with zero childrens. Empty children array is not valid.')
@@ -189,4 +196,4 @@ const Menu = ({ onClick }) => {
     </div>
 }
 
-export default Menu;
+export default Menu

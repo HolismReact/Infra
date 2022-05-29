@@ -32,7 +32,10 @@ const Footer = () => {
             className="h-10 flex items-center justify-center text-sm font-semibold text-gray-700 mt-4"
             dir={app.isRtl() ? "rtl" : "ltr"}
         >
-            {app.t("Copyright")} @ 2021
+            <span>{app.t("Copyright")} @ 2021</span>
+            {
+                app.isDev() && <span className="font-bold text-red-400 m-12 animate-pulse">DEV‌ MODE</span>
+            }
         </div>
     </Collapse>
 };
