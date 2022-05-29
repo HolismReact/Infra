@@ -22,8 +22,18 @@ const ItemAction = ({
 
     const navigate = useNavigate();
 
+    let Dialog = null
+
     if (dialog) {
-        console.log(dialog)
+        const dialogResult = dialog(item)
+        console.log(dialogResult)
+
+        Dialog = <Unify component={React.cloneElement(dialog(item), {
+            entityId: item.id,
+            dialogPurpose: title
+        })} />
+
+        console.log(Dialog)
     }
 
     // app.analyzeComponent(Dialog)
@@ -80,13 +90,7 @@ const ItemAction = ({
                 </Tooltip>
         }
         {
-            /*
-            
-            */
-            dialog && <Unify component={React.cloneElement(<Unify component={dialog} />, {
-                entityId: item.id,
-                dialogPurpose: title
-            })} />
+            // dialog && <Dialog />
         }
     </span>
 };
