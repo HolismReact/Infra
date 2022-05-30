@@ -23,10 +23,9 @@ const ItemAction = ({
     let DialogInstanceCloned = null
 
     if (dialog) {
-        const DialogInstance = dialog
-        DialogInstanceCloned = React.cloneElement(<DialogInstance
-            entity={item}
-        />, {
+        const DialogInstance = dialog(item)
+        console.log(DialogInstance)
+        DialogInstanceCloned = React.cloneElement(DialogInstance, {
             entityId: item.id,
             dialogPurpose: title
         })
