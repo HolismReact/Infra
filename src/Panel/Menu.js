@@ -124,7 +124,7 @@ const MenuItemWithSubmenu = ({ item, onClick }) => {
                                     {
                                         leftBlueLine(child.url)
                                     }
-                                    <span className={app.isRtl() ? "mr-20" : "ml-20"}>{app.t(child.title + '2')}</span>
+                                    <span className={app.isRtl() ? "mr-20" : "ml-20"}>{app.t(child.title)}</span>
                                 </Link>
                             })
                         }
