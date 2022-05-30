@@ -4,8 +4,6 @@ import Tooltip from '@mui/material/Tooltip';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useNavigate } from 'react-router-dom';
 import { HolismIcon, app, Unify } from '@List';
-import { DialogForm } from '@Form';
-import { Dialog as HolismDialog } from '@Panel'
 
 const ItemAction = ({
     title,
@@ -22,21 +20,17 @@ const ItemAction = ({
 
     const navigate = useNavigate();
 
-    let Dialog = null
+    let DialogInstanceCloned = null
 
     if (dialog) {
-        const dialogResult = dialog(item)
-        console.log(dialogResult)
-
-        Dialog = <Unify component={React.cloneElement(dialog(item), {
+        const DialogInstance = dialog
+        DialogInstanceCloned = React.cloneElement(<DialogInstance
+            entity={item}
+        />, {
             entityId: item.id,
             dialogPurpose: title
-        })} />
-
-        console.log(Dialog)
+        })
     }
-
-    // app.analyzeComponent(Dialog)
 
     const [progress, setProgress] = useState(false);
 
@@ -90,7 +84,7 @@ const ItemAction = ({
                 </Tooltip>
         }
         {
-            // dialog && <Dialog />
+            dialog && DialogInstanceCloned
         }
     </span>
 };

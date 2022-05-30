@@ -115,15 +115,15 @@ const ItemActions = ({
                                 null
                         }
                         {
-                            app.isSuperAdmin() &&
-                            <ViewRecordAction
-                                entityType={entityType}
-                                item={item}
-                                create={create}
-                                hasEdit={hasEdit}
-                                edit={edit}
-                                upsert={upsert}
-                            />
+                            // app.isSuperAdmin() &&
+                            // <ViewRecordAction
+                            //     entityType={entityType}
+                            //     item={item}
+                            //     create={create}
+                            //     hasEdit={hasEdit}
+                            //     edit={edit}
+                            //     upsert={upsert}
+                            // />
                         }
                     </>
                     {/* </Fade> */}

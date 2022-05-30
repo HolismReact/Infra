@@ -1,8 +1,10 @@
 import Render from "../Components/React/Render"
+import Dummy from '../Components/React/Dummy'
 
 const Test = () => {
     return <div>
-        <Render />
+        <Render component={Dummy} />
+        <Render component={<Dummy />} />
     </div>
 }
 
