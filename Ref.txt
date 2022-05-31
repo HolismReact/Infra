@@ -48,3 +48,5 @@ stepper
 migrate to esbuild somehow, for faster builds
 
 https://blog.arami.io/how-to-improve-create-react-apps-cra-performance
+
+use vite + pnpm
