@@ -10,6 +10,7 @@ import { HolismIcon, app } from '@Panel'
 import EditAction from './ItemActions/EditAction';
 import ItemActions from './ItemActions/ItemActions';
 import { ItemAction } from './ItemActions/ItemAction';
+import Unify from '../Unify';
 
 const Node = ({
     entityType,
@@ -72,7 +73,7 @@ const Node = ({
                             entityType={entityType}
                             item={entity}
                             itemActions={(create || upsert) ? <>
-                                {itemActions}
+                                <Unify component={itemActions} />
                                 <ItemAction
                                     icon={<AddIcon />}
                                     click={() => {

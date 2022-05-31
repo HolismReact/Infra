@@ -39,23 +39,23 @@ const ItemActions = ({
                 .Children
                 .toArray(itemActionsArray)
                 .filter(itemAction => {
-                    // try {
-                    //     if (itemAction.props?.superAdmin === true) {
-                    //         return app.isSuperAdmin()
-                    //     }
-                    //     else if (
-                    //         itemAction.type &&
-                    //         typeof itemAction.type === 'function' &&
-                    //         itemAction.props &&
-                    //         itemAction.type(itemAction.props).props?.superAdmin === true) {
-                    //         return app.isSuperAdmin()
-                    //     }
-                    //     else {
-                    //         return true;
-                    //     }
-                    // } catch (error) {
-                    //     console.error(error, itemAction)
-                    // }
+                    try {
+                        if (itemAction.props?.superAdmin === true) {
+                            return app.isSuperAdmin()
+                        }
+                        else if (
+                            itemAction.type &&
+                            typeof itemAction.type === 'function' &&
+                            itemAction.props &&
+                            itemAction.type(itemAction.props).props?.superAdmin === true) {
+                            return app.isSuperAdmin()
+                        }
+                        else {
+                            return true;
+                        }
+                    } catch (error) {
+                        console.error(error, itemAction)
+                    }
                     return true;
                 })
                 .map(itemAction => React.cloneElement(itemAction, {

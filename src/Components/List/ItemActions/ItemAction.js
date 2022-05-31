@@ -15,7 +15,8 @@ const ItemAction = ({
     setItem,
     reload,
     color,
-    hoverOnly
+    hoverOnly,
+    superAdmin
 }) => {
 
     const navigate = useNavigate();
@@ -32,6 +33,11 @@ const ItemAction = ({
     }
 
     const [progress, setProgress] = useState(false);
+
+    if (superAdmin && !app.isSuperAdmin())
+    {
+        return <span className="hidden"></span>
+    }
 
     return <span className="itemAction flex items-center justify-center">
         {
