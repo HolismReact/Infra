@@ -76,7 +76,8 @@ const ItemActions = ({
                     item: item,
                     setItem: setItem,
                     reload: reload,
-                    asMenuItem: menuForActions
+                    asMenuItem: menuForActions,
+                    closeMenu: handleClose
                 }))
         }
     }

@@ -20,12 +20,16 @@ const ItemAction = ({
     color,
     hoverOnly,
     superAdmin,
-    asMenuItem
+    asMenuItem,
+    closeMenu
 }) => {
 
     const navigate = useNavigate();
 
     const handleClick = (e) => {
+        if (asMenuItem && closeMenu && typeof closeMenu === 'function') {
+            // closeMenu()
+        }
         app.selectedItem = item;
         if (goTo) {
             app.selectedItem = item;
@@ -72,15 +76,20 @@ const ItemAction = ({
     }
 
     return asMenuItem ?
-        <MenuItem>
-            <ListItemIcon>
-                <HolismIcon
-                    icon={icon}
-                    className={color}
-                />
-            </ListItemIcon>
-            <ListItemText>{app.t(title || "")}</ListItemText>
-        </MenuItem>
+        <>
+            <MenuItem onClick={handleClick}>
+                <ListItemIcon>
+                    <HolismIcon
+                        icon={icon}
+                        className={color}
+                    />
+                </ListItemIcon>
+                <ListItemText>{app.t(title || "")}</ListItemText>
+            </MenuItem>
+            {
+                dialog && DialogInstanceCloned
+            }
+        </>
         :
         <span className="itemAction flex items-center justify-center">
             {
