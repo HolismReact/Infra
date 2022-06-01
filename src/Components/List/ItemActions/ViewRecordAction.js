@@ -12,8 +12,7 @@ const ViewRecordAction = ({
     const [open, setOpen] = useState(false)
 
     const getJsonHtml = (obj) => {
-        if (!obj)
-        {
+        if (!obj) {
             return <span></span>
         }
         return <ul>
@@ -22,15 +21,17 @@ const ViewRecordAction = ({
                     const property = obj[propertyName]
                     return <li>
                         <span className="font-bold px-2 py-1 bg-gray-500 text-gray-100 mb-1 inline-block rounded">{propertyName}</span>
-                        <span>
-                            {
-                                typeof property === 'string'
-                                    ?
-                                    obj[propertyName]
-                                    :
-                                    getJsonHtml(property)
-                            }
-                        </span>
+                        {
+                            typeof property === 'object'
+                                ?
+                                <span className="ml-6 block">
+                                    {getJsonHtml(property)}
+                                </span>
+                                :
+                                <span className="inline-block ml-1">
+                                    {obj[propertyName]}
+                                </span>
+                        }
                     </li>
                 })
             }
