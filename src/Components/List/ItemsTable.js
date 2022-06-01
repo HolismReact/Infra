@@ -17,6 +17,8 @@ const Table = ({
     headers,
     row,
     itemActions,
+    separateRowForActions,
+    menuForActions,
     hasDelete,
     hasEdit,
     edit,
@@ -26,8 +28,7 @@ const Table = ({
     reload,
     hasItemSelection,
     classProvider,
-    showTopPagiation,
-    separateRowForActions
+    showTopPagiation
 }) => {
 
     const listContext = useContext(ListContext);
@@ -123,6 +124,7 @@ const Table = ({
                 entityType={entityType}
                 item={item}
                 itemActions={itemActions}
+                menuForActions={menuForActions}
                 hasDelete={hasDelete}
                 hasEdit={hasEdit}
                 edit={edit}
@@ -145,7 +147,7 @@ const Table = ({
                         <td colSpan='100'><NoItemsFound /></td>
                     </tr>
                     :
-                    data.map((item, index) => separateRowForActions
+                    data.map((item, index) => !menuForActions && separateRowForActions
                         ?
                         <>
                             <tr

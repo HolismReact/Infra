@@ -18,6 +18,7 @@ const ViewRecordAction = ({
     return <>
         <ItemAction
             icon={<DataObjectIcon style={{ color: 'rgb(37 99 235)' }} />}
+            title={app.t("View record")}
             click={manageEdition}
         />
     </>

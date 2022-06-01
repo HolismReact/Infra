@@ -10,6 +10,7 @@ import NoItemsFound from '../NoItemsFound';
 const Cards = ({
     data,
     itemActions,
+    menuForActions,
     hasDelete,
     hasEdit,
     edit,
@@ -121,6 +122,7 @@ const Cards = ({
                                                     entityType={entityType}
                                                     item={item}
                                                     itemActions={itemActions}
+                                                    menuForActions={menuForActions}
                                                     hasDelete={hasDelete}
                                                     hasEdit={hasEdit}
                                                     edit={edit}

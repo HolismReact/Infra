@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Fade from '@mui/material/Fade';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import DeleteAction from './DeleteAction';
 import EditAction from './EditAction';
 import { app } from '../../../Base/App';
@@ -10,6 +14,7 @@ const ItemActions = ({
     entityType,
     item,
     itemActions,
+    menuForItemActions,
     hasDelete,
     hasEdit,
     edit,
@@ -20,7 +25,16 @@ const ItemActions = ({
     className
 }) => {
 
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
     let clonedItemActions = [];
+
+    const handleClick = (e) => {
+        setAnchorEl(e.currentTarget);
+    }
+    const handleClose = () => {
+        setAnchorEl(null);
+    }
 
     if (itemActions) {
         let itemActionsArray = null;
@@ -61,75 +75,111 @@ const ItemActions = ({
                 .map(itemAction => React.cloneElement(itemAction, {
                     item: item,
                     setItem: setItem,
-                    reload: reload
+                    reload: reload,
+                    asMenuItem: menuForItemActions
                 }))
         }
     }
 
-    return <span className={className}>
-        {
-            item.progress
-                ?
-                <span className="flex flex-wrap items-center justify-end px-2">
-                    <Fade in={item.progress}>
-                        <CircularProgress size={24} className="mt-2" />
-                    </Fade>
-                </span>
-                :
-                <span className="flex flex-wrap items-center justify-end">
-                    {/* <Fade in={!item.progress}> */}
-                    <>
-                        {
-                            clonedItemActions.map((itemAction, index) => itemAction)
-                        }
-                        {
-                            hasDelete
-                                ?
-                                <DeleteAction
-                                    entityType={entityType}
-                                    item={item}
-                                />
-                                :
-                                null
-                        }
-                        {
-                            /*
-                                upsert={UpsertEntity}
-                                hasEdit={true}
-                                edit={(entity) => `/entity/edit/${entity.id}`}
-                                edit={EditEntity}
-                
-                                either upsert, or edit URL, or edit component, or create + hasEdit
-                            */
-                            (hasEdit && create) || edit || upsert
-                                ?
-                                <EditAction
-                                    entityType={entityType}
-                                    item={item}
-                                    create={create}
-                                    hasEdit={hasEdit}
-                                    edit={edit}
-                                    upsert={upsert}
-                                />
-                                :
-                                null
-                        }
-                        {
-                            // app.isSuperAdmin() &&
-                            // <ViewRecordAction
-                            //     entityType={entityType}
-                            //     item={item}
-                            //     create={create}
-                            //     hasEdit={hasEdit}
-                            //     edit={edit}
-                            //     upsert={upsert}
-                            // />
-                        }
-                    </>
-                    {/* </Fade> */}
-                </span>
-        }
-    </span>
+    const deleteRecord = hasDelete
+        ?
+        <DeleteAction
+            entityType={entityType}
+            item={item}
+            asMenuItem={true}
+        />
+        :
+        null
+
+    /*
+        upsert={UpsertEntity}
+        hasEdit={true}
+        edit={(entity) => `/entity/edit/${entity.id}`}
+        edit={EditEntity}
+
+        either upsert, or edit URL, or edit component, or create + hasEdit
+    */
+    const editRecord = (hasEdit && create) || edit || upsert
+        ?
+        <EditAction
+            entityType={entityType}
+            item={item}
+            create={create}
+            hasEdit={hasEdit}
+            edit={edit}
+            upsert={upsert}
+            asMenuItem={menuForItemActions}
+        />
+        :
+        null
+
+    const viewRecord = app.isSuperAdmin() &&
+        <ViewRecordAction
+            entityType={entityType}
+            item={item}
+            create={create}
+            hasEdit={hasEdit}
+            edit={edit}
+            upsert={upsert}
+            asMenuItem={menuForItemActions}
+        />
+
+    return menuForItemActions
+        ?
+        <span className={className}>
+            {
+                item.progress
+                    ?
+                    <span className="flex flex-wrap items-center justify-end px-2">
+                        <Fade in={item.progress}>
+                            <CircularProgress size={24} className="mt-2" />
+                        </Fade>
+                    </span>
+                    :
+                    <span className="flex flex-wrap items-center justify-end">
+                        {/* <Fade in={!item.progress}> */}
+                        <>
+                            {
+                                clonedItemActions.map((itemAction, index) => itemAction)
+                            }
+                            {deleteRecord}
+                            {editRecord}
+                            {viewRecord}
+                        </>
+                        {/* </Fade> */}
+                    </span>
+            }
+        </span>
+        :
+        <>
+            <IconButton
+                onClick={handleClick}
+            >
+                <MoreVertIcon />
+            </IconButton>
+
+            <Menu
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: app.isRtl() ? 'left' : 'right',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: app.isRtl() ? 'left' : 'right',
+                }}
+            >
+
+                {
+                    clonedItemActions.map((itemAction, index) => itemAction)
+                }
+                {deleteRecord}
+                {editRecord}
+                {viewRecord}
+            </Menu>
+        </>
 }
 
 export default ItemActions;

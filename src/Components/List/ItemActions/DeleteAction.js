@@ -63,6 +63,7 @@ const DeleteAction = ({ entityType, item }) => {
                 :
                 <ItemAction
                     icon={<DeleteIcon style={{ color: '#EF4444' }} />}
+                    title={app.t("Delete")}
                     click={(e) => {
                         setConfirmationDialogVisibility(true);
                     }}

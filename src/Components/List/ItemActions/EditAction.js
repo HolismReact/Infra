@@ -42,6 +42,7 @@ const EditAction = ({
     return <>
         <ItemAction
             icon={<EditIcon style={{ color: '#10B981' }} />}
+            title={app.t("Edit")}
             click={() => {
                 if (edit) {
                     manageEdition(edit);

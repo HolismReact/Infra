@@ -32,6 +32,7 @@ const List = ({
   create,
   itemActions,
   separateRowForActions,
+  menuForActions,
   hasDelete,
   hasEdit,
   edit,
@@ -163,6 +164,7 @@ const List = ({
       multicolumn={multicolumn}
       itemActions={itemActions}
       separateRowForActions={separateRowForActions}
+      menuForActions={menuForActions}
       hasDelete={hasDelete}
       hasEdit={hasEdit}
       edit={edit}
