@@ -27,9 +27,6 @@ const ItemAction = ({
     const navigate = useNavigate();
 
     const handleClick = (e) => {
-        if (asMenuItem && closeMenu && typeof closeMenu === 'function') {
-            // closeMenu()
-        }
         app.selectedItem = item;
         if (goTo) {
             app.selectedItem = item;
@@ -77,7 +74,12 @@ const ItemAction = ({
 
     return asMenuItem ?
         <>
-            <MenuItem onClick={handleClick}>
+            <MenuItem onClick={(e) => {
+                handleClick(e)
+                if (closeMenu && typeof closeMenu === 'function') {
+                    // closeMenu()
+                }
+            }}>
                 <ListItemIcon>
                     <HolismIcon
                         icon={icon}

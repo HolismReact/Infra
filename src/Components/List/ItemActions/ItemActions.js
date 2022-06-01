@@ -88,6 +88,7 @@ const ItemActions = ({
             entityType={entityType}
             item={item}
             asMenuItem={menuForActions}
+            closeMenu={handleClose}
         />
         :
         null
@@ -110,6 +111,7 @@ const ItemActions = ({
             edit={edit}
             upsert={upsert}
             asMenuItem={menuForActions}
+            closeMenu={handleClose}
         />
         :
         null
@@ -123,6 +125,7 @@ const ItemActions = ({
             edit={edit}
             upsert={upsert}
             asMenuItem={menuForActions}
+            closeMenu={handleClose}
         />
 
     return menuForActions
