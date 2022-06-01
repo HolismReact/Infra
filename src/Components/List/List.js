@@ -31,6 +31,7 @@ const List = ({
   multicolumn,
   create,
   itemActions,
+  separateRowForActions,
   hasDelete,
   hasEdit,
   edit,
@@ -153,6 +154,7 @@ const List = ({
     </Collapse>
 
     <Items
+      hasItemSelection={hasItemSelection}
       entityType={entityType}
       create={create}
       headers={headers}
@@ -160,10 +162,10 @@ const List = ({
       card={card}
       multicolumn={multicolumn}
       itemActions={itemActions}
+      separateRowForActions={separateRowForActions}
       hasDelete={hasDelete}
       hasEdit={hasEdit}
       edit={edit}
-      hasItemSelection={hasItemSelection}
       classProvider={classProvider}
       upsert={upsert}
       isTree={isTree}

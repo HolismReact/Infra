@@ -26,7 +26,8 @@ const Table = ({
     reload,
     hasItemSelection,
     classProvider,
-    showTopPagiation
+    showTopPagiation,
+    separateRowForActions
 }) => {
 
     const listContext = useContext(ListContext);
@@ -87,6 +88,53 @@ const Table = ({
         </tr>
     </thead>
 
+    const rowStyle = (item, index) => 'py-3 ' +
+        ((index === data.length - 1) ? '' : 'border-b ') +
+        (classProvider ? classProvider(item) : '')
+
+    const itemSelection = (item) => hasItemSelection
+        ?
+        <td>
+            <Checkbox
+                checked={selectedItems.indexOf(item.id) > -1}
+                color="primary"
+                onChange={(event) => {
+                    event.target.checked
+                        ?
+                        app.addItemToSelectedItems(listContext, item.id)
+                        :
+                        app.removeItemFromSelectedItems(listContext, item.id)
+                }}
+            />
+        </td>
+        :
+        null
+
+    const clonedCells = (item) => React.Children
+        .toArray(row(item).props.children)
+        .map(td => React.cloneElement(td, {
+            className: 'text-gray-900 dark:text-gray-300 py-3 text-sm font-light tracking-wide ' + td.props.className
+        }))
+
+    const actions = (item) => (itemActions || hasDelete || hasEdit || edit)
+        ?
+        !hiddenItemActions && <td {...(separateRowForActions && { colSpan: "100" })}>
+            <ItemActions
+                entityType={entityType}
+                item={item}
+                itemActions={itemActions}
+                hasDelete={hasDelete}
+                hasEdit={hasEdit}
+                edit={edit}
+                create={create}
+                upsert={upsert}
+                setItem={setItem}
+                reload={reload}
+            />
+        </td>
+        :
+        null
+
     const body = <tbody>
         {
             row && typeof row === 'function'
@@ -97,62 +145,33 @@ const Table = ({
                         <td colSpan='100'><NoItemsFound /></td>
                     </tr>
                     :
-                    data.map((item, index) => <tr
-                        key={item.id}
-                        className=
-                        {
-                            'py-3 ' +
-                            ((index === data.length - 1) ? '' : 'border-b ') +
-                            (classProvider ? classProvider(item) : '')
-                        }
-                    >
-                        {
-                            hasItemSelection
-                                ?
-                                <td>
-                                    <Checkbox
-                                        checked={selectedItems.indexOf(item.id) > -1}
-                                        color="primary"
-                                        onChange={(event) => {
-                                            event.target.checked
-                                                ?
-                                                app.addItemToSelectedItems(listContext, item.id)
-                                                :
-                                                app.removeItemFromSelectedItems(listContext, item.id)
-                                        }}
-                                    />
-                                </td>
-                                :
-                                null
-                        }
-                        {
-                            React.Children
-                                .toArray(row(item).props.children)
-                                .map(td => React.cloneElement(td, {
-                                    className: 'text-gray-900 dark:text-gray-300 py-3 text-sm font-light tracking-wide ' + td.props.className
-                                }))
-                        }
-                        {
-                            (itemActions || hasDelete || hasEdit || edit)
-                                ?
-                                !hiddenItemActions && <td>
-                                    <ItemActions
-                                        entityType={entityType}
-                                        item={item}
-                                        itemActions={itemActions}
-                                        hasDelete={hasDelete}
-                                        hasEdit={hasEdit}
-                                        edit={edit}
-                                        create={create}
-                                        upsert={upsert}
-                                        setItem={setItem}
-                                        reload={reload}
-                                    />
-                                </td>
-                                :
-                                null
-                        }
-                    </tr>)
+                    data.map((item, index) => separateRowForActions
+                        ?
+                        <>
+                            <tr
+                                key={item.id}
+                                className={rowStyle(item, index)}
+                            >
+                                {itemSelection(item)}
+                                {clonedCells(item)}
+                            </tr>
+                            <tr
+                                key={item.id}
+                                className={rowStyle(item, index)}
+                            >
+                                {actions(item)}
+                            </tr>
+                        </>
+                        :
+                        <tr
+                            key={item.id}
+                            className={rowStyle(item, index)}
+                        >
+                            {itemSelection(item)}
+                            {clonedCells(item)}
+                            {actions(item)}
+                        </tr>
+                    )
                 :
                 null
         }
