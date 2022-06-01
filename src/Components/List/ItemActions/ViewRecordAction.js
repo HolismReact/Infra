@@ -11,36 +11,57 @@ const ViewRecordAction = ({
 
     const [open, setOpen] = useState(false)
 
-    const getJsonHtml = (obj) => {
+    const getJsonHtml = (obj, level) => {
         if (!obj) {
-            return <span></span>
+            return <span className="ml-2 ml-4 ml-6 ml-8 ml-10"></span>
         }
-        return <ul>
+        return <ul className="leading-4">
+            <li className={"text-orange-600 ml" + level * 2}>{'{'}</li>
             {
                 Object.getOwnPropertyNames(obj).map(propertyName => {
                     const property = obj[propertyName]
                     return <li>
-                        <span className="font-bold px-2 py-1 bg-gray-500 text-gray-100 mb-1 inline-block rounded">{propertyName}</span>
+                        <span className="font-bold text-purple-900 font-mono px-2 ml-8 inline-block rounded">{propertyName}:</span>
                         {
-                            typeof property === 'object'
+                            typeof property === 'object' && property != null
                                 ?
-                                <span className="ml-6 block">
-                                    {getJsonHtml(property)}
+                                <span className="ml-10 block">
+                                    {getJsonHtml(property, level + 1)}
                                 </span>
                                 :
                                 <span className="inline-block ml-1">
-                                    {obj[propertyName]}
+                                    {
+                                        typeof property === "string"
+                                            ?
+                                            `"${obj[propertyName]}"`
+                                            :
+                                            obj[propertyName]
+                                    }
                                 </span>
                         }
                     </li>
                 })
             }
+            <li className="text-orange-600">{'}'}</li>
         </ul>
+    }
+
+    const nestedItem = {
+        first: 'first',
+        second: {
+            first: 'first',
+            second: {
+                first: 'first',
+                second: {
+                    first: 'first'
+                }
+            }
+        }
     }
 
     const dialog = <Dialog
         title='View record'
-        content={getJsonHtml(item)}
+        content={getJsonHtml(item, 1)}
         isOpen={open}
         onClosed={() => setOpen(false)}
     />
