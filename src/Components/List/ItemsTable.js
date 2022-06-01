@@ -163,7 +163,7 @@ const Table = ({
                                 {clonedCells(item)}
                             </tr>
                             <tr
-                                key={item.id}
+                                key={item.id + '_actions'}
                                 className={rowStyle(item, index, true)}
                             >
                                 {actions(item)}
@@ -212,7 +212,7 @@ const Table = ({
             }
             <TableContext.Provider
                 value={{
-                    hasMoreRoom: !menuForActions && separateRowForActions
+                    hasMoreRoom: !menuForActions && separateRowForActions && !hiddenItemActions
                 }}>
                 <table
                     className="w-full text-center "

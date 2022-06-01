@@ -15,7 +15,8 @@ const Dialog = ({
     large,
     onEntered,
     entityId,
-    dialogPurpose
+    dialogPurpose,
+    onClosed
 }) => {
 
     const [open, setOpen] = useState(isOpen)
@@ -64,7 +65,15 @@ const Dialog = ({
                         <Button
                             variant="outlined"
                             className={"ml-2 bg-green-200 text-gray-900 border-gray-400 "}
-                            onClick={() => typeof isOpen === 'boolean' ? null : setOpen(false)}
+                            onClick={() => {
+                                if (typeof isOpen !== 'boolean') {
+                                    setOpen(false)
+                                }
+                                if(onClosed && typeof onClosed === 'function')
+                                {
+                                    onClosed()
+                                }
+                            }}
                         >
                             {app.t('Ok')}
                         </Button>

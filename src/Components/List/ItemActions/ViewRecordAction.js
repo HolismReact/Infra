@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DataObjectIcon from '@mui/icons-material/DataObject';
-import { ItemAction } from '@List';
+import { Dialog, ItemAction } from '@List';
 import { app } from '@List';
 
 const ViewRecordAction = ({
@@ -9,19 +9,48 @@ const ViewRecordAction = ({
     asMenuItem
 }) => {
 
-    const manageEdition = () => {
-        app.emit(app.editRequested, {
-            entityType: entityType,
-            entity: item,
-        });
+    const [open, setOpen] = useState(false)
+
+    const getJsonHtml = (obj) => {
+        if (!obj)
+        {
+            return <span></span>
+        }
+        return <ul>
+            {
+                Object.getOwnPropertyNames(obj).map(propertyName => {
+                    const property = obj[propertyName]
+                    return <li>
+                        <span className="font-bold px-2 py-1 bg-gray-500 text-gray-100 mb-1 inline-block rounded">{propertyName}</span>
+                        <span>
+                            {
+                                typeof property === 'string'
+                                    ?
+                                    obj[propertyName]
+                                    :
+                                    getJsonHtml(property)
+                            }
+                        </span>
+                    </li>
+                })
+            }
+        </ul>
     }
 
+    const dialog = <Dialog
+        title='View record'
+        content={getJsonHtml(item)}
+        isOpen={open}
+        onClosed={() => setOpen(false)}
+    />
+
     return <>
+        {dialog}
         <ItemAction
             icon={<DataObjectIcon style={{ color: 'rgb(37 99 235)' }} />}
             asMenuItem={asMenuItem}
             title={app.t("View record")}
-            click={manageEdition}
+            click={() => setOpen(!open)}
         />
     </>
 }
