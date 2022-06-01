@@ -14,7 +14,7 @@ const ItemActions = ({
     entityType,
     item,
     itemActions,
-    menuForItemActions,
+    menuForActions,
     hasDelete,
     hasEdit,
     edit,
@@ -76,7 +76,7 @@ const ItemActions = ({
                     item: item,
                     setItem: setItem,
                     reload: reload,
-                    asMenuItem: menuForItemActions
+                    asMenuItem: menuForActions
                 }))
         }
     }
@@ -86,7 +86,7 @@ const ItemActions = ({
         <DeleteAction
             entityType={entityType}
             item={item}
-            asMenuItem={true}
+            asMenuItem={menuForActions}
         />
         :
         null
@@ -108,7 +108,7 @@ const ItemActions = ({
             hasEdit={hasEdit}
             edit={edit}
             upsert={upsert}
-            asMenuItem={menuForItemActions}
+            asMenuItem={menuForActions}
         />
         :
         null
@@ -121,36 +121,11 @@ const ItemActions = ({
             hasEdit={hasEdit}
             edit={edit}
             upsert={upsert}
-            asMenuItem={menuForItemActions}
+            asMenuItem={menuForActions}
         />
 
-    return menuForItemActions
+    return menuForActions
         ?
-        <span className={className}>
-            {
-                item.progress
-                    ?
-                    <span className="flex flex-wrap items-center justify-end px-2">
-                        <Fade in={item.progress}>
-                            <CircularProgress size={24} className="mt-2" />
-                        </Fade>
-                    </span>
-                    :
-                    <span className="flex flex-wrap items-center justify-end">
-                        {/* <Fade in={!item.progress}> */}
-                        <>
-                            {
-                                clonedItemActions.map((itemAction, index) => itemAction)
-                            }
-                            {deleteRecord}
-                            {editRecord}
-                            {viewRecord}
-                        </>
-                        {/* </Fade> */}
-                    </span>
-            }
-        </span>
-        :
         <>
             <IconButton
                 onClick={handleClick}
@@ -180,6 +155,31 @@ const ItemActions = ({
                 {viewRecord}
             </Menu>
         </>
+        :
+        <span className={className}>
+            {
+                item.progress
+                    ?
+                    <span className="flex flex-wrap items-center justify-end px-2">
+                        <Fade in={item.progress}>
+                            <CircularProgress size={24} className="mt-2" />
+                        </Fade>
+                    </span>
+                    :
+                    <span className="flex flex-wrap items-center justify-end">
+                        {/* <Fade in={!item.progress}> */}
+                        <>
+                            {
+                                clonedItemActions.map((itemAction, index) => itemAction)
+                            }
+                            {deleteRecord}
+                            {editRecord}
+                            {viewRecord}
+                        </>
+                        {/* </Fade> */}
+                    </span>
+            }
+        </span>
 }
 
 export default ItemActions;

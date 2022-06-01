@@ -5,7 +5,8 @@ import { app } from '@List';
 
 const ViewRecordAction = ({
     entityType,
-    item
+    item,
+    asMenuItem
 }) => {
 
     const manageEdition = () => {
@@ -18,6 +19,7 @@ const ViewRecordAction = ({
     return <>
         <ItemAction
             icon={<DataObjectIcon style={{ color: 'rgb(37 99 235)' }} />}
+            asMenuItem={asMenuItem}
             title={app.t("View record")}
             click={manageEdition}
         />

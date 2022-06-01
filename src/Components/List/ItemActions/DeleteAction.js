@@ -10,7 +10,7 @@ import { post } from '@List';
 import { app } from '@List';
 import CircularProgress from '@mui/material/CircularProgress';
 
-const DeleteAction = ({ entityType, item }) => {
+const DeleteAction = ({ entityType, item, asMenuItem }) => {
 
     const [confirmationDialogIsOpen, setConfirmationDialogVisibility] = useState(false);
     const [progress, setProgress] = useState(false);
@@ -64,6 +64,7 @@ const DeleteAction = ({ entityType, item }) => {
                 <ItemAction
                     icon={<DeleteIcon style={{ color: '#EF4444' }} />}
                     title={app.t("Delete")}
+                    asMenuItem={asMenuItem}
                     click={(e) => {
                         setConfirmationDialogVisibility(true);
                     }}

@@ -10,7 +10,8 @@ const EditAction = ({
     hasEdit,
     create,
     edit,
-    upsert
+    upsert,
+    asMenuItem
 }) => {
 
     const navigate = useNavigate();
@@ -43,6 +44,7 @@ const EditAction = ({
         <ItemAction
             icon={<EditIcon style={{ color: '#10B981' }} />}
             title={app.t("Edit")}
+            asMenuItem={asMenuItem}
             click={() => {
                 if (edit) {
                     manageEdition(edit);
