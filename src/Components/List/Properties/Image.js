@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import UploadIcon from '@mui/icons-material/Upload';
 import { Dialog, HolismIcon } from '../Exports';
 import { FormElement, Upload, app, upload } from '@Form'
-import { OkCancel } from '@Panel';
+import { OkCancel } from '@Panel'
+import { TableContext } from '@List'
 
 const Image = ({
     url,
@@ -12,6 +13,7 @@ const Image = ({
 
     const [isOpen, setIsOpen] = useState(false)
     const [progress, setProgress] = useState(false)
+    const { hasMoreRoom } = useContext(TableContext)
 
     const uploadImage = () => {
         var form = new FormData();
@@ -60,12 +62,12 @@ const Image = ({
             />
         }
         <span className="group" onClick={() => setIsOpen(true)}>
-            <img src={url} alt={alt || ''} className={"w-8 h-8 object-cover rounded-full " + (uploadUrl && "cursor-pointer group-hover:shadow-md group-hover:shadow-black transition-all")} />
+            <img src={url} alt={alt || ''} className={(hasMoreRoom ? "w-12 h-12" : "w-8 h-8 ") + " object-cover rounded-full " + (uploadUrl && "cursor-pointer group-hover:shadow-md group-hover:shadow-black transition-all")} />
             {
                 uploadUrl &&
                 <HolismIcon
                     icon={UploadIcon}
-                    className="absolute bottom-0 left-6 w-4 h-4 cursor-pointer text-slate-900 bg-white  rounded-full p-0.5 group-hover:bg-slate-900 group-hover:text-white transition-colors"
+                    className={(hasMoreRoom ? "left-8 " : "left-6 ") + " w-4 h-4 absolute bottom-0 cursor-pointer text-slate-900 bg-white  rounded-full p-0.5 group-hover:bg-slate-900 group-hover:text-white transition-colors"}
                 />
             }
         </span>

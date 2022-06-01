@@ -10,6 +10,8 @@ import { ListContext, HolismIcon, app } from '@List';
 import { useLocalStorageState } from '../../Base/UseLocalStorageState'
 import NoItemsFound from '../NoItemsFound';
 
+export const TableContext = React.createContext();
+
 const Table = ({
     entityType,
     data,
@@ -49,48 +51,50 @@ const Table = ({
             }));
     }
 
-    const head = <thead>
-        <tr className='text-xs uppercase font-light tracking-wider border-b'>
-            {
-                hasItemSelection ?
-                    <>
-                        <th>
-                            <Tooltip
-                                title="Select all"
-                                placement="top"
-                            >
-                                <Checkbox
-                                    color="primary"
-                                    onChange={(event) => {
-                                        event.target.checked
-                                            ?
-                                            app.addItemsToSelectedItems(listContext, data)
-                                            :
-                                            app.removeItemsFromSelectedItems(listContext, data)
-                                    }}
-                                    inputProps={{ 'aria-label': 'Select all' }}
-                                />
-                            </Tooltip>
-                        </th>
-                    </>
-                    :
-                    null
-            }
-            {
-                headerElements
-            }
-            {
-                (itemActions || hasDelete)
-                    ?
-                    !hiddenItemActions && <td></td>
-                    :
-                    null
-            }
-        </tr>
-    </thead>
+    const head =
 
-    const rowStyle = (item, index) => 'py-3 ' +
-        ((index === data.length - 1) ? '' : 'border-b ') +
+        <thead>
+            <tr className='text-xs uppercase font-light tracking-wider border-b'>
+                {
+                    hasItemSelection ?
+                        <>
+                            <th>
+                                <Tooltip
+                                    title="Select all"
+                                    placement="top"
+                                >
+                                    <Checkbox
+                                        color="primary"
+                                        onChange={(event) => {
+                                            event.target.checked
+                                                ?
+                                                app.addItemsToSelectedItems(listContext, data)
+                                                :
+                                                app.removeItemsFromSelectedItems(listContext, data)
+                                        }}
+                                        inputProps={{ 'aria-label': 'Select all' }}
+                                    />
+                                </Tooltip>
+                            </th>
+                        </>
+                        :
+                        null
+                }
+                {
+                    headerElements
+                }
+                {
+                    (itemActions || hasDelete)
+                        ?
+                        !hiddenItemActions && <td></td>
+                        :
+                        null
+                }
+            </tr>
+        </thead>
+
+    const rowStyle = (item, index, hasBottomBorder) => 'py-3 ' +
+        ((hasBottomBorder && index !== data.length - 1) ? 'border-b ' : ' ') +
         (classProvider ? classProvider(item) : '')
 
     const itemSelection = (item) => hasItemSelection
@@ -114,7 +118,8 @@ const Table = ({
     const clonedCells = (item) => React.Children
         .toArray(row(item).props.children)
         .map(td => React.cloneElement(td, {
-            className: 'text-gray-900 dark:text-gray-300 py-3 text-sm font-light tracking-wide ' + td.props.className
+            className: 'text-gray-900 dark:text-gray-300 py-3 text-sm font-light tracking-wide ' + td.props.className,
+            hasMoreRoom: menuForActions
         }))
 
     const actions = (item) => (itemActions || hasDelete || hasEdit || edit)
@@ -152,14 +157,14 @@ const Table = ({
                         <>
                             <tr
                                 key={item.id}
-                                className={rowStyle(item, index)}
+                                className={rowStyle(item, index, false)}
                             >
                                 {itemSelection(item)}
                                 {clonedCells(item)}
                             </tr>
                             <tr
                                 key={item.id}
-                                className={rowStyle(item, index)}
+                                className={rowStyle(item, index, true)}
                             >
                                 {actions(item)}
                             </tr>
@@ -167,7 +172,7 @@ const Table = ({
                         :
                         <tr
                             key={item.id}
-                            className={rowStyle(item, index)}
+                            className={rowStyle(item, index, true)}
                         >
                             {itemSelection(item)}
                             {clonedCells(item)}
@@ -193,7 +198,7 @@ const Table = ({
         }
         <div className="relative w-full overflow-x-auto px-6">
             {
-                hasData && (itemActions || hasDelete || hasEdit || edit) &&
+                !menuForActions && hasData && (itemActions || hasDelete || hasEdit || edit) &&
                 <span
                     className={"absolute top-0 right-6 cursor-pointer "}
                     onClick={() => setHiddenItemActions(!hiddenItemActions)}
@@ -205,14 +210,19 @@ const Table = ({
                     />
                 </span>
             }
-            <table
-                className="w-full text-center "
-                style={{ minWidth: '600px' }}
-                dir={app.isRtl() ? "rtl" : "ltr"}
-            >
-                {head}
-                {body}
-            </table>
+            <TableContext.Provider
+                value={{
+                    hasMoreRoom: !menuForActions && separateRowForActions
+                }}>
+                <table
+                    className="w-full text-center "
+                    style={{ minWidth: '600px' }}
+                    dir={app.isRtl() ? "rtl" : "ltr"}
+                >
+                    {head}
+                    {body}
+                </table>
+            </TableContext.Provider >
         </div>
         {
             data.length === 0
