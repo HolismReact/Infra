@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
 import Collapse from '@mui/material/Collapse';
+import CheckIcon from '@mui/icons-material/Check';
 import { Chip } from "./Chip"
-import { DialogForm, Progress, app, get, post } from '@Form'
+import { DialogForm, Progress, HolismIcon, app, get, post } from '@Form'
 
 const EnumProperty = ({
     column,
     enumeration,
-    currentText,
+    currentKey,
     currentStyle,
     styleProvider,
     actionUrl
@@ -14,12 +15,12 @@ const EnumProperty = ({
     const [open, setOpen] = useState()
     const [progress, setProgress] = useState(false)
     const [enumItems, setEnumItems] = useState([])
-    const [selectedEnum, setSelectedEnum] = useState({ key: currentText })
+    const [selectedEnum, setSelectedEnum] = useState({ key: currentKey })
 
     const current =
         <Chip
             className={currentStyle + " select-none " + (actionUrl && " cursor-pointer hover:shadow-md hover:scale-105 transition-all")}
-            text={currentText}
+            text={currentKey}
         />
 
     const inputs = <>
@@ -39,10 +40,14 @@ const EnumProperty = ({
                                 className={styleProvider(item.key) + " select-none transition-all cursor-pointer " + (item.id === selectedEnum.id && " shadow-lg scale-110 ")}
                                 text={item.key}
                             />
+                            {
+                                item.key !== currentKey && item.id === selectedEnum.id &&
+                                <HolismIcon className="mx-6" icon={CheckIcon} />
+                            }
                         </div>)
                     }
                     <Collapse
-                        in={selectedEnum.key !== currentText}
+                        in={selectedEnum.key !== currentKey}
                     >
                         <div
                             className="border-t mt-6 pt-6 flex justify-center"
@@ -61,8 +66,12 @@ const EnumProperty = ({
     </>
 
     const save = () => {
+        if (selectedEnum.key === currentKey) {
+            setOpen(false)
+            return;
+        }
         setProgress(true)
-        post(actionUrl + `?newEnumItem=${selectedEnum.id}`)
+        post(actionUrl + `?newEnumId=${selectedEnum.id}`)
             .then(data => {
                 setProgress(false)
                 setOpen(false)
