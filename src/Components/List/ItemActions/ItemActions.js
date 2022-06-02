@@ -116,7 +116,7 @@ const ItemActions = ({
         :
         null
 
-    const viewRecord = app.isSuperAdmin() &&
+    const viewRecord = app.isDev() &&
         <ViewRecordAction
             entityType={entityType}
             item={item}
