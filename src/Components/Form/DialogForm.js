@@ -18,7 +18,9 @@ const DialogForm = ({
     large,
     okAction,
     entityId,
-    dialogPurpose
+    dialogPurpose,
+    isOpen,
+    close
 }) => {
 
     let [searchParams] = useSearchParams();
@@ -57,6 +59,10 @@ const DialogForm = ({
     useEffect(() => {
         const onFormCanceled = (item) => {
             setIsDialogFormOpen(false);
+            if (close && typeof close === 'function')
+            {
+                close()
+            }
         }
         app.on(app.formCanceled, onFormCanceled)
         return () => app.removeListener(app.formCanceled, onFormCanceled)
@@ -96,11 +102,18 @@ const DialogForm = ({
                     actions={actions}
                     handleSubmit={handleSubmit}
                 />}
-                isOpen={isDialogFormOpen}
+                isOpen={isOpen || isDialogFormOpen}
                 onEntered={() => {
                     focusFirstInput('dialogForm')
                 }}
                 large={large}
+                onClosed={() => {
+                    setIsDialogFormOpen(false)
+                    if (close && typeof close === 'function')
+                    {
+                        close()
+                    }
+                }}
             />
         }}
     />
