@@ -119,7 +119,7 @@ const Table = ({
         .toArray(row(item).props.children)
         .map(td => React.cloneElement(td, {
             className: 'text-gray-900 dark:text-gray-300 py-3 text-sm font-light tracking-wide ' + td.props.className,
-            hasMoreRoom: menuForActions
+            hasmoreroom: menuForActions
         }))
 
     const actions = (item) => (itemActions || hasDelete || hasEdit || edit)
@@ -154,21 +154,19 @@ const Table = ({
                     :
                     data.map((item, index) => !menuForActions && separateRowForActions
                         ?
-                        <>
+                        <React.Fragment key={item.id}>
                             <tr
-                                key={item.id}
                                 className={rowStyle(item, index, false)}
                             >
                                 {itemSelection(item)}
                                 {clonedCells(item)}
                             </tr>
                             <tr
-                                key={item.id + '_actions'}
                                 className={rowStyle(item, index, true)}
                             >
                                 {actions(item)}
                             </tr>
-                        </>
+                        </React.Fragment>
                         :
                         <tr
                             key={item.id}

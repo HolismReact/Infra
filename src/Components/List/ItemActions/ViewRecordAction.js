@@ -20,7 +20,7 @@ const ViewRecordAction = ({
             {
                 Object.getOwnPropertyNames(obj).map(propertyName => {
                     const property = obj[propertyName]
-                    return <li>
+                    return <li key={propertyName}>
                         <span className="font-bold text-purple-900 font-mono px-2 ml-8 inline-block rounded">{propertyName}:</span>
                         {
                             typeof property === 'object' && property != null
