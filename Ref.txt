@@ -50,3 +50,31 @@ migrate to esbuild somehow, for faster builds
 https://blog.arami.io/how-to-improve-create-react-apps-cra-performance
 
 use vite + pnpm
+
+**************
+
+redesign not found message
+
+https://www.google.com/search?q=no+items+found+page&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjDntrKgpP4AhW0hv0HHe_rAmIQ_AUoAXoECB4QAw
+
+https://www.buymeacoffee.com/messages
+
+**************
+
+add a search icon to lists. when pressed open a search box that spans the entire top section of the list with a close icon inside it
+
+**************
+
+add a settings icon to all lists that have settings
+
+**************
+
+add predefined filters to lists (something like tabs, for example for tickets with different statuses, or for notificactions that are read or unread)
+
+**************
+
+show numbers in dashboard
+
+**************
+
+implement "changes are not saved yet" for changes
